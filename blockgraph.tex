@@ -1,0 +1,627 @@
+\documentclass{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{%enumerate, 
+amsmath, amsfonts, amssymb, amsthm, mathrsfs, wasysym, graphics, graphicx, xcolor, url, hyperref, hypcap, xargs, multicol, pdflscape, multirow, hvfloat, array, ae, aecompl, pifont, mathtools, a4wide, float, blkarray, overpic, nicefrac}
+\usepackage[shortlabels, inline]{enumitem}%shortlabels to have same syntax as enumerate package, inline gives inline option with *
+\usepackage{bbm}%allows for \mathbbm{1}
+\usepackage[noabbrev,capitalise]{cleveref}
+\usepackage[normalem]{ulem}
+\usepackage{marginnote}
+\hypersetup{colorlinks=true, citecolor=darkblue, linkcolor=darkblue}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+%\usepackage{tkz-graph}
+\usetikzlibrary{trees, decorations, decorations.pathmorphing, decorations.markings, decorations.shapes, shapes, arrows, matrix, calc, fit, intersections, patterns, angles}
+\graphicspath{{figures/}{figures/diagonals/}{figures/walks/}{figures/tubes/}{figures/blocks/}}
+\makeatletter\def\input@path{{figures/}}\makeatother
+\usepackage{caption}
+\captionsetup{width=\textwidth}
+\usepackage[export]{adjustbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% theorems
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem*{theorem*}{Theorem}%[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{convention}[theorem]{Convention}
+
+\crefname{equation}{Equation}{Equations}
+
+% math special letters
+\newcommand{\R}{\mathbb{R}} % reals
+\newcommand{\Q}{\mathbb{Q}} % rationals
+\newcommand{\N}{\mathbb{N}} % naturals
+\newcommand{\Z}{\mathbb{Z}} % integers
+\newcommand{\C}{\mathbb{C}} % complex
+\newcommand{\I}{\mathbb{I}} % set of integers
+\newcommand{\HH}{\mathbb{H}} % hyperplane
+\newcommand{\K}{k} % field
+\newcommand{\bb}[1]{{\mathbb{#1}}} % mathbb letters
+\newcommand{\f}[1]{{\mathfrak{#1}}} % mathfrak letters
+\renewcommand{\c}[1]{{\mathcal{#1}}} % call letters
+\renewcommand{\b}[1]{{\boldsymbol{#1}}} % bold letters
+\newcommand{\h}{\widehat} % hat letters
+
+% math commands
+\newcommand{\set}[2]{\left\{ #1 \;\middle|\; #2 \right\}} % set notation
+\newcommand{\bigset}[2]{\big\{ #1 \;\big|\; #2 \big\}} % big set notation
+\newcommand{\Bigset}[2]{\Big\{ #1 \;\Big|\; #2 \Big\}} % Big set notation
+\newcommand{\setangle}[2]{\left\langle #1 \;\middle|\; #2 \right\rangle} % set notation
+\newcommand{\ssm}{\smallsetminus} % small set minus
+\newcommand{\dotprod}[2]{\langle \, #1 \; | \; #2 \, \rangle} % dot product
+\newcommand{\bigdotprod}[2]{\big\langle \, #1 \; \big| \; #2 \, \big\rangle} % dot product
+\newcommand{\symdif}{\,\triangle\,} % symmetric difference
+\newcommand{\one}{\mathbbm{1}} % the all one vector
+\newcommandx{\ones}[1][1=n]{\one_{#1}} % the all one vector of length n
+\newcommand{\eqdef}{\mbox{\,\raisebox{0.2ex}{\scriptsize\ensuremath{\mathrm:}}\ensuremath{=}\,}} % :=
+\newcommand{\defeq}{\mbox{~\ensuremath{=}\raisebox{0.2ex}{\scriptsize\ensuremath{\mathrm:}} }} % =:
+\newcommand{\simplex}{\triangle} % simplex
+\renewcommand{\implies}{\Rightarrow} % imply sign
+\newcommand{\transpose}[1]{{#1}^T} % transpose matrix
+\newcommand{\truth}[1]{\left[ #1 \right]} % truth (kronecker delta)
+
+% operators
+\DeclareMathOperator{\conv}{conv} % convex hull
+\DeclareMathOperator{\vect}{vect} % linear span
+\DeclareMathOperator{\cone}{cone} % cone hull
+
+% others
+\newcommand{\ie}{\textit{i.e.}~} % id est
+\newcommand{\eg}{\textit{e.g.}~} % exempli gratia
+\newcommand{\Eg}{\textit{E.g.}~} % exempli gratia
+\newcommand{\apriori}{\textit{a priori}} % a priori
+\newcommand{\viceversa}{\textit{vice versa}} % vice versa
+\newcommand{\versus}{\textit{vs.}~} % versus
+\newcommand{\aka}{\textit{a.k.a.}~} % also known as
+\newcommand{\perse}{\textit{per se}} % per se
+\newcommand{\ordinal}{\textsuperscript{th}} % th for ordinals
+\newcommand{\ordinalst}{\textsuperscript{st}} % st for ordinals
+\definecolor{darkblue}{rgb}{0,0,0.7} % darkblue color
+\definecolor{green}{RGB}{57,181,74} % green color
+\definecolor{violet}{RGB}{147,39,143} % violet color
+\newcommand{\red}{\color{red}} % red command
+\newcommand{\blue}{\color{blue}} % blue command
+\newcommand{\orange}{\color{orange}} % orange command
+\newcommand{\green}{\color{green}} % green command
+\newcommand{\darkblue}{\color{darkblue}} % darkblue command
+\newcommand{\defn}[1]{\textsl{\darkblue #1}} % emphasis of a definition
+\newcommand{\para}[1]{\medskip\noindent\uline{\textit{#1.}}} % paragraph
+\renewcommand{\topfraction}{1} % possibility to have one page of pictures
+\renewcommand{\bottomfraction}{1} % possibility to have one page of pictures
+\newcommand{\ex}{_{\textrm{exm}}} % examples
+\newcommand{\pa}{_{\textrm{pa}}} % path
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle, draw, inner sep=1.5pt, scale=.7] (char) {#1};}}
+\newcommand{\compactVectorD}[2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}}
+\newcommand{\compactVectorT}[3]{\begin{bmatrix} #1 \\[-.1cm] #2 \\[-.1cm] #3 \end{bmatrix}}
+
+% marginal comments
+\usepackage{todonotes}
+\newcommand{\guillaume}[1]{\todo[color=orange!30]{#1 --- G.}}
+\newcommand{\vincent}[1]{\todo[color=blue!30]{#1 \\ \hfill --- V.}}
+
+% polytopes
+\newcommand{\polytope}[1]{\mathsf{#1}} % font polytopes
+\newcommandx{\Perm}[1][1=n]{\polytope{Perm}_{#1}} % permutahedron
+
+% geometry
+\newcommandx{\Asso}[2][1=n,2={}]{\mathsf{Asso}^{#2}(#1)} % associahedron
+\newcommandx{\Nest}[2][1=\building,2={}]{\mathsf{Nest}^{#2}(#1)} % associahedron
+% \newcommandx{\Zono}[2][1=n,2={}]{\mathsf{Zono}^{#2}(#1)} % zonotope
+\newcommand{\walls}{\b{W}} % walls
+
+\newcommandx{\Fan}[1][1=F]{\mathcal{#1}} % fan
+\newcommand{\multiplicityVector}{\b{m}} % multiplicity vector
+\newcommand{\gvector}[1]{\b{g}(#1)} % g-vector of #1
+\newcommand{\gvectorFull}[2]{\b{g}(#1,#2)} % g-vector of #2 wrt #1
+\newcommand{\gvectors}[1]{\b{g}(#1)} % g-vectors of #1
+\newcommand{\gvectorsFull}[2]{\b{g}(#1,#2)} % g-vectors of #2 wrt #1
+\newcommandx{\nestedFan}[1][1=\quiver]{\mathcal{F}(#1)} % g-vector fan
+\newcommand{\cvector}[2]{\mathbf{c}(#2 \in #1)} % c-vector of the cluster variable #2 in the cluster #1
+\newcommand{\cvectorFull}[3]{\mathbf{c}(#1,#3 \in #2)} % c-vector of the cluster variable #3 in the cluster #2 with respect to the initial cluster #1
+\newcommand{\cvectors}[1]{\mathbf{c}(#1)} % c-vectors of the cluster #1
+\newcommand{\cvectorsFull}[2]{\mathbf{c}(#1,#2)} % c-vectors of the cluster #2 with respect to the initial cluster #1
+\newcommand{\ivector}[1]{\b{\iota}_{#1}} % i-vector of #1
+\newcommandx{\ray}[1][1=r]{\b{#1}} % ray
+\newcommandx{\rays}[1][1=R]{\b{#1}} % rays
+
+% graphical zonotopes
+\newcommandx{\gZono}[1][1=G]{\mathsf{Z}_{#1}} % graphical zonotope
+\newcommandx{\gArr}[1][1=G]{\mathcal{A}_{#1}} % graphical arrangement
+\newcommandx{\gFan}[1][1=G]{\Fan_{#1}} % graphical fan projected
+\newcommandx{\gFanO}[1][1=G]{\widehat{\Fan}_{#1}} % graphical fan unprojected
+\newcommandx{\cc}[1][1=G]{\mathbb{K}_{#1}} % connected components space
+\newcommandx{\braid}[1][1=n]{\mathcal{B}_{#1}} %braid fan/arrangement
+\newcommandx{\sbraid}[1][1=n]{\widehat{\mathcal{B}}_{#1}} %split braid fan
+\newcommandx{\dZono}[1][1=\b{h}]{\mathsf{D}_{#1}} % h-deformed zonotope
+
+
+
+%Decorations
+\newcommandx{\up}[1][1=n]{\overline{#1}} 
+\newcommandx{\down}[1][1=n]{\underline{#1}} 
+\newcommandx{\updown}[1][1=n]{\overline{\underline{#1}}} 
+
+%Source and target
+\newcommandx{\so}[1][1=i]{\mathrm{s}(#1)} 
+\newcommandx{\ta}[1][1=o]{\mathrm{t}(#1)} 
+
+%Set of spines
+\newcommandx{\spines}[1][1=G]{\mathcal{S}(#1)} 
+\newcommandx{\maxspines}[1][1=G]{\mathcal{MS}(#1)} 
+
+% Type cone
+\newcommand{\deformationCone}{\mathbb{DC}} % deformation cone
+\newcommand{\typeCone}{\mathbb{TC}} % type cone
+\newcommand{\ctypeCone}{\smash{\overline{\mathbb{TC}}}} % type cone
+\newcommandx{\coefficient}[3][1={\b{s}}, 2=\b{r}, 3=\b{r}']{\alpha_{#2,#3}(#1)} % coefficient in linear dependence
+\newcommandx{\virtualPolytopes}[1][1=d]{\mathbb{V}^{#1}} % virtual polytopes
+\newcommandx{\VDP}[1][1=n]{\mathbb{VDP}^{#1}} % virtual deformed permutahedra
+\newcommandx{\CVDP}[1][1=n]{\overrightarrow{\mathbb{VDP}}^{#1}} % caged virtual deformed permutahedra
+\newcommand{\VD}[1][1=n]{\mathbb{VD}} % virtual deformations
+\newcommand{\Weight}{\mathbb{W}} % 1st weight space
+\newcommandx{\opcone}[1][1={\mu,\omega}]{\polytope{C}_{#1}}
+\newcommandx{\orcone}[1][1={\omega}]{\polytope{C}_{#1}}
+
+% formating the part command
+\makeatletter
+\def\part{\@startsection{part}{1}%
+\z@{.7\linespacing\@plus\linespacing}{.8\linespacing}%
+{\LARGE\sffamily\centering}}
+%\@addtoreset{section}{part}
+\makeatother
+\renewcommand{\thepart}{\Roman{part}}
+%\renewcommand{\thesection}{\arabic{part}.\arabic{section}}
+
+% formating the table of contents
+\setcounter{tocdepth}{4}
+\makeatletter
+\def\l@section{\@tocline{1}{5pt}{0pc}{}{}}
+\makeatother
+\let\oldtocpart=\tocpart
+\renewcommand{\tocpart}[2]{\sc\large\oldtocpart{#1}{#2}}
+\let\oldtocsection=\tocsection
+\renewcommand{\tocsection}[2]{\bf\oldtocsection{#1}{#2}}
+\let\oldtocsubsubsection=\tocsubsubsection
+\renewcommand{\tocsubsubsection}[2]{\quad\oldtocsubsubsection{#1}{#2}}
+
+%Drapeau européen
+
+\usepackage{graphicx,calc}
+\newlength\myheight
+\newlength\mydepth
+\settototalheight\myheight{Xygp}
+\settodepth\mydepth{Xygp}
+\setlength\fboxsep{0pt}
+\newcommand*\inlinegraphics[1]{%
+  \settototalheight\myheight{Xygp}%
+  \settodepth\mydepth{Xygp}%
+  \raisebox{-\mydepth}{\includegraphics[height=\myheight]{#1}}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Block graph permutreehedra}
+
+\author{Guillaume Laplante-Anfossi}
+\address[Guillaume Laplante-Anfossi]{Universit\'e Sorbonne Paris Nord, Laboratoire Analyse, G\'eom\'etrie et Applications, CNRS, UMR 7539, F-93430 Villetaneuse, France}
+\email{laplante-anfossi@math.univ-paris13.fr}
+\urladdr{\url{https://www.math.univ-paris13.fr/~laplante-anfossi/}}
+
+\author{Vincent Pilaud}
+\address[Vincent Pilaud]{CNRS \& LIX, \'Ecole Polytechnique, Palaiseau}
+\email{vincent.pilaud@lix.polytechnique.fr}
+\urladdr{\url{http://www.lix.polytechnique.fr/~pilaud/}}
+
+\date{\today}
+
+\subjclass[2010]{Primary 52B11; Secondary 18M70} 
+
+\keywords{Polytopes...}
+
+\thanks{The first author was supported by the European Union's Horizon 2020 research and innovation program under the Marie Sklodowska-Curie grant agreement No 754362 \inlinegraphics{EU.png}, by the Natural Sciences and Engineering Research Council of Canada (NSERC) and by the ANR-20-CE40-0016 Higher Algebra, Geometry and Topology. The second author...supported by the French ANR grants CAPPS~17\,CE40\,0018, and CHARMS~19\,CE40\,0017.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{abstract}
+TBC
+\end{abstract}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Introduction}
+
+Common generalization of \cite{PilaudSignedTree13,LangePilaud13,PonsPilaud18,LA21}.
+It is the maximal generalization, according to \cite{Pilaud14}.
+
+\subsection*{Conventions} We write $[n] \eqdef \{1,\ldots,n\}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Combinatorics: the spine complex}
+
+Exemples a suivre tout au long du texte: 1) chemin decore 2) que des down 3) un exemple "generique" de notre cru.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Block graphs}
+
+\begin{definition}
+  A \emph{maple tree} is a bicolored tree whose leaves are all of the same color. 
+\end{definition}
+
+In the sequel, maple trees will be represented with red and blue colors, and the first one will be used for the leaves.
+
+\begin{definition}
+  The \emph{tapping} of a maple tree consists in deleting its red vertices and adjacent edges, and adding edges between all the blue vertices that were adjacent to the same red vertex. 
+\end{definition}
+
+\begin{definition}
+  \label{def:blockgraph}
+  A \emph{block graph} is a connected graph $G$ satisfying any of the following equivalent conditions:
+  \begin{enumerate}
+    \item Every biconnected component of $G$ is a clique,
+    \item Any cycle in $G$ induces a clique,
+    \item The intersection of two paths in $G$ induces a path,
+    \item The set of connected subgraphs of $G$ is stable under intersection,
+    \item $G$ is obtained by tapping a maple tree.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  A \emph{decoration} of a set of vertices $V$ in a graph $G$ is a bijection $d : V \to X$ for some set $X$ with $|X|=|V|$. 
+\end{definition}
+
+\begin{definition}
+  A natural number $n$ is \emph{floored} if it is written $n, \up, \down$ or $\updown$.
+\end{definition}
+
+\begin{definition}
+A \emph{decorated block graph} is a block graph $G$, together with a decoration of its vertices by a choice of floored natural numbers from $1$ to $|V(G)|$.
+\end{definition}
+
+From now on we will assume all block graphs to be decorated and we will refer to their set of decorations by $V(G)$.
+
+\begin{definition}
+  An \emph{alphanumeric tree} is a maple tree $T$ whose blue vertices $b(T)$ are decorated by distinct letters and whose red vertices $r(T)$ are decorated by floored natural numbers from $1$ to $|r(T)|$.
+\end{definition}
+
+The tapping of an alphanumeric tree is a decorated block graph. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Spine contraction poset}
+
+For a subset of vertices $U$ of a decorated block graph $G$, we use the following notations:
+\begin{itemize}
+  \item $\up[U] \eqdef \{u \in U \ | \ u=\up \text{ or  } u=\updown \text{ for some } n\}$, 
+  \item  $\down[U] \eqdef \{u \in U \ | \ u=\down \text{ or  } u=\updown \text{ for some } n \}$, and 
+  \item $\updown[U] \eqdef \up[U] \cap \down[U]$.
+\end{itemize}
+
+Let $S$ be a directed tree and let $r$ be a directed edge in $S$. Deleting $r$ separates $S$ into two connected subtrees. We denote by $\so[r]$ (resp. $\ta[r]$) the set of vertices of the connected subtree of $S \setminus \{r\}$ containing the source of $r$ (resp. the target of $r$).
+
+\begin{definition}[Spine] A \emph{spine} on a block graph $G$ is a directed tree $S$ such that
+\begin{enumerate}
+  \item its set of vertices is decorated by a partition of $V(G)$, and 
+  \item at each vertex $U$, the source sets $\so[i_\alpha]$ of the incoming edges $i_{\alpha}$ are contained in distinct connected components of $G \setminus \down[U]$, and the target sets $\ta[o_\beta]$ of the outgoing edges $o_\beta$ are contained in distinct connected components of $G \setminus \up[U]$.
+\end{enumerate}
+\end{definition}
+We denote by $\spines$ the set of spines of a block graph $G$.
+
+\begin{definition}[Spine contraction poset] 
+  For two spines $S$ and $S'$ of a block graph $G$, we set $S \leq_G S'$ if and only if any vertex of $S'$ is contained in a vertex of $S$. 
+\end{definition}
+
+We now charaterize the covering relations $S'\lessdot_G S$ in this poset. 
+
+\begin{proposition}[Edge contraction] \label{prop:edgecontraction} Let $G$ be a block graph and let $S$ be a spine. A directed tree obtained by contraction of an edge of $S$ is again a spine. Moreover, we have
+\[\{ S'\in\mathcal{S}(G) \ | \ S'\lessdot_G S \}=\{\text{spine obtained by contraction of an edge of } S\}\]
+\end{proposition}
+
+\begin{figure}[h!]
+\centering
+
+\begin{tikzpicture}[scale=1.6]
+    
+\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $U$};
+\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $V$};
+
+\node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,0.6) {\small $o_{1}$};
+\node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,0.6) {\small $\ldots$};
+\node (oj) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.3,0.6) {\small $o_{j}$};
+
+\node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.62) {\small $o_{j+1}$};
+\node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,1.6) {\small $\ldots$};
+\node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1,1.6) {\small $o_{l}$};
+
+\node (i1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,-1.6) {\small $i_{1}$};
+\node (id) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-1.6) {\small $\ldots$};
+\node (im) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.6) {\small $i_{m}$};
+
+\node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.3,-0.62) {\small $i_{m+1}$};
+\node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.8,-0.6) {\small $\ldots$};
+\node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.2,-0.6) {\small $i_{k}$};
+
+\draw[->] (N0)--(o1); 
+\draw[->] (N0)--(od);
+\draw[->] (N0)--(oj);
+  
+\draw[->] (N0)--(N1) node[midway,left] {$r$} ; 
+\draw[->] (N1)--(oj1); 
+\draw[->] (N1)--(ojd);
+\draw[->] (N1)--(ol);
+
+\draw[->] (i1)--(N0);
+\draw[->] (id)--(N0);
+\draw[->] (im)--(N0); 
+
+\draw[->] (im1)--(N1); 
+\draw[->] (imd)--(N1);
+\draw[->] (ik)--(N1);
+
+
+\end{tikzpicture}
+\quad \quad \resizebox{0.04\linewidth}{!}{\raisebox{5em}{$\longrightarrow$}}\quad \quad
+\begin{tikzpicture}[scale=1.2]
+    
+
+  \node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,0) {\small $U\cup V$};
+  
+  
+  \node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,1.5) {\small $o_{1}$};
+  \node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.5) {\small $\ldots$};
+  \node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,1.5) {\small $o_{l}$};
+  
+  
+  \node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,-1.5) {\small $i_{1}$};
+  \node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.5) {\small $\ldots$};
+  \node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,-1.5) {\small $i_{k}$};
+  
+  
+  \draw[->] (N1)--(oj1); 
+  \draw[->] (N1)--(ojd);
+  \draw[->] (N1)--(ol);
+  
+  \draw[->] (im1)--(N1); 
+  \draw[->] (imd)--(N1);
+  \draw[->] (ik)--(N1);
+  
+
+\end{tikzpicture}
+\caption{Contraction of an edge in a spine.}
+\label{fig:contraction}
+\end{figure} 
+
+\begin{proof} 
+  We show that the directed tree $S'$ obtained by contraction of an edge of $S$ is again a spine. The second part of the statement is then straightforward. We give the argument for the incoming edges; the argument for the outgoing edges is symmetric. The situation is represented in \cref{fig:contraction}.
+Let $i_\alpha$ and $i_\beta$ be incoming edges of $U$ in $S$. 
+\begin{itemize} 
+  \item The set $\so[i_\alpha]$ is contained in a connected component $C_1$ of $G\setminus \down[U]$ and also in a connected component $C_2$ of $G\setminus \down[V]$. Thus, it is in $C_1\cap C_2$. By \cref{def:blockgraph}, the subgraph induced by the vertices of $C_1\cap C_2$ is a connected component of $(G \setminus \down[U]) \cap (G \setminus \down[V]) = G \setminus (\down[U]\cup\down[V])$.
+  \item Since $\so[i_\alpha]$ and $\so[i_\beta]$ live in two distinct connected components of $G\setminus\down[U]$, they live also in distinct connected components of $G\setminus(\down[U]\cup\down[V])$.
+\end{itemize}
+
+Let $i_\alpha$ and $i_\beta$ be incoming edges of $W$ in $S$. 
+\begin{itemize} 
+  \item Since $\so[i_\alpha]$ is in a connected component of $G \setminus \down[V]$ that does not contain $V$, it is also in a connected component of $G \setminus(\down[U]\cup\down[V])$.
+  \item Since $\so[i_\alpha]$ and $\so[i_\beta]$ live in two distinct connected components of $G \setminus \down[V]$, they live also in distinct connected components of $G \setminus (\down[U]\cup\down[V])$.
+\end{itemize}
+
+Let $i_\alpha$ be an incoming edge of $U$ in $S$, and let $i_\beta$ be an incoming edge of $V$ in $S$. 
+\begin{itemize}
+  \item Since $\so[i_\alpha] \subset \so[r]$ and $\so[i_\beta]$ live in two distinct connected components of $G \setminus \down[V]$, they live also in distinct connected components of $G \setminus (\down[U]\cup\down[V])$.
+\end{itemize}
+\end{proof}
+
+\begin{remark}
+  This proposition holds if and only if $G$ is a block graph. 
+\end{remark}
+
+\begin{corollary} 
+  The poset $\mathcal{S}(G)$ admits a unique minimal element, the spine with only one vertex. 
+\end{corollary}
+
+\begin{proposition}[Vertex splitting] 
+  \label{prop:vertexsplitting} 
+  Let $G$ be a block graph, let $S'$ be a spine on $G$, and consider a vertex $U$ of $S'$. Let $V \sqcup W$ be a partition of $U$ such that
+  \begin{enumerate}
+    \item $\down[W]$ does not disconnect $V$, and
+    \item $\up[V]$ does not disconnect $W$.
+  \end{enumerate}
+The directed tree $S$ obtained by splitting the vertex $U$ in two vertices $V$ and $W$, adding an edge $r$ from $V$ to $W$ as in \cref{fig:contraction}, and attributing to $V$ and $W$ the edges adjacent to $U$ in the following way
+  \begin{enumerate}
+    \item[(i)] the incoming edges of $V$ are the connected components of $G\setminus\down[U]$ adjacent to $V$
+    \item[(ii)] the outgoing edges of $W$ are the connected components of $G\setminus\up[U]$ adjacent to $W$
+  \end{enumerate}
+is again a spine. Moreover, we have
+  \[\{ S\in\mathcal{S}(G) \ | \ S'\lessdot_G S \}=\{\text{spine obtained by splitting a vertex of } S'\}\]
+\end{proposition}
+
+\begin{remark}
+  The following proof is "formal", i.e. it doesn't use the fact that $G$ is a block graph. 
+\end{remark}
+
+\begin{proof} First note that we can define (i) and (ii) precisely because of the two assumptions (1) and (2). Indeed, saying that $\down[W]$ does not disconnect $V$ is precisely saying that there is a unique connected component of $G\setminus\down[W]$ containing $V$, and similarly for (2) and (ii).
+  
+We consider only the edges that are adjacent to $W$ in $S$; the argument for the edges adjacent to $V$ in $S$ is symmetric. 
+  
+Let $o_\alpha$ be an outgoing edge of $W$ in $S$. 
+  \begin{itemize}
+    \item Since $\ta[o_\alpha]$ is in a connected component of $G \setminus (\up[V]\cup\up[W])$, it is also in a connected component of $G \setminus \up[W]$.
+  \end{itemize}
+  Let $i_\alpha \neq r$ be an incoming edge of $W$ in $S$. 
+  \begin{itemize}
+    \item Since $\so[i_\alpha]$ is in a connected component of $G \setminus (\down[V]\cup\down[W])$, it is also in a connected component of $G \setminus \down[W]$.
+  \end{itemize}
+  Let $r$ be the edge connecting $V$ to $W$ in $S$. We want to show that $\so[r]$ is in a connected component of $G \setminus \down[W]$.
+  \begin{itemize}
+    
+    \item By (2), there is a unique connected component $C$ of $G \setminus {\down[W]}$ that contains $V$. 
+    
+    \item Let $i_\alpha$ be an incoming edge of $V$ in $S$. Since $\so[i_\alpha]$ is in a connected component of $G \setminus \down[U]$, it is also in a connected component of $G \setminus \down[W]$, which is $C$ by definition (i). 
+    
+    \item Let $o_\alpha$ be an outgoing edge of $V$ in $S$. Since $\ta[o_\alpha]$ is in a connected component $D$ of $G \setminus \up[U]$, it is also in a connected component $E$ of $G \setminus \up[V]$ and we have $D\subset E$. By definition (ii), $E$ does not contain $W$, which implies in particular that $D \cap \down[W]=\emptyset$, and so $D$ is connected in $G \setminus \down[W]$. Thus, $\ta[o_\alpha]$ is in a connected component of $G \setminus \down[W]$. But it also implies that $D$ is not adjacent to $\up[W]$. So $D$ is adjacent to $\up[V]$ and $\ta[o_\alpha]$ is in the connected component $C$ of $G \setminus \down[W]$. 
+  \end{itemize}
+  Let $o_\alpha$ and $o_\beta$ be two outgoing edges of $W$ in $S$. 
+  \begin{itemize}
+    \item Let $C$ and $D$ be the two \emph{distinct} connected components of $G \setminus \up[U]$ containing $\ta[o_\alpha]$ and $\ta[o_\beta]$, respectively. By definition (ii), $C$ and $D$ are both in the connected component of $G \setminus \up[V]$ containing $W$. So, they must be in distinct connected components of $G \setminus \up[W]$. 
+  \end{itemize}
+  Let $i_\alpha \neq r$ and $i_\beta \neq r$ be two incoming edges of $W$ in S.
+  \begin{itemize}
+    \item Let $C$ and $D$ be the two \emph{distinct} components of $G\setminus(\down[V]\cup\down[W])$ containing $\so[i_\alpha]$ and $\so[i_\beta]$, respectively. By definition (i), the two connected components $C'$ and $D'$ of $G \setminus \down[W]$ containing $\so[i_\alpha]$ and $\so[i_\beta]$ do not contain $V$. So $C$ and $D$ are not adjacent to $\down[V]$, which implies $C=C'$ and $D=D'$. Thus, $\so[i_\alpha]$ and $\so[i_\beta]$ are in two \emph{distinct} connected components of $G \setminus \down[W]$.
+  \end{itemize}
+  Let $i_\alpha$ be an incoming edge of $W$ in $S$, and let $r$ be the edge from $V$ to $W$ in $S$.
+  \begin{itemize}
+    \item The connected component of $G \setminus \down[W]$ containing $\so[i_\alpha]$ does not contain $V$, while the connected component of $G \setminus \down[W]$ containing $\so[r]$ contains $V$, so the two are distinct.
+  \end{itemize}
+  This concludes the proof of the first part of the statement. For the second part, let $S$ be a spine, and consider an edge from $V$ to $W$ in $S$. It is not hard to see that $V$ and $W$ verify the two conditions (1) and (2), that the incoming edges of $V$ verify property (i) and that the outgoing edges of $W$ verify property (ii). So, at any vertex $U$ of a spine $S'$, the partitions of $U$ verifying (1) and (2) determine \emph{all} the possible spines that can be obtained from $S'$ by splitting the vertex $U$.
+\end{proof}
+  
+In other words, the operations of edge contraction and vertex splitting are inverse to each other.
+
+ 
+\begin{definition}[Valid partition] 
+  Let $G$ be a graph and let $U$ be a subset of vertices. We say that a partition $V \sqcup W$ of $U$ is \emph{valid} if $V$ does not disconnect $W$ and vice-versa.
+\end{definition}
+  
+\begin{lemma} 
+  \label{lemma:validpartition} 
+  Let $G$ and $G'$ be two graphs such that $V(G)=V(G')$ and $E(G) \subset E(G')$, and let $U \subset V(G)$. If a partition $V \sqcup W$ of $U$ is a valid for $G$, then it is also valid for $G'$.
+\end{lemma}
+
+\begin{proof}
+  This is straightforward from the definitions. 
+\end{proof}
+  
+\begin{proposition} 
+  Let $G$ be a block graph, and let $U$ be a vertex of a spine such that $|U|\geq 2$. Then, $U$ can be splitted. 
+\end{proposition}
+
+\begin{proof} 
+  We need to consider 3 cases.
+  \begin{itemize}
+    
+    \item If there is $u \in U\setminus\up[U]$, then we can take $V=\{u\}$ and $W = U \setminus \{u\}$.
+    
+    \item If there is $u \in U\setminus\down[U]$, then we can take $V=U\setminus\{u\}$ and $W=\{u\}$.
+    
+    \item If $U=\updown[U]$, we claim that there always exists a valid partition of $U$. \cref{lemma:validpartition} shows that it is enough to consider the case when $G$ is a tree. Let $G$ be an oriented tree with at least 2 vertices, and let $U \subset V(G)$ be a set of vertices such that $|U|\geq 2$. Then each edge $r$ of $G$ determines a partition $\so[r] \sqcup \ta[r]$ of $V(G)$. Now pick any edge $r$ in $G$ such that $U \cap \so[r] \neq \emptyset$ and $U \cap \ta[r] \neq \emptyset$. Such an edge always exists since $|U|\geq 2$. Then, $(U \cap \so[r]) sqcup (U \cap \ta[r])$ is a valid partition of $U$.
+  
+  \end{itemize}
+\end{proof}
+  
+\begin{corollary} 
+ The spine poset $\spines$ is graded by the number of vertices. Its maximal elements are the spines for which each vertex has cardinality one. 
+\end{corollary}
+  
+\begin{definition}[Quasi-minimal and maximal spine] 
+  Let $G$ be a block graph. A spine $S$ on $G$ is said to be \emph{quasi-minimal} if it has only two vertices, and to be \emph{maximal} if every vertex $U$ satisfies $|U|=1$. We denote the set of maximal spines on $G$ by $\maxspines \subset \spines$. 
+\end{definition}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Spine flip poset}
+
+\begin{definition}[Flip] Let $G$ be a block graph and let $S \in \maxspines$ be a maximal spine. Consider two vertices $U$ and $V$ of $S$ related by an edge $r$. Now, 
+\begin{itemize}
+  \item let $i$ be the incoming edge of $U$ associated to the connected component of $G \setminus \down[U]$ containing $V$, and
+  \item let $o$ be the outgoing edge of $V$ associated to the connected component of $G \setminus \up[V]$ containing $U$.
+\end{itemize}
+We define $S'$ to be the spine obtained from $S$ by reversing the orientation of $r$, grafting the edge $i$ to $V$ and the edge $o$ to $U$. We say that $S'$ is obtained from $S$ by a \emph{flip}. 
+\end{definition}
+
+\begin{figure}[h!]
+  TBC
+  \caption{A spine flip.}
+\end{figure}
+
+The fact that $S'$ is indeed a spine is immediate from the definitions. Contracting $r$ in either $S$ or $S'$, we obtain the same spine $S''$. 
+
+\begin{lemma} 
+  \label{lemma:coveringpair} 
+  $S$ and $S'$ form the unique pair of maximal spines covering $S''$ in the spine poset.
+\end{lemma}
+
+\begin{proof}
+  This follows from \cref{prop:vertexsplitting}.
+\end{proof}
+  
+\begin{corollary} 
+   The spine poset $\spines$ is a closed pseudo-manifold. 
+\end{corollary}
+
+\begin{proof}
+  TBC
+\end{proof}
+  
+\begin{definition}[Flip poset] 
+  For $S$ and $S'$ two maximal spines, we say that $S \leq_f S'$ if and only if $S'$ is obtained from $S$ by a flip. 
+\end{definition}
+
+\begin{remark}
+  The question of whether or not the flip poset $(\mathcal{MS}(G),\leq_f)$ is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a tree, it is always the case \cite{PonsPilaud18}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville18}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}
+\end{remark}
+  
+\begin{definition}[Flip graph] 
+  The \emph{flip graph} is the Hasse diagram of the flip poset. 
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Geometry: block graph permutreehedra}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Algebra: operad structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\section{More combinatorics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Nestings, tubings and Forcey-Ronco substitution on graph-associahedra}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Generalized tubings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Geometric properties of block graph permutreehedra}
+
+
+
+
+
+
+
+\section*{Acknowledgments}
+
+CRM in Barcelona 
+
+\bibliographystyle{alpha}
+\bibliography{blockgraph}
+\label{sec:biblio}
+
+\end{document}
