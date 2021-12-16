@@ -151,15 +151,16 @@ amsmath, amsfonts, amssymb, amsthm, mathrsfs, wasysym, graphics, graphicx, xcolo
 
 
 %Decorations
-\newcommandx{\up}[1][1=n]{\overline{#1}} 
-\newcommandx{\down}[1][1=n]{\underline{#1}} 
-\newcommandx{\updown}[1][1=n]{\overline{\underline{#1}}} 
+\newcommandx{\up}[1][1=v]{\overline{#1}} 
+\newcommandx{\down}[1][1=v]{\underline{#1}} 
+\newcommandx{\updown}[1][1=v]{\overline{\underline{#1}}} 
 
 %Source and target
-\newcommandx{\so}[1][1=i]{\mathrm{s}(#1)} 
-\newcommandx{\ta}[1][1=o]{\mathrm{t}(#1)} 
+\newcommandx{\so}[1][1=i]{\mathrm{S}(#1)} 
+\newcommandx{\ta}[1][1=o]{\mathrm{T}(#1)} 
 
 %Set of spines
+\newcommandx{\spine}[1][1=S]{#1} 
 \newcommandx{\spines}[1][1=G]{\mathcal{S}(#1)} 
 \newcommandx{\maxspines}[1][1=G]{\mathcal{MS}(#1)} 
 
@@ -264,76 +265,64 @@ Exemples a suivre tout au long du texte: 1) chemin decore 2) que des down 3) un 
 \subsection{Block graphs}
 
 \begin{definition}
-  A \emph{maple tree} is a bicolored tree whose leaves are all of the same color. 
-\end{definition}
-
-In the sequel, maple trees will be represented with red and blue colors, and the first one will be used for the leaves.
-
-\begin{definition}
-  The \emph{tapping} of a maple tree consists in deleting its red vertices and adjacent edges, and adding edges between all the blue vertices that were adjacent to the same red vertex. 
+  A \defn{maple tree} is a tree properly colored in red and blue such that all leaves are red.
+  The \defn{tapping} of a maple tree consists in replacing each red vertex by a clique on its blue neighbors.
 \end{definition}
 
 \begin{definition}
   \label{def:blockgraph}
-  A \emph{block graph} is a connected graph $G$ satisfying any of the following equivalent conditions:
+  A \defn{block graph} is a connected graph~$G$ satisfying any of the following equivalent conditions:
   \begin{enumerate}
-    \item Every biconnected component of $G$ is a clique,
-    \item Any cycle in $G$ induces a clique,
-    \item The intersection of two paths in $G$ induces a path,
-    \item The set of connected subgraphs of $G$ is stable under intersection,
-    \item $G$ is obtained by tapping a maple tree.
+    \item Every biconnected component of~$G$ is a clique.
+    \item Any cycle in~$G$ induces a clique.
+    \item The intersection of two paths in~$G$ induces a path.
+    \item The set of connected subgraphs of~$G$ is stable under intersection.
+    \item The graph~$G$ is obtained by tapping a maple tree.
   \end{enumerate}
 \end{definition}
 
-\begin{definition}
-  A \emph{decoration} of a set of vertices $V$ in a graph $G$ is a bijection $d : V \to X$ for some set $X$ with $|X|=|V|$. 
-\end{definition}
+Note that a block graph is obtained by tapping different maple trees. For instance, one can arbitrarily add red leaves to the blue vertices.
+
+In a maple tree, we label the red vertices by letters (or words) and the blue vertices by digits (or numbers).
+Consequently, in a block graph, we label the vertices by digits (or numbers).
+In this paper, we decorate moreover the vertices as follows.
 
 \begin{definition}
-  A natural number $n$ is \emph{floored} if it is written $n, \up, \down$ or $\updown$.
+  A \defn{decorated} maple tree (resp.~block graph) is a maple tree where each blue vertex~$v$ (resp.~each vertex~$v$) is decorated as~$v, \up, \down$ or~$\updown$.
+  For a subset~$V$ of vertices, we denote by~$\up[V]$ (resp.~$\down[V]$) the set of vertices~$\up$ (resp.~$\down$) and~$\updown$ of~$V$.
 \end{definition}
-
-\begin{definition}
-A \emph{decorated block graph} is a block graph $G$, together with a decoration of its vertices by a choice of floored natural numbers from $1$ to $|V(G)|$.
-\end{definition}
-
-From now on we will assume all block graphs to be decorated and we will refer to their set of decorations by $V(G)$.
-
-\begin{definition}
-  An \emph{alphanumeric tree} is a maple tree $T$ whose blue vertices $b(T)$ are decorated by distinct letters and whose red vertices $r(T)$ are decorated by floored natural numbers from $1$ to $|r(T)|$.
-\end{definition}
-
-The tapping of an alphanumeric tree is a decorated block graph. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Spine contraction poset}
+\subsection{Spine refinement poset}
 
-For a subset of vertices $U$ of a decorated block graph $G$, we use the following notations:
-\begin{itemize}
-  \item $\up[U] \eqdef \{u \in U \ | \ u=\up \text{ or  } u=\updown \text{ for some } n\}$, 
-  \item  $\down[U] \eqdef \{u \in U \ | \ u=\down \text{ or  } u=\updown \text{ for some } n \}$, and 
-  \item $\updown[U] \eqdef \up[U] \cap \down[U]$.
-\end{itemize}
-
-Let $S$ be a directed tree and let $r$ be a directed edge in $S$. Deleting $r$ separates $S$ into two connected subtrees. We denote by $\so[r]$ (resp. $\ta[r]$) the set of vertices of the connected subtree of $S \setminus \{r\}$ containing the source of $r$ (resp. the target of $r$).
-
-\begin{definition}[Spine] A \emph{spine} on a block graph $G$ is a directed tree $S$ such that
-\begin{enumerate}
-  \item its set of vertices is decorated by a partition of $V(G)$, and 
-  \item at each vertex $U$, the source sets $\so[i_\alpha]$ of the incoming edges $i_{\alpha}$ are contained in distinct connected components of $G \setminus \down[U]$, and the target sets $\ta[o_\beta]$ of the outgoing edges $o_\beta$ are contained in distinct connected components of $G \setminus \up[U]$.
-\end{enumerate}
-\end{definition}
-We denote by $\spines$ the set of spines of a block graph $G$.
-
-\begin{definition}[Spine contraction poset] 
-  For two spines $S$ and $S'$ of a block graph $G$, we set $S \leq_G S'$ if and only if any vertex of $S'$ is contained in a vertex of $S$. 
+\begin{definition}
+  In a directed tree~$\spine$, the \defn{source set} (resp.~\defn{target set}) of a directed arc~$\alpha$ is the set~$\so[\alpha]$ (resp.~$\ta[\alpha]$) of nodes of the connected component of $\spine \ssm \{\alpha\}$ containing the source of $\alpha$ (resp.~the target of~$\alpha$).
 \end{definition}
 
-We now charaterize the covering relations $S'\lessdot_G S$ in this poset. 
+\begin{definition}
+  \label{def:spine}
+  A \defn{spine} on a decorated block graph $G$ is a directed tree $\spine$ such that
+  \begin{enumerate}
+    \item its nodes of~$\spine$ form a partition of the vertices of~$G$, and 
+    \item at each node~$U$ of~$\spine$, the source sets $\so[\alpha]$ of the incoming arcs $\alpha$ are contained in distinct connected components of $G \ssm \down[U]$, and the target sets $\ta[\beta]$ of the outgoing arcs $\beta$ are contained in distinct connected components of $G \ssm \up[U]$.
+  \end{enumerate}
+  We denote by $\spines$ the set of spines on~$G$.
+\end{definition}
 
-\begin{proposition}[Edge contraction] \label{prop:edgecontraction} Let $G$ be a block graph and let $S$ be a spine. A directed tree obtained by contraction of an edge of $S$ is again a spine. Moreover, we have
-\[\{ S'\in\mathcal{S}(G) \ | \ S'\lessdot_G S \}=\{\text{spine obtained by contraction of an edge of } S\}\]
+\begin{definition}
+  The \defn{spine refinement poset} is the poset on spines on~$G$ defined by~$\spine \leq_G \spine'$ if and only if any node of~$\spine'$ is contained in a node of~$\spine$. 
+\end{definition}
+
+In the remaining of this section, we charaterize the covering relations in the spine refinement poset in terms of two inverse operations on spines: edge contraction and vertex splitting.
+
+\begin{proposition}
+\label{prop:arccontraction}
+Let $G$ be a decorated block graph and let $\spine$ be a spine on~$G$.
+The spines on~$G$ covered by~$\spine$ are precisely the trees obtained by contracting a single arc in~$\spine$.
+%A directed tree obtained by contraction of an arc of~$\spine$ is again a spine on~$G$.
+%Moreover, we have
+%\[\{ \spine' \in \spines \ | \ \spine'\lessdot_G \spine \}=\{\text{spine obtained by contraction of an arc of } \spine\}\]
 \end{proposition}
 
 \begin{figure}[h!]
@@ -344,27 +333,27 @@ We now charaterize the covering relations $S'\lessdot_G S$ in this poset.
 \node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $U$};
 \node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $V$};
 
-\node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,0.6) {\small $o_{1}$};
-\node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,0.6) {\small $\ldots$};
-\node (oj) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.3,0.6) {\small $o_{j}$};
+\node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,0.6) {\small $\beta_1$};
+\node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,0.6) {\small $\dots$};
+\node (oj) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.3,0.6) {\small $\beta_k$};
 
-\node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.62) {\small $o_{j+1}$};
-\node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,1.6) {\small $\ldots$};
-\node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1,1.6) {\small $o_{l}$};
+\node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.62) {\small $\beta_{k+1}$};
+\node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,1.6) {\small $\dots$};
+\node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1,1.6) {\small $\beta_\ell$};
 
-\node (i1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,-1.6) {\small $i_{1}$};
-\node (id) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-1.6) {\small $\ldots$};
-\node (im) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.6) {\small $i_{m}$};
+\node (i1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,-1.6) {\small $\alpha_1$};
+\node (id) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-1.6) {\small $\dots$};
+\node (im) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.6) {\small $\alpha_i$};
 
-\node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.3,-0.62) {\small $i_{m+1}$};
-\node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.8,-0.6) {\small $\ldots$};
-\node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.2,-0.6) {\small $i_{k}$};
+\node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.3,-0.62) {\small $\alpha_{i+1}$};
+\node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.8,-0.6) {\small $\dots$};
+\node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.2,-0.6) {\small $\alpha_j$};
 
 \draw[->] (N0)--(o1); 
 \draw[->] (N0)--(od);
 \draw[->] (N0)--(oj);
   
-\draw[->] (N0)--(N1) node[midway,left] {$r$} ; 
+\draw[->] (N0)--(N1) node[midway,left] {$\gamma$} ; 
 \draw[->] (N1)--(oj1); 
 \draw[->] (N1)--(ojd);
 \draw[->] (N1)--(ol);
@@ -383,17 +372,17 @@ We now charaterize the covering relations $S'\lessdot_G S$ in this poset.
 \begin{tikzpicture}[scale=1.2]
     
 
-  \node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,0) {\small $U\cup V$};
+  \node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,0) {\small $U \cup V$};
   
   
-  \node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,1.5) {\small $o_{1}$};
-  \node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.5) {\small $\ldots$};
-  \node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,1.5) {\small $o_{l}$};
+  \node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,1.5) {\small $\beta_1$};
+  \node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.5) {\small $\dots$};
+  \node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,1.5) {\small $\beta_\ell$};
   
   
-  \node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,-1.5) {\small $i_{1}$};
-  \node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.5) {\small $\ldots$};
-  \node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,-1.5) {\small $i_{k}$};
+  \node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,-1.5) {\small $\alpha_1$};
+  \node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.5) {\small $\dots$};
+  \node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,-1.5) {\small $\alpha_j$};
   
   
   \draw[->] (N1)--(oj1); 
@@ -406,145 +395,116 @@ We now charaterize the covering relations $S'\lessdot_G S$ in this poset.
   
 
 \end{tikzpicture}
-\caption{Contraction of an edge in a spine.}
+\caption{Contraction of an arc in a spine.}
 \label{fig:contraction}
 \end{figure} 
 
 \begin{proof} 
-  We show that the directed tree $S'$ obtained by contraction of an edge of $S$ is again a spine. The second part of the statement is then straightforward. We give the argument for the incoming edges; the argument for the outgoing edges is symmetric. The situation is represented in \cref{fig:contraction}.
-Let $i_\alpha$ and $i_\beta$ be incoming edges of $U$ in $S$. 
-\begin{itemize} 
-  \item The set $\so[i_\alpha]$ is contained in a connected component $C_1$ of $G\setminus \down[U]$ and also in a connected component $C_2$ of $G\setminus \down[V]$. Thus, it is in $C_1\cap C_2$. By \cref{def:blockgraph}, the subgraph induced by the vertices of $C_1\cap C_2$ is a connected component of $(G \setminus \down[U]) \cap (G \setminus \down[V]) = G \setminus (\down[U]\cup\down[V])$.
-  \item Since $\so[i_\alpha]$ and $\so[i_\beta]$ live in two distinct connected components of $G\setminus\down[U]$, they live also in distinct connected components of $G\setminus(\down[U]\cup\down[V])$.
-\end{itemize}
-
-Let $i_\alpha$ and $i_\beta$ be incoming edges of $W$ in $S$. 
-\begin{itemize} 
-  \item Since $\so[i_\alpha]$ is in a connected component of $G \setminus \down[V]$ that does not contain $V$, it is also in a connected component of $G \setminus(\down[U]\cup\down[V])$.
-  \item Since $\so[i_\alpha]$ and $\so[i_\beta]$ live in two distinct connected components of $G \setminus \down[V]$, they live also in distinct connected components of $G \setminus (\down[U]\cup\down[V])$.
-\end{itemize}
-
-Let $i_\alpha$ be an incoming edge of $U$ in $S$, and let $i_\beta$ be an incoming edge of $V$ in $S$. 
-\begin{itemize}
-  \item Since $\so[i_\alpha] \subset \so[r]$ and $\so[i_\beta]$ live in two distinct connected components of $G \setminus \down[V]$, they live also in distinct connected components of $G \setminus (\down[U]\cup\down[V])$.
-\end{itemize}
+  We just show that the directed tree $\spine'$ obtained by contraction of an arc of $\spine$ is again a spine on~$G$.
+  We clearly just need to prove the local condition of \cref{def:spine} around the node~$W \eqdef U \cup V$.
+  We give the argument for the incoming arcs; the argument for the outgoing arcs is symmetric. 
+  The situation is represented in \cref{fig:contraction}.
+  To prove that the source set of each incoming arc~$\alpha$ of~$W$ is contained in a connected component of~$G \ssm \down[W]$, we distinguish two cases:
+  \begin{itemize}
+    \item If~$\alpha$ is an incoming arc of~$U$ in~$\spine$, then its source set $\so[\alpha]$ is contained in a connected component $C_1$ of $G \ssm \down[U]$ and also in a connected component $C_2$ of $G \ssm \down[V]$. Thus, it is in $C_1 \cap C_2$. By \cref{def:blockgraph}, the subgraph induced by the vertices of $C_1 \cap C_2$ is a connected component of $(G \ssm \down[U]) \cap (G \ssm \down[V]) = G \ssm \down[W]$.
+    \item If~$\alpha$ is an incoming arc of~$V$ in~$\spine$, then its source set $\so[\alpha]$ is in a connected component of $G \ssm \down[V]$ that does not contain $U$, hence in a connected component of $G \ssm \down[W]$.
+  \end{itemize}
+  To prove that the source sets of two distinct incoming arcs~$\alpha$ and~$\alpha'$ of~$W$ are contained in two distinct connected components of~$G \ssm \down[W]$, we distinguish two cases:
+  \begin{itemize}
+    \item If~$\alpha$ and~$\alpha'$ are both incoming arcs of~$U$ (resp.~of~$V$) in~$\spine$, then $\so[\alpha]$ and $\so[\alpha']$ live in two distinct connected components of $G \ssm \down[U]$ (resp.~of~$G \ssm \down[V]$), hence in two distinct connected components of $G\ssm \down[W]$.
+    \item If~$\alpha$ is an incoming arc of~$U$ in~$\spine$ while~$\alpha'$ is an incoming arc of~$V$ in~$\spine$, then~$\so[\alpha] \subset \so[\gamma]$ and $\so[\alpha']$ live in two distinct connected components of $G \ssm \down[V]$, hence in two distinct connected components of $G\ssm \down[W]$.
+    \qedhere
+  \end{itemize}
 \end{proof}
 
-\begin{remark}
-  This proposition holds if and only if $G$ is a block graph. 
-\end{remark}
-
-\begin{corollary} 
-  The poset $\mathcal{S}(G)$ admits a unique minimal element, the spine with only one vertex. 
-\end{corollary}
-
-\begin{proposition}[Vertex splitting] 
+\begin{proposition}
   \label{prop:vertexsplitting} 
-  Let $G$ be a block graph, let $S'$ be a spine on $G$, and consider a vertex $U$ of $S'$. Let $V \sqcup W$ be a partition of $U$ such that
-  \begin{enumerate}
-    \item $\down[W]$ does not disconnect $V$, and
-    \item $\up[V]$ does not disconnect $W$.
+  Let $G$ be a decorated block graph and let $\spine$ be a spine on $G$.
+  The spines on~$G$ covering~$\spine$ are precisely the trees~$\spine$ obtained from~$\spine'$ by
+  \begin{enumerate}[(i)]
+    \item splitting a node~$W$ of~$\spine$ into two (non empty) nodes~$U$ and~$V$ of~$\spine'$, where~$U \sqcup V$ is a partition of $W$ such that $U$ is contained in a connected component of~$G \ssm \down[V]$ and $V$ is contained in a connected component of~$G \ssm \up[U]$,
+    \item adding an arc $\gamma$ from $U$ to $V$, and 
+    \item connecting an incoming arc~$\alpha$ of~$W$ to~$U$ if and only if its source set~$\so[\alpha]$ is contained in a connected component of $G \ssm \down[W]$ adjacent to $\down[U]$, and an outgoing arc~$\beta$ of~$W$ to~$V$ if and only if its target set~$\ta[\beta]$ is contained in a connected component of $G \ssm \up[W]$ adjacent to $\up[V]$.
   \end{enumerate}
-The directed tree $S$ obtained by splitting the vertex $U$ in two vertices $V$ and $W$, adding an edge $r$ from $V$ to $W$ as in \cref{fig:contraction}, and attributing to $V$ and $W$ the edges adjacent to $U$ in the following way
-  \begin{enumerate}
-    \item[(i)] the incoming edges of $V$ are the connected components of $G\setminus\down[U]$ adjacent to $V$
-    \item[(ii)] the outgoing edges of $W$ are the connected components of $G\setminus\up[U]$ adjacent to $W$
-  \end{enumerate}
-is again a spine. Moreover, we have
-  \[\{ S\in\mathcal{S}(G) \ | \ S'\lessdot_G S \}=\{\text{spine obtained by splitting a vertex of } S'\}\]
 \end{proposition}
 
-\begin{remark}
-  The following proof is "formal", i.e. it doesn't use the fact that $G$ is a block graph. 
-\end{remark}
-
-\begin{proof} First note that we can define (i) and (ii) precisely because of the two assumptions (1) and (2). Indeed, saying that $\down[W]$ does not disconnect $V$ is precisely saying that there is a unique connected component of $G\setminus\down[W]$ containing $V$, and similarly for (2) and (ii).
-  
-We consider only the edges that are adjacent to $W$ in $S$; the argument for the edges adjacent to $V$ in $S$ is symmetric. 
-  
-Let $o_\alpha$ be an outgoing edge of $W$ in $S$. 
-  \begin{itemize}
-    \item Since $\ta[o_\alpha]$ is in a connected component of $G \setminus (\up[V]\cup\up[W])$, it is also in a connected component of $G \setminus \up[W]$.
-  \end{itemize}
-  Let $i_\alpha \neq r$ be an incoming edge of $W$ in $S$. 
-  \begin{itemize}
-    \item Since $\so[i_\alpha]$ is in a connected component of $G \setminus (\down[V]\cup\down[W])$, it is also in a connected component of $G \setminus \down[W]$.
-  \end{itemize}
-  Let $r$ be the edge connecting $V$ to $W$ in $S$. We want to show that $\so[r]$ is in a connected component of $G \setminus \down[W]$.
-  \begin{itemize}
-    
-    \item By (2), there is a unique connected component $C$ of $G \setminus {\down[W]}$ that contains $V$. 
-    
-    \item Let $i_\alpha$ be an incoming edge of $V$ in $S$. Since $\so[i_\alpha]$ is in a connected component of $G \setminus \down[U]$, it is also in a connected component of $G \setminus \down[W]$, which is $C$ by definition (i). 
-    
-    \item Let $o_\alpha$ be an outgoing edge of $V$ in $S$. Since $\ta[o_\alpha]$ is in a connected component $D$ of $G \setminus \up[U]$, it is also in a connected component $E$ of $G \setminus \up[V]$ and we have $D\subset E$. By definition (ii), $E$ does not contain $W$, which implies in particular that $D \cap \down[W]=\emptyset$, and so $D$ is connected in $G \setminus \down[W]$. Thus, $\ta[o_\alpha]$ is in a connected component of $G \setminus \down[W]$. But it also implies that $D$ is not adjacent to $\up[W]$. So $D$ is adjacent to $\up[V]$ and $\ta[o_\alpha]$ is in the connected component $C$ of $G \setminus \down[W]$. 
-  \end{itemize}
-  Let $o_\alpha$ and $o_\beta$ be two outgoing edges of $W$ in $S$. 
-  \begin{itemize}
-    \item Let $C$ and $D$ be the two \emph{distinct} connected components of $G \setminus \up[U]$ containing $\ta[o_\alpha]$ and $\ta[o_\beta]$, respectively. By definition (ii), $C$ and $D$ are both in the connected component of $G \setminus \up[V]$ containing $W$. So, they must be in distinct connected components of $G \setminus \up[W]$. 
-  \end{itemize}
-  Let $i_\alpha \neq r$ and $i_\beta \neq r$ be two incoming edges of $W$ in S.
-  \begin{itemize}
-    \item Let $C$ and $D$ be the two \emph{distinct} components of $G\setminus(\down[V]\cup\down[W])$ containing $\so[i_\alpha]$ and $\so[i_\beta]$, respectively. By definition (i), the two connected components $C'$ and $D'$ of $G \setminus \down[W]$ containing $\so[i_\alpha]$ and $\so[i_\beta]$ do not contain $V$. So $C$ and $D$ are not adjacent to $\down[V]$, which implies $C=C'$ and $D=D'$. Thus, $\so[i_\alpha]$ and $\so[i_\beta]$ are in two \emph{distinct} connected components of $G \setminus \down[W]$.
-  \end{itemize}
-  Let $i_\alpha$ be an incoming edge of $W$ in $S$, and let $r$ be the edge from $V$ to $W$ in $S$.
-  \begin{itemize}
-    \item The connected component of $G \setminus \down[W]$ containing $\so[i_\alpha]$ does not contain $V$, while the connected component of $G \setminus \down[W]$ containing $\so[r]$ contains $V$, so the two are distinct.
-  \end{itemize}
-  This concludes the proof of the first part of the statement. For the second part, let $S$ be a spine, and consider an edge from $V$ to $W$ in $S$. It is not hard to see that $V$ and $W$ verify the two conditions (1) and (2), that the incoming edges of $V$ verify property (i) and that the outgoing edges of $W$ verify property (ii). So, at any vertex $U$ of a spine $S'$, the partitions of $U$ verifying (1) and (2) determine \emph{all} the possible spines that can be obtained from $S'$ by splitting the vertex $U$.
-\end{proof}
-  
-In other words, the operations of edge contraction and vertex splitting are inverse to each other.
-
- 
-\begin{definition}[Valid partition] 
-  Let $G$ be a graph and let $U$ be a subset of vertices. We say that a partition $V \sqcup W$ of $U$ is \emph{valid} if $V$ does not disconnect $W$ and vice-versa.
-\end{definition}
-  
-\begin{lemma} 
-  \label{lemma:validpartition} 
-  Let $G$ and $G'$ be two graphs such that $V(G)=V(G')$ and $E(G) \subset E(G')$, and let $U \subset V(G)$. If a partition $V \sqcup W$ of $U$ is a valid for $G$, then it is also valid for $G'$.
-\end{lemma}
+%\begin{remark}
+%  The following proof is "formal", i.e. it doesn't use the fact that $G$ is a block graph. 
+%\end{remark}
 
 \begin{proof}
-  This is straightforward from the definitions. 
+  We just show that the directed tree $\spine'$ obtained by such a split in $\spine$ is again a spine on~$G$.
+  We clearly just need to prove the local condition of \cref{def:spine} around the nodes~$U$ and~$V$.
+  We give the argument for~$U$; the argument for~$V$ is symmetric.
+  
+  We start with the incoming arcs of~$U$.
+  First, each incoming arc~$\alpha$ of~$U$ is an incoming arc of~$W$, hence~$\so[\alpha]$ is contained in a connected component of~$G \ssm \down[W]$, hence in a connected component of~$G \ssm \down[U]$.
+  Moreover, any two distinct incoming arcs~$\alpha$ and~$\alpha'$ of~$U$ are distinct incoming arcs of~$W$. Thus~$\so[\alpha]$ and~$\so[\alpha']$ are contained in distinct connected components of~$G \ssm \down[W]$, hence in distinct connected components of~$G \ssm \down[U]$, since~$U$ is contained in a connected component of~$G \ssm \down[V]$.
+
+  We now consider the outgoing arcs of~$U$.
+  To prove that the target set of each outgoing arc~$\beta$ of~$U$ is contained in a connected component of~$G \ssm \up[U]$, we distinguish two cases:
+  \begin{itemize}
+    \item If~$\beta \ne \gamma$, then~$\beta$ is an outgoing arc of~$W$, hence~$\ta[\beta]$ is contained in a connected component of~$G \ssm \up[W]$, hence in a connected component of~$G \ssm \up[U]$.
+    \item If~$\beta = \gamma$, then~$\ta[\gamma]$ is the union of~$V$ with~$\so[\alpha']$ for all incoming arcs~$\alpha'$ of~$V$ and~$\ta[\beta']$ for all outgoing arcs~$\beta'$ of~$V$. We next prove that all these sets are contained in the same connected component of~$G \ssm \up[U]$.
+    \begin{itemize}
+      \item By \cref{prop:vertexsplitting}\,(i), $V$ is contained in a connected component~$C$ of~$G \ssm \up[U]$. 
+      \item Consider an incoming arc~$\alpha'$ of~$V$. The set~$\so[\alpha']$ is contained in a connected component~$D$ of~$G \ssm \down[W]$, and in a connected component~$E$ of~$G \ssm \down[V]$, with~$D \subseteq E$. By \cref{prop:vertexsplitting}\,(iii), $D$ is not adjacent to~$\down[U]$. By \cref{prop:vertexsplitting}\,(i), $E$ is thus disjoint from~$U$. This implies on the one hand that~$D$ is disjoint from~$\up[U]$, thus connected in~$G \ssm \up[U]$, and on the other hand that~$D$ is adjacent to~$\down[V]$, hence contained in~$C$. 
+      \item Consider an outgoing arc~$\beta'$ of~$V$. By \cref{prop:vertexsplitting}\,(iii), the set $\ta[\beta']$ is contained in a connected component of~$G \ssm \up[W]$ adjacent to~$V$, hence $\ta[\beta']$ is contained in~$C$.
+    \end{itemize}
+  \end{itemize}
+  To prove that the target sets of two distinct outgoing arcs~$\beta$ and~$\beta'$ of~$U$ are contained in two distinct connected components of~$G \ssm \up[U]$, we distinguish two cases:
+  \begin{itemize}
+  \item Assume that~$\beta$ and~$\beta'$ are both distinct from~$\gamma$. Let~$C$ be the connected component of~$G \ssm \up[U]$ containing~$V$, and let~$D$ and~$D'$ (resp.~$E$ and~$E'$) the connected components of $G \ssm \up[W]$ (resp.~$G \ssm \up[U]$) containing~$\ta[\beta]$ and $\ta[\beta']$. By \cref{prop:vertexsplitting}\,(iii), $D$ and~$D'$ are not adjacent to~$\up[V]$. By \cref{prop:vertexsplitting}\,(i), $E$ and~$E'$ are thus disjoint from~$V$. This implies that~$E = D$ and~$E' = D'$ are distinct.
+  \item Assume that~$\beta' = \gamma$. As before, the connected component of~$G \ssm \up[U]$ containing~$\ta[\beta]$ is disjoint from~$V$, thus is distinct from that containing~$\ta[\gamma]$.
+  \qedhere
+  \end{itemize}
 \end{proof}
+
+%\begin{definition}
+%  Let $G$ be a graph and let $U$ be a subset of vertices. We say that a partition $V \sqcup W$ of $U$ is \defn{valid} if $V$ does not disconnect $W$ and vice-versa.
+%\end{definition}
+%  
+%\begin{lemma} 
+%  \label{lemma:validpartition} 
+%  Let $G$ and $G'$ be two graphs such that $V(G)=V(G')$ and $E(G) \subset E(G')$, and let $U \subset V(G)$. If a partition $V \sqcup W$ of $U$ is a valid for $G$, then it is also valid for $G'$.
+%\end{lemma}
+%
+%\begin{proof}
+%  This is straightforward from the definitions. 
+%\end{proof}
   
 \begin{proposition} 
-  Let $G$ be a block graph, and let $U$ be a vertex of a spine such that $|U|\geq 2$. Then, $U$ can be splitted. 
+  Let $G$ be a decorated block graph, and let $W$ be a vertex of a spine such that $|W| \ge 2$. Then, there is a partition~$U \sqcup V = W$ such that $U \ne \varnothing$ is contained in a connected component of~$G \ssm \down[V]$ and $V \ne \varnothing$ is contained in a connected component of~$G \ssm \up[U]$.
 \end{proposition}
 
 \begin{proof} 
-  We need to consider 3 cases.
-  \begin{itemize}
-    
-    \item If there is $u \in U\setminus\up[U]$, then we can take $V=\{u\}$ and $W = U \setminus \{u\}$.
-    
-    \item If there is $u \in U\setminus\down[U]$, then we can take $V=U\setminus\{u\}$ and $W=\{u\}$.
-    
-    \item If $U=\updown[U]$, we claim that there always exists a valid partition of $U$. \cref{lemma:validpartition} shows that it is enough to consider the case when $G$ is a tree. Let $G$ be an oriented tree with at least 2 vertices, and let $U \subset V(G)$ be a set of vertices such that $|U|\geq 2$. Then each edge $r$ of $G$ determines a partition $\so[r] \sqcup \ta[r]$ of $V(G)$. Now pick any edge $r$ in $G$ such that $U \cap \so[r] \neq \emptyset$ and $U \cap \ta[r] \neq \emptyset$. Such an edge always exists since $|U|\geq 2$. Then, $(U \cap \so[r]) sqcup (U \cap \ta[r])$ is a valid partition of $U$.
-  
-  \end{itemize}
+  Consider a spanning tree~$T$ of~$G$, and an edge~$e$ of~$T$ such that both connected components~$X$ and~$Y$ of~$T \ssm \{e\}$ intersect~$W$.
+  Let~$U \eqdef W \cap X$ and~$V \eqdef W \cap Y$.
+  Then~$U \ne \varnothing$ is contained in a connected component of~$T \ssm Y$, thus in a connected component of~$G \ssm \down[V]$ (since~$T \subseteq G$ and~$\down[V] \subseteq Y$).
+  Similarly $V \ne \varnothing$ is contained in a connected component of~$T \ssm X$, thus in a connected component of~$G \ssm \up[U]$.
 \end{proof}
-  
+
 \begin{corollary} 
- The spine poset $\spines$ is graded by the number of vertices. Its maximal elements are the spines for which each vertex has cardinality one. 
+ The spine refinement poset is graded by the number of nodes. 
+ Its unique minimal element is the spine with a single node, its rank~$1$ elements are the spines with two nodes, and its maximal elements are the spines with only singleton nodes.
+ \vincent{define $\maxspines$}
 \end{corollary}
-  
-\begin{definition}[Quasi-minimal and maximal spine] 
-  Let $G$ be a block graph. A spine $S$ on $G$ is said to be \emph{quasi-minimal} if it has only two vertices, and to be \emph{maximal} if every vertex $U$ satisfies $|U|=1$. We denote the set of maximal spines on $G$ by $\maxspines \subset \spines$. 
-\end{definition}
+
+\begin{remark}
+  All the results in this section hold if and only if $G$ is a block graph. 
+  \vincent{Not the right place...}
+\end{remark}
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Spine flip poset}
 
-\begin{definition}[Flip] Let $G$ be a block graph and let $S \in \maxspines$ be a maximal spine. Consider two vertices $U$ and $V$ of $S$ related by an edge $r$. Now, 
-\begin{itemize}
-  \item let $i$ be the incoming edge of $U$ associated to the connected component of $G \setminus \down[U]$ containing $V$, and
-  \item let $o$ be the outgoing edge of $V$ associated to the connected component of $G \setminus \up[V]$ containing $U$.
-\end{itemize}
-We define $S'$ to be the spine obtained from $S$ by reversing the orientation of $r$, grafting the edge $i$ to $V$ and the edge $o$ to $U$. We say that $S'$ is obtained from $S$ by a \emph{flip}. 
+\begin{definition}
+Let $G$ be a decorated block graph and let $\spine$ be a maximal spine on~$G$.
+Consider two vertices $U = \{u\}$ and $V = \{v\}$ of $\spine$ related by an arc $\gamma$. 
+Let $\alpha$ be the incoming arc of $U$ such that~$\so[\alpha]$ and~$V$ are contained in the same connected component of $G \ssm \down[U]$, and let $\beta$ be the outgoing arc of $V$ such that~$\ta[\beta]$ and~$U$ are contained in the same connected component of $G \ssm \up[V]$.
+We define $\spine'$ to be the spine obtained from $\spine$ by reversing the orientation of~$\gamma$, grafting the arc~$\alpha$ to~$V$ and the arc~$\beta$ to~$U$.
+We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
 \end{definition}
 
 \begin{figure}[h!]
@@ -552,11 +512,11 @@ We define $S'$ to be the spine obtained from $S$ by reversing the orientation of
   \caption{A spine flip.}
 \end{figure}
 
-The fact that $S'$ is indeed a spine is immediate from the definitions. Contracting $r$ in either $S$ or $S'$, we obtain the same spine $S''$. 
+The fact that $\spine'$ is indeed a spine is immediate from the definitions. Contracting $\gamma$ in either $\spine$ or $\spine'$, we obtain the same spine $\spine''$. 
 
 \begin{lemma} 
   \label{lemma:coveringpair} 
-  $S$ and $S'$ form the unique pair of maximal spines covering $S''$ in the spine poset.
+  The spines~$\spine$ and $\spine'$ are the only spines covering $\spine''$ in the spine refinement poset.
 \end{lemma}
 
 \begin{proof}
@@ -572,15 +532,15 @@ The fact that $S'$ is indeed a spine is immediate from the definitions. Contract
 \end{proof}
   
 \begin{definition}[Flip poset] 
-  For $S$ and $S'$ two maximal spines, we say that $S \leq_f S'$ if and only if $S'$ is obtained from $S$ by a flip. 
+  For $\spine$ and $\spine'$ two maximal spines, we say that $\spine \leq_f \spine'$ if and only if $\spine'$ is obtained from $\spine$ by a flip. 
 \end{definition}
 
 \begin{remark}
-  The question of whether or not the flip poset $(\mathcal{MS}(G),\leq_f)$ is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a tree, it is always the case \cite{PonsPilaud18}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville18}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}
+  The question of whether or not the flip poset $(\maxspines,\leq_f)$ is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a tree, it is always the case \cite{PonsPilaud18}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville18}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}
 \end{remark}
   
 \begin{definition}[Flip graph] 
-  The \emph{flip graph} is the Hasse diagram of the flip poset. 
+  The \defn{flip graph} is the Hasse diagram of the flip poset. 
 \end{definition}
 
 
