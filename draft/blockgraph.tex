@@ -486,11 +486,12 @@ To define the reverse operation of node splitting, we first need the following n
 
 \begin{proposition}
   \label{prop:contractionSplitting}
-  Arc contraction and vertex splitting are inverse operations.
+  Arc contraction and node splitting are inverse operations.
 \end{proposition}
 
 \begin{proof}
-  
+  It is clear that if~$\spine'$ is the splitting of~$U \sqcup V$ in~$\spine$, then~$\spine$ is the contraction of the arc joining~$U$ to~$V$ in~$\spine'$.
+  Conversely, if~$\spine$ is the contraction of an arc joining~$U$ to~$V$ in~$\spine'$, then the partition~$U \sqcup V$ is splittable by \cref{def:spine}, and~$\spine'$ is the splitting of~$U \sqcup V$~in~$\spine$.
 \end{proof}
 
 \begin{definition}
@@ -510,7 +511,7 @@ To define the reverse operation of node splitting, we first need the following n
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Spine flip poset}
+\subsection{Flip poset}
 
 \begin{definition}
 Let $G$ be a decorated block graph and let $\spine$ be a maximal spine on~$G$.
