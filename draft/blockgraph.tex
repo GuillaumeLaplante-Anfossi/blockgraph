@@ -156,8 +156,8 @@ amsmath, amsfonts, amssymb, amsthm, mathrsfs, wasysym, graphics, graphicx, xcolo
 \newcommandx{\updown}[1][1=v]{\overline{\underline{#1}}} 
 
 %Source and target
-\newcommandx{\so}[1][1=i]{\mathrm{S}(#1)} 
-\newcommandx{\ta}[1][1=o]{\mathrm{T}(#1)} 
+\newcommandx{\so}[1][1=i]{\textsc{s}(#1)} 
+\newcommandx{\ta}[1][1=o]{\textsc{t}(#1)} 
 
 %Set of spines
 \newcommandx{\spine}[1][1=S]{#1} 
@@ -283,9 +283,9 @@ Exemples a suivre tout au long du texte: 1) chemin decore 2) que des down 3) un 
 
 Note that a block graph is obtained by tapping different maple trees. For instance, one can arbitrarily add red leaves to the blue vertices.
 
-In a maple tree, we label the blue vertices by digits (or numbers) and the red vertices by letters (or words).
+For convenience, in a maple tree, we label the blue vertices by digits (or numbers) and the red vertices by letters (or words).
 Consequently, in a block graph, we label the vertices by digits (or numbers) and the cliques by letters (or words).
-In this paper, we decorate moreover the vertices as follows.
+In this paper, we consider the following additional decorations.
 
 \begin{definition}
   A \defn{decorated} maple tree (resp.~block graph) is a maple tree where each blue vertex~$v$ (resp.~each vertex~$v$) is decorated as~$v, \up, \down$ or~$\updown$.
@@ -495,13 +495,18 @@ To define the reverse operation of node splitting, we first need the following n
 \end{proof}
 
 \begin{definition}
-  The \defn{spine poset} is the poset on spines on~$G$ defined by~$\spine \le \spine'$ if and only if~$\spine$ is obtained from~$\spine'$ by arc contractions, or equivalently~$\spine'$ is obtained from~$\spine$ by node splittings.
+  The \defn{spine poset} of~$G$ is the poset on spines on~$G$ defined by~$\spine \le \spine'$ if and only if~$\spine$ is obtained from~$\spine'$ by arc contractions, or equivalently~$\spine'$ is obtained from~$\spine$ by node~splittings.
 \end{definition}
 
 \begin{corollary} 
- The spine poset is graded by the number of nodes. 
- Its unique minimal element is the spine with a single node, its rank~$1$ elements are the spines with two nodes, and its maximal elements are the spines with only singleton nodes.
- \vincent{define $\maxspines$}
+ The spine poset is graded by the number of nodes.
+ Note that:
+ \begin{itemize}
+   \item its unique rank $0$ (\ie minimal) element is the spine with a single node, 
+   \item its rank~$1$ elements are the spines with precisely two nodes, 
+   \item its corank~$1$ elements are the spines where the nodes are all singletons except one pair,
+   \item its corank~$0$ (\ie maximal) elements are the spines where the nodes are all singletons.
+ \end{itemize}
 \end{corollary}
 
 \begin{remark}
@@ -511,7 +516,68 @@ To define the reverse operation of node splitting, we first need the following n
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Flip poset}
+\subsection{Spine complex}
+
+We call \defn{splittable partitions} of~$G$ the splittable partitions of the vertex set of~$G$ (see \cref{def:splittable}).
+
+\begin{lemma}
+  \label{lem:spineComplex}
+  Let $G$ be a decorated block graph, let $\spine$ be a spine on $G$, and let~$\gamma$ be an arc of~$\spine$.
+  Then the source set~$\so[\gamma]$ and the target set~$\ta[\gamma]$ form a splittable partition of~$G$.
+\end{lemma}
+
+\begin{proof}
+  Immediate from \cref{def:spine}.
+\end{proof}
+
+\begin{definition}
+  We call \defn{arc partitions} of~$\spine$ the splittable partitions~$\so[\gamma] \sqcup \ta[\gamma]$ of~$G$ for all arcs~$\gamma$ of~$\spine$.
+\end{definition}
+
+Note that contracting an arc in~$\spine$ precisely removes one arc partition of~$\spine$.
+This yields the following simplicial complex on splittable partitions of~$G$.
+
+\begin{definition}
+  \label{def:spineComplex}
+  The \defn{spine complex} of~$G$ is the simplicial complex whose vertices are the splittable partitions of~$G$ and whose simplices are the sets of arc partitions of the spines on~$G$.
+\end{definition}
+
+We will prove later that this complex is flag.
+\vincent{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Blossoming spines and surjection maps}
+
+In this section, we aim at describing a natural surjection from the ordered partitions (resp.~the permutations) of the vertex set of~$G$ to the spines (resp.~the maximal spines) on~$G$.
+For this, it is convenient to add further information to a spine on~$G$.
+Here, we need to manipulate both the vertices and the cliques of~$G$, thus we consider a maple tree~$M$ corresponding to the block graph~$G$.
+
+\begin{definition}
+  \label{def:blossomingTree}
+  A \defn{directed blossoming tree} is a directed tree with additional \defn{blossoms} (either incoming or outgoing) which are half-arcs.
+\end{definition}
+
+\begin{definition}
+  \label{def:blossomingSpine}
+  Let~$M$ be a maple tree and~$G$ be the block graph obtained by tapping~$M$.
+  The \defn{blossoming spine} of a spine~$\spine$ on~$G$ is the directed blossoming tree obtained from~$\spine$ by
+  \begin{itemize}
+    \item labeling each arc~$\gamma$ of~$\spine$ by the red vertices of~$M$ which belong to both the connected component of~$\smash{M \ssm \up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ and the connected component of~$\smash{M \ssm \down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$,
+    \item adding at each node~$U$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by the the red vertices of~$C$ for each connected component~$C$ of~$M \ssm \down[U]$ (resp.~of~$M \ssm \up[U]$) such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$U$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}
+  \label{prop:blossomingSpine}
+  Properties of blossoming spines.
+\end{proposition}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Flips and flip poset}
 
 \begin{definition}
 Let $G$ be a decorated block graph and let $\spine$ be a maximal spine on~$G$.
