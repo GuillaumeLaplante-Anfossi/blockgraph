@@ -297,7 +297,11 @@ In this paper, we consider the following additional decorations.
 \subsection{Spine poset}
 
 \begin{definition}
-  In a directed tree~$\spine$, the \defn{source set} (resp.~\defn{target set}) of a directed arc~$\alpha$ is the set~$\so[\alpha]$ (resp.~$\ta[\alpha]$) of nodes of the connected component of $\spine \ssm \{\alpha\}$ containing the source of $\alpha$ (resp.~the target of~$\alpha$).
+  In a directed tree~$\spine$, 
+  \begin{itemize}
+    \item the \defn{source set} (resp.~\defn{target set}) of a directed arc~$\gamma$ is the set~$\so[\gamma]$ (resp.~$\ta[\gamma]$) of nodes of the connected component of $\spine \ssm \{\gamma\}$ containing the source of $\gamma$ (resp.~the target of~$\gamma$),
+    \item the \defn{source set} (resp.~\defn{target set}) of a node~$U$ is the union~$\so[U]$ (resp.~$\ta[U]$) of~$U$ with the source sets~$\so[\alpha]$ of all incoming arcs~$\alpha$ (resp.~the target sets~$\ta[\beta]$ of all outgoing arcs~$\beta$) of~$U$ in~$\spine$.
+  \end{itemize}
 \end{definition}
 
 \begin{definition}
@@ -510,6 +514,14 @@ To define the reverse operation of node splitting, we first need the following n
 \end{corollary}
 
 \begin{remark}
+  In the spine poset:
+  \begin{itemize}
+    \item a spine with~$a$ arcs covers~$a$ spines, and is larger than precisely $\binom{a}{b}$ spines with~$b$ arcs,
+    \item a spine with~$k$ nodes of cardinality~$n_1, \dots, n_k$ is covered by at least~$2^{|\set{i \in [k]}{n_i \ge 2}|}$ and at most~$\prod_{i \in [k]} 2^{n_i}-2$ spines. In particular, a corank~$1$ spine is covered by precisely $2$ maximal~spines.
+  \end{itemize}
+\end{remark}
+
+\begin{remark}
   All the results in this section hold if and only if $G$ is a block graph. 
   \vincent{Not the right place...}
 \end{remark}
@@ -547,32 +559,78 @@ We will prove later that this complex is flag.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Blossoming spines and surjection maps}
+\subsection{Blossoming spines}
 
-In this section, we aim at describing a natural surjection from the ordered partitions (resp.~the permutations) of the vertex set of~$G$ to the spines (resp.~the maximal spines) on~$G$.
+In the next section, we aim at describing a natural surjection from the ordered partitions (resp.~the permutations) of the vertex set of~$G$ to the spines (resp.~the maximal spines) on~$G$.
 For this, it is convenient to add further information to a spine on~$G$.
 Here, we need to manipulate both the vertices and the cliques of~$G$, thus we consider a maple tree~$M$ corresponding to the block graph~$G$.
 
 \begin{definition}
   \label{def:blossomingTree}
-  A \defn{directed blossoming tree} is a directed tree with additional \defn{blossoms} (either incoming or outgoing) which are half-arcs.
+  A \defn{directed blossoming tree} is a directed tree~$\spine$ with additional \defn{blossoms} (either incoming or outgoing) which are half-arcs.
+  A \defn{cut} of a directed blossoming tree~$\spine$ is a subset~$\Gamma$ of arcs and blossoms of~$\spine$ such that any directed path joining an incoming blossom of~$\spine$ to an outgoing blossom of~$\spine$ contains precisely one element of~$C$.
+  A cut~$\Gamma$ of~$\spine$ partitions the vertex set of~$\spine$ into its \defn{source set}~$\so[\Gamma]$ and its \defn{target set}~$\ta[\Gamma]$.
+  For instance, the set of incoming (resp.~outgoing) blossoms is a cut whose source (resp.~target) set is empty and whose target (resp.~source) set is the set of vertices of~$\spine$.
+  A \defn{sweep sequence} of~$\spine$ is a sequence~$\Gamma_0, \dots, \Gamma_p$ of cuts of~$\spine$ such that $\Gamma_0$ is the cut formed by all incoming blossoms of~$\spine$ while $\Gamma_p$ is the cut formed by all outgoing blossoms of~$\spine$, and for all~$i \in [p]$, there is a node~$U_i$ of~$\spine$ such that~$\Gamma_{i-1} \ssm \{U_i\} = \Gamma_i \ssm \{U_i\}$.
 \end{definition}
 
 \begin{definition}
   \label{def:blossomingSpine}
-  Let~$M$ be a maple tree and~$G$ be the block graph obtained by tapping~$M$.
-  The \defn{blossoming spine} of a spine~$\spine$ on~$G$ is the directed blossoming tree obtained from~$\spine$ by
-  \begin{itemize}
-    \item labeling each arc~$\gamma$ of~$\spine$ by the red vertices of~$M$ which belong to both the connected component of~$\smash{M \ssm \up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ and the connected component of~$\smash{M \ssm \down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$,
-    \item adding at each node~$U$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by the the red vertices of~$C$ for each connected component~$C$ of~$M \ssm \down[U]$ (resp.~of~$M \ssm \up[U]$) such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$U$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
-  \end{itemize}
+  Let~$M$ be a maple tree with red vertex set~$R$ and blue vertex set~$B$, and~$G$ be the block graph obtained by tapping~$M$.
+  The \defn{blossoming} of a spine~$\spine$ on~$G$ is the directed blossoming tree obtained from~$\spine$ by
+  \begin{enumerate}[(i)]
+    \item labeling each arc~$\gamma$ of~$\spine$ by the vertices of~$R$ which belong to both the connected component of~$\smash{M \ssm \up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ and the connected component of~$\smash{M \ssm \down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$,
+    \item adding at each node~$U$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by the the red vertices of~$C$ for each connected component~$C$ of~$M \ssm \down[{\ta[U]}]$ (resp.~of~$M \ssm \up[{\so[U]}]$) adjacent to~$U$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$U$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
+  \end{enumerate}
+  We call \defn{blossoming spines} of~$M$ the blossomings of the spines of~$G$.
 \end{definition}
+
+\begin{lemma}
+  \label{lem:connectedComponents}
+  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$, and let~$\spine$ be a blossoming spine on~$M$.
+  Then the labels of the incoming (resp.~outgoing) blossoms of~$S$ are precisely the intersections of~$R$ with connected component of~${M \ssm \down[B]}$ (resp.~of~${M \ssm \up[B]}$).
+\end{lemma}
 
 \begin{proposition}
   \label{prop:blossomingSpine}
-  Properties of blossoming spines.
+  Let~$M$ be a maple tree and let~$\spine$ be a blossoming spine on~$M$.
+  For any cut~$\Gamma$ of~$\spine$, the labels of the arcs and blossoms of~$\Gamma$ are precisely the intersections of the red vertices of~$M$ with the connected components  of~$\smash{M \ssm \big( \up[{\so[\Gamma]}] \cup \down[{\ta[\Gamma]}] \big)}$.
 \end{proposition}
 
+\begin{proof}
+  Consider a sequence~$\Gamma_0, \dots \Gamma_p$ of cuts of~$\spine$ which sweeps the spine~$\spine$ from its incoming blossoms to its outgoing blossoms, and passes at each step a single node of~$\spine$.
+  In other words, $\Gamma_0$ is the cut formed by all incoming blossoms, and for all~$i \in [p]$, there is a node~$U_i$ of~$\spine$ such that~$\Gamma_{i-1} \ssm \so[U_i] = \Gamma_i \ssm \ta[U_i]$.
+  We prove that the result holds for all cuts~$\Gamma_i$ by induction on~$i$.
+  The result then follows since any cut of~$\spine$ can be reached in a sequence of cuts sweeping~$\spine$ from its incoming blossoms to its outgoing blossoms.
+  \vincent{todo}
+  \vincent{Do we really need a proof by induction?}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Surjection maps}
+
+Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\pi \eqdef \pi_1 | \dots | \pi_p$ of non-empty (unordered) subsets of~$B$ which form a partition of~$B$.
+
+\begin{definition}
+  \label{def:sweepingAlgorithm}
+  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$.
+  The \defn{sweeping algorithm} is a procedure that maps an ordered partition~$\pi \eqdef \pi_1 | \dots | \pi_p$ of~$B$ into a blossoming spine~$\spine(\pi)$ on~$M$.
+  It follows a sweep sequence~$\Gamma_0, \dots \Gamma_p$ of~$\spine(\pi)$ and constructs~$\spine(\pi)$ by maintaining before step~$i$ the blossoming forest induced by the nodes of~$\spine(\pi)$ contained in~$\pi_1 \cup \dots \cup \pi_{i-1}$.
+  The iterative procedure is as follows:
+  \begin{itemize}
+    \item start with the cut~$\Gamma_0$ formed by an incoming blossom for each connected component of~$M \ssm \down[B]$,
+    \item at step~$i$:
+      \begin{itemize}
+        \item create a node~$U$ for each non-empty intersection of~$\pi_i$ with a connected component of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_{i-1}] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
+        \item attach as incoming arcs of~$U$ the outgoing blossoms of~$\Gamma_{i-1}$ adjacent to~$U$,
+        \item create at~$U$ one outgoing blossom labeled by~$R \cap C$ for each connected component~$C$ of~$M \ssm $ 
+        \item define the new cut~$\Gamma_i$...
+      \end{itemize}
+    \item end with the cut~$\Gamma_p$ an outgoing blossom for each connected component of~$M \ssm \up[B]$.
+  \end{itemize}
+  \vincent{improve that}
+\end{definition}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
