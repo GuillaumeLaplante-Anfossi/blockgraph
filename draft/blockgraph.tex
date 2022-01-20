@@ -1,8 +1,7 @@
 \documentclass{amsart}
 
 \usepackage[T1]{fontenc}
-\usepackage{%enumerate, 
-amsmath, amsfonts, amssymb, amsthm, mathrsfs, wasysym, graphics, graphicx, xcolor, url, hyperref, hypcap, xargs, multicol, pdflscape, multirow, hvfloat, array, ae, aecompl, pifont, mathtools, a4wide, float, blkarray, overpic, nicefrac}
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathrsfs, wasysym, graphics, graphicx, xcolor, url, hyperref, hypcap, xargs, multicol, pdflscape, multirow, hvfloat, array, ae, aecompl, pifont, mathtools, a4wide, float, blkarray, overpic, nicefrac}
 \usepackage[shortlabels, inline]{enumitem}%shortlabels to have same syntax as enumerate package, inline gives inline option with *
 \usepackage{bbm}%allows for \mathbbm{1}
 \usepackage[noabbrev,capitalise]{cleveref}
@@ -107,7 +106,7 @@ amsmath, amsfonts, amssymb, amsthm, mathrsfs, wasysym, graphics, graphicx, xcolo
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle, draw, inner sep=1.5pt, scale=.7] (char) {#1};}}
 \newcommand{\compactVectorD}[2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}}
 \newcommand{\compactVectorT}[3]{\begin{bmatrix} #1 \\[-.1cm] #2 \\[-.1cm] #3 \end{bmatrix}}
-
+\newcommand{\shade}[1]{{\color{cyan} #1}}
 % marginal comments
 \usepackage{todonotes}
 \newcommand{\guillaume}[1]{\todo[color=orange!30]{#1 --- G.}}
@@ -227,13 +226,13 @@ amsmath, amsfonts, amssymb, amsthm, mathrsfs, wasysym, graphics, graphicx, xcolo
 \email{vincent.pilaud@lix.polytechnique.fr}
 \urladdr{\url{http://www.lix.polytechnique.fr/~pilaud/}}
 
-\date{\today}
+%\date{\today}
 
 \subjclass[2010]{Primary 52B11; Secondary 18M70} 
 
-\keywords{Polytopes...}
+%\keywords{Polytopes...}
 
-\thanks{The first author was supported by the European Union's Horizon 2020 research and innovation program under the Marie Sklodowska-Curie grant agreement No 754362 \inlinegraphics{EU.png}, by the Natural Sciences and Engineering Research Council of Canada (NSERC) and by the ANR-20-CE40-0016 Higher Algebra, Geometry and Topology. The second author...supported by the French ANR grants CAPPS~17\,CE40\,0018, and CHARMS~19\,CE40\,0017.}
+\thanks{The first author was supported by the European Union's Horizon 2020 research and innovation program under the Marie Sklodowska-Curie grant agreement No 754362 \inlinegraphics{EU.png}, by the Natural Sciences and Engineering Research Council of Canada (NSERC) and by the ANR-20-CE40-0016 Higher Algebra, Geometry and Topology. The second author is supported by the French ANR grants CAPPS~17\,CE40\,0018, and CHARMS~19\,CE40\,0017.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -265,7 +264,7 @@ Exemples a suivre tout au long du texte: 1) chemin decore 2) que des down 3) un 
 \subsection{Maple trees and block graphs}
 
 \begin{definition}
-  A \defn{maple tree} is a tree properly colored in red and blue such that all leaves are red.
+  A \defn{maple tree} is a tree whose vertices are properly colored in red and blue such that all leaves are red.
   The \defn{tapping} of a maple tree consists in replacing each red vertex by a clique on its blue neighbors.
 \end{definition}
 
@@ -296,27 +295,27 @@ In this paper, we consider the following additional decorations.
 \resizebox{\linewidth}{!}{
 \begin{tikzpicture}
 
-\node (1) at (-4, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$1$};
-\node (4) at (-4, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$4$};
-\node (5) at (-2, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\up[5]$};
-\node (7) at (-4, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\down[7]$};
-\node (8) at (0, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$8$};
-\node (9) at (2, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\up[9]$};
-\node (6) at (2, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$6$};
-\node (2) at (0, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\updown[2]$};
-\node (3) at (2, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$3$};
+\node (1) at (-4, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 1$};
+\node (4) at (-4, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 4$};
+\node (5) at (-2, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue \up[5]$};
+\node (7) at (-4, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue \down[7]$};
+\node (8) at (0, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 8$};
+\node (9) at (2, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue \up[9]$};
+\node (6) at (2, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 6$};
+\node (2) at (0, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue \updown[2]$};
+\node (3) at (2, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 3$};
 
-\node (f) at (0, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$f$};
-\node (d) at (-3, -20) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$d$};
-\node (a) at (-5, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$a$};
-\node (e) at (-5, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$e$};
-\node (i) at (-5, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$i$};
-\node (h) at (-3, -22) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$h$};
-\node (j) at (1, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$j$};
-\node (k) at (3, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$k$};
-\node (g) at (3, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$g$};
-\node (b) at (1, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$b$};
-\node (c) at (3, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$c$};
+\node (f) at (0, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red f$};
+\node (d) at (-3, -20) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red d$};
+\node (a) at (-5, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red a$};
+\node (e) at (-5, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red e$};
+\node (i) at (-5, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red i$};
+\node (h) at (-3, -22) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red h$};
+\node (j) at (1, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red j$};
+\node (k) at (3, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red k$};
+\node (g) at (3, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red g$};
+\node (b) at (1, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red b$};
+\node (c) at (3, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\red c$};
   
 \draw[-] (a)--(1)--(d)--(4)--(e); 
 \draw[-] (d)--(5)--(h)--(7)--(i); 
@@ -329,15 +328,15 @@ In this paper, we consider the following additional decorations.
 \quad
 \begin{tikzpicture}
 
-  \node (1) at (-4, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$1$};
-  \node (4) at (-4, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$4$};
-  \node (5) at (-2, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\up[5]$};
-  \node (7) at (-4, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\down[7]$};
-  \node (8) at (0, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$8$};
-  \node (9) at (2, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\up[9]$};
-  \node (6) at (2, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$6$};
-  \node (2) at (0, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\updown[2]$};
-  \node (3) at (2, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$3$};
+  \node (1) at (-4, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 1$};
+  \node (4) at (-4, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 4$};
+  \node (5) at (-2, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue \up[5]$};
+  \node (7) at (-4, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue \down[7]$};
+  \node (8) at (0, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 8$};
+  \node (9) at (2, -23) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue \up[9]$};
+  \node (6) at (2, -21) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 6$};
+  \node (2) at (0, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue \updown[2]$};
+  \node (3) at (2, -19) [circle,draw=none,minimum size=4mm,inner sep=0.1mm]{$\blue 3$};
 
   \draw[-] (1)--(4)--(5)--(1); 
   \draw[-] (2)--(6)--(8)--(5); 
@@ -355,21 +354,28 @@ In this paper, we consider the following additional decorations.
 \subsection{Spine poset}
 
 \begin{definition}
-  In a directed tree~$\spine$, 
+%  Consider an arc~$\gamma$ in a directed tree~$\spine$ whose nodes are sets.
+%  The \defn{source set}~$\so[\gamma]$ (resp.~\defn{target set}~$\ta[\gamma]$) of~$\gamma$ is the union of the nodes in the connected component of~$\spine \ssm \{\gamma\}$ containing the source (resp.~target)~of~$\gamma$.
+  In a directed tree~$\spine$ whose nodes are sets,
   \begin{itemize}
-    \item the \defn{source set} (resp.~\defn{target set}) of a directed arc~$\gamma$ is the set~$\so[\gamma]$ (resp.~$\ta[\gamma]$) of nodes of the connected component of $\spine \ssm \{\gamma\}$ containing the source of $\gamma$ (resp.~the target of~$\gamma$),
-    \item the \defn{source set} (resp.~\defn{target set}) of a node~$U$ is the union~$\so[U]$ (resp.~$\ta[U]$) of~$U$ with the source sets~$\so[\alpha]$ of all incoming arcs~$\alpha$ (resp.~the target sets~$\ta[\beta]$ of all outgoing arcs~$\beta$) of~$U$ in~$\spine$.
+    \item the \defn{source set}~$\so[\gamma]$ (resp.~\defn{target set}~$\ta[\gamma]$) of an arc~$\gamma$ is the union of the nodes in the connected component of $\spine \ssm \{\gamma\}$ containing the source (resp.~the target) of~$\gamma$,
+    \item the \defn{source set}~$\so[U]$ (resp.~\defn{target set}~$\ta[U]$) of a node~$U$ is the union of~$U$ with the source sets~$\so[\alpha]$ of all incoming arcs~$\alpha$ (resp.~the target sets~$\ta[\beta]$ of all outgoing arcs~$\beta$) of~$U$~in~$\spine$.
   \end{itemize}
 \end{definition}
+
+%In this paper, we consider directed trees whose nodes are labeled by sets.
+%With a slight abuse of notation, we still write~$\so[\gamma]$ (resp.~$\ta[\gamma]$) for the union of the labels in the source (resp.~target) set of an arc~$\gamma$.
 
 \begin{definition}
   \label{def:spine}
   A \defn{spine} on a decorated block graph $G$ is a directed tree $\spine$ such that
   \begin{enumerate}
-    \item its nodes of~$\spine$ form a partition of the vertices of~$G$, and 
+    \item the nodes of~$\spine$ form a partition of the vertex set of~$G$, and 
     \item at each node~$U$ of~$\spine$, the source sets $\so[\alpha]$ of the incoming arcs $\alpha$ are contained in distinct connected components of $G \ssm \down[U]$, and the target sets $\ta[\beta]$ of the outgoing arcs $\beta$ are contained in distinct connected components of $G \ssm \up[U]$.
   \end{enumerate}
   We denote by $\spines$ the set of spines on~$G$.
+  \vincent{not sure we really need this notation}
+  \vincent{give two examples of spines on the block graph of \cref{fig:mapleBlock}, one maximal and one not.}
 \end{definition}
 
 We now define two natural operations on spines: arc contraction and node splitting.
@@ -634,52 +640,55 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
 \begin{definition}
   \label{def:blossomingTree}
   A \defn{directed blossoming tree} is a directed tree~$\spine$ with additional \defn{blossoms} (either incoming or outgoing) which are half-arcs.
-  A \defn{cut} of a directed blossoming tree~$\spine$ is a subset~$\Gamma$ of arcs and blossoms of~$\spine$ such that any directed path joining an incoming blossom of~$\spine$ to an outgoing blossom of~$\spine$ contains precisely one element of~$C$.
-  A cut~$\Gamma$ of~$\spine$ partitions the vertex set of~$\spine$ into its \defn{source set}~$\so[\Gamma]$ and its \defn{target set}~$\ta[\Gamma]$.
-  For instance, the set of incoming (resp.~outgoing) blossoms is a cut whose source (resp.~target) set is empty and whose target (resp.~source) set is the set of vertices of~$\spine$.
-  A \defn{sweep sequence} of~$\spine$ is a sequence~$\Gamma_0, \dots, \Gamma_p$ of cuts of~$\spine$ such that $\Gamma_0$ is the cut formed by all incoming blossoms of~$\spine$ while $\Gamma_p$ is the cut formed by all outgoing blossoms of~$\spine$, and for all~$i \in [p]$, there is a node~$U_i$ of~$\spine$ such that~$\Gamma_{i-1} \ssm \{U_i\} = \Gamma_i \ssm \{U_i\}$.
+  A \defn{cut} of a directed blossoming tree~$\spine$ is a subset~$\Gamma$ of arcs and blossoms of~$\spine$ such that any directed path joining an incoming blossom of~$\spine$ to an outgoing blossom of~$\spine$ contains precisely one element of~$\Gamma$.
+  When the nodes of~$\spine$ are sets, the \defn{source set}~$\so[\Gamma]$ (resp.~\defn{target set}~$\ta[\Gamma]$) of~$\Gamma$ is the union of the nodes of all connected components of~$\spine \ssm \Gamma$ which contain the source (resp.~target) of at least one arc of~$\Gamma$.
+  For instance, the set of incoming (resp.~outgoing) blossoms is a cut of~$\spine$ whose source (resp.~target) set is empty and whose target (resp.~source) set is the union of the nodes of~$\spine$.
 \end{definition}
+
+%  A \defn{sweep sequence} of~$\spine$ is a sequence~$\Gamma_0, \dots, \Gamma_p$ of cuts of~$\spine$ such that $\Gamma_0$ is the cut formed by all incoming blossoms of~$\spine$ while $\Gamma_p$ is the cut formed by all outgoing blossoms of~$\spine$, and for all~$i \in [p]$, there is a node~$U_i$ of~$\spine$ such that~$\Gamma_{i-1} \ssm \so[U_i] = \Gamma_i \ssm \ta[U_i]$.
 
 \begin{definition}
   \label{def:blossomingSpine}
   Let~$M$ be a maple tree with red vertex set~$R$ and blue vertex set~$B$, and~$G$ be the block graph obtained by tapping~$M$.
   The \defn{blossoming} of a spine~$\spine$ on~$G$ is the directed blossoming tree obtained from~$\spine$ by
   \begin{enumerate}[(i)]
-    \item labeling each arc~$\gamma$ of~$\spine$ by the vertices of~$R$ which belong to both the connected component of~$\smash{M \ssm \up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ and the connected component of~$\smash{M \ssm \down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$,
+    \item labeling each arc~$\gamma$ of~$\spine$ by the red vertices of the intersection of the connected component of~$\smash{M \ssm \up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ with the connected component of~$\smash{M \ssm \down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$,
     \item adding at each node~$U$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by the the red vertices of~$C$ for each connected component~$C$ of~$M \ssm \down[{\ta[U]}]$ (resp.~of~$M \ssm \up[{\so[U]}]$) adjacent to~$U$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$U$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
   \end{enumerate}
   We call \defn{blossoming spines} of~$M$ the blossomings of the spines of~$G$.
+  \vincent{give two examples of blossoming spines on the examples of spines given before.}
 \end{definition}
 
-\begin{lemma}
-  \label{lem:connectedComponents}
-  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$, and let~$\spine$ be a blossoming spine on~$M$.
-  Then the labels of the incoming (resp.~outgoing) blossoms of~$S$ are precisely the intersections of~$R$ with connected component of~${M \ssm \down[B]}$ (resp.~of~${M \ssm \up[B]}$).
-\end{lemma}
+%\begin{lemma}
+%  \label{lem:connectedComponents}
+%  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$, and let~$\spine$ be a blossoming spine on~$M$.
+%  Then the labels of the incoming (resp.~outgoing) blossoms of~$S$ are precisely the intersections of~$R$ with the connected components of~${M \ssm \down[B]}$ (resp.~of~${M \ssm \up[B]}$).
+%\end{lemma}
+%
+%\begin{proof}
+%  \vincent{todo}
+%\end{proof}
 
 \begin{proposition}
   \label{prop:blossomingSpine}
-  Let~$M$ be a maple tree and let~$\spine$ be a blossoming spine on~$M$.
-  For any cut~$\Gamma$ of~$\spine$, the labels of the arcs and blossoms of~$\Gamma$ are precisely the intersections of the red vertices of~$M$ with the connected components  of~$\smash{M \ssm \big( \up[{\so[\Gamma]}] \cup \down[{\ta[\Gamma]}] \big)}$.
+  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$, and let~$\spine$ be a blossoming spine on~$M$.
+  For any cut~$\Gamma$ of~$\spine$, the labels of the arcs and blossoms of~$\Gamma$ are precisely the intersections of~$R$ with the connected components  of~$\smash{M \ssm \big( \up[{\so[\Gamma]}] \cup \down[{\ta[\Gamma]}] \big)}$.
 \end{proposition}
 
-
 \begin{proof}
-  Consider a sequence~$\Gamma_0, \dots \Gamma_p$ of cuts of~$\spine$ which sweeps the spine~$\spine$ from its incoming blossoms to its outgoing blossoms, and passes at each step a single node of~$\spine$.
-  In other words, $\Gamma_0$ is the cut formed by all incoming blossoms, and for all~$i \in [p]$, there is a node~$U_i$ of~$\spine$ such that~$\Gamma_{i-1} \ssm \so[U_i] = \Gamma_i \ssm \ta[U_i]$.
-  We prove that the result holds for all cuts~$\Gamma_i$ by induction on~$i$.
-  The result then follows since any cut of~$\spine$ can be reached in a sequence of cuts sweeping~$\spine$ from its incoming blossoms to its outgoing blossoms.
+  \vincent{Not clear how to argue that properly...}
+  We first prove the result for the cut~$\Gamma$ of~$\spine$ given by all incoming blossoms of~$\spine$.
   \vincent{todo}
-  \vincent{Do we really need a proof by induction?}
+  Let~$\Gamma$ and~$\Gamma'$ be two cuts of~$\spine$ which differ by sweeping a node~$U$ of~$\spine$, meaning that $\Gamma \ssm \alpha(U) = \Gamma' \ssm \beta(U)$ where~$\alpha(U)$ and~$\beta(U)$ respectively denote the incoming and outgoing arcs of~$U$.
+  \vincent{todo}
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[h!]
 \begin{tikzpicture}
-  
   \node (0) at (0, 0) {$\updown[2] \up[5] 6$};
-  \node (1) at (-3, 1) {$adc$};
+  \node (1) at (-3, 1) {$ade$};
   \node (2) at (-1, 1) {$hi$};
   \node (3) at (1, 1) {$fgjk$};
   \node (4) at (3, 1) {$bc$};
@@ -715,14 +724,13 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
   \draw[->] (11)--(9);
   \draw[->] (10)--(7);
   \draw[->] (10)--(6);
-    \draw[dotted] (-5,-3)--(16)--(17)--(18)--(5,-3);
+  \draw[dotted] (-5,-3)--(16)--(17)--(18)--(5,-3);
   \draw[dashed] (-5,-2)--(14)--(15)--(5,-2);
   \draw[dotted] (-5,-1)--(12)--(13)--(5,-1);
   \draw[dashed] (-5,0)--(0)--(5,0);
   \draw[dotted] (-5,1)--(1)--(2)--(3)--(4)--(5,1);
   \draw[dashed] (-5,2)--(11)--(10)--(5,2);
   \draw[dotted] (-5,3)--(9)--(8)--(7)--(6)--(5)--(5,3);
-
   \node (20) at (5.5, -3) {$\down[2] \down[7]$};
   \node (21) at (5.5, -2) {$\down[2]$};
   \node (22) at (5.5, -1) {$\down[2]$};
@@ -730,7 +738,6 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
   \node (24) at (5.5, 1) {$\up[2] \up[5]$};
   \node (25) at (5.5, 2) {$\up[2] \up[5]$};
   \node (26) at (5.5, 3) {$\up[2] \up[5] \up[9]$};
-
 \end{tikzpicture}
 \caption{A blossoming spine on the maple tree of \cref{fig:mapleBlock}, reconstructed from $\pi = 3 \down[7] 8 | \updown[2] \up[5] 6 | 149$.}
 \label{fig:blossoming spine}
@@ -740,29 +747,53 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
 
 Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\pi \eqdef \pi_1 | \dots | \pi_p$ of non-empty (unordered) subsets of~$B$ which form a partition of~$B$.
 
+%\begin{definition}
+%  \label{def:sweepingAlgorithm}
+%  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$.
+%  The \defn{sweeping algorithm} is a procedure that maps an ordered partition~$\pi \eqdef \pi_1 | \dots | \pi_p$ of~$B$ into a blossoming spine~$\spine(\pi)$ on~$M$.
+%  It follows a sweep sequence~$\Gamma_0, \dots \Gamma_p$ of~$\spine(\pi)$ and constructs~$\spine(\pi)$ by maintaining before step~$i$ the blossoming forest induced by the nodes of~$\spine(\pi)$ contained in~$\pi_1 \cup \dots \cup \pi_{i-1}$.
+%  The iterative procedure is as follows:
+%  \begin{itemize}
+%    \item start with the cut~$\Gamma_0$ formed by an incoming blossom labeled~$R \cap C$ for each connected component~$C$ of~$M \ssm \down[B]$,
+%    \item at step~$i$:
+%      \begin{itemize}
+%        \item create a node~$U$ for each non-empty intersection of~$\pi_i$ with a connected component of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_{i-1}] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
+%        \item attach as incoming arcs of~$U$ the outgoing blossoms of~$\Gamma_{i-1}$ whose labels are adjacent to~$U$ in~$M$,
+%        \item create at~$U$ one outgoing blossom labeled by~$R \cap C$ for each connected component~$C$ of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_i] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
+%        \item define the new cut~$\Gamma_i$.
+%      \end{itemize}
+%    \item end with the cut~$\Gamma_p$ with an outgoing blossom for each connected component of~$M \ssm \up[B]$.
+%  \end{itemize}
+%  \vincent{improve that}
+%\end{definition}
+
 \begin{definition}
-  \label{def:sweepingAlgorithm}
+  \label{def:surjection}
   Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$.
-  The \defn{sweeping algorithm} is a procedure that maps an ordered partition~$\pi \eqdef \pi_1 | \dots | \pi_p$ of~$B$ into a blossoming spine~$\spine(\pi)$ on~$M$.
-  It follows a sweep sequence~$\Gamma_0, \dots \Gamma_p$ of~$\spine(\pi)$ and constructs~$\spine(\pi)$ by maintaining before step~$i$ the blossoming forest induced by the nodes of~$\spine(\pi)$ contained in~$\pi_1 \cup \dots \cup \pi_{i-1}$.
-  The iterative procedure is as follows:
-  \begin{itemize}
-    \item start with the cut~$\Gamma_0$ formed by an incoming blossom for each connected component of~$M \ssm \down[B]$,
-    \item at step~$i$:
-      \begin{itemize}
-        \item create a node~$U$ for each non-empty intersection of~$\pi_i$ with a connected component of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_{i-1}] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
-        \item attach as incoming arcs of~$U$ the outgoing blossoms of~$\Gamma_{i-1}$ adjacent to~$U$,
-        \item create at~$U$ one outgoing blossom labeled by~$R \cap C$ for each connected component~$C$ of~$M \ssm $ 
-        \item define the new cut~$\Gamma_i$...
-      \end{itemize}
-    \item end with the cut~$\Gamma_p$ an outgoing blossom for each connected component of~$M \ssm \up[B]$.
+  For an ordered partition~$\pi \eqdef \pi_1 | \dots | \pi_p$ of~$B$, we construct a blossoming spine~$\spine(\pi)$ on~$M$ in four steps:
+  \begin{itemize}[wide, labelwidth=!, labelindent=5pt]
+    \item \textbf{construct}
+    \begin{itemize}[wide, labelwidth=!, labelindent=10pt]
+      \item an arc~$\alpha^i_Y$ for each $0 \le i \le p$ and each component~$Y$ of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_i] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
+      \item a node~$n^i_X$ for each $1 \le i \le p$ and each component~$X$ of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_{i-1}] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
+    \end{itemize}
+    \item \textbf{attach} the arcs~$\alpha^{i-1}_X$ (resp.~$\alpha^i_X$) with~$X \subseteq Y$ as incoming (resp.~outgoing)~arcs of the node~$n^i_Y$,
+    \item \textbf{relabel} the arc~$\alpha^i_X$ with~$X \cap R$ and the node~$\alpha^i_Y$ with~$Y \cap \pi_i$,
+    \item \textbf{contract} into a single arc any path of arcs passing through nodes with empty~labels.
   \end{itemize}
-  \vincent{improve that}
 \end{definition}
 
+\begin{proposition}
+  \label{prop:surjection}
+  For any ordered partition~$\pi \eqdef \pi_1 | \dots | \pi_p$, the directed graph~$\spine(\pi)$ constructed in \cref{def:surjection} is a blossoming spine on~$M$.
+  Moreover, $\pi$ is an extension of~$\spine(\pi)$.
+  \vincent{explain}
+\end{proposition}
 
-
-
+\begin{remark}
+  The construction of \cref{def:surjection} can also be seen as a sweeping algorithm.
+  \vincent{todo}
+\end{remark}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -770,11 +801,11 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 \subsection{Flips and flip poset}
 
 \begin{definition}
-Let $G$ be a decorated block graph and let $\spine$ be a maximal spine on~$G$.
-Consider two vertices $U = \{u\}$ and $V = \{v\}$ of $\spine$ related by an arc $\gamma$. 
-Let $\alpha$ be the incoming arc of $U$ such that~$\so[\alpha]$ and~$V$ are contained in the same connected component of $G \ssm \down[U]$, and let $\beta$ be the outgoing arc of $V$ such that~$\ta[\beta]$ and~$U$ are contained in the same connected component of $G \ssm \up[V]$.
-We define $\spine'$ to be the spine obtained from $\spine$ by reversing the orientation of~$\gamma$, grafting the arc~$\alpha$ to~$V$ and the arc~$\beta$ to~$U$.
-We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
+  Let $G$ be a decorated block graph and let $\spine$ be a maximal spine on~$G$.
+  Consider two vertices $U = \{u\}$ and $V = \{v\}$ of $\spine$ related by an arc $\gamma$. 
+  Let $\alpha$ be the incoming arc of $U$ such that~$\so[\alpha]$ and~$V$ are contained in the same connected component of $G \ssm \down[U]$, and let $\beta$ be the outgoing arc of $V$ such that~$\ta[\beta]$ and~$U$ are contained in the same connected component of $G \ssm \up[V]$.
+  We define $\spine'$ to be the spine obtained from $\spine$ by reversing the orientation of~$\gamma$, grafting the arc~$\alpha$ to~$V$ and the arc~$\beta$ to~$U$.
+  We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
 \end{definition}
 
 \begin{figure}[h!]
@@ -903,7 +934,7 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 \end{definition}
 
 \begin{remark}
-  The question of whether or not the flip poset $(\maxspines,\preccurlyeq)$ is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a tree, it is always the case \cite{PonsPilaud18}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville18}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}
+  The question of whether or not the flip poset $(\maxspines,\preccurlyeq)$ is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a path, it is always the case \cite{PonsPilaud18}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville18}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}
 \end{remark}
   
 \begin{definition}[Flip graph] 
