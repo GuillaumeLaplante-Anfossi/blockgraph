@@ -21,6 +21,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% STANDARD
+
 % theorems
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
@@ -101,80 +103,12 @@
 \newcommand{\para}[1]{\medskip\noindent\uline{\textit{#1.}}} % paragraph
 \renewcommand{\topfraction}{1} % possibility to have one page of pictures
 \renewcommand{\bottomfraction}{1} % possibility to have one page of pictures
-\newcommand{\ex}{_{\textrm{exm}}} % examples
-\newcommand{\pa}{_{\textrm{pa}}} % path
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle, draw, inner sep=1.5pt, scale=.7] (char) {#1};}}
-\newcommand{\compactVectorD}[2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}}
-\newcommand{\compactVectorT}[3]{\begin{bmatrix} #1 \\[-.1cm] #2 \\[-.1cm] #3 \end{bmatrix}}
 \newcommand{\shade}[1]{{\color{cyan} #1}}
+
 % marginal comments
 \usepackage{todonotes}
 \newcommand{\guillaume}[1]{\todo[color=orange!30]{#1 --- G.}}
 \newcommand{\vincent}[1]{\todo[color=blue!30]{#1 \\ \hfill --- V.}}
-
-% polytopes
-\newcommand{\polytope}[1]{\mathsf{#1}} % font polytopes
-\newcommandx{\Perm}[1][1=n]{\polytope{Perm}_{#1}} % permutahedron
-
-% geometry
-\newcommandx{\Asso}[2][1=n,2={}]{\mathsf{Asso}^{#2}(#1)} % associahedron
-\newcommandx{\Nest}[2][1=\building,2={}]{\mathsf{Nest}^{#2}(#1)} % associahedron
-% \newcommandx{\Zono}[2][1=n,2={}]{\mathsf{Zono}^{#2}(#1)} % zonotope
-\newcommand{\walls}{\b{W}} % walls
-
-\newcommandx{\Fan}[1][1=F]{\mathcal{#1}} % fan
-\newcommand{\multiplicityVector}{\b{m}} % multiplicity vector
-\newcommand{\gvector}[1]{\b{g}(#1)} % g-vector of #1
-\newcommand{\gvectorFull}[2]{\b{g}(#1,#2)} % g-vector of #2 wrt #1
-\newcommand{\gvectors}[1]{\b{g}(#1)} % g-vectors of #1
-\newcommand{\gvectorsFull}[2]{\b{g}(#1,#2)} % g-vectors of #2 wrt #1
-\newcommandx{\nestedFan}[1][1=\quiver]{\mathcal{F}(#1)} % g-vector fan
-\newcommand{\cvector}[2]{\mathbf{c}(#2 \in #1)} % c-vector of the cluster variable #2 in the cluster #1
-\newcommand{\cvectorFull}[3]{\mathbf{c}(#1,#3 \in #2)} % c-vector of the cluster variable #3 in the cluster #2 with respect to the initial cluster #1
-\newcommand{\cvectors}[1]{\mathbf{c}(#1)} % c-vectors of the cluster #1
-\newcommand{\cvectorsFull}[2]{\mathbf{c}(#1,#2)} % c-vectors of the cluster #2 with respect to the initial cluster #1
-\newcommand{\ivector}[1]{\b{\iota}_{#1}} % i-vector of #1
-\newcommandx{\ray}[1][1=r]{\b{#1}} % ray
-\newcommandx{\rays}[1][1=R]{\b{#1}} % rays
-
-% graphical zonotopes
-\newcommandx{\gZono}[1][1=G]{\mathsf{Z}_{#1}} % graphical zonotope
-\newcommandx{\gArr}[1][1=G]{\mathcal{A}_{#1}} % graphical arrangement
-\newcommandx{\gFan}[1][1=G]{\Fan_{#1}} % graphical fan projected
-\newcommandx{\gFanO}[1][1=G]{\widehat{\Fan}_{#1}} % graphical fan unprojected
-\newcommandx{\cc}[1][1=G]{\mathbb{K}_{#1}} % connected components space
-\newcommandx{\braid}[1][1=n]{\mathcal{B}_{#1}} %braid fan/arrangement
-\newcommandx{\sbraid}[1][1=n]{\widehat{\mathcal{B}}_{#1}} %split braid fan
-\newcommandx{\dZono}[1][1=\b{h}]{\mathsf{D}_{#1}} % h-deformed zonotope
-
-
-
-%Decorations
-\newcommandx{\up}[1][1=v]{\overline{#1}} 
-\newcommandx{\down}[1][1=v]{\underline{#1}} 
-\newcommandx{\updown}[1][1=v]{\overline{\underline{#1}}} 
-
-%Source and target
-\newcommandx{\so}[1][1=i]{\textsc{s}(#1)} 
-\newcommandx{\ta}[1][1=o]{\textsc{t}(#1)} 
-
-%Set of spines
-\newcommandx{\spine}[1][1=S]{#1} 
-\newcommandx{\spines}[1][1=G]{\mathcal{S}(#1)} 
-\newcommandx{\maxspines}[1][1=G]{\mathcal{MS}(#1)} 
-
-% Type cone
-\newcommand{\deformationCone}{\mathbb{DC}} % deformation cone
-\newcommand{\typeCone}{\mathbb{TC}} % type cone
-\newcommand{\ctypeCone}{\smash{\overline{\mathbb{TC}}}} % type cone
-\newcommandx{\coefficient}[3][1={\b{s}}, 2=\b{r}, 3=\b{r}']{\alpha_{#2,#3}(#1)} % coefficient in linear dependence
-\newcommandx{\virtualPolytopes}[1][1=d]{\mathbb{V}^{#1}} % virtual polytopes
-\newcommandx{\VDP}[1][1=n]{\mathbb{VDP}^{#1}} % virtual deformed permutahedra
-\newcommandx{\CVDP}[1][1=n]{\overrightarrow{\mathbb{VDP}}^{#1}} % caged virtual deformed permutahedra
-\newcommand{\VD}[1][1=n]{\mathbb{VD}} % virtual deformations
-\newcommand{\Weight}{\mathbb{W}} % 1st weight space
-\newcommandx{\opcone}[1][1={\mu,\omega}]{\polytope{C}_{#1}}
-\newcommandx{\orcone}[1][1={\omega}]{\polytope{C}_{#1}}
 
 % formating the part command
 \makeatletter
@@ -198,8 +132,7 @@
 \let\oldtocsubsubsection=\tocsubsubsection
 \renewcommand{\tocsubsubsection}[2]{\quad\oldtocsubsubsection{#1}{#2}}
 
-%Drapeau européen
-
+% drapeau européen
 \usepackage{graphicx,calc}
 \newlength\myheight
 \newlength\mydepth
@@ -211,6 +144,42 @@
   \settodepth\mydepth{Xygp}%
   \raisebox{-\mydepth}{\includegraphics[height=\myheight]{#1}}%
 }
+
+% SPECIFIC BLOCK GRAPH PERMUTREES
+
+% COMBINATORICS
+
+% decorations
+\newcommandx{\up}[1][1=v]{\overline{#1}} 
+\newcommandx{\down}[1][1=v]{\underline{#1}} 
+\newcommandx{\updown}[1][1=v]{\overline{\underline{#1}}} 
+% source and target
+\newcommandx{\so}[1][1=i]{\textsc{s}(#1)} % source set
+\newcommandx{\ta}[1][1=o]{\textsc{t}(#1)} % target set
+% spines
+\newcommandx{\spine}[1][1=S]{#1} % spine
+\newcommandx{\spines}[1][1=G]{\mathcal{S}(#1)} % set of spines
+\newcommandx{\maxspines}[1][1=G]{\mathcal{MS}(#1)} % maximal spines
+% nested complex
+\newcommand{\negNested}{\preceq} % negative nested
+\newcommand{\posNested}{\succeq} % positive nested
+\newcommand{\negDisjoint}{\perp} % negative disjoint
+\newcommand{\posDisjoint}{\;\top\;} % positive disjoint
+\newcommand{\compl}[1]{#1{}^\textsc{c}} % complement
+
+% GEOMETRY
+
+% fans
+\newcommandx{\Fan}[1][1=F]{\mathcal{#1}} % fan
+\newcommandx{\ray}[1][1=r]{\b{#1}} % ray
+\newcommandx{\rays}[1][1=R]{\b{#1}} % rays
+\newcommand{\walls}{\b{W}} % walls
+% polytopes
+\newcommand{\polytope}[1]{\mathsf{#1}} % font polytopes
+\newcommandx{\Perm}[1][1=n]{\polytope{Perm}_{#1}} % permutahedron
+\newcommandx{\Asso}[2][1=n,2={}]{\polytope{Asso}^{#2}(#1)} % associahedron
+\newcommandx{\Nest}[2][1=\building,2={}]{\polytope{Nest}^{#2}(#1)} % associahedron
+% \newcommandx{\Zono}[2][1=n,2={}]{\mathsf{Zono}^{#2}(#1)} % zonotope
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -257,14 +226,14 @@ It is the maximal generalization, according to \cite{Pilaud14}.
 
 \section{Combinatorics: the spine complex}
 
-Exemples a suivre tout au long du texte: 1) chemin decore 2) que des down 3) un exemple "generique" de notre cru.
+\guillaume{Exemples a suivre tout au long du texte: 1) chemin decore 2) que des down 3) un exemple "generique" de notre cru.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Maple trees and block graphs}
 
 \begin{definition}
-  A \defn{maple tree} is a tree whose vertices are properly colored in red and blue such that all leaves are red.
+  A \defn{maple tree} is a tree whose vertices are properly colored (\ie no monochromatic edge) in red and blue such that all leaves are red.
   The \defn{tapping} of a maple tree consists in replacing each red vertex by a clique on its blue neighbors.
 \end{definition}
 
@@ -274,8 +243,9 @@ Exemples a suivre tout au long du texte: 1) chemin decore 2) que des down 3) un 
   \begin{enumerate}
     \item Every biconnected component of~$G$ is a clique.
     \item Any cycle in~$G$ induces a clique.
-    \item The intersection of two paths in~$G$ induces a path.
-    \item The set of connected subgraphs of~$G$ is stable under intersection.
+    \item The intersection of two connected subgraphs of~$G$ is a connected subgraph of~$G$.
+    \item The intersection of two paths in~$G$ induces a path in~$G$.
+    \item There is a unique induced path connecting every pair of vertices.
     \item The graph~$G$ is obtained by tapping a maple tree.
   \end{enumerate}
 \end{definition}
@@ -362,6 +332,7 @@ In this paper, we consider the following additional decorations.
     \item the \defn{source set}~$\so[U]$ (resp.~\defn{target set}~$\ta[U]$) of a node~$U$ is the union of~$U$ with the source sets~$\so[\alpha]$ of all incoming arcs~$\alpha$ (resp.~the target sets~$\ta[\beta]$ of all outgoing arcs~$\beta$) of~$U$~in~$\spine$.
   \end{itemize}
 \end{definition}
+\vincent{Where do we need the source set of a node? I don't like to have the two definitions here, it is confusing.}
 
 %In this paper, we consider directed trees whose nodes are labeled by sets.
 %With a slight abuse of notation, we still write~$\so[\gamma]$ (resp.~$\ta[\gamma]$) for the union of the labels in the source (resp.~target) set of an arc~$\gamma$.
@@ -379,6 +350,7 @@ In this paper, we consider the following additional decorations.
 \end{definition}
 
 We now define two natural operations on spines: arc contraction and node splitting.
+These operations are illustrated in \cref{fig:contractionSplitting}.
 
 \begin{definition}
   \label{def:arccontraction}
@@ -475,20 +447,20 @@ We now define two natural operations on spines: arc contraction and node splitti
 \end{proposition}
 
 \begin{proof} 
-  Let $\spine'$ be a directed tree obtained by contracting an arc in a spine $\spine$ on~$G$.
+  Let $\spine'$ be a directed tree obtained by contracting an arc $\gamma$ with endpoints~$U$ and~$V$ in a spine $\spine$ on~$G$.
   We clearly just need to prove the local condition of \cref{def:spine} around the node~$W \eqdef U \cup V$ of~$\spine'$.
   We give the argument for the incoming arcs; the argument for the outgoing arcs is symmetric. 
 
-  To prove that the source set of each incoming arc~$\alpha$ of~$W$ is contained in a connected component of~$G \ssm \down[W]$, we distinguish two cases:
+  To prove that the source set~$\so[\alpha]$ of each incoming arc~$\alpha$ of~$W$ is contained in a connected component of~$G \ssm \down[W]$, we distinguish two cases:
   \begin{itemize}
-    \item If~$\alpha$ is an incoming arc of~$U$ in~$\spine$, then its source set $\so[\alpha]$ is contained in a connected component $C_1$ of $G \ssm \down[U]$ and also in a connected component $C_2$ of $G \ssm \down[V]$. Thus, it is in $C_1 \cap C_2$. By \cref{def:blockgraph}, the subgraph induced by the vertices of $C_1 \cap C_2$ is a connected component of $(G \ssm \down[U]) \cap (G \ssm \down[V]) = G \ssm \down[W]$.
+    \item If~$\alpha$ is an incoming arc of~$U$ in~$\spine$, then its source set~$\so[\alpha]$ is contained in a connected component $C_1$ of $G \ssm \down[U]$ and also in a connected component $C_2$ of $G \ssm \down[V]$. Thus, it is in $C_1 \cap C_2$. By \cref{def:blockgraph}, the subgraph induced by the vertices of $C_1 \cap C_2$ is a connected component of $(G \ssm \down[U]) \cap (G \ssm \down[V]) = G \ssm \down[W]$.
     \item If~$\alpha$ is an incoming arc of~$V$ in~$\spine$, then its source set $\so[\alpha]$ is in a connected component of $G \ssm \down[V]$ that does not contain $U$, hence in a connected component of $G \ssm \down[W]$.
   \end{itemize}
 
-  To prove that the source sets of two distinct incoming arcs~$\alpha$ and~$\alpha'$ of~$W$ are contained in two distinct connected components of~$G \ssm \down[W]$, we distinguish two cases:
+  To prove that the source sets~$\so[\alpha]$ and~$\so[\alpha']$ of two distinct incoming arcs~$\alpha$ and~$\alpha'$ of~$W$ are contained in two distinct connected components of~$G \ssm \down[W]$, we distinguish two cases:
   \begin{itemize}
-    \item If~$\alpha$ and~$\alpha'$ are both incoming arcs of~$U$ (resp.~of~$V$) in~$\spine$, then $\so[\alpha]$ and $\so[\alpha']$ live in two distinct connected components of $G \ssm \down[U]$ (resp.~of~$G \ssm \down[V]$), hence in two distinct connected components of $G\ssm \down[W]$.
-    \item If~$\alpha$ is an incoming arc of~$U$ in~$\spine$ while~$\alpha'$ is an incoming arc of~$V$ in~$\spine$, then~$\so[\alpha] \subset \so[\gamma]$ and $\so[\alpha']$ live in two distinct connected components of $G \ssm \down[V]$, hence in two distinct connected components of $G\ssm \down[W]$.
+    \item If~$\alpha$ and~$\alpha'$ are both incoming arcs of~$U$ (resp.~of~$V$) in~$\spine$, then their source sets~$\so[\alpha]$ and~$\so[\alpha']$ live in two distinct connected components of $G \ssm \down[U]$ (resp.~of~$G \ssm \down[V]$), hence in two distinct connected components of $G\ssm \down[W]$.
+    \item If~$\alpha$ is an incoming arc of~$U$ in~$\spine$ while~$\alpha'$ is an incoming arc of~$V$ in~$\spine$, then their source sets~$\so[\alpha] \subset \so[\gamma]$ and~$\so[\alpha']$ live in two distinct connected components of $G \ssm \down[V]$, hence in two distinct connected components of $G\ssm \down[W]$.
     \qedhere
   \end{itemize}
 \end{proof}
@@ -516,11 +488,12 @@ To define the reverse operation of node splitting, we first need the following n
 \begin{definition}
   \label{def:vertexsplitting} 
   Let $G$ be a decorated block graph, let $\spine$ be a spine on $G$, let~$W$ be a node of~$\spine$, and let~$U \sqcup V = W$ be a splittable partition of~$W$.
-  The \defn{splitting} of~$U \sqcup V$ in~$\spine$ is the directed tree obtained from~$\spine$ by:
-  \begin{enumerate}[(i)]
-    \item replacing the node~$W$ by two nodes~$U$ and~$V$, adding an arc $\gamma$ from $U$ to $V$, and 
-    \item connecting an incoming arc~$\alpha$ of~$W$ to~$U$ if and only if its source set~$\so[\alpha]$ is contained in a connected component of $G \ssm \down[W]$ adjacent to $\down[U]$, and an outgoing arc~$\beta$ of~$W$ to~$V$ if and only if its target set~$\ta[\beta]$ is contained in a connected component of $G \ssm \up[W]$ adjacent to $\up[V]$.
-  \end{enumerate}
+  The \defn{splitting} of~$U \sqcup V$ in~$\spine$ is the directed tree obtained from~$\spine$ by replacing the node~$W$ by an arc~$\gamma$ connecting a node~$U$ to a node~$V$,~and
+  \begin{itemize}
+    \item connecting each incoming arc~$\alpha$ of~$W$ to~$U$ if its source set~$\so[\alpha]$ is contained in a connected component of $G \ssm \down[W]$ adjacent to $\down[U]$ and to~$V$ otherwise, 
+    \item connecting each outgoing arc~$\beta$ of~$W$ to~$V$ if its target set~$\ta[\beta]$ is contained in a connected component of $G \ssm \up[W]$ adjacent to $\up[V]$ and to~$U$ otherwise.
+  \end{itemize}
+  See \cref{fig:contractionSplitting}.
 \end{definition}
 
 \begin{proposition}
@@ -548,13 +521,13 @@ To define the reverse operation of node splitting, we first need the following n
     \item If~$\beta = \gamma$, then~$\ta[\gamma]$ is the union of~$V$ with~$\so[\alpha']$ for all incoming arcs~$\alpha'$ of~$V$ and~$\ta[\beta']$ for all outgoing arcs~$\beta'$ of~$V$. We next prove that all these sets are contained in the same connected component of~$G \ssm \up[U]$.
     \begin{itemize}
       \item By \cref{def:vertexsplitting}, $V$ is contained in a connected component~$C$ of~$G \ssm \up[U]$. 
-      \item Consider an incoming arc~$\alpha'$ of~$V$. The set~$\so[\alpha']$ is contained in a connected component~$D$ of~$G \ssm \down[W]$, and in a connected component~$E$ of~$G \ssm \down[V]$, with~$D \subseteq E$. By \cref{prop:vertexsplitting}, $D$ is not adjacent to~$\down[U]$. By \cref{def:vertexsplitting}, $E$ is thus disjoint from~$U$. This implies on the one hand that~$D$ is disjoint from~$\up[U]$, thus connected in~$G \ssm \up[U]$, and on the other hand that~$D$ is adjacent to~$\down[V]$, hence contained in~$C$. 
-      \item Consider an outgoing arc~$\beta'$ of~$V$. By \cref{prop:vertexsplitting}, the set $\ta[\beta']$ is contained in a connected component of~$G \ssm \up[W]$ adjacent to~$V$, hence $\ta[\beta']$ is contained in~$C$.
+      \item Consider an incoming arc~$\alpha'$ of~$V$. The set~$\so[\alpha']$ is contained in a connected component~$D$ of~$G \ssm \down[W]$, and in a connected component~$E$ of~$G \ssm \down[V]$, with~$D \subseteq E$. By \cref{def:vertexsplitting}, $D$ is not adjacent to~$\down[U]$. By \cref{def:splittable}, $E$ is thus disjoint from~$U$. This implies on the one hand that~$D$ is disjoint from~$\up[U]$, thus connected in~$G \ssm \up[U]$, and on the other hand that~$D$ is adjacent to~$\down[V]$, hence contained in~$C$. 
+      \item Consider an outgoing arc~$\beta'$ of~$V$. By \cref{def:vertexsplitting}, the set $\ta[\beta']$ is contained in a connected component of~$G \ssm \up[W]$ adjacent to~$V$, hence $\ta[\beta']$ is contained in~$C$.
     \end{itemize}
   \end{itemize}
   To prove that the target sets of two distinct outgoing arcs~$\beta$ and~$\beta'$ of~$U$ are contained in two distinct connected components of~$G \ssm \up[U]$, we distinguish two cases:
   \begin{itemize}
-  \item Assume that~$\beta$ and~$\beta'$ are both distinct from~$\gamma$. Let~$C$ be the connected component of~$G \ssm \up[U]$ containing~$V$, and let~$D$ and~$D'$ (resp.~$E$ and~$E'$) the connected components of $G \ssm \up[W]$ (resp.~$G \ssm \up[U]$) containing~$\ta[\beta]$ and $\ta[\beta']$. By \cref{prop:vertexsplitting}, $D$ and~$D'$ are not adjacent to~$\up[V]$. By \cref{def:vertexsplitting}, $E$ and~$E'$ are thus disjoint from~$V$. This implies that~$E = D$ and~$E' = D'$ are distinct.
+  \item Assume that~$\beta$ and~$\beta'$ are both distinct from~$\gamma$. Let~$C$ be the connected component of~$G \ssm \up[U]$ containing~$V$, and let~$D$ and~$D'$ (resp.~$E$ and~$E'$) the connected components of $G \ssm \up[W]$ (resp.~$G \ssm \up[U]$) containing~$\ta[\beta]$ and $\ta[\beta']$. By \cref{def:vertexsplitting}, $D$ and~$D'$ are not adjacent to~$\up[V]$. By \cref{def:splittable}, $E$ and~$E'$ are thus disjoint from~$V$. This implies that~$E = D$ and~$E' = D'$ are distinct.
   \item Assume that~$\beta' = \gamma$. As before, the connected component of~$G \ssm \up[U]$ containing~$\ta[\beta]$ is disjoint from~$V$, thus is distinct from that containing~$\ta[\gamma]$.
   \qedhere
   \end{itemize}
@@ -575,14 +548,15 @@ To define the reverse operation of node splitting, we first need the following n
 \end{definition}
 
 \begin{corollary} 
- The spine poset is graded by the number of nodes.
- Note that:
- \begin{itemize}
-   \item its unique rank $0$ (\ie minimal) element is the spine with a single node, 
-   \item its rank~$1$ elements are the spines with precisely two nodes, 
-   \item its corank~$1$ elements are the spines where the nodes are all singletons except one pair,
-   \item its corank~$0$ (\ie maximal) elements are the spines where the nodes are all singletons.
- \end{itemize}
+  The spine poset is graded by the number of nodes.
+  Hence, the cover relations of the spine poset are precisely given by arc contractions, or equivalently node splittings.
+  Moreover,
+  \begin{itemize}
+    \item the unique rank $0$ (\ie minimal) element is the spine with a single node, 
+    \item the rank~$1$ elements are the spines with precisely two nodes, 
+    \item the corank~$1$ elements are the spines where the nodes are all singletons except one pair,
+    \item the corank~$0$ (\ie maximal) elements are the spines where the nodes are all singletons.
+  \end{itemize}
 \end{corollary}
 
 \begin{remark}
@@ -598,6 +572,116 @@ To define the reverse operation of node splitting, we first need the following n
   \vincent{Not the right place...}
 \end{remark}
   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Spine complex}
+
+\vincent{New version...}
+
+We denote by~$\compl{B} \eqdef V_G \ssm B$ the complement of a subset~$B$ of~$V_G$.
+
+\begin{definition}
+  \label{def:block}
+%  A \defn{block} of~$G$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$V_G \ssm B$ forms a splittable partition of the vertex set of~$G$ (see \cref{def:splittable}).
+  A \defn{block} of~$G$ is a subset~$B$ of~$V_G$ such that $B \ne \varnothing$ is contained in a connected component of~$G \ssm \down[\compl{B}]$ and $\compl{B} \ne \varnothing$ is contained in a connected component of~$G \ssm \up[B]$.
+  In other words, $B$ and its complement~$\compl{B}$ forms a splittable partition of~$V_G$ (see \cref{def:splittable}).
+\end{definition}
+
+\begin{lemma}
+  \label{lem:arcBlock}
+  The source set~$\so[\gamma]$ of an arc~$\gamma$ of a spine~$\spine$ on~$G$ is a block of~$G$.
+\end{lemma}
+
+\begin{proof}
+  Let~$\spine'$ be the rank~$1$ spine on~$G$ obtained by contracting all arcs in~$\spine$ except~$\gamma$.
+  By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting.
+  This implies that the partition~$\so[\gamma] \sqcup \ta[\gamma]$ is splittable.
+\end{proof}
+
+\begin{definition}
+  \label{def:compatibleBlocks}
+%  A \defn{block} of~$G$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$V_G \ssm B$ forms a splittable partition of the vertex set of~$G$ (see \cref{def:splittable}).
+  %~$B \ne \varnothing$ is contained in a connected component of~$G \ssm \compl{B}$ and $\compl{B} \ne \varnothing$ is contained in a connected component of~$G \ssm B$.
+%  Two blocks~$B$ and~$B'$ are \defn{compatible} if any of the following conditions hold:
+%  \begin{itemize}
+%    \item $B \subseteq B'$,
+%    \item $B \supseteq B'$,
+%    \item $B \cap B' = \varnothing$ and $B \cup B'$ is not a block,
+%    \item $\compl{B} \cup \compl{B'} = \varnothing$ and~$B \cap B'$ is not a block.
+%  \end{itemize}
+  Let~$B$ and~$B'$ be two blocks of~$G$.
+  We write:
+  \begin{itemize}
+    \item $B \negDisjoint B'$ if $B \cap B' = \varnothing$ and $B \cup B'$ is not a block of~$G$,
+    \item $B \posDisjoint B'$ if $B \cup B' = V_G$ and~$B \cap B'$ is not a block of~$G$.
+  \end{itemize}
+  We say that~$B$ and~$B'$ are \defn{compatible} if $B \subseteq B'$, or $B \supseteq B'$, or $B \negDisjoint B'$ or $B \posDisjoint B'$.
+\end{definition}
+
+\begin{lemma}
+  \label{lem:compatibleArcBlocks}
+  For two arcs~$\gamma$ and~$\gamma'$ of a spine~$\spine$ on~$G$, the blocks~$\so[\gamma]$ and~$\so[\gamma']$ of~$G$ are compatible.
+\end{lemma}
+
+\begin{proof}
+  Since the spine~$\spine$ is a tree, there is a unique path~$\pi$ joining~$\gamma$ to~$\gamma'$ in~$\spine$.
+  If $\pi$ connects the target of~$\gamma$ to the source of~$\gamma'$, then~$\so[\gamma] \subseteq \so[\gamma']$, and \viceversa.
+  If $\pi$ connects the sources of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \negDisjoint \so[\gamma]'$.
+  Indeed, there is at least one node~$U$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
+  By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \down[U]$.
+  Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \down[U]$ hence of~$G \ssm \down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
+  Similarly, if $\pi$ connects the targets of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \posDisjoint \so[\gamma]'$.
+  See \cref{fig:sourceSetsCompatible}.
+  \vincent{borrow picture...}
+\end{proof}
+
+\begin{proposition}
+  \label{prop:spinesFromNestedBlocks}
+  ...
+\end{proposition}
+
+
+Conversely, any collection of pairwise compatible splittable partitions come from a spine on~$G$...
+\vincent{todo}
+
+\begin{definition}
+  \label{def:spineComplex}
+  The \defn{spine complex} of~$G$ is ...
+\end{definition}
+
+\begin{corollary}
+  The spine complex is pure and flag.
+  \vincent{It is also a closed pseudomanifold. See later.}
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\subsection{Spine complex}
+%
+%\vincent{New version...}
+%
+%\begin{definition}
+%  A \defn{splittable partition} of~$G$ is a splittable partition of the vertex set of~$G$ (see \cref{def:splittable}).
+%  Two splittable partitions $U \sqcup V$ and $U' \sqcup V'$ are \defn{compatible} if any of the following conditions hold:
+%  \begin{itemize}
+%    \item $U \subseteq U'$ and $V \supseteq V'$,
+%    \item $U \supseteq U'$ and $V \subseteq V'$,
+%    \item $U \cap U' = \varnothing$ while $V \cup V' = V_G$, and the partition $(U \cup U', V \cap V')$ is not splittable,
+%    \item $U \cup U' = V_G$ while $V \cap V' = \varnothing$, and the partition $(U \cap U', V \cup V')$ is not splittable.
+%  \end{itemize}
+%\end{definition}
+%
+%\begin{lemma}
+%  For a spine~$\spine$ on~$G$,
+%  \begin{itemize}
+%    \item the source set~$\so[\gamma]$ and the target set~$\ta[\gamma]$ of any arc~$\gamma$ of~$\spine$ form a splittable partition of~$G$,
+%    \item the splittable partitions~$(\so[\gamma], \ta[\gamma])$ and~$(\so[\gamma'], \ta[\gamma'])$ of~$G$ are compatible for any two arcs~$\gamma$ and~$\gamma'$ of~$\spine$
+%  \end{itemize}
+%\end{lemma}
+%
+%Conversely, any collection of pairwise compatible splittable partitions come from a spine on~$G$...
+%\vincent{todo}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Spine complex}
@@ -628,6 +712,7 @@ This yields the following simplicial complex on splittable partitions of~$G$.
 
 We will prove later that this complex is flag.
 \vincent{todo}
+\vincent{We should make the compatibility explicit.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -963,6 +1048,19 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Generalized tubings}
+
+\vincent{I am not sure that this section will stay in the final version.}
+
+Let~$M$ be a maple tree and~$G = (V,E)$ be the block graph obtained by tapping~$M$.
+There are four combinatorial models for the facets of a block graph permutreehedron:
+\begin{enumerate}
+  \item a \defn{rank~$1$ spine} on~$G$, \ie a spine on~$G$ with precisely two nodes,
+  \item a \defn{maple subtree} of~$M$, \ie a maple tree induced by a connected subset of~$M$, or equivalently a connected component of $M \ssm B$ for a subset~$B$ of blue vertices of~$M$,
+  \item a \defn{signed tube} of~$G$, \ie a pair~$(\down[W], \up[W])$ of maple subtrees of~$M$ such that $\partial \down[W] \subseteq \down[V] \cap \up[W]$ and $\partial \up[W] \subseteq \up[V] \cap \down[W]$,
+  \item a \defn{signed biconvex subset} of~$G$, \ie a subset~$V$ of vertices of~$G$ which is positive convex and whose complement is negative convex. This is also what we called splittable partition.
+\end{enumerate}
+We can read the spine complex on these 4 models.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
