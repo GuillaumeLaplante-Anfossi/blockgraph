@@ -613,7 +613,7 @@ To define the reverse operation of node splitting, we first need the following n
 
 \begin{definition}
   \label{def:spineComplex}
-  The \defn{nested complex} of~$G$ is the simplicial complex on the blocks of~$G$ whose simplices are nested sets on~$G$.
+  The \defn{nested complex} of~$G$ is the simplicial complex of nested sets on~$G$.
   In other words, it is the clique complex of the compatibility relation on blocks of~$G$.
 \end{definition}
 
@@ -740,6 +740,7 @@ This gives a description of the vertices of the spine~$\nestedToSpine(\nested)$ 
 \subsection{Flips and flip poset}
 
 \begin{definition}
+  \label{def:flip}
   Let $G$ be a decorated block graph and let $\spine$ be a maximal spine on~$G$.
   Consider two vertices $U = \{u\}$ and $V = \{v\}$ of $\spine$ related by an arc $\gamma$. 
   Let $\alpha$ be the incoming arc of $U$ such that~$\so[\alpha]$ and~$V$ are contained in the same connected component of $G \ssm \down[U]$, and let $\beta$ be the outgoing arc of $V$ such that~$\ta[\beta]$ and~$U$ are contained in the same connected component of $G \ssm \up[V]$.
@@ -857,28 +858,33 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 \end{lemma}
 
 \begin{proof}
-  This follows from \cref{prop:vertexsplitting}.
+  This follows from \cref{prop:vertexsplitting,prop:contractionSplitting}.
+  \vincent{I don't understand why it is so simple compared to the proof in my paper...}
 \end{proof}
   
+\begin{definition}
+  \label{def:flipGraph}
+  The \defn{flip graph} is the graph whose vertices are the maximal spines on~$G$ and whose egdes are the flips between them.
+  In other words, it is the facet-ridge graph of the nested complex of~$G$.
+\end{definition}
+
 \begin{corollary} 
    The nested complex of~$G$ is a closed pseudo-manifold. 
 \end{corollary}
-
-\begin{proof}
-  TBC
-\end{proof}
   
-\begin{definition}[Flip poset] 
-  For $\spine$ and $\spine'$ two maximal spines, we say that $\spine \preccurlyeq \spine'$ if and only if $\spine'$ is obtained from $\spine$ by a flip. 
+\begin{definition}
+  \label{def:increasingFlip}
+  Fix a total order~$\prec$ on~$V_G$.
+  The flip from~$\spine$ to~$\spine'$ in \cref{def:flip} is \defn{$\prec$-incresing} if~$u \prec v$ and \defn{$\prec$-decreasing} if $u \succ v$.
+  The \defn{$\prec$-increasing flip graph} is the directed graph whose vertices are the maximal spines on~$G$ and whose arcs are the increasing flips between them.
+  The \defn{$\prec$-increasing flip poset} is the transitive closure of the $\prec$-increasing flip graph.
 \end{definition}
 
 \begin{remark}
   The question of whether or not the flip poset $(\maxspines,\preccurlyeq)$ is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a path, it is always the case \cite{PonsPilaud18}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville18}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}
 \end{remark}
-  
-\begin{definition}[Flip graph] 
-  The \defn{flip graph} is the Hasse diagram of the flip poset. 
-\end{definition}
+
+\vincent{We need a picture of increasing flip poset here. Take the natural order for $\prec$.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
