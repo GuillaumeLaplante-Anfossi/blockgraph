@@ -161,11 +161,15 @@
 \newcommandx{\spines}[1][1=G]{\mathcal{S}(#1)} % set of spines
 \newcommandx{\maxspines}[1][1=G]{\mathcal{MS}(#1)} % maximal spines
 % nested complex
+\newcommandx{\nested}[1][1=N]{#1} % nested set
 \newcommand{\negNested}{\preceq} % negative nested
 \newcommand{\posNested}{\succeq} % positive nested
 \newcommand{\negDisjoint}{\perp} % negative disjoint
 \newcommand{\posDisjoint}{\;\top\;} % positive disjoint
 \newcommand{\compl}[1]{#1{}^\textsc{c}} % complement
+% maps
+\newcommand{\spineToNested}{\mathsf{N}} % spine to nested set
+\newcommand{\nestedToSpine}{\mathsf{S}} % nested set to spine
 
 % GEOMETRY
 
@@ -574,29 +578,17 @@ To define the reverse operation of node splitting, we first need the following n
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Spine complex}
+\subsection{Nested complex}
 
-\vincent{New version...}
-
-We denote by~$\compl{B} \eqdef V_G \ssm B$ the complement of a subset~$B$ of~$V_G$.
+\vincent{Do we want to say that the spine complex is a simplicial poset, which we want to prove is flag?}
+% We denote by~$\compl{B} \eqdef V_G \ssm B$ the complement of a subset~$B$ of~$V_G$.
 
 \begin{definition}
   \label{def:block}
-%  A \defn{block} of~$G$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$V_G \ssm B$ forms a splittable partition of the vertex set of~$G$ (see \cref{def:splittable}).
-  A \defn{block} of~$G$ is a subset~$B$ of~$V_G$ such that $B \ne \varnothing$ is contained in a connected component of~$G \ssm \down[\compl{B}]$ and $\compl{B} \ne \varnothing$ is contained in a connected component of~$G \ssm \up[B]$.
-  In other words, $B$ and its complement~$\compl{B}$ forms a splittable partition of~$V_G$ (see \cref{def:splittable}).
+  A \defn{block} of~$G$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$V_G \ssm B$ forms a splittable partition of the vertex set~$V_G$ (see \cref{def:splittable}).
+%  A \defn{block} of~$G$ is a subset~$B$ of~$V_G$ such that $B \ne \varnothing$ is contained in a connected component of~$G \ssm \down[\compl{B}]$ and $\compl{B} \ne \varnothing$ is contained in a connected component of~$G \ssm \up[B]$.
+%  In other words, $B$ and its complement~$\compl{B}$ forms a splittable partition of~$V_G$ (see \cref{def:splittable}).
 \end{definition}
-
-\begin{lemma}
-  \label{lem:arcBlock}
-  The source set~$\so[\gamma]$ of an arc~$\gamma$ of a spine~$\spine$ on~$G$ is a block of~$G$.
-\end{lemma}
-
-\begin{proof}
-  Let~$\spine'$ be the rank~$1$ spine on~$G$ obtained by contracting all arcs in~$\spine$ except~$\gamma$.
-  By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting.
-  This implies that the partition~$\so[\gamma] \sqcup \ta[\gamma]$ is splittable.
-\end{proof}
 
 \begin{definition}
   \label{def:compatibleBlocks}
@@ -616,103 +608,277 @@ We denote by~$\compl{B} \eqdef V_G \ssm B$ the complement of a subset~$B$ of~$V_
     \item $B \posDisjoint B'$ if $B \cup B' = V_G$ and~$B \cap B'$ is not a block of~$G$.
   \end{itemize}
   We say that~$B$ and~$B'$ are \defn{compatible} if $B \subseteq B'$, or $B \supseteq B'$, or $B \negDisjoint B'$ or $B \posDisjoint B'$.
+  We call \defn{nested set} on~$G$ a set of pairwise compatible blocks of~$G$.
 \end{definition}
-
-\begin{lemma}
-  \label{lem:compatibleArcBlocks}
-  For two arcs~$\gamma$ and~$\gamma'$ of a spine~$\spine$ on~$G$, the blocks~$\so[\gamma]$ and~$\so[\gamma']$ of~$G$ are compatible.
-\end{lemma}
-
-\begin{proof}
-  Since the spine~$\spine$ is a tree, there is a unique path~$\pi$ joining~$\gamma$ to~$\gamma'$ in~$\spine$.
-  If $\pi$ connects the target of~$\gamma$ to the source of~$\gamma'$, then~$\so[\gamma] \subseteq \so[\gamma']$, and \viceversa.
-  If $\pi$ connects the sources of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \negDisjoint \so[\gamma]'$.
-  Indeed, there is at least one node~$U$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
-  By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \down[U]$.
-  Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \down[U]$ hence of~$G \ssm \down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
-  Similarly, if $\pi$ connects the targets of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \posDisjoint \so[\gamma]'$.
-  See \cref{fig:sourceSetsCompatible}.
-  \vincent{borrow picture...}
-\end{proof}
-
-\begin{proposition}
-  \label{prop:spinesFromNestedBlocks}
-  ...
-\end{proposition}
-
-
-Conversely, any collection of pairwise compatible splittable partitions come from a spine on~$G$...
-\vincent{todo}
 
 \begin{definition}
   \label{def:spineComplex}
-  The \defn{spine complex} of~$G$ is ...
+  The \defn{nested complex} of~$G$ is the simplicial complex on the blocks of~$G$ whose simplices are nested sets on~$G$.
+  In other words, it is the clique complex of the compatibility relation on blocks of~$G$.
 \end{definition}
 
-\begin{corollary}
-  The spine complex is pure and flag.
-  \vincent{It is also a closed pseudomanifold. See later.}
-\end{corollary}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%\subsection{Spine complex}
-%
-%\vincent{New version...}
-%
-%\begin{definition}
-%  A \defn{splittable partition} of~$G$ is a splittable partition of the vertex set of~$G$ (see \cref{def:splittable}).
-%  Two splittable partitions $U \sqcup V$ and $U' \sqcup V'$ are \defn{compatible} if any of the following conditions hold:
-%  \begin{itemize}
-%    \item $U \subseteq U'$ and $V \supseteq V'$,
-%    \item $U \supseteq U'$ and $V \subseteq V'$,
-%    \item $U \cap U' = \varnothing$ while $V \cup V' = V_G$, and the partition $(U \cup U', V \cap V')$ is not splittable,
-%    \item $U \cup U' = V_G$ while $V \cap V' = \varnothing$, and the partition $(U \cap U', V \cup V')$ is not splittable.
-%  \end{itemize}
-%\end{definition}
-%
 %\begin{lemma}
-%  For a spine~$\spine$ on~$G$,
-%  \begin{itemize}
-%    \item the source set~$\so[\gamma]$ and the target set~$\ta[\gamma]$ of any arc~$\gamma$ of~$\spine$ form a splittable partition of~$G$,
-%    \item the splittable partitions~$(\so[\gamma], \ta[\gamma])$ and~$(\so[\gamma'], \ta[\gamma'])$ of~$G$ are compatible for any two arcs~$\gamma$ and~$\gamma'$ of~$\spine$
-%  \end{itemize}
+%  \label{lem:arcBlock}
+%  The source set~$\so[\gamma]$ of an arc~$\gamma$ of a spine~$\spine$ on~$G$ is a block of~$G$.
 %\end{lemma}
 %
-%Conversely, any collection of pairwise compatible splittable partitions come from a spine on~$G$...
-%\vincent{todo}
+%\begin{proof}
+%  Let~$\spine'$ be the rank~$1$ spine on~$G$ obtained by contracting all arcs in~$\spine$ except~$\gamma$.
+%  By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting.
+%  This implies that the partition~$\so[\gamma] \sqcup \ta[\gamma]$ is splittable.
+%\end{proof}
+%
+%\begin{lemma}
+%  \label{lem:compatibleArcBlocks}
+%  For two arcs~$\gamma$ and~$\gamma'$ of a spine~$\spine$ on~$G$, the blocks~$\so[\gamma]$ and~$\so[\gamma']$ of~$G$ are compatible.
+%\end{lemma}
+%
+%\begin{proof}
+%  Since the spine~$\spine$ is a tree, there is a unique path~$\pi$ joining~$\gamma$ to~$\gamma'$ in~$\spine$.
+%  If $\pi$ connects the target of~$\gamma$ to the source of~$\gamma'$, then~$\so[\gamma] \subseteq \so[\gamma']$, and \viceversa.
+%  If $\pi$ connects the sources of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \negDisjoint \so[\gamma]'$.
+%  Indeed, there is at least one node~$U$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
+%  By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \down[U]$.
+%  Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \down[U]$ hence of~$G \ssm \down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
+%  Similarly, if $\pi$ connects the targets of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \posDisjoint \so[\gamma]'$.
+%  See \cref{fig:sourceSetsCompatible}.
+%  \vincent{borrow picture...}
+%\end{proof}
+%
+%\begin{corollary}
+%  Any spine on~$G$ defines a nested set on~$G$.
+%\end{corollary}
+
+\begin{proposition}
+  \label{prop:spineToNested}
+  The map~$\spineToNested$ defined by~$\spineToNested(\spine) \eqdef \set{\so[\gamma]}{\gamma \text{ arc of } \spine}$ defines a ranked bijection from the spine poset to the face poset of the nested complex.
+\end{proposition}
+
+\begin{proof}
+  We prove that the map~$\spineToNested$ is well-defined, injective and surjective.
+  
+  \para{Well-defined}
+  Observe that for any spine~$\spine$ on~$G$:
+  \begin{itemize}
+    \item For any arc~$\gamma$ of~$\spine$, the source set~$\so[\gamma]$ is a block of~$G$. 
+    Indeed, consider the rank~$1$ spine~$\spine'$ on~$G$ obtained by contracting all arcs in~$\spine$ except~$\gamma$. 
+    By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
+    Hence, the partition~$\so[\gamma] \sqcup \ta[\gamma]$ is splittable.
+    \item For any two arcs~$\gamma$ and~$\gamma'$ of~$\spine$, the blocks~$\so[\gamma]$ and~$\so[\gamma']$ of~$G$ are compatible. 
+    Indeed, since the spine~$\spine$ is a tree, there is a unique path~$\pi$ joining~$\gamma$ to~$\gamma'$ in~$\spine$.
+    As illustrated in \cref{fig:sourceSetsCompatible}, we observe that:
+    \vincent{borrow picture...}
+    \begin{itemize}
+      \item If $\pi$ connects the target of~$\gamma$ to the source of~$\gamma'$, then~$\so[\gamma] \subseteq \so[\gamma']$.
+      \item If $\pi$ connects the source of~$\gamma$ to the target of~$\gamma'$, then~$\so[\gamma] \supseteq \so[\gamma']$.
+      \item If $\pi$ connects the sources of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \negDisjoint \so[\gamma]'$.
+      Indeed, there is at least one node~$U$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
+      By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \down[U]$.
+      Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \down[U]$ hence of~$G \ssm \down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
+      \item Similarly, if $\pi$ connects the targets of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \posDisjoint \so[\gamma]'$.
+    \end{itemize}
+  \end{itemize}
+
+  \para{Injective}
+  To see the injectivity of~$\spineToNested$, we prove that we can reconstruct a spine~$\spine$ from the source sets of its arcs.
+  First the the nodes of~$\spine$ are the equivalence classes under the relation~$v \equiv w$ if there is no arc~$\gamma$ of~$\spine$ such that~$|\{v,w\} \cap \so[\gamma]| = 1$.
+  Second, the leaves of~$\spine$ correspond to the source sets containing either only one or all but one node of~$\spine$. 
+  We can then delete one leaf~$\ell$ of~$\spine$, and reconstruct by induction the tree~$\spine \ssm \{\ell\}$. 
+  Finally the only possible vertex of~$\spine \ssm \{\ell\}$ to which the leaf~$\ell$ can be glued is the unique vertex which is in the intersection of all source sets~$B$ of~$\spine \ssm \{\ell\}$ such that~$B \cup \ell$ is a source set of~$\spine$, but not in the union of all source sets~$B$ of~$\spine \ssm \{\ell\}$ such that~$B \cup \ell$ is not a source set of~$\spine$.
+
+  \para{Surjective}
+  To see the surjectivity of~$\spineToNested$, we prove that for any nested set~$\nested$ on~$G$,
+\begin{enumerate}[(a)]
+\item there exists a spine~$\spine$ on~$G$ such that~$\spineToNested(\spine) = \nested$, and
+\item for any block~$B$ of~$G$ compatible with all blocks of~$\nested$, there exists a node~$U$ of~$\spine$ such that the partition~$U = (U \cap B) \sqcup (U \ssm B)$ is splittable (see \cref{def:splittable}).
+\end{enumerate}
+  These properties are proved by induction on the size of~$\nested$.  
+  To initialize, observe that the rank~$0$ spine (with a single node~$V_G$) is sent to the empty nested set for which Property~(b) above holds by \cref{def:block}.
+
+  Assume now that these properties hold for a given nested set~$\nested$ and consider a bigger nested set~$\nested' \eqdef \nested \cup \{B\}$.
+  Let~$\spine$ be the spine such that~$\spineToNested(\spine) = \nested$ and let~$U$ be a node of~$\spine$ such that the partition~$U = (U \cap B) \sqcup (U \ssm B)$ is splittable.
+  Let~$\spine'$ denote the spine obtained by the splitting of~$(U \cap B) \sqcup (U \ssm B)$ in~$\spine$.
+  We claim that $\spine$ satisfies Properties (a) and (b) above.
+  
+  Consider first an incoming arc~$\alpha$ of~$U$ in~$\spine$.
+  Since~$B$ is compatible with~$\so[\alpha]$, and both~$U \cap B$ and~$U \ssm B$ are non-empty, we obtain that~$\so[\alpha] \subseteq B$ or~$\so[\alpha] \negDisjoint B$.
+  Moreover, by \cref{def:vertexsplitting}, the arc~$\alpha$ is connected to the node~$U \cap B$ of~$\spine'$ if~$\so[\alpha] \subseteq B$, and to the node~$U \ssm B$ of~$\spine'$ if~$\so[\alpha] \negDisjoint B$.
+  Similarly, for any outgoing arc~$\beta$ of~$U$ in~$\spine$, we have~$\so[\beta] \supseteq B$ or~$\so[\alpha] \posDisjoint B$, and the arc~$\beta$ is connected to the node~$U \ssm B$ of~$\spine'$ if~$\so[\beta] \supseteq B$, and to the node~$U \cap B$ of~$\spine'$ if~$\so[\beta] \posDisjoint B$.
+  In particular, we have~$\so[\alpha] \subseteq B$ for each incoming arc~$\alpha$ of~$U \cap B$ in~$\spine'$, and~$\ta[\beta] \subseteq B$ for each outgoing arc~$\beta$ of~$U \cap B$ in~$\spine'$ (since~$\so[\beta] \posDisjoint B$ implies $\so[\beta] \cup B = V_G$ hence $\ta[\beta] = V_G \ssm \so[\beta] \subseteq B$).
+  We thus obtain that~$\so[\gamma] \subseteq B$, and similarly that~$\ta[\gamma] \subseteq V_G \ssm B$, from which we conclude that $\so[\gamma] = B$.
+  Since~$\spine'$ is obtained by splitting a node of~$\spine$ into an arc~$\gamma$, we have~$\spineToNested(\spine') = \spineToNested(\spine) \cup \{\so[\gamma]\} = N \cup \{B\} = N '$.
+
+  Consider now another block~$B'$ of~$G$ compatible with all blocks of~$N'$.
+  Since~$B'$ is compatible with~$N \subseteq N'$, there is a node~$U'$ of~$\spine$ such that the partition~$U' = (U' \cap B') \sqcup (U' \ssm B')$ is splittable.
+  If~$U \ne U'$, then~$U'$ is still a node of~$\spine'$ so that there is nothing to prove.
+  If~$U = U'$, then the node~$U \cap B$ of~$\spine'$ suits if~$B \supseteq B'$ or~$B \negDisjoint B'$, while the node~$U \ssm B$ of~$\spine'$  suits if~$B \subseteq B'$ or~$B \posDisjoint B'$.
+  \vincent{Check that, maybe add a sentence...}
+\end{proof}
+
+\begin{remark}
+  \label{rem:nestedToSpine}
+  From the proof of \cref{prop:spineToNested}, we can give a direct description of the inverse map~$\nestedToSpine$ of the map~$\spineToNested$.
+  Namely, consider a nested set~$N$ and two blocks~$B, B'$ of~$N$, and let~$\gamma, \gamma'$ denote the arcs of~$\spine \eqdef \nestedToSpine(N)$ such that~$\so[\gamma] = B$ and~$\so[\gamma'] = B'$.
+  Then
+  \begin{enumerate}[(i)]
+    \item the target of~$\gamma$ and the source of~$\gamma'$ coincide iff~$B \subseteq B'$ and~$\nexists \, B'' \in \nested$ with~$B \subseteq B'' \subseteq B'$ or~$B \negDisjoint B'' \posDisjoint B'$,
+    \item the targets of~$\gamma$ and~$\gamma'$ coincide iff~$B \negDisjoint B'$ and~$\nexists \, B'' \in \nested$ with~$B \subseteq B'' \negDisjoint B'$ or~${B \negDisjoint B'' \supseteq B'}$,
+\item the sources of~$\gamma$ and~$\gamma'$ coincide iff~$B \posDisjoint B'$ and~$\nexists \, B'' \in \nested$ with~$B \posDisjoint B'' \subseteq B'$ or~${B \supseteq B'' \posDisjoint B'}$.
+\end{enumerate}
+This gives a description of the vertices of the spine~$\nestedToSpine(\nested)$ in terms of equivalence classes of blocks of~$\nested$ (by the relations above). It also gives a direct definition of the directed graph underlying~$\nestedToSpine(\nested)$ as a quotient of a collection of disjoint arcs labeled by~$\nested$ by identification of some of their endpoints. Finally, each node of~$\nestedToSpine(\nested)$ with incoming arcs~$A$ and outgoing arcs~$B$ is given by
+\[
+\bigg( \bigcap_{\beta \in B} \so[\beta] \bigg) \ssm \bigg( \bigcup_{\alpha \in A} \so[\alpha] \bigg) = V_G \ssm \bigg( \bigcup_{\alpha \in A} \so[\alpha] \cup \bigcup_{\beta \in B} \ta[\beta] \bigg).
+\]
+\end{remark}
+
+\begin{corollary}
+  The nested complex is pure and flag simplicial complex.
+\end{corollary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Spine complex}
+\subsection{Flips and flip poset}
 
-We call \defn{splittable partitions} of~$G$ the splittable partitions of the vertex set of~$G$ (see \cref{def:splittable}).
+\begin{definition}
+  Let $G$ be a decorated block graph and let $\spine$ be a maximal spine on~$G$.
+  Consider two vertices $U = \{u\}$ and $V = \{v\}$ of $\spine$ related by an arc $\gamma$. 
+  Let $\alpha$ be the incoming arc of $U$ such that~$\so[\alpha]$ and~$V$ are contained in the same connected component of $G \ssm \down[U]$, and let $\beta$ be the outgoing arc of $V$ such that~$\ta[\beta]$ and~$U$ are contained in the same connected component of $G \ssm \up[V]$.
+  We define $\spine'$ to be the spine obtained from $\spine$ by reversing the orientation of~$\gamma$, grafting the arc~$\alpha$ to~$V$ and the arc~$\beta$ to~$U$.
+  We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
+\end{definition}
 
-\begin{lemma}
-  \label{lem:spineComplex}
-  Let $G$ be a decorated block graph, let $\spine$ be a spine on $G$, and let~$\gamma$ be an arc of~$\spine$.
-  Then the source set~$\so[\gamma]$ and the target set~$\ta[\gamma]$ form a splittable partition of~$G$.
+\begin{figure}[h!]
+\begin{tikzpicture}[scale=1.6]
+    
+\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $U$};
+\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $V$};
+    
+\node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,0.6) {\small $\beta_1$};
+\node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,0.6) {\small $\dots$};
+\node (oj) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.3,0.6) {\small $\beta_k$};
+    
+\node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.62) {\small $\beta_{k+1}$};
+\node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,1.6) {\small $\dots$};
+\node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1,1.6) {\small $\beta_\ell$};
+
+\node (2) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.5,1.6) {\small $\boldsymbol{\beta}$};
+
+\node (1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.5,-1.6) {\small $\boldsymbol{\alpha}$};
+    
+\node (i1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,-1.6) {\small $\alpha_1$};
+\node (id) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-1.6) {\small $\dots$};
+\node (im) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.6) {\small $\alpha_i$};
+    
+\node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.3,-0.62) {\small $\alpha_{i+1}$};
+\node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.8,-0.6) {\small $\dots$};
+\node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.2,-0.6) {\small $\alpha_j$};
+
+\draw[->,thick] (1)--(N0); 
+\draw[->,thick] (N1)--(2); 
+    
+\draw[->] (N0)--(o1); 
+\draw[->] (N0)--(od);
+\draw[->] (N0)--(oj);
+      
+\draw[->] (N0)--(N1) node[midway,left] {$\gamma$} ; 
+\draw[->] (N1)--(oj1); 
+\draw[->] (N1)--(ojd);
+\draw[->] (N1)--(ol);
+    
+\draw[->] (i1)--(N0);
+\draw[->] (id)--(N0);
+\draw[->] (im)--(N0); 
+    
+\draw[->] (im1)--(N1); 
+\draw[->] (imd)--(N1);
+\draw[->] (ik)--(N1);
+    
+\end{tikzpicture}
+\resizebox{0.1\linewidth}{!}{
+\raisebox{5.5em}{
+\begin{tikzpicture}
+    \draw[->] (0,0)--(1,0); 
+\end{tikzpicture}}}
+\quad
+\begin{tikzpicture}[scale=1.6]
+    
+\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,0.5) {\small $U$};
+\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,-0.5) {\small $V$};
+      
+\node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,1.6) {\small $\beta_1$};
+\node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,1.6) {\small $\dots$};
+\node (oj) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.6) {\small $\beta_k$};
+      
+\node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.3,0.62) {\small $\beta_{k+1}$};
+\node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.8,0.6) {\small $\dots$};
+\node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.2,0.6) {\small $\beta_\ell$};
+
+      
+\node (i1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,-0.6) {\small $\alpha_1$};
+\node (id) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,-0.6) {\small $\dots$};
+\node (im) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.3,-0.6) {\small $\alpha_i$};
+      
+\node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.62) {\small $\alpha_{i+1}$};
+\node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,-1.6) {\small $\dots$};
+\node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1,-1.6) {\small $\alpha_j$};
+
+\node (2) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.5,1.6) {\small $\boldsymbol{\beta}$};
+
+\node (1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.5,-1.6) {\small $\boldsymbol{\alpha}$};
+
+\draw[->,thick] (1)--(N1); 
+\draw[->,thick] (N0)--(2); 
+      
+\draw[->] (N0)--(o1); 
+\draw[->] (N0)--(od);
+\draw[->] (N0)--(oj);
+        
+\draw[->] (N1)--(N0) node[midway,right] {$\gamma$} ; 
+\draw[->] (N1)--(oj1); 
+\draw[->] (N1)--(ojd);
+\draw[->] (N1)--(ol);
+      
+\draw[->] (i1)--(N0);
+\draw[->] (id)--(N0);
+\draw[->] (im)--(N0); 
+      
+\draw[->] (im1)--(N1); 
+\draw[->] (imd)--(N1);
+\draw[->] (ik)--(N1);
+\end{tikzpicture}
+\caption{A spine flip.}
+\end{figure}
+
+The fact that $\spine'$ is indeed a spine is immediate from the definitions. Contracting $\gamma$ in either $\spine$ or $\spine'$, we obtain the same spine $\spine''$. 
+
+\begin{lemma} 
+  \label{lemma:coveringpair} 
+  The spines~$\spine$ and $\spine'$ are the only spines covering $\spine''$ in the spine poset.
 \end{lemma}
 
 \begin{proof}
-  Immediate from \cref{def:spine}.
+  This follows from \cref{prop:vertexsplitting}.
 \end{proof}
+  
+\begin{corollary} 
+   The nested complex of~$G$ is a closed pseudo-manifold. 
+\end{corollary}
 
-\begin{definition}
-  We call \defn{arc partitions} of~$\spine$ the splittable partitions~$\so[\gamma] \sqcup \ta[\gamma]$ of~$G$ for all arcs~$\gamma$ of~$\spine$.
+\begin{proof}
+  TBC
+\end{proof}
+  
+\begin{definition}[Flip poset] 
+  For $\spine$ and $\spine'$ two maximal spines, we say that $\spine \preccurlyeq \spine'$ if and only if $\spine'$ is obtained from $\spine$ by a flip. 
 \end{definition}
 
-Note that contracting an arc in~$\spine$ precisely removes one arc partition of~$\spine$.
-This yields the following simplicial complex on splittable partitions of~$G$.
-
-\begin{definition}
-  \label{def:spineComplex}
-  The \defn{spine complex} of~$G$ is the simplicial complex whose vertices are the splittable partitions of~$G$ and whose simplices are the sets of arc partitions of the spines on~$G$.
+\begin{remark}
+  The question of whether or not the flip poset $(\maxspines,\preccurlyeq)$ is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a path, it is always the case \cite{PonsPilaud18}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville18}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}
+\end{remark}
+  
+\begin{definition}[Flip graph] 
+  The \defn{flip graph} is the Hasse diagram of the flip poset. 
 \end{definition}
-
-We will prove later that this complex is flag.
-\vincent{todo}
-\vincent{We should make the compatibility explicit.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -879,153 +1045,6 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
   The construction of \cref{def:surjection} can also be seen as a sweeping algorithm.
   \vincent{todo}
 \end{remark}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Flips and flip poset}
-
-\begin{definition}
-  Let $G$ be a decorated block graph and let $\spine$ be a maximal spine on~$G$.
-  Consider two vertices $U = \{u\}$ and $V = \{v\}$ of $\spine$ related by an arc $\gamma$. 
-  Let $\alpha$ be the incoming arc of $U$ such that~$\so[\alpha]$ and~$V$ are contained in the same connected component of $G \ssm \down[U]$, and let $\beta$ be the outgoing arc of $V$ such that~$\ta[\beta]$ and~$U$ are contained in the same connected component of $G \ssm \up[V]$.
-  We define $\spine'$ to be the spine obtained from $\spine$ by reversing the orientation of~$\gamma$, grafting the arc~$\alpha$ to~$V$ and the arc~$\beta$ to~$U$.
-  We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
-\end{definition}
-
-\begin{figure}[h!]
-\begin{tikzpicture}[scale=1.6]
-    
-\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $U$};
-\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $V$};
-    
-\node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,0.6) {\small $\beta_1$};
-\node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,0.6) {\small $\dots$};
-\node (oj) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.3,0.6) {\small $\beta_k$};
-    
-\node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.62) {\small $\beta_{k+1}$};
-\node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,1.6) {\small $\dots$};
-\node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1,1.6) {\small $\beta_\ell$};
-
-\node (2) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.5,1.6) {\small $\boldsymbol{\beta}$};
-
-\node (1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.5,-1.6) {\small $\boldsymbol{\alpha}$};
-    
-\node (i1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,-1.6) {\small $\alpha_1$};
-\node (id) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-1.6) {\small $\dots$};
-\node (im) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.6) {\small $\alpha_i$};
-    
-\node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.3,-0.62) {\small $\alpha_{i+1}$};
-\node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.8,-0.6) {\small $\dots$};
-\node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.2,-0.6) {\small $\alpha_j$};
-
-\draw[->,thick] (1)--(N0); 
-\draw[->,thick] (N1)--(2); 
-    
-\draw[->] (N0)--(o1); 
-\draw[->] (N0)--(od);
-\draw[->] (N0)--(oj);
-      
-\draw[->] (N0)--(N1) node[midway,left] {$\gamma$} ; 
-\draw[->] (N1)--(oj1); 
-\draw[->] (N1)--(ojd);
-\draw[->] (N1)--(ol);
-    
-\draw[->] (i1)--(N0);
-\draw[->] (id)--(N0);
-\draw[->] (im)--(N0); 
-    
-\draw[->] (im1)--(N1); 
-\draw[->] (imd)--(N1);
-\draw[->] (ik)--(N1);
-    
-\end{tikzpicture}
-\resizebox{0.1\linewidth}{!}{
-\raisebox{5.5em}{
-\begin{tikzpicture}
-    \draw[->] (0,0)--(1,0); 
-\end{tikzpicture}}}
-\quad
-\begin{tikzpicture}[scale=1.6]
-    
-\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,0.5) {\small $U$};
-\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,-0.5) {\small $V$};
-      
-\node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,1.6) {\small $\beta_1$};
-\node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,1.6) {\small $\dots$};
-\node (oj) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.6) {\small $\beta_k$};
-      
-\node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.3,0.62) {\small $\beta_{k+1}$};
-\node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.8,0.6) {\small $\dots$};
-\node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.2,0.6) {\small $\beta_\ell$};
-
-      
-\node (i1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,-0.6) {\small $\alpha_1$};
-\node (id) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,-0.6) {\small $\dots$};
-\node (im) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.3,-0.6) {\small $\alpha_i$};
-      
-\node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.62) {\small $\alpha_{i+1}$};
-\node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,-1.6) {\small $\dots$};
-\node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1,-1.6) {\small $\alpha_j$};
-
-\node (2) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.5,1.6) {\small $\boldsymbol{\beta}$};
-
-\node (1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.5,-1.6) {\small $\boldsymbol{\alpha}$};
-
-\draw[->,thick] (1)--(N1); 
-\draw[->,thick] (N0)--(2); 
-      
-\draw[->] (N0)--(o1); 
-\draw[->] (N0)--(od);
-\draw[->] (N0)--(oj);
-        
-\draw[->] (N1)--(N0) node[midway,right] {$\gamma$} ; 
-\draw[->] (N1)--(oj1); 
-\draw[->] (N1)--(ojd);
-\draw[->] (N1)--(ol);
-      
-\draw[->] (i1)--(N0);
-\draw[->] (id)--(N0);
-\draw[->] (im)--(N0); 
-      
-\draw[->] (im1)--(N1); 
-\draw[->] (imd)--(N1);
-\draw[->] (ik)--(N1);
-\end{tikzpicture}
-\caption{A spine flip.}
-\end{figure}
-
-The fact that $\spine'$ is indeed a spine is immediate from the definitions. Contracting $\gamma$ in either $\spine$ or $\spine'$, we obtain the same spine $\spine''$. 
-
-\begin{lemma} 
-  \label{lemma:coveringpair} 
-  The spines~$\spine$ and $\spine'$ are the only spines covering $\spine''$ in the spine poset.
-\end{lemma}
-
-\begin{proof}
-  This follows from \cref{prop:vertexsplitting}.
-\end{proof}
-  
-\begin{corollary} 
-   The spine poset $\spines$ is a closed pseudo-manifold. 
-\end{corollary}
-
-\begin{proof}
-  TBC
-\end{proof}
-  
-\begin{definition}[Flip poset] 
-  For $\spine$ and $\spine'$ two maximal spines, we say that $\spine \preccurlyeq \spine'$ if and only if $\spine'$ is obtained from $\spine$ by a flip. 
-\end{definition}
-
-\begin{remark}
-  The question of whether or not the flip poset $(\maxspines,\preccurlyeq)$ is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a path, it is always the case \cite{PonsPilaud18}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville18}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}
-\end{remark}
-  
-\begin{definition}[Flip graph] 
-  The \defn{flip graph} is the Hasse diagram of the flip poset. 
-\end{definition}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
