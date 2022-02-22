@@ -159,6 +159,7 @@
 \newcommandx{\spine}[1][1=S]{#1} % spine
 \newcommandx{\spines}[1][1=G]{\mathcal{S}(#1)} % set of spines
 \newcommandx{\maxspines}[1][1=G]{\mathcal{MS}(#1)} % maximal spines
+\newcommandx{\spinePoset}[1][1=G]{\mathcal{P}_{#1}} % spine poset
 % nested complex
 \newcommandx{\nested}[1][1=N]{#1} % nested set
 \newcommand{\negNested}{\preceq} % negative nested
@@ -166,6 +167,7 @@
 \newcommand{\negDisjoint}{\perp} % negative disjoint
 \newcommand{\posDisjoint}{\;\top\;} % positive disjoint
 \newcommand{\compl}[1]{#1{}^\textsc{c}} % complement
+\newcommandx{\nestedComplex}[1][1=G]{\mathcal{N}_{#1}} % nested complex
 % maps
 \newcommand{\spineToNested}{\mathsf{N}} % spine to nested set
 \newcommand{\nestedToSpine}{\mathsf{S}} % nested set to spine
@@ -178,6 +180,7 @@
 \newcommand{\normalCone}{\mathsf{C}} % normal cone
 \newcommandx{\braidFan}[1][1=G]{\mathcal{F}_{#1}} % braid fan
 \newcommandx{\graphicalFan}[1][1=G]{\mathcal{G}_{#1}} % graphical fan
+\newcommandx{\spineFan}[1][1=G]{\mathcal{S}_{#1}} % spine fan
 % polytopes
 \newcommand{\polytope}[1]{\mathsf{#1}} % font polytopes
 \newcommandx{\Perm}[2][1=G,2=\weight]{\polytope{Perm}^{#2}_{#1}} % permutahedron
@@ -189,8 +192,8 @@
 \newcommandx{\boundary}[1][1=\pi]{\partial#1} % endpoints of a path
 \newcommandx{\peaks}[1][1=\pi]{\wedge#1} % top of a path
 \newcommandx{\valleys}[1][1=\pi]{\vee#1} % bottom of a path
-\newcommandx{\HH}[1][1=\weight]{\mathbb{H}} % hyperplane
-\newcommandx{\Hyp}[1][1=\weight]{\mathbf{H}} % halfspace
+\newcommandx{\Hyp}[1][1=\weight]{\mathbf{H}^{= #1}} % hyperplane
+\newcommandx{\HS}[1][1=\weight]{\mathbf{H}^{\ge #1}} % halfspace
 \newcommand{\monombinom}[1]{\big\{\!\begin{smallmatrix} #1 \\ 2 \end{smallmatrix}\!\big\}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -556,7 +559,7 @@ To define the reverse operation of node splitting, we first need the following n
 \end{proof}
 
 \begin{definition}
-  The \defn{spine poset} of~$G$ is the poset on spines on~$G$ defined by~$\spine \le \spine'$ if and only if~$\spine$ is obtained from~$\spine'$ by arc contractions, or equivalently~$\spine'$ is obtained from~$\spine$ by node~splittings.
+  The \defn{spine poset}~$\spinePoset$ is the poset on spines on~$G$ defined by~$\spine \le \spine'$ if and only if~$\spine$ is obtained from~$\spine'$ by arc contractions, or equivalently~$\spine'$ is obtained from~$\spine$ by node~splittings.
 \end{definition}
 
 \begin{corollary} 
@@ -616,12 +619,12 @@ To define the reverse operation of node splitting, we first need the following n
     \item $B \posDisjoint B'$ if $B \cup B' = V_G$ and~$B \cap B'$ is not a block of~$G$.
   \end{itemize}
   We say that~$B$ and~$B'$ are \defn{compatible} if $B \subseteq B'$, or $B \supseteq B'$, or $B \negDisjoint B'$ or $B \posDisjoint B'$.
-  We call \defn{nested set} on~$G$ a set of pairwise compatible blocks of~$G$.
 \end{definition}
 
 \begin{definition}
   \label{def:spineComplex}
-  The \defn{nested complex} of~$G$ is the simplicial complex of nested sets on~$G$.
+  A \defn{nested set} on~$G$ is a set of pairwise compatible blocks of~$G$.
+  The \defn{nested complex}~$\nestedComplex$ is the simplicial complex of nested sets on~$G$.
   In other words, it is the clique complex of the compatibility relation on blocks of~$G$.
 \end{definition}
 
@@ -659,7 +662,7 @@ To define the reverse operation of node splitting, we first need the following n
 
 \begin{proposition}
   \label{prop:spineToNested}
-  The map~$\spineToNested$ defined by~$\spineToNested(\spine) \eqdef \set{\so[\gamma]}{\gamma \text{ arc of } \spine}$ defines a ranked bijection from the spine poset to the face poset of the nested complex.
+  The map~$\spineToNested$ defined by~$\spineToNested(\spine) \eqdef \set{\so[\gamma]}{\gamma \text{ arc of } \spine}$ is a poset isomorphism from the spine poset~$\spinePoset$ to the face poset of the nested complex~$\nestedComplex$.
 \end{proposition}
 
 \begin{proof}
@@ -740,7 +743,7 @@ This gives a description of the nodes of the spine~$\nestedToSpine(\nested)$ in 
 \end{remark}
 
 \begin{corollary}
-  The nested complex is pure and flag simplicial complex.
+  The nested complex~$\nestedComplex$ is pure and flag simplicial complex.
 \end{corollary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -864,7 +867,7 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 
 \begin{lemma} 
   \label{lemma:coveringpair} 
-  The spines~$\spine$ and $\spine'$ are the only spines covering $\spine''$ in the spine poset.
+  The spines~$\spine$ and $\spine'$ are the only spines covering $\spine''$ in the spine poset~$\spinePoset$.
 \end{lemma}
 
 \begin{proof}
@@ -875,11 +878,11 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 \begin{definition}
   \label{def:flipGraph}
   The \defn{flip graph} is the graph whose vertices are the maximal spines on~$G$ and whose egdes are the flips between them.
-  In other words, it is the facet-ridge graph of the nested complex of~$G$.
+  In other words, it is the facet-ridge graph of the nested complex~$\nestedComplex$.
 \end{definition}
 
 \begin{corollary} 
-   The nested complex of~$G$ is a closed pseudo-manifold. 
+   The nested complex~$\nestedComplex$ is a closed pseudo-manifold. 
 \end{corollary}
   
 \begin{definition}
@@ -1010,7 +1013,7 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Surjection maps}
+\subsection{Surjection maps and rewriting rules}
 \label{subsec:surjectionMaps}
 
 Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\pi \eqdef \pi_1 | \dots | \pi_p$ of non-empty (unordered) subsets of~$B$ which form a partition of~$B$.
@@ -1039,6 +1042,7 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
   \label{def:surjection}
   Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$.
   For an ordered partition~$\pi \eqdef \pi_1 | \dots | \pi_p$ of~$B$, we construct a blossoming spine~$\partitionToSpine(\pi)$ on~$M$ in four steps:
+  \vincent{Do we want ordered partitions of surjections?}
   \begin{itemize}[wide, labelwidth=!, labelindent=5pt]
     \item \textbf{construct}
     \begin{itemize}[wide, labelwidth=!, labelindent=10pt]
@@ -1065,7 +1069,11 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 
 \vincent{Specialize to permutations?}
 \vincent{Rewriting rules...}
-\vincent{Surjections from spines to acyclic orientations of~$G$.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Refinement}
+\label{subsec:refinement}
 
 \begin{definition}
   \label{def:refinement}
@@ -1078,19 +1086,38 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
   If~$G$ refines~$G'$, then the equivalence relation of~$G$ refines the equivalence relation of~$G'$.
 \end{proposition}
 
+\begin{proof}
+  \vincent{todo}
+\end{proof}
+
+\begin{example}
+  \vincent{Surjections from spines to acyclic orientations of~$G$.}
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Links}
+\label{subsec:links}
+
+\begin{proposition}
+  \label{prop:links}
+  The link of any face of the nested complex~$\nestedComplex$ of a decorated block graph~$G$ is a join of nested complexes of decorated block graphs.
+\end{proposition}
+
+\begin{proof}
+  \vincent{todo}
+\end{proof}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Geometry: spine fans and polytopes}
 
-For a set~$X$, we denote by~$\monombinom{X}$ the set of~$\binom{|X|+1}{2}$ subsets of~$X$ of size $1$ or~$2$.
-We fix a \defn{weight}~$\weight_p$ for all~$p \in \monombinom{V_G}$, and we define~$\weight_U \eqdef \sum_{p \in \monombinom{U}} \weight_p$ for any subset~$U$ of~$V_G$.
-
 We denote by~$(\b{e}_v)_{v \in V_G}$ the standard basis of~$\R^{V_G}$.
 We denote by~$\one_U \eqdef \sum_{u \in U} \b{e}_u$ the characteristic vector of a subset~$U \subseteq V_G$, and write just~$\one$ for~$\one_{V_G}$.
 %We consider the hyperplane
 %\[
-%\HH \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}.
+%\Hyp \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}.
 %\]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1100,18 +1127,21 @@ We denote by~$\one_U \eqdef \sum_{u \in U} \b{e}_u$ the characteristic vector of
 %We first recall some observations on the braid arrangement (see \eg \cite{Postnikov, PostnikovReinerWilliams}) and on graphical arrangements.
 %
 Recall that a (polyhedral) \defn{cone} is the positive span of a finite set of vectors, or equivalently the intersection of a finite set of linear halfspaces.
-The faces of a cone are its intersections with its supporting linear hyperplanes.
-A (polyhedral) \defn{fan} is a collection~$\c{F}$ of polyhedral cones closed under faces (if~$C$ is a face of~$C'$, then~$C' \in \c{F} \Rightarrow C' \in \c{F}$) and intersecting along faces (any two cones of~$\c{F}$ intersect along a face of both).
+The \defn{faces} of a cone are its intersections with its supporting linear hyperplanes.
+A (polyhedral) \defn{fan}~$\c{F}$ is a collection of polyhedral cones closed under faces (if~$\polytope{C}$ is a face of~$\polytope{C'}$, then~$\polytope{C'} \in \c{F} \Rightarrow \polytope{C'} \in \c{F}$) and intersecting along faces (any two cones of~$\c{F}$ intersect along a face of both).
+The \defn{rays} of~$\c{F}$ are its dimension~$1$ cones, and the \defn{regions} of~$\c{F}$ are its inclusion maximal cones.
 The fan~$\c{F}$ is \defn{essential} when its inclusion minimal cone is the origin, \defn{complete} when its cones cover the space, and \defn{simplicial} when all its cones are simplicial (generated by linearly independent vectors).
+We next consider two very classical examples of fans.
 
 \begin{example}
   \label{exm:braidFan}
   The \defn{braid arrangement} is the collection of hyperplanes~$\set{\b{x} \in \R^{V_G}}{x_u = x_v}$ for all~$u \ne v \in V_G$.
-  Since this arrangement is not essential (all its hyperplanes contain the line generated by~$\one$), we consider its intersection with the hyperplane~$\HH \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}$.
+  Since this arrangement is not essential (all its hyperplanes contain the line generated by~$\one$), we consider its intersection with the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}}$.
   This intersection defines the \defn{braid fan}~$\braidFan$.
-  Each surjection~$\pi : V_G \to [k+1]$ corresponds to a $k$-dimensional cone~$\normalCone(\pi) \eqdef \set{\b{x} \in \HH}{x_u \le x_v \text{ iff } \pi^{-1}(u) \le \pi^{-1}(v)}$ of~$\braidFan$.
-  In particular, the regions of~$\braidFan$ correspond to permutations of~$V_G$ and the rays of~$\braidFan$ correspond to proper subsets of~$V_G$ (neither empty nor all~$V_G$).
-%More generally, we associate to an acyclic oriented graph~$H$ whose nodes partition~$V_G$ the cone~$\normalCone(H) \eqdef \set{\b{x} \in \HH}{x_u \le x_v \text{ for all } u \preccurlyeq_H v}$, where~$u \preccurlyeq_H v$ means that there is a directed path in~$H$ from the node containing~$u$ to the node containing~$v$ (in particular, ~$u =_H v$ if~$u$ and~$v$ belong to the same node of~$H$).
+  Each surjection~$\pi : V_G \to [k+1]$ corresponds to a $k$-dimensional cone~$\normalCone(\pi) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ iff } \pi(u) \le \pi(v)}$ of~$\braidFan$.
+  In particular, the regions of~$\braidFan$ correspond to bijections~$V_G \to [|V_G|]$ and the rays of~$\braidFan$ correspond to proper subsets of~$V_G$ (neither empty nor all~$V_G$).
+  \vincent{Not sure if we want surjections or ordered partitions here.}
+%More generally, we associate to an acyclic oriented graph~$H$ whose nodes partition~$V_G$ the cone~$\normalCone(H) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all } u \preccurlyeq_H v}$, where~$u \preccurlyeq_H v$ means that there is a directed path in~$H$ from the node containing~$u$ to the node containing~$v$ (in particular, ~$u =_H v$ if~$u$ and~$v$ belong to the same node of~$H$).
 %Recall that a \defn{preposet} on~$V_G$ is a reflexive and transitive binary relation~$R \subsetea V_G \times V_G$.
 %An equivalence relation is a symmetric preposet, and a poset if an antisymmetric preposet.
 %Any preposet~$R$ decomposes into an equivalence relation~$\equiv_R \eqdef \set{(u,v) \in R}{(v,u) \in R}$ together with a poset structure~${\prec_R \eqdef \, R/\!\equiv_R}$ on the equivalence classes of~$\equiv_R$.
@@ -1119,7 +1149,7 @@ The fan~$\c{F}$ is \defn{essential} when its inclusion minimal cone is the origi
 %For two vertices~$u,v \in V_G$, we write~$u \preccurlyeq_H v$ if there is a directed path in~$H$ from the node containing~$u$ to the node containing~$v$ (in particular, ~$u =_H v$ if~$u$ and~$v$ belong to the same node of~$H$).
 %We associate to~$H$ the two cones
 %\[
-%  \normalCone(H) \eqdef \set{\b{x} \in \HH}{x_u \le x_v \text{ for all } u \preccurlyeq_H v}
+%  \normalCone(H) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all } u \preccurlyeq_H v}
 %  \quad\text{and}\quad
 %  \primalCone(H) \eqdef \cone\set{\b{e}_u - \b{e}_v}{\text{for all } u \preccurlyeq_H v}.
 %\]
@@ -1129,7 +1159,7 @@ The fan~$\c{F}$ is \defn{essential} when its inclusion minimal cone is the origi
 \begin{example}
   \label{exm:graphicalFan}
   The \defn{graphical arrangement} of~$G$ is the collections of hyperplanes~$\set{\b{x} \in \R^{V_G}}{x_u = x_v}$ for all~$\{u,v\} \in E_G$.
-  Its intersection with the hyperplane~$\HH$ defines the \defn{graphical fan}~$\graphicalFan$.
+  Its intersection with the hyperplane~$\Hyp[0]$ defines the \defn{graphical fan}~$\graphicalFan$.
   The faces of~$\graphicalFan$ correspond to the pairs~$(p,o)$ where~$p$ is a partition of~$V_G$ into connected subgraphs, and~$o$ is an acyclic orientation of the quotient graph~$G/p$.
   In particular, the regions of~$\graphicalFan$ correspond to the acyclic orientations of~$G$.
 \end{example}
@@ -1138,32 +1168,32 @@ We consider the following fan which is sandwiched between the braid fan and the 
 
 \begin{definition}
   \label{def:spineFan}
-  For a spine~$\spine$, we denote by~$\normalCone(\spine)$ the cone of~$\HH$ defined by the inequalities~$x_u \le x_v$ for all directed paths joining~$u$ to~$v$ in~$\spine$ (in particular, $x_u = x_v$ when $u,v$ belong to the same node of~$\spine$).
+  For a spine~$\spine$, we denote by~$\normalCone(\spine)$ the cone of~$\Hyp[0]$ defined by the inequalities~$x_u \le x_v$ for all directed paths joining~$u$ to~$v$ in~$\spine$ (in particular, $x_u = x_v$ when $u,v$ belong to the same node of~$\spine$).
 %  \[
-%    \normalCone(\spine) \eqdef \set{\b{x} \in \HH}{x_u \le x_v \text{ for all (possibly trivial) directed paths } u \to v \text{ in } \spine}
+%    \normalCone(\spine) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all (possibly trivial) directed paths } u \to v \text{ in } \spine}
 %  \]
-  The \defn{spine fan} of~$G$ is the collection of cones~$\normalCone(\spine)$ for all spines~$\spine$ on~$G$.  
+  The \defn{spine fan}~$\spineFan$ is the collection of cones~$\normalCone(\spine)$ for all spines~$\spine$ on~$G$.  
 \end{definition}
 
 \begin{proposition}
   \label{prop:spineFan}
-  The spine fan is a complete simplicial fan on~$\HH$.
+  The spine fan~$\spineFan$ is a complete simplicial fan on~$\Hyp[0]$.
 \end{proposition}
 
 \begin{proof}
-  Since each spine~$\spine$ on~$G$ is a directed tree, the cone~$\normalCone(\spine)$ is simplicial, and its faces are the cones~$\normalCone(\spine')$ for all spines~$\spine'$ obtained by repeated arc contractions in~$\spine$ (in other words, for all spines in the lower ideal of the spine poset generated by~$\spine$).
-  We thus just need to prove that the cones~$\normalCone(\spine)$ properly intersect and cover~$\HH$, or equivalently, that the relative interiors of the cones~$\normalCone(\spine)$ partition~$\HH$.
+  Since each spine~$\spine$ on~$G$ is a directed tree, the cone~$\normalCone(\spine)$ is simplicial, and its faces are the cones~$\normalCone(\spine')$ for all spines~$\spine'$ obtained by repeated arc contractions in~$\spine$ (in other words, for all spines in the lower ideal of the spine poset~$\spinePoset$ generated by~$\spine$).
+  We thus just need to prove that the cones~$\normalCone(\spine)$ properly intersect and cover~$\Hyp[0]$, or equivalently, that the relative interiors of the cones~$\normalCone(\spine)$ partition~$\Hyp[0]$.
   This immediately follows from \cref{subsec:surjectionMaps}.
   \vincent{Be more precise here.}
 \end{proof}
 
 \begin{corollary} 
-   The nested complex of~$G$ is a simplicial sphere.
+   The nested complex~$\nestedComplex$ is a simplicial sphere.
 \end{corollary}
 
 %\begin{proposition}
 %  \label{prop:fanSandwich}
-%  The spine fan coarsens the braid fan and refines the graphical fan.
+%  The spine fan~$\spineFan$ coarsens the braid fan~$\braidFan$ and refines the graphical fan~$\graphicalFan$.
 %\end{proposition}
 %
 %\begin{proof}
@@ -1172,17 +1202,17 @@ We consider the following fan which is sandwiched between the braid fan and the 
 
 \begin{example}
   \label{exm:braidFanGraphicalFan}
-  The spine fan recovers the braid fan and the graphical fan in the following two extreme situations:
+  The spine fan~$\spineFan$ recovers the braid fan~$\braidFan$ of \cref{exm:braidFan} and the graphical fan~$\graphicalFan$ of \cref{exm:graphicalFan} in the following two extreme situations:
   \begin{itemize}
-    \item if~$\down[V_G] = \up[V_G] = \varnothing$, then the spine fan of~$G$ is the braid fan (see \cref{exm:braidFan}),
-    \item if~$\down[V_G] = \up[V_G] = V_G$, then the spine fan of~$G$ is the graphical fan of~$G$ (see \cref{exm:graphicalFan}).
+    \item if~$\down[V_G] = \up[V_G] = \varnothing$, then the spine fan~$\spineFan$ is the braid fan~$\braidFan$,
+    \item if~$\down[V_G] = \up[V_G] = V_G$, then the spine fan~$\spineFan$ is the graphical fan~$\graphicalFan$.
   \end{itemize}
 \end{example}
 
 \begin{proposition}
   \label{prop:refinementSpineFan}
-  If~$G$ refines~$G'$, the spine fan of~$G$ refines the spine fan of~$G'$.
-  In particular, the spine fan coarsens the braid fan and refines the graphical fan.
+  If~$G$ refines~$G'$, the spine fan~$\spineFan[G]$ refines the spine fan~$\spineFan[G']$.
+  In particular, the spine fan~$\spineFan$ coarsens the braid fan~$\braidFan$ and refines the graphical fan~$\graphicalFan$.
 \end{proposition}
 
 \begin{proof}
@@ -1193,27 +1223,38 @@ We consider the following fan which is sandwiched between the braid fan and the 
 
 \subsection{Spine polytope}
 
-Recall that a \defn{polytope} is the convex hull of a finite set of points, or equivalently a bounded intersection of a finite set of affine halfspaces.
-The faces of a polytope are its intersections with its supporting affine hyperplanes.
-The \defn{normal cone} of a face~$F$ of a polytope~$P$ is the cone of all linear functions whose maximum over~$P$ is attained precisely on~$F$.
-The \defn{normal fan} of~$P$ is the fan formed by the normal cones of all the faces of~$P$.
+Recall that a \defn{polytope}~$\polytope{P}$ is the convex hull of a finite set of points, or equivalently a bounded intersection of a finite set of affine halfspaces.
+The \defn{faces} of~$\polytope{P}$ are its intersections with its supporting affine hyperplanes.
+The \defn{vertices} of~$\polytope{P}$ are its dimension~$0$ faces, and the \defn{facets} of~$\polytope{P}$ are its codimension~$1$ faces.
+The \defn{normal cone} of a face~$\polytope{F}$ of~$\polytope{P}$ is the cone of all linear functions whose maximum over~$\polytope{P}$ is attained precisely on~$\polytope{F}$.
+The \defn{normal fan} of~$\polytope{P}$ is the fan formed by the normal cones of all the faces of~$\polytope{P}$.
+We next consider two very classical examples of polytopes.
+All our polytopes are parametrized by a weight function, which does not change their combinatorics but provides more freedom for their geometry.
+
+\begin{definition}
+  \label{def:weight}
+  For a set~$X$, we denote by~$\monombinom{X}$ the set of~$\binom{|X|+1}{2}$ subsets of~$X$ of size $1$ or~$2$.
+  We fix a \defn{weight}~$\weight_p$ for all~$p \in \monombinom{V_G}$, and we define~$\weight_U \eqdef \sum_{p \in \monombinom{U}} \weight_p$ for any subset~$U$ of~$V_G$.
+\end{definition}
 
 \begin{example}
   \label{exm:permutahedron}
   The \defn{permutahedron}~$\Perm$ is the polytope defined equivalently as
   \begin{itemize}
-    \item the convex hull of the points ...
-    \vincent{todo: be careful with weights...}
-    \item the intersection of the affine hyperplane~$\HH \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}$ with the affine halfspaces~$\Hyp_U \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one_U}{\b{x}} \ge \weight_U}$ for all subsets~$\varnothing \ne U \subsetneq V_G$.
+%    \item the convex hull of the points~$\sum_{u,v \in V_G} \delta_{\sigma(u) \le \sigma(v)} \weight_{uv} \b{e}_v$ for all bijections~$\sigma: V_G \to [|V_G|]$,
+    \item the convex hull of the points~$\point[\sigma] \eqdef \sum_{p \in \monombinom{V_G}} \weight_p \b{e}_{\max_\sigma(p)}$ for all bijections~$\sigma: V_G \to [|V_G|]$,
+    \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}$ with the affine halfspaces~$\HS_U \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one_U}{\b{x}} \ge \weight_U}$ for all subsets~$\varnothing \ne U \subsetneq V_G$,
+    \item the Minkowski sum~$\sum_{p \in \monombinom{V_G}} \weight_p \triangle_p$, where~$\triangle_p \eqdef \conv\set{\b{e}_v}{v \in p}$.
   \end{itemize}
-  The normal fan of the permutahedron~$\Perm$ is the braid fan~$\braidFan$.
+  The braid fan~$\braidFan$ is the normal fan of the permutahedron~$\Perm$.
+  Note that the barycenter of~$\Perm$ is the point~$\b{0}^\weight \eqdef \sum_{p \in \monombinom{V_G}} \frac{\weight_p}{|p|} \one_p$.
 \end{example}
 
 \begin{example}
   \label{exm:graphicalZonotope}
   The \defn{graphical zonotope}~$\Zono$ is the polytope defined as...
-  The normal fan of the graphical zonotope~$\Zono$ is the graphical fan~$\graphicalFan$.
-  \vincent{todo}
+  The graphical fan~$\graphicalFan$ is the normal fan of the graphical zonotope~$\Zono$.
+  \vincent{todo. Be careful with the translation part...}
 \end{example}
 
 We consider the following polytope which is sandwiched between the permutahedron and the graphical zonotope.
@@ -1222,17 +1263,17 @@ We consider the following polytope which is sandwiched between the permutahedron
   For a maximal spine~$\spine$ on~$G$, we denote by~$\Pi(\spine)$ the set of (undirected and simple) paths joining two (possibly identical) nodes of~$\spine$.
   For a path~$\pi \in \Pi(\spine)$, we denote by
   \begin{itemize}
-    \item $\boundary$ the set of endpoints of~$\pi$, and $\weight_\pi$ the weight~$\weight_{\boundary}$, 
+    \item $\boundary$ the set of endpoints of~$\pi$, % and $\weight_\pi$ the weight~$\weight_{\boundary}$, 
     \item $\peaks$ (resp.~$\valleys$) the set of \defn{peaks} (resp.~\defn{valleys}) of~$\pi$, \ie nodes~$u$ of~$\pi$ where no outgoing (resp. incoming) arc of~$u$ is used by~$\pi$.
   \end{itemize}
 \end{definition}
 
 \begin{theorem}
   \label{thm:permutreehedra}
-  For any weight matrix~$\weight$, the spine fan of~$G$ is the normal fan of the \defn{spine polytope} of~$G$ defined equivalently as
+  For any weight matrix~$\weight$, the spine fan~$\spineFan$ is the normal fan of the \defn{spine polytope}~$\Spin$ defined irredundantly and equivalently as
   \begin{enumerate}[(i)]
-    \item the convex hull of the points~$\point \eqdef \sum_{\pi \in \Pi(\spine)} \weight_\pi \big( \one_{\peaks} - \one_{\valleys \ssm \boundary} \big)$ for all corank~$0$ spines~$\spine$~on~$G$,
-    \item the intersection of the affine hyperplane~$\HH \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}$ with the affine halfspaces~$\Hyp_B \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one_B}{\b{x}} \ge \weight_B}$ for all blocks of~$G$.
+    \item the convex hull of the points~$\point \eqdef \sum_{\pi \in \Pi(\spine)} \weight_{\boundary} \big( \one_{\peaks} - \one_{\valleys \ssm \boundary} \big)$ for all corank~$0$ spines~$\spine$~on~$G$,
+    \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}$ with the affine halfspaces~$\HS_B \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one_B}{\b{x}} \ge \weight_B}$ for all blocks of~$G$.
   \end{enumerate}
 \end{theorem}
 
@@ -1242,19 +1283,25 @@ Our proof of \cref{thm:permutreehedra} is based on the following result of C.~Ho
 
 \begin{theorem}[\protect{\cite[Thm.~4.1]{HohlwegLangeThomas}}]
   \label{thm:HohlwegLangeThomas}
-  Given a pointed complete simplicial fan~$\c{F}$ in~$\R^d$, consider
-  \begin{enumerate}[(i)]
-    \item for each ray~$\rho$ of~$\c{F}$, a half-space~$\Hyp_\rho$ of~$\R^d$ containing the origin and defined by an hyperplane~$\Hyp^=_\rho$ orthogonal to~$\rho$,
-    \item for each maximal cone~$C$ of~$\c{F}$, a point~$\b{a}_C$ of~$\R^d$ contained in~$\Hyp^=_\rho$ for each ray~$\rho \in C$.
-  \end{enumerate}
-  If for each pair~$C,C'$ of adjacent maximal cones of~$\c{F}$, the vector~$\b{a}_C - \b{a}_{C'}$ points from~$C'$ to~$C$, then the descriptions
+  Given an essential complete simplicial fan~$\c{F}$ in~$\R^d$, consider a point~$\b{a}_C$ of~$\R^d$ for each chamber~$C$ of~$\c{F}$ and a halfspace~$\HS[]_\rho$ of~$\R^d$ for each ray~$\rho$ of~$\c{F}$, containing the origin and supported by a hyperplane~$\Hyp[]_\rho$ orthogonal to~$\rho$.
+  If 
+  \begin{itemize}
+%    \item for each ray~$\rho$, the halfspace~$\HS[]_\rho$ contains the origin and is supported by a hyperplane~$\Hyp[]_\rho$ orthogonal to~$\rho$,
+    \item for each ray~$\rho$ in a chamber~$C$, the point $\b{a}_C$ is contained in the hyperplane~$\Hyp[]_\rho$, and
+    \item for each pair~$C,C'$ of adjacent chambers of~$\c{F}$, the vector~$\b{a}_C - \b{a}_{C'}$ points from~$C'$ to~$C$,
+  \end{itemize}
+  then the descriptions
   \[
-    \conv\set{\b{a}_C}{C \text{ maximal cone of } \c{F}}
+    \conv\set{\b{a}_C}{C \text{ chamber of } \c{F}}
     \qquad\text{and}\qquad
-    \bigcap_{\rho \text{ ray of } \c{F}} \Hyp_\rho
+    \bigcap_{\rho \text{ ray of } \c{F}} \HS[]_\rho
   \]
-  define the same polytope whose normal fan is~$\c{F}$. \qed
+  are irredundant and define the same polytope whose normal fan is~$\c{F}$.
+  \qed
 \end{theorem}
+
+Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThomas} are fulfilled by the points and halspaces of \cref{thm:permutreehedra}.
+\vincent{discussion about the origin here...}
 
 \begin{lemma}
   \label{lem:vertexFacetIncidences}
@@ -1263,13 +1310,13 @@ Our proof of \cref{thm:permutreehedra} is based on the following result of C.~Ho
 
 \begin{proof}
   Along any path~$\pi$, the peaks and valleys alternate, so that~$\dotprod{\one}{\one_{\peaks} - \one_{\valleys \ssm \boundary}} = 1$.
-  This shows that~$\dotprod{\one}{\point} = \sum_{\pi \in \Pi(\spine)} \weight_\pi = \weight_{V_G}$ since any two vertices of~$V_G$ are connected by precisely one simple path in~$\spine$.
+  This shows that~$\dotprod{\one}{\point} = \sum_{\pi \in \Pi(\spine)} \weight_{\boundary} = \weight_{V_G}$ since any two vertices of~$V_G$ are connected by precisely one simple path in~$\spine$.
   
   Consider now an arc~$\gamma$ of~$\spine$.
   Again, the peaks and valleys alternate along any path~$\pi$.
   Moreover, if~$\pi$ contains~$\gamma$, then the closest node to~$\gamma$ in~$\peaks \cup \valleys$ in~$\so[\gamma]$ (resp.~in~$\ta[\gamma]$) is a valley (resp.~a peak).
   Hence, $\dotprod{\one_{\so[\gamma]}}{\one_{\peaks} - \one_{\valleys \ssm \boundary}} = 1$ if~$\gamma$ is included in~$\so[\gamma]$ and~$0$ otherwise.
-  We conclude that~$\dotprod{\one_{\so[\gamma]}}{\point} = \sum_{\pi \in \Pi(\spine), \; \boundary \subseteq \so[\gamma]} \weight_\pi = \weight_{V_G}$ since any two vertices of~$\so[\gamma]$ are connected by precisely one simple path in~$\spine$.
+  We conclude that~$\dotprod{\one_{\so[\gamma]}}{\point} = \sum_{\pi \in \Pi(\spine), \; \boundary \subseteq \so[\gamma]} \weight_{\boundary} = \weight_{V_G}$ since any two vertices of~$\so[\gamma]$ are connected by precisely one simple path in~$\spine$.
 \end{proof}
 
 \begin{lemma}
@@ -1296,22 +1343,22 @@ Our proof of \cref{thm:permutreehedra} is based on the following result of C.~Ho
 
 \begin{proof}[Proof of \cref{thm:permutreehedra}]
   For the spine polytope of \cref{thm:permutreehedra}, the conditions of \cref{thm:HohlwegLangeThomas} are guarantied by~\cref{lem:vertexFacetIncidences,lem:flipDifference}.
-  It follows that the spine polytope of~$G$ realizes the nested complex of~$G$ and that its normal fan is the spine fan of~$G$.
+  It follows that the spine polytope of~$G$ realizes the nested complex~$\nestedComplex$ and that its normal fan is the spine fan~$\spineFan$.
 \end{proof}
 
 \begin{example}
   \label{exm:permutahedronGraphicalZonotope}
-  The spine polytope recovers the permutahedron and the graphical zonotope in the following two extreme situations:
+  The spine polytope recovers the permutahedron of \cref{exm:permutahedron} and the graphical zonotope of \cref{exm:graphicalZonotope} in the following two extreme situations:
   \begin{itemize}
-    \item if~$\down[V_G] = \up[V_G] = \varnothing$, then the spine polytope of~$G$ is the permutahedron (see \cref{exm:permutahedron}),
-    \item if~$\down[V_G] = \up[V_G] = V_G$, then the spine polytope of~$G$ is the graphical zonotope of~$G$ (see \cref{exm:graphicalZonotope}).
+    \item if~$\down[V_G] = \up[V_G] = \varnothing$, then the spine polytope~$\Spin$ is the permutahedron~$\Perm$,
+    \item if~$\down[V_G] = \up[V_G] = V_G$, then the spine polytope~$\Spin$ is the graphical zonotope~$\Zono$.
   \end{itemize}
 \end{example}
 
 \begin{proposition}
   \label{prop:refinementSpinePolytopes}
-  If~$G$ refines~$G'$, then all facet inequalities of the spine polytope of~$G$ are facet inequalities of the spine polytope of~$G'$.
-    In particular, the spine polytope of~$G$ contains the permutahedron and is contained in the graphical zonotope of~$G$.
+  If~$G$ refines~$G'$, then all facet inequalities of~$\Spin[G]$ are facet inequalities of~$\Spin[G']$.
+  In particular, the spine polytope~$\Spin$ contains the permutahedron~$\Perm$ and is contained in the graphical zonotope~$\Zono$.
 \end{proposition}
 
 \begin{proof}
