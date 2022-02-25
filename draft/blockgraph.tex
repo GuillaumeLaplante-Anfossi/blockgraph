@@ -666,7 +666,7 @@ To define the reverse operation of node splitting, we first need the following n
 \end{proposition}
 
 \begin{proof}
-  We prove that the map~$\spineToNested$ is well-defined, injective and surjective.
+  We prove that the map~$\spineToNested$ is well-defined, injective, surjective, and order-preserving.
   
   \para{Well-defined}
   Observe that for any spine~$\spine$ on~$G$:
@@ -724,6 +724,9 @@ To define the reverse operation of node splitting, we first need the following n
   If~$U \ne U'$, then~$U'$ is still a node of~$\spine'$ so that there is nothing to prove.
   If~$U = U'$, then the node~$U \cap B$ of~$\spine'$ suits if~$B \supseteq B'$ or~$B \negDisjoint B'$, while the node~$U \ssm B$ of~$\spine'$  suits if~$B \subseteq B'$ or~$B \posDisjoint B'$.
   \vincent{Check that, maybe add a sentence...}
+
+  \para{Order-preserving}
+  Finally, $\spineToNested$ is clearly order preserving as contracting one arc of a spine~$\spine$ removes the corresponding block of the nested set~$\spineToNested(\spine)$.
 \end{proof}
 
 \begin{remark}
@@ -1070,6 +1073,18 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 \vincent{Specialize to permutations?}
 \vincent{Rewriting rules...}
 
+\begin{definition}
+  \label{def:equivalenceRelation}
+  We denote by~$\equiv_G$ the equivalence relation on ordered partitions of~$V_G$ defined by~$\pi \equiv_G \pi'$ iff $\partitionToSpine(\pi) = \partitionToSpine(\pi')$.
+  In other words, the equivalence classes of~$\equiv_G$ are the fibers of the map~$\partitionToSpine$.
+  \end{definition}
+
+\begin{remark}
+  \label{rem:latticeCongruence}
+  Note that~$\equiv$ has no reason to be a lattice congruence.
+  \vincent{todo}
+\end{remark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Refinement}
@@ -1078,12 +1093,25 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 \begin{definition}
   \label{def:refinement}
   %Let~$G$ and~$G'$ be two decorated block graphs.
-  We say that~$G$ \defn{refines}~$G'$ (and that $G'$ \defn{coarsens} $G$) if they are decorations of the same underlying block graph and $\down[V_G] \supseteq \down[V_{G'}]$ while $\up[V_G] \supseteq \up[V_{G'}]$.
+  We say that~$G$ \defn{refines}~$G'$ (and that $G'$ \defn{coarsens} $G$) if they are decorations of the same underlying block graph and $\down[V_G] \subseteq \down[V_{G'}]$ while $\up[V_G] \subseteq \up[V_{G'}]$.
 \end{definition}
 
 \begin{proposition}
   \label{prop:refinementSurjection}
-  If~$G$ refines~$G'$, then the equivalence relation of~$G$ refines the equivalence relation of~$G'$.
+  If~$G$ refines~$G'$, then
+  \begin{itemize}
+    \item any block of~$G'$ is a block of~$G$,
+    \item the nested complex~$\nestedComplex[G']$ contains the subcomplex of~$\nestedComplex[G]$ induced by the blocks of~$G'$.
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  \vincent{todo}
+\end{proof}
+
+\begin{proposition}
+  \label{prop:refinementSurjection}
+  If~$G$ refines~$G'$, then~$\equiv_G$ refines~$\equiv_{G'}$.
 \end{proposition}
 
 \begin{proof}
@@ -1098,6 +1126,8 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 
 \subsection{Links}
 \label{subsec:links}
+
+\vincent{need to explain links in terms of spines as well...}
 
 \begin{proposition}
   \label{prop:links}
