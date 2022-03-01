@@ -149,6 +149,10 @@
 % COMBINATORICS
 
 % decorations
+\newcommand{\vertexSet}{V}
+\newcommand{\decoration}{\delta}
+\newcommandx{\Up}[2][1=v, 2=\decoration]{\overline #2(#1)} 
+\newcommandx{\Down}[2][1=v, 2=\decoration]{\underline #2(#1)} 
 \newcommandx{\up}[1][1=v]{\overline{#1}} 
 \newcommandx{\down}[1][1=v]{\underline{#1}} 
 \newcommandx{\updown}[1][1=v]{\overline{\underline{#1}}} 
@@ -158,7 +162,6 @@
 % spines
 \newcommandx{\spine}[1][1=S]{#1} % spine
 \newcommandx{\spines}[1][1=G]{\mathcal{S}(#1)} % set of spines
-\newcommandx{\maxspines}[1][1=G]{\mathcal{MS}(#1)} % maximal spines
 \newcommandx{\spinePoset}[1][1=G]{\mathcal{P}_{#1}} % spine poset
 % nested complex
 \newcommandx{\nested}[1][1=N]{#1} % nested set
@@ -172,6 +175,8 @@
 \newcommand{\spineToNested}{\mathsf{N}} % spine to nested set
 \newcommand{\nestedToSpine}{\mathsf{S}} % nested set to spine
 \newcommand{\partitionToSpine}{\mathsf{S}} % partition to spine
+\newcommand{\spineToSpine}{\mathsf{S}} % partition to spine
+\newcommandx{\surjectionSpines}[2][1=G, 2=G']{\Phi_{#1}^{#2}} % spine to spine
 
 % GEOMETRY
 
@@ -179,6 +184,7 @@
 \newcommand{\primalCone}{\mathsf{C}^\star} % primal cone
 \newcommand{\normalCone}{\mathsf{C}} % normal cone
 \newcommandx{\braidFan}[1][1=G]{\mathcal{F}_{#1}} % braid fan
+\newcommandx{\sylvesterFan}[1][1=G]{\mathcal{T}_{#1}} % sylvester fan
 \newcommandx{\graphicalFan}[1][1=G]{\mathcal{G}_{#1}} % graphical fan
 \newcommandx{\spineFan}[1][1=G]{\mathcal{S}_{#1}} % spine fan
 % polytopes
@@ -229,9 +235,12 @@ TBC
 
 \maketitle
 
+\tableofcontents
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \section*{Introduction}
 
 Common generalization of \cite{Pilaud-signedTreeAssociahedraFPSAC, LangePilaud, PilaudPons-permutrees, Laplante-diagonalOperahedra}.
@@ -240,9 +249,8 @@ It is the maximal generalization, according to \cite{Pilaud-removahedra}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Combinatorics: spine poset and nested complex}
-
-\guillaume{Exemples a suivre tout au long du texte: 1) chemin decore 2) que des down 3) un exemple "generique" de notre cru.}
+\newpage
+\section{Combinatorics: Spine Poset and Nested Complex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -274,8 +282,20 @@ In this paper, we consider the following additional decorations.
 
 \begin{definition}
   A \defn{decorated} maple tree (resp.~block graph) is a maple tree where each blue vertex~$v$ (resp.~each vertex~$v$) is decorated as~$v, \up, \down$ or~$\updown$.
-  For a subset~$V$ of vertices, we denote by~$\up[V]$ the set of vertices~$\up$ and~$\updown$ of~$V$, and by~$\down[V]$ the set of vertices~$\down$ and~$\updown$ of~$V$
+  For a subset~$X$ of vertices, we denote by~$\up[X]$ the set of vertices~$\up$ and~$\updown$ of~$X$, and by~$\Down[X]$ the set of vertices~$\down$ and~$\updown$ of~$X$.
+  \vincent{fix}
 \end{definition}
+
+\begin{example}
+  \label{exm:specialGraphs}
+  Our results will be illustrated with the following special cases:
+  \begin{enumerate}[(i)]
+    \item special block graphs: complete graphs, trees, or paths.
+    \item special decorations: undecorated ($\Down[\vertexSet] = \Up[\vertexSet] = \varnothing$), down decorated ($\Down[\vertexSet] = \vertexSet$ and~${\Up[\vertexSet] = \varnothing}$), up-down decorated ($\Down[\vertexSet] \sqcup \Up[\vertexSet] = \vertexSet$), and fully decorated ($\Down[\vertexSet] = \Up[\vertexSet] = \vertexSet$).
+    \item toy example: the maple tree and block graph of \cref{fig:mapleBlock}.
+    \item low-dimensional examples: the four decorated tripod graphs of \cref{fig:tripods}.
+  \end{enumerate}
+\end{example}
 
 \begin{figure}
 \resizebox{\linewidth}{!}{
@@ -345,7 +365,7 @@ In this paper, we consider the following additional decorations.
   In a directed tree~$\spine$ whose nodes are sets,
   \begin{itemize}
     \item the \defn{source set}~$\so[\gamma]$ (resp.~\defn{target set}~$\ta[\gamma]$) of an arc~$\gamma$ is the union of the nodes in the connected component of $\spine \ssm \{\gamma\}$ containing the source (resp.~the target) of~$\gamma$,
-    \item the \defn{source set}~$\so[U]$ (resp.~\defn{target set}~$\ta[U]$) of a node~$U$ is the union of~$U$ with the source sets~$\so[\alpha]$ of all incoming arcs~$\alpha$ (resp.~the target sets~$\ta[\beta]$ of all outgoing arcs~$\beta$) of~$U$~in~$\spine$.
+    \item the \defn{source set}~$\so[X]$ (resp.~\defn{target set}~$\ta[X]$) of a node~$X$ is the union of~$X$ with the source sets~$\so[\alpha]$ of all incoming arcs~$\alpha$ (resp.~the target sets~$\ta[\beta]$ of all outgoing arcs~$\beta$) of~$X$~in~$\spine$.
   \end{itemize}
 \end{definition}
 
@@ -357,20 +377,32 @@ In this paper, we consider the following additional decorations.
   A \defn{spine} on a decorated block graph $G$ is a directed tree $\spine$ such that
   \begin{enumerate}
     \item the nodes of~$\spine$ form a partition of the vertex set of~$G$, and 
-    \item at each node~$U$ of~$\spine$, the source sets $\so[\alpha]$ of the incoming arcs $\alpha$ are contained in distinct connected components of $G \ssm \down[U]$, and the target sets $\ta[\beta]$ of the outgoing arcs $\beta$ are contained in distinct connected components of $G \ssm \up[U]$.
+    \item at each node~$X$ of~$\spine$, the source sets $\so[\alpha]$ of the incoming arcs $\alpha$ are contained in distinct connected components of $G \ssm \Down[X]$, and the target sets $\ta[\beta]$ of the outgoing arcs $\beta$ are contained in distinct connected components of $G \ssm \Up[X]$.
   \end{enumerate}
 %  We denote by $\spines$ the set of spines on~$G$.
 %  \vincent{not sure we really need this notation}
-  \vincent{give two examples of spines on the block graph of \cref{fig:mapleBlock}, one maximal and one not.}
 \end{definition}
+
+\begin{example}
+  \label{exm:spines}
+  For instance, the spines correspond to:
+  \vincent{todo: other ideas?}
+  \begin{enumerate}[(i)]
+    \item the \defn{ordered partitions} of~$\vertexSet$ when $G$ is complete or undecorated.
+    \item the \defn{$G$-trees} studied in~\cite{Postnikov} when~$G$ is down decorated (in particular the classical \defn{Schr\"oder trees} when~$G$ is a down decorated path).
+    \item the \defn{$G$-ordered partitions}~\cite{Pilaud-acyclicReorientationLattices} (\ie pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs of~$G$, and~$o$ is an acyclic orientation of the quotient graph~$G/p$) when~$G$ is fully decorated.
+    \item the \defn{Schr\"oder permutrees} of~\cite{PilaudPons-permutrees} when~$G$ is a path.
+  \end{enumerate}
+  \vincent{give two examples of spines on the block graph of \cref{fig:mapleBlock}, one maximal and one not.}
+\end{example}
 
 We now define two natural operations on spines: arc contraction and node splitting.
 These operations are illustrated in \cref{fig:contractionSplitting}.
 
 \begin{definition}
   \label{def:arccontraction}
-  Let $G$ be a decorated block graph, let $\spine$ be a spine on $G$, and let~$\gamma$ be an arc of~$\spine$ with endpoints~$U$ and~$V$.
-  The \defn{contraction} of~$\gamma$ in~$\spine$ is the directed tree obtained from~$\spine$ by replacing the nodes~$U$ and~$V$ by a single node~$W \eqdef U \cup V$ and attaching to~$W$ all arcs incident to either~$U$~or~$V$.
+  Let $G$ be a decorated block graph, let $\spine$ be a spine on $G$, and let~$\gamma$ be an arc of~$\spine$ with endpoints~$X$ and~$Y$.
+  The \defn{contraction} of~$\gamma$ in~$\spine$ is the directed tree obtained from~$\spine$ by replacing the nodes~$X$ and~$Y$ by a single node~$Z \eqdef X \cup Y$ and attaching to~$Z$ all arcs incident to either~$X$~or~$Y$.
   See \cref{fig:contractionSplitting}.
 \end{definition}
 
@@ -379,8 +411,8 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
 
 \begin{tikzpicture}[scale=1.6]
     
-\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $U$};
-\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $V$};
+\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $X$};
+\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $Y$};
 
 \node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,0.6) {\small $\beta_1$};
 \node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,0.6) {\small $\dots$};
@@ -429,7 +461,7 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
 \raisebox{1.5em}{
 \begin{tikzpicture}[scale=1.2]
     
-  \node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,0) {\small $U \cup V$};
+  \node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,0) {\small $X \cup Y$};
   
   
   \node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,1.5) {\small $\beta_1$};
@@ -462,20 +494,20 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
 \end{proposition}
 
 \begin{proof} 
-  Let $\spine'$ be a directed tree obtained by contracting an arc $\gamma$ with endpoints~$U$ and~$V$ in a spine $\spine$ on~$G$.
-  We clearly just need to prove the local condition of \cref{def:spine} around the node~$W \eqdef U \cup V$ of~$\spine'$.
+  Let $\spine'$ be a directed tree obtained by contracting an arc $\gamma$ with endpoints~$X$ and~$Y$ in a spine $\spine$ on~$G$.
+  We clearly just need to prove the local condition of \cref{def:spine} around the node~$Z \eqdef X \cup Y$ of~$\spine'$.
   We give the argument for the incoming arcs; the argument for the outgoing arcs is symmetric. 
 
-  To prove that the source set~$\so[\alpha]$ of each incoming arc~$\alpha$ of~$W$ is contained in a connected component of~$G \ssm \down[W]$, we distinguish two cases:
+  To prove that the source set~$\so[\alpha]$ of each incoming arc~$\alpha$ of~$Z$ is contained in a connected component of~$G \ssm \Down[Z]$, we distinguish two cases:
   \begin{itemize}
-    \item If~$\alpha$ is an incoming arc of~$U$ in~$\spine$, then its source set~$\so[\alpha]$ is contained in a connected component $C_1$ of $G \ssm \down[U]$ and also in a connected component $C_2$ of $G \ssm \down[V]$. Thus, it is in $C_1 \cap C_2$. By \cref{def:blockgraph}, the subgraph induced by the vertices of $C_1 \cap C_2$ is a connected component of $(G \ssm \down[U]) \cap (G \ssm \down[V]) = G \ssm \down[W]$.
-    \item If~$\alpha$ is an incoming arc of~$V$ in~$\spine$, then its source set $\so[\alpha]$ is in a connected component of $G \ssm \down[V]$ that does not contain $U$, hence in a connected component of $G \ssm \down[W]$.
+    \item If~$\alpha$ is an incoming arc of~$X$ in~$\spine$, then its source set~$\so[\alpha]$ is contained in a connected component $C_1$ of $G \ssm \Down[X]$ and also in a connected component $C_2$ of $G \ssm \Down[Y]$. Thus, it is in $C_1 \cap C_2$. By \cref{def:blockgraph}, the subgraph induced by the vertices of $C_1 \cap C_2$ is a connected component of $(G \ssm \Down[X]) \cap (G \ssm \Down[Y]) = G \ssm \Down[Z]$.
+    \item If~$\alpha$ is an incoming arc of~$Y$ in~$\spine$, then its source set $\so[\alpha]$ is in a connected component of $G \ssm \Down[Y]$ that does not contain $X$, hence in a connected component of $G \ssm \Down[Z]$.
   \end{itemize}
 
-  To prove that the source sets~$\so[\alpha]$ and~$\so[\alpha']$ of two distinct incoming arcs~$\alpha$ and~$\alpha'$ of~$W$ are contained in two distinct connected components of~$G \ssm \down[W]$, we distinguish two cases:
+  To prove that the source sets~$\so[\alpha]$ and~$\so[\alpha']$ of two distinct incoming arcs~$\alpha$ and~$\alpha'$ of~$Z$ are contained in two distinct connected components of~$G \ssm \Down[Z]$, we distinguish two cases:
   \begin{itemize}
-    \item If~$\alpha$ and~$\alpha'$ are both incoming arcs of~$U$ (resp.~of~$V$) in~$\spine$, then their source sets~$\so[\alpha]$ and~$\so[\alpha']$ live in two distinct connected components of $G \ssm \down[U]$ (resp.~of~$G \ssm \down[V]$), hence in two distinct connected components of $G\ssm \down[W]$.
-    \item If~$\alpha$ is an incoming arc of~$U$ in~$\spine$ while~$\alpha'$ is an incoming arc of~$V$ in~$\spine$, then their source sets~$\so[\alpha] \subset \so[\gamma]$ and~$\so[\alpha']$ live in two distinct connected components of $G \ssm \down[V]$, hence in two distinct connected components of $G\ssm \down[W]$.
+    \item If~$\alpha$ and~$\alpha'$ are both incoming arcs of~$X$ (resp.~of~$Y$) in~$\spine$, then their source sets~$\so[\alpha]$ and~$\so[\alpha']$ live in two distinct connected components of $G \ssm \Down[X]$ (resp.~of~$G \ssm \Down[Y]$), hence in two distinct connected components of $G\ssm \Down[Z]$.
+    \item If~$\alpha$ is an incoming arc of~$X$ in~$\spine$ while~$\alpha'$ is an incoming arc of~$Y$ in~$\spine$, then their source sets~$\so[\alpha] \subset \so[\gamma]$ and~$\so[\alpha']$ live in two distinct connected components of $G \ssm \Down[Y]$, hence in two distinct connected components of $G\ssm \Down[Z]$.
     \qedhere
   \end{itemize}
 \end{proof}
@@ -484,29 +516,29 @@ To define the reverse operation of node splitting, we first need the following n
 
 \begin{definition}
   \label{def:splittable}
-  Let~$G$ be a decorated block graph, and let~$W$ be a subset of vertices of~$G$.
-  A partition~$U \sqcup V = W$ is \defn{splittable} if~$U \ne \varnothing$ is contained in a connected component of~$G \ssm \down[V]$ and $V \ne \varnothing$ is contained in a connected component of~$G \ssm \up[U]$.
+  Let~$G$ be a decorated block graph, and let~$Z$ be a subset of vertices of~$G$.
+  A partition~$X \sqcup Y = Z$ is \defn{splittable} if~$X \ne \varnothing$ is contained in a connected component of~$G \ssm \Down[Y]$ and $Y \ne \varnothing$ is contained in a connected component of~$G \ssm \Up[X]$.
 \end{definition}
 
 \begin{proposition}
   \label{prop:splittablePartitions}
-  Let $G$ be a decorated block graph. Any subset $W$ of vertices of~$G$ with $|W| \ge 2$ admits a splittable partition.
+  Let $G$ be a decorated block graph. Any subset $Z$ of vertices of~$G$ with $|Z| \ge 2$ admits a splittable partition.
 \end{proposition}
 
 \begin{proof} 
-  Consider a spanning tree~$T$ of~$G$, and an edge~$e$ of~$T$ such that both connected components~$X$ and~$Y$ of~$T \ssm \{e\}$ intersect~$W$.
-  Let~$U \eqdef W \cap X$ and~$V \eqdef W \cap Y$.
-  Then~$U \ne \varnothing$ is contained in a connected component of~$T \ssm Y$, thus in a connected component of~$G \ssm \down[V]$ (since~$T \subseteq G$ and~$\down[V] \subseteq Y$).
-  Similarly $V \ne \varnothing$ is contained in a connected component of~$T \ssm X$, thus in a connected component of~$G \ssm \up[U]$.
+  Consider a spanning tree~$T$ of~$G$, and an edge~$e$ of~$T$ such that both connected components~$C$ and~$D$ of~$T \ssm \{e\}$ intersect~$Z$.
+  Let~$X \eqdef Z \cap C$ and~$Y \eqdef Z \cap D$.
+  Then~$X \ne \varnothing$ is contained in a connected component of~$T \ssm D$, thus in a connected component of~$G \ssm \Down[Y]$ (since~$T \subseteq G$ and~$\Down[Y] \subseteq D$).
+  Similarly $Y \ne \varnothing$ is contained in a connected component of~$T \ssm C$, thus in a connected component of~$G \ssm \Up[X]$.
 \end{proof}
 
 \begin{definition}
   \label{def:nodeSplitting} 
-  Let $G$ be a decorated block graph, let $\spine$ be a spine on $G$, let~$W$ be a node of~$\spine$, and let~$U \sqcup V = W$ be a splittable partition of~$W$.
-  The \defn{splitting} of~$U \sqcup V$ in~$\spine$ is the directed tree obtained from~$\spine$ by replacing the node~$W$ by an arc~$\gamma$ connecting a node~$U$ to a node~$V$,~and
+  Let $G$ be a decorated block graph, let $\spine$ be a spine on $G$, let~$Z$ be a node of~$\spine$, and let~$X \sqcup Y = Z$ be a splittable partition of~$Z$.
+  The \defn{splitting} of~$X \sqcup Y$ in~$\spine$ is the directed tree obtained from~$\spine$ by replacing the node~$Z$ by an arc~$\gamma$ connecting a node~$X$ to a node~$Y$,~and
   \begin{itemize}
-    \item connecting each incoming arc~$\alpha$ of~$W$ to~$U$ if its source set~$\so[\alpha]$ is contained in a connected component of $G \ssm \down[W]$ adjacent to $\down[U]$ and to~$V$ otherwise, 
-    \item connecting each outgoing arc~$\beta$ of~$W$ to~$V$ if its target set~$\ta[\beta]$ is contained in a connected component of $G \ssm \up[W]$ adjacent to $\up[V]$ and to~$U$ otherwise.
+    \item connecting each incoming arc~$\alpha$ of~$Z$ to~$X$ if its source set~$\so[\alpha]$ is contained in a connected component of $G \ssm \Down[Z]$ adjacent to $\Down[X]$ and to~$Y$ otherwise, 
+    \item connecting each outgoing arc~$\beta$ of~$Z$ to~$Y$ if its target set~$\ta[\beta]$ is contained in a connected component of $G \ssm \Up[Z]$ adjacent to $\Up[Y]$ and to~$X$ otherwise.
   \end{itemize}
   See \cref{fig:contractionSplitting}.
 \end{definition}
@@ -521,29 +553,29 @@ To define the reverse operation of node splitting, we first need the following n
 %\end{remark}
 
 \begin{proof}
-  Let~$\spine'$ be a directed tree obtained by splitting a splittable partition~$U \sqcup V = W$ of a node~$W$ in a spine $\spine$ on~$G$.
-  We clearly just need to prove the local condition of \cref{def:spine} around the nodes~$U$ and~$V$ of~$\spine'$.
-  We give the argument for~$U$; the argument for~$V$ is symmetric.
+  Let~$\spine'$ be a directed tree obtained by splitting a splittable partition~$X \sqcup Y = Z$ of a node~$Z$ in a spine $\spine$ on~$G$.
+  We clearly just need to prove the local condition of \cref{def:spine} around the nodes~$X$ and~$Y$ of~$\spine'$.
+  We give the argument for~$X$; the argument for~$Y$ is symmetric.
   
-  We start with the incoming arcs of~$U$.
-  First, each incoming arc~$\alpha$ of~$U$ is an incoming arc of~$W$, hence~$\so[\alpha]$ is contained in a connected component of~$G \ssm \down[W]$, hence in a connected component of~$G \ssm \down[U]$.
-  Moreover, any two distinct incoming arcs~$\alpha$ and~$\alpha'$ of~$U$ are distinct incoming arcs of~$W$. Thus~$\so[\alpha]$ and~$\so[\alpha']$ are contained in distinct connected components of~$G \ssm \down[W]$, hence in distinct connected components of~$G \ssm \down[U]$, since~$U$ is contained in a connected component of~$G \ssm \down[V]$.
+  We start with the incoming arcs of~$X$.
+  First, each incoming arc~$\alpha$ of~$X$ is an incoming arc of~$Z$, hence~$\so[\alpha]$ is contained in a connected component of~$G \ssm \Down[Z]$, hence in a connected component of~$G \ssm \Down[X]$.
+  Moreover, any two distinct incoming arcs~$\alpha$ and~$\alpha'$ of~$X$ are distinct incoming arcs of~$Z$. Thus~$\so[\alpha]$ and~$\so[\alpha']$ are contained in distinct connected components of~$G \ssm \Down[Z]$, hence in distinct connected components of~$G \ssm \Down[X]$, since~$X$ is contained in a connected component of~$G \ssm \Down[Y]$.
 
-  We now consider the outgoing arcs of~$U$.
-  To prove that the target set of each outgoing arc~$\beta$ of~$U$ is contained in a connected component of~$G \ssm \up[U]$, we distinguish two cases:
+  We now consider the outgoing arcs of~$X$.
+  To prove that the target set of each outgoing arc~$\beta$ of~$X$ is contained in a connected component of~$G \ssm \Up[X]$, we distinguish two cases:
   \begin{itemize}
-    \item If~$\beta \ne \gamma$, then~$\beta$ is an outgoing arc of~$W$, hence~$\ta[\beta]$ is contained in a connected component of~$G \ssm \up[W]$, hence in a connected component of~$G \ssm \up[U]$.
-    \item If~$\beta = \gamma$, then~$\ta[\gamma]$ is the union of~$V$ with~$\so[\alpha']$ for all incoming arcs~$\alpha'$ of~$V$ and~$\ta[\beta']$ for all outgoing arcs~$\beta'$ of~$V$. We next prove that all these sets are contained in the same connected component of~$G \ssm \up[U]$.
+    \item If~$\beta \ne \gamma$, then~$\beta$ is an outgoing arc of~$Z$, hence~$\ta[\beta]$ is contained in a connected component of~$G \ssm \Up[Z]$, hence in a connected component of~$G \ssm \Up[X]$.
+    \item If~$\beta = \gamma$, then~$\ta[\gamma]$ is the union of~$Y$ with~$\so[\alpha']$ for all incoming arcs~$\alpha'$ of~$Y$ and~$\ta[\beta']$ for all outgoing arcs~$\beta'$ of~$Y$. We next prove that all these sets are contained in the same connected component of~$G \ssm \Up[X]$.
     \begin{itemize}
-      \item By \cref{def:nodeSplitting}, $V$ is contained in a connected component~$C$ of~$G \ssm \up[U]$. 
-      \item Consider an incoming arc~$\alpha'$ of~$V$. The set~$\so[\alpha']$ is contained in a connected component~$D$ of~$G \ssm \down[W]$, and in a connected component~$E$ of~$G \ssm \down[V]$, with~$D \subseteq E$. By \cref{def:nodeSplitting}, $D$ is not adjacent to~$\down[U]$. By \cref{def:splittable}, $E$ is thus disjoint from~$U$. This implies on the one hand that~$D$ is disjoint from~$\up[U]$, thus connected in~$G \ssm \up[U]$, and on the other hand that~$D$ is adjacent to~$\down[V]$, hence contained in~$C$. 
-      \item Consider an outgoing arc~$\beta'$ of~$V$. By \cref{def:nodeSplitting}, the set $\ta[\beta']$ is contained in a connected component of~$G \ssm \up[W]$ adjacent to~$V$, hence $\ta[\beta']$ is contained in~$C$.
+      \item By \cref{def:nodeSplitting}, $Y$ is contained in a connected component~$C$ of~$G \ssm \Up[X]$. 
+      \item Consider an incoming arc~$\alpha'$ of~$Y$. The set~$\so[\alpha']$ is contained in a connected component~$D$ of~$G \ssm \Down[Z]$, and in a connected component~$E$ of~$G \ssm \Down[Y]$, with~$D \subseteq E$. By \cref{def:nodeSplitting}, $D$ is not adjacent to~$\Down[X]$. By \cref{def:splittable}, $E$ is thus disjoint from~$X$. This implies on the one hand that~$D$ is disjoint from~$\Up[X]$, thus connected in~$G \ssm \Up[X]$, and on the other hand that~$D$ is adjacent to~$\Down[Y]$, hence contained in~$C$. 
+      \item Consider an outgoing arc~$\beta'$ of~$Y$. By \cref{def:nodeSplitting}, the set $\ta[\beta']$ is contained in a connected component of~$G \ssm \Up[Z]$ adjacent to~$Y$, hence $\ta[\beta']$ is contained in~$C$.
     \end{itemize}
   \end{itemize}
-  To prove that the target sets of two distinct outgoing arcs~$\beta$ and~$\beta'$ of~$U$ are contained in two distinct connected components of~$G \ssm \up[U]$, we distinguish two cases:
+  To prove that the target sets of two distinct outgoing arcs~$\beta$ and~$\beta'$ of~$X$ are contained in two distinct connected components of~$G \ssm \Up[X]$, we distinguish two cases:
   \begin{itemize}
-  \item Assume that~$\beta$ and~$\beta'$ are both distinct from~$\gamma$. Let~$C$ be the connected component of~$G \ssm \up[U]$ containing~$V$, and let~$D$ and~$D'$ (resp.~$E$ and~$E'$) the connected components of $G \ssm \up[W]$ (resp.~$G \ssm \up[U]$) containing~$\ta[\beta]$ and $\ta[\beta']$. By \cref{def:nodeSplitting}, $D$ and~$D'$ are not adjacent to~$\up[V]$. By \cref{def:splittable}, $E$ and~$E'$ are thus disjoint from~$V$. This implies that~$E = D$ and~$E' = D'$ are distinct.
-  \item Assume that~$\beta' = \gamma$. As before, the connected component of~$G \ssm \up[U]$ containing~$\ta[\beta]$ is disjoint from~$V$, thus is distinct from that containing~$\ta[\gamma]$.
+  \item Assume that~$\beta$ and~$\beta'$ are both distinct from~$\gamma$. Let~$C$ be the connected component of~$G \ssm \Up[X]$ containing~$Y$, and let~$D$ and~$D'$ (resp.~$E$ and~$E'$) the connected components of $G \ssm \Up[Z]$ (resp.~$G \ssm \Up[X]$) containing~$\ta[\beta]$ and $\ta[\beta']$. By \cref{def:nodeSplitting}, $D$ and~$D'$ are not adjacent to~$\Up[Y]$. By \cref{def:splittable}, $E$ and~$E'$ are thus disjoint from~$Y$. This implies that~$E = D$ and~$E' = D'$ are distinct.
+  \item Assume that~$\beta' = \gamma$. As before, the connected component of~$G \ssm \Up[X]$ containing~$\ta[\beta]$ is disjoint from~$Y$, thus is distinct from that containing~$\ta[\gamma]$.
   \qedhere
   \end{itemize}
 \end{proof}
@@ -554,8 +586,8 @@ To define the reverse operation of node splitting, we first need the following n
 \end{proposition}
 
 \begin{proof}
-  It is clear that if~$\spine'$ is the splitting of~$U \sqcup V$ in~$\spine$, then~$\spine$ is the contraction of the arc joining~$U$ to~$V$ in~$\spine'$.
-  Conversely, if~$\spine$ is the contraction of an arc joining~$U$ to~$V$ in~$\spine'$, then the partition~$U \sqcup V$ is splittable by \cref{def:spine}, and~$\spine'$ is the splitting of~$U \sqcup V$~in~$\spine$.
+  It is clear that if~$\spine'$ is the splitting of~$X \sqcup Y$ in~$\spine$, then~$\spine$ is the contraction of the arc joining~$X$ to~$Y$ in~$\spine'$.
+  Conversely, if~$\spine$ is the contraction of an arc joining~$X$ to~$Y$ in~$\spine'$, then the partition~$X \sqcup Y$ is splittable by \cref{def:spine}, and~$\spine'$ is the splitting of~$X \sqcup Y$~in~$\spine$.
 \end{proof}
 
 \begin{definition}
@@ -592,18 +624,18 @@ To define the reverse operation of node splitting, we first need the following n
 \subsection{Nested complex}
 
 \vincent{Do we want to say that the spine complex is a simplicial poset, which we want to prove is flag?}
-% We denote by~$\compl{B} \eqdef V_G \ssm B$ the complement of a subset~$B$ of~$V_G$.
+% We denote by~$\compl{B} \eqdef \vertexSet \ssm B$ the complement of a subset~$B$ of~$\vertexSet$.
 
 \begin{definition}
   \label{def:block}
-  A \defn{block} of~$G$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$V_G \ssm B$ forms a splittable partition of the vertex set~$V_G$ (see \cref{def:splittable}).
-%  A \defn{block} of~$G$ is a subset~$B$ of~$V_G$ such that $B \ne \varnothing$ is contained in a connected component of~$G \ssm \down[\compl{B}]$ and $\compl{B} \ne \varnothing$ is contained in a connected component of~$G \ssm \up[B]$.
-%  In other words, $B$ and its complement~$\compl{B}$ forms a splittable partition of~$V_G$ (see \cref{def:splittable}).
+  A \defn{block} of~$G$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$\vertexSet \ssm B$ forms a splittable partition of the vertex set~$\vertexSet$ (see \cref{def:splittable}).
+%  A \defn{block} of~$G$ is a subset~$B$ of~$\vertexSet$ such that $B \ne \varnothing$ is contained in a connected component of~$G \ssm \Down[\compl{B}]$ and $\compl{B} \ne \varnothing$ is contained in a connected component of~$G \ssm \Up[B]$.
+%  In other words, $B$ and its complement~$\compl{B}$ forms a splittable partition of~$\vertexSet$ (see \cref{def:splittable}).
 \end{definition}
 
 \begin{definition}
   \label{def:compatibleBlocks}
-%  A \defn{block} of~$G$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$V_G \ssm B$ forms a splittable partition of the vertex set of~$G$ (see \cref{def:splittable}).
+%  A \defn{block} of~$G$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$\vertexSet \ssm B$ forms a splittable partition of the vertex set of~$G$ (see \cref{def:splittable}).
   %~$B \ne \varnothing$ is contained in a connected component of~$G \ssm \compl{B}$ and $\compl{B} \ne \varnothing$ is contained in a connected component of~$G \ssm B$.
 %  Two blocks~$B$ and~$B'$ are \defn{compatible} if any of the following conditions hold:
 %  \begin{itemize}
@@ -616,7 +648,7 @@ To define the reverse operation of node splitting, we first need the following n
   We write:
   \begin{itemize}
     \item $B \negDisjoint B'$ if $B \cap B' = \varnothing$ and $B \cup B'$ is not a block of~$G$,
-    \item $B \posDisjoint B'$ if $B \cup B' = V_G$ and~$B \cap B'$ is not a block of~$G$.
+    \item $B \posDisjoint B'$ if $B \cup B' = \vertexSet$ and~$B \cap B'$ is not a block of~$G$.
   \end{itemize}
   We say that~$B$ and~$B'$ are \defn{compatible} if $B \subseteq B'$, or $B \supseteq B'$, or $B \negDisjoint B'$ or $B \posDisjoint B'$.
 \end{definition}
@@ -648,9 +680,9 @@ To define the reverse operation of node splitting, we first need the following n
 %  Since the spine~$\spine$ is a tree, there is a unique path~$\pi$ joining~$\gamma$ to~$\gamma'$ in~$\spine$.
 %  If $\pi$ connects the target of~$\gamma$ to the source of~$\gamma'$, then~$\so[\gamma] \subseteq \so[\gamma']$, and \viceversa.
 %  If $\pi$ connects the sources of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \negDisjoint \so[\gamma]'$.
-%  Indeed, there is at least one node~$U$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
-%  By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \down[U]$.
-%  Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \down[U]$ hence of~$G \ssm \down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
+%  Indeed, there is at least one node~$X$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
+%  By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \Down[X]$.
+%  Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \Down[X]$ hence of~$G \ssm \Down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
 %  Similarly, if $\pi$ connects the targets of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \posDisjoint \so[\gamma]'$.
 %  See \cref{fig:sourceSetsCompatible}.
 %  \vincent{borrow picture...}
@@ -683,9 +715,9 @@ To define the reverse operation of node splitting, we first need the following n
       \item If $\pi$ connects the target of~$\gamma$ to the source of~$\gamma'$, then~$\so[\gamma] \subseteq \so[\gamma']$.
       \item If $\pi$ connects the source of~$\gamma$ to the target of~$\gamma'$, then~$\so[\gamma] \supseteq \so[\gamma']$.
       \item If $\pi$ connects the sources of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \negDisjoint \so[\gamma]'$.
-      Indeed, there is at least one node~$U$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
-      By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \down[U]$.
-      Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \down[U]$ hence of~$G \ssm \down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
+      Indeed, there is at least one node~$X$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
+      By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \Down[X]$.
+      Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \Down[X]$ hence of~$G \ssm \Down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
       \item Similarly, if $\pi$ connects the targets of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \posDisjoint \so[\gamma]'$.
     \end{itemize}
   \end{itemize}
@@ -701,28 +733,28 @@ To define the reverse operation of node splitting, we first need the following n
   To see the surjectivity of~$\spineToNested$, we prove that for any nested set~$\nested$ on~$G$,
 \begin{enumerate}[(a)]
 \item there exists a spine~$\spine$ on~$G$ such that~$\spineToNested(\spine) = \nested$, and
-\item for any block~$B$ of~$G$ compatible with all blocks of~$\nested$, there exists a node~$U$ of~$\spine$ such that the partition~$U = (U \cap B) \sqcup (U \ssm B)$ is splittable (see \cref{def:splittable}).
+\item for any block~$B$ of~$G$ compatible with all blocks of~$\nested$, there exists a node~$X$ of~$\spine$ such that the partition~$X = (X \cap B) \sqcup (X \ssm B)$ is splittable (see \cref{def:splittable}).
 \end{enumerate}
   These properties are proved by induction on the size of~$\nested$.  
-  To initialize, observe that the rank~$0$ spine (with a single node~$V_G$) is sent to the empty nested set for which Property~(b) above holds by \cref{def:block}.
+  To initialize, observe that the rank~$0$ spine (with a single node~$\vertexSet$) is sent to the empty nested set for which Property~(b) above holds by \cref{def:block}.
 
   Assume now that these properties hold for a given nested set~$\nested$ and consider a bigger nested set~$\nested' \eqdef \nested \cup \{B\}$.
-  Let~$\spine$ be the spine such that~$\spineToNested(\spine) = \nested$ and let~$U$ be a node of~$\spine$ such that the partition~$U = (U \cap B) \sqcup (U \ssm B)$ is splittable.
-  Let~$\spine'$ denote the spine obtained by the splitting of~$(U \cap B) \sqcup (U \ssm B)$ in~$\spine$.
+  Let~$\spine$ be the spine such that~$\spineToNested(\spine) = \nested$ and let~$X$ be a node of~$\spine$ such that the partition~$X = (X \cap B) \sqcup (X \ssm B)$ is splittable.
+  Let~$\spine'$ denote the spine obtained by the splitting of~$(X \cap B) \sqcup (X \ssm B)$ in~$\spine$.
   We claim that $\spine$ satisfies Properties (a) and (b) above.
   
-  Consider first an incoming arc~$\alpha$ of~$U$ in~$\spine$.
-  Since~$B$ is compatible with~$\so[\alpha]$, and both~$U \cap B$ and~$U \ssm B$ are non-empty, we obtain that~$\so[\alpha] \subseteq B$ or~$\so[\alpha] \negDisjoint B$.
-  Moreover, by \cref{def:nodeSplitting}, the arc~$\alpha$ is connected to the node~$U \cap B$ of~$\spine'$ if~$\so[\alpha] \subseteq B$, and to the node~$U \ssm B$ of~$\spine'$ if~$\so[\alpha] \negDisjoint B$.
-  Similarly, for any outgoing arc~$\beta$ of~$U$ in~$\spine$, we have~$\so[\beta] \supseteq B$ or~$\so[\alpha] \posDisjoint B$, and the arc~$\beta$ is connected to the node~$U \ssm B$ of~$\spine'$ if~$\so[\beta] \supseteq B$, and to the node~$U \cap B$ of~$\spine'$ if~$\so[\beta] \posDisjoint B$.
-  In particular, we have~$\so[\alpha] \subseteq B$ for each incoming arc~$\alpha$ of~$U \cap B$ in~$\spine'$, and~$\ta[\beta] \subseteq B$ for each outgoing arc~$\beta$ of~$U \cap B$ in~$\spine'$ (since~$\so[\beta] \posDisjoint B$ implies $\so[\beta] \cup B = V_G$ hence $\ta[\beta] = V_G \ssm \so[\beta] \subseteq B$).
-  We thus obtain that~$\so[\gamma] \subseteq B$, and similarly that~$\ta[\gamma] \subseteq V_G \ssm B$, from which we conclude that $\so[\gamma] = B$.
+  Consider first an incoming arc~$\alpha$ of~$X$ in~$\spine$.
+  Since~$B$ is compatible with~$\so[\alpha]$, and both~$X \cap B$ and~$X \ssm B$ are non-empty, we obtain that~$\so[\alpha] \subseteq B$ or~$\so[\alpha] \negDisjoint B$.
+  Moreover, by \cref{def:nodeSplitting}, the arc~$\alpha$ is connected to the node~$X \cap B$ of~$\spine'$ if~$\so[\alpha] \subseteq B$, and to the node~$X \ssm B$ of~$\spine'$ if~$\so[\alpha] \negDisjoint B$.
+  Similarly, for any outgoing arc~$\beta$ of~$X$ in~$\spine$, we have~$\so[\beta] \supseteq B$ or~$\so[\alpha] \posDisjoint B$, and the arc~$\beta$ is connected to the node~$X \ssm B$ of~$\spine'$ if~$\so[\beta] \supseteq B$, and to the node~$X \cap B$ of~$\spine'$ if~$\so[\beta] \posDisjoint B$.
+  In particular, we have~$\so[\alpha] \subseteq B$ for each incoming arc~$\alpha$ of~$X \cap B$ in~$\spine'$, and~$\ta[\beta] \subseteq B$ for each outgoing arc~$\beta$ of~$X \cap B$ in~$\spine'$ (since~$\so[\beta] \posDisjoint B$ implies $\so[\beta] \cup B = \vertexSet$ hence $\ta[\beta] = \vertexSet \ssm \so[\beta] \subseteq B$).
+  We thus obtain that~$\so[\gamma] \subseteq B$, and similarly that~$\ta[\gamma] \subseteq \vertexSet \ssm B$, from which we conclude that $\so[\gamma] = B$.
   Since~$\spine'$ is obtained by splitting a node of~$\spine$ into an arc~$\gamma$, we have~$\spineToNested(\spine') = \spineToNested(\spine) \cup \{\so[\gamma]\} = N \cup \{B\} = N '$.
 
   Consider now another block~$B'$ of~$G$ compatible with all blocks of~$N'$.
-  Since~$B'$ is compatible with~$N \subseteq N'$, there is a node~$U'$ of~$\spine$ such that the partition~$U' = (U' \cap B') \sqcup (U' \ssm B')$ is splittable.
-  If~$U \ne U'$, then~$U'$ is still a node of~$\spine'$ so that there is nothing to prove.
-  If~$U = U'$, then the node~$U \cap B$ of~$\spine'$ suits if~$B \supseteq B'$ or~$B \negDisjoint B'$, while the node~$U \ssm B$ of~$\spine'$  suits if~$B \subseteq B'$ or~$B \posDisjoint B'$.
+  Since~$B'$ is compatible with~$N \subseteq N'$, there is a node~$X'$ of~$\spine$ such that the partition~$X' = (X' \cap B') \sqcup (X' \ssm B')$ is splittable.
+  If~$X \ne X'$, then~$X'$ is still a node of~$\spine'$ so that there is nothing to prove.
+  If~$X = X'$, then the node~$X \cap B$ of~$\spine'$ suits if~$B \supseteq B'$ or~$B \negDisjoint B'$, while the node~$X \ssm B$ of~$\spine'$  suits if~$B \subseteq B'$ or~$B \posDisjoint B'$.
   \vincent{Check that, maybe add a sentence...}
 
   \para{Order-preserving}
@@ -741,12 +773,12 @@ To define the reverse operation of node splitting, we first need the following n
 \end{enumerate}
 This gives a description of the nodes of the spine~$\nestedToSpine(\nested)$ in terms of equivalence classes of blocks of~$\nested$ (by the relations above). It also gives a direct definition of the directed graph underlying~$\nestedToSpine(\nested)$ as a quotient of a collection of disjoint arcs labeled by~$\nested$ by identification of some of their endpoints. Finally, each node of~$\nestedToSpine(\nested)$ with incoming arcs~$A$ and outgoing arcs~$B$ is given by
 \[
-\bigg( \bigcap_{\beta \in B} \so[\beta] \bigg) \ssm \bigg( \bigcup_{\alpha \in A} \so[\alpha] \bigg) = V_G \ssm \bigg( \bigcup_{\alpha \in A} \so[\alpha] \cup \bigcup_{\beta \in B} \ta[\beta] \bigg).
+\bigg( \bigcap_{\beta \in B} \so[\beta] \bigg) \ssm \bigg( \bigcup_{\alpha \in A} \so[\alpha] \bigg) = \vertexSet \ssm \bigg( \bigcup_{\alpha \in A} \so[\alpha] \cup \bigcup_{\beta \in B} \ta[\beta] \bigg).
 \]
 \end{remark}
 
 \begin{corollary}
-  The nested complex~$\nestedComplex$ is pure and flag simplicial complex.
+  The nested complex~$\nestedComplex$ is a pure and flag simplicial complex.
 \end{corollary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -756,9 +788,9 @@ This gives a description of the nodes of the spine~$\nestedToSpine(\nested)$ in 
 \begin{definition}
   \label{def:flip}
   Let $G$ be a decorated block graph and let $\spine$ be a maximal spine on~$G$.
-  Consider two vertices $U = \{u\}$ and $V = \{v\}$ of $\spine$ related by an arc $\gamma$. 
-  Let $\alpha$ be the incoming arc of $U$ such that~$\so[\alpha]$ and~$V$ are contained in the same connected component of $G \ssm \down[U]$, and let $\beta$ be the outgoing arc of $V$ such that~$\ta[\beta]$ and~$U$ are contained in the same connected component of $G \ssm \up[V]$.
-  We define $\spine'$ to be the spine obtained from $\spine$ by reversing the orientation of~$\gamma$, grafting the arc~$\alpha$ to~$V$ and the arc~$\beta$ to~$U$.
+  Consider two vertices $X = \{x\}$ and $Y = \{y\}$ of $\spine$ related by an arc $\gamma$. 
+  Let $\alpha$ be the incoming arc of $X$ such that~$\so[\alpha]$ and~$Y$ are contained in the same connected component of $G \ssm \Down[X]$, and let $\beta$ be the outgoing arc of $Y$ such that~$\ta[\beta]$ and~$X$ are contained in the same connected component of $G \ssm \Up[Y]$.
+  We define $\spine'$ to be the spine obtained from $\spine$ by reversing the orientation of~$\gamma$, grafting the arc~$\alpha$ to~$Y$ and the arc~$\beta$ to~$X$.
   We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
 \end{definition}
 
@@ -767,8 +799,8 @@ This gives a description of the nodes of the spine~$\nestedToSpine(\nested)$ in 
 \begin{figure}[h!]
 \begin{tikzpicture}[scale=1.6]
     
-\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $U$};
-\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $V$};
+\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $x$};
+\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $y$};
     
 \node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,0.6) {\small $\beta_1$};
 \node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,0.6) {\small $\dots$};
@@ -819,8 +851,8 @@ This gives a description of the nodes of the spine~$\nestedToSpine(\nested)$ in 
 \quad
 \begin{tikzpicture}[scale=1.6]
     
-\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,0.5) {\small $U$};
-\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,-0.5) {\small $V$};
+\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,0.5) {\small $x$};
+\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,-0.5) {\small $y$};
       
 \node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,1.6) {\small $\beta_1$};
 \node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,1.6) {\small $\dots$};
@@ -890,14 +922,25 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
   
 \begin{definition}
   \label{def:increasingFlip}
-  Fix a total order~$\prec$ on~$V_G$.
+  Fix a total order~$\prec$ on~$\vertexSet$.
   The flip from~$\spine$ to~$\spine'$ in \cref{def:flip} is \defn{$\prec$-incresing} if~$u \prec v$ and \defn{$\prec$-decreasing} if $u \succ v$.
   The \defn{$\prec$-increasing flip graph} is the directed graph whose vertices are the maximal spines on~$G$ and whose arcs are the increasing flips between them.
   The \defn{$\prec$-increasing flip poset} is the transitive closure of the $\prec$-increasing flip graph.
 \end{definition}
 
+\begin{example}
+  \label{exm:flipPosets}
+  For instance, the increasing flip poset is (isomorphic to):
+  \begin{enumerate}[(i)]
+    \item the \defn{weak order} on permutations of~$\vertexSet$ when $G$ is complete or undecorated.
+    \item the \defn{flip poset on maximal tubings} of~$G$ studied in~\cite{BarnardMcConville} when~$G$ is down decorated (in particular the classical \defn{Tamari lattice}~\cite{Tamari, HuangTamari} when~$G$ is a down decorated path).
+    \item the \defn{acyclic reorientation lattice} of~$G$~\cite{Pilaud-acyclicReorientationLattices} when~$G$ is fully decorated (in particular the \defn{boolean lattice} when~$G$ is a fully decorated tree).
+    \item the various \defn{permutree lattices} of~\cite{PilaudPons-permutrees} when~$G$ is a path (in particular the various type~$A$ \defn{Cambrian lattices}~\cite{Reading-CambrianLattices} for up-down decorated paths).
+  \end{enumerate}
+\end{example}
+
 \begin{remark}
-  The question of whether or not the flip poset $(\maxspines,\preccurlyeq)$ is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a path, it is always the case \cite{PilaudPons-permutrees}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}
+  The question of whether or not the increasing flip poset is a lattice is a difficult question. It depends on the decoration of $G$. We know that if $G$ is a path, it is always the case \cite{PilaudPons-permutrees}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}\vincent{improve this remark.}
 \end{remark}
 
 \vincent{We need a picture of increasing flip poset here. Take the natural order for $\prec$.}
@@ -918,15 +961,15 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
   For instance, the set of incoming (resp.~outgoing) blossoms is a cut of~$\spine$ whose source (resp.~target) set is empty and whose target (resp.~source) set is the union of the nodes of~$\spine$.
 \end{definition}
 
-%  A \defn{sweep sequence} of~$\spine$ is a sequence~$\Gamma_0, \dots, \Gamma_p$ of cuts of~$\spine$ such that $\Gamma_0$ is the cut formed by all incoming blossoms of~$\spine$ while $\Gamma_p$ is the cut formed by all outgoing blossoms of~$\spine$, and for all~$i \in [p]$, there is a node~$U_i$ of~$\spine$ such that~$\Gamma_{i-1} \ssm \so[U_i] = \Gamma_i \ssm \ta[U_i]$.
+%  A \defn{sweep sequence} of~$\spine$ is a sequence~$\Gamma_0, \dots, \Gamma_p$ of cuts of~$\spine$ such that $\Gamma_0$ is the cut formed by all incoming blossoms of~$\spine$ while $\Gamma_p$ is the cut formed by all outgoing blossoms of~$\spine$, and for all~$i \in [p]$, there is a node~$X_i$ of~$\spine$ such that~$\Gamma_{i-1} \ssm \so[X_i] = \Gamma_i \ssm \ta[X_i]$.
 
 \begin{definition}
   \label{def:blossomingSpine}
   Let~$M$ be a maple tree with red vertex set~$R$ and blue vertex set~$B$, and~$G$ be the block graph obtained by tapping~$M$.
   The \defn{blossoming} of a spine~$\spine$ on~$G$ is the directed blossoming tree obtained from~$\spine$ by
   \begin{enumerate}[(i)]
-    \item labeling each arc~$\gamma$ of~$\spine$ by the red vertices of the intersection of the connected component of~$\smash{M \ssm \up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ with the connected component of~$\smash{M \ssm \down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$,
-    \item adding at each node~$U$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by the the red vertices of~$C$ for each connected component~$C$ of~$M \ssm \down[{\ta[U]}]$ (resp.~of~$M \ssm \up[{\so[U]}]$) adjacent to~$U$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$U$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
+    \item labeling each arc~$\gamma$ of~$\spine$ by the red vertices of the intersection of the connected component of~$\smash{M \ssm \Up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ with the connected component of~$\smash{M \ssm \Down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$,
+    \item adding at each node~$X$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by the the red vertices of~$C$ for each connected component~$C$ of~$M \ssm \Down[{\ta[X]}]$ (resp.~of~$M \ssm \Up[{\so[X]}]$) adjacent to~$X$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
   \end{enumerate}
   We call \defn{blossoming spines} of~$M$ the blossomings of the spines of~$G$.
   \vincent{give two examples of blossoming spines on the examples of spines given before.}
@@ -935,7 +978,7 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
 %\begin{lemma}
 %  \label{lem:connectedComponents}
 %  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$, and let~$\spine$ be a blossoming spine on~$M$.
-%  Then the labels of the incoming (resp.~outgoing) blossoms of~$S$ are precisely the intersections of~$R$ with the connected components of~${M \ssm \down[B]}$ (resp.~of~${M \ssm \up[B]}$).
+%  Then the labels of the incoming (resp.~outgoing) blossoms of~$S$ are precisely the intersections of~$R$ with the connected components of~${M \ssm \Down[B]}$ (resp.~of~${M \ssm \Up[B]}$).
 %\end{lemma}
 %
 %\begin{proof}
@@ -945,14 +988,14 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
 \begin{proposition}
   \label{prop:blossomingSpine}
   Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$, and let~$\spine$ be a blossoming spine on~$M$.
-  For any cut~$\Gamma$ of~$\spine$, the labels of the arcs and blossoms of~$\Gamma$ are precisely the intersections of~$R$ with the connected components  of~$\smash{M \ssm \big( \up[{\so[\Gamma]}] \cup \down[{\ta[\Gamma]}] \big)}$.
+  For any cut~$\Gamma$ of~$\spine$, the labels of the arcs and blossoms of~$\Gamma$ are precisely the intersections of~$R$ with the connected components  of~$\smash{M \ssm \big( \Up[{\so[\Gamma]}] \cup \Down[{\ta[\Gamma]}] \big)}$.
 \end{proposition}
 
 \begin{proof}
   \vincent{Not clear how to argue that properly...}
 %  We first prove the result for the cut~$\Gamma$ of~$\spine$ given by all incoming blossoms of~$\spine$.
 %  \vincent{todo}
-%  Let~$\Gamma$ and~$\Gamma'$ be two cuts of~$\spine$ which differ by sweeping a node~$U$ of~$\spine$, meaning that $\Gamma \ssm \alpha(U) = \Gamma' \ssm \beta(U)$ where~$\alpha(U)$ and~$\beta(U)$ respectively denote the incoming and outgoing arcs of~$U$.
+%  Let~$\Gamma$ and~$\Gamma'$ be two cuts of~$\spine$ which differ by sweeping a node~$X$ of~$\spine$, meaning that $\Gamma \ssm \alpha(X) = \Gamma' \ssm \beta(X)$ where~$\alpha(X)$ and~$\beta(X)$ respectively denote the incoming and outgoing arcs of~$X$.
 %  \vincent{todo}
 \end{proof}
 
@@ -1011,13 +1054,15 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
   \node (26) at (5.5, 3) {$\up[2] \up[5] \up[9]$};
 \end{tikzpicture}
 \caption{A blossoming spine on the maple tree of \cref{fig:mapleBlock}, reconstructed from $\pi = 3 \down[7] 8 | \updown[2] \up[5] 6 | 149$.}
-\label{fig:blossoming spine}
+\label{fig:blossomingSpine}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Surjection maps and rewriting rules}
 \label{subsec:surjectionMaps}
+
+\vincent{I want to do that directly from spines of~$G$ to spines of~$G'$ when~$G$ refines~$G'$.}
 
 Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\pi \eqdef \pi_1 | \dots | \pi_p$ of non-empty (unordered) subsets of~$B$ which form a partition of~$B$.
 
@@ -1028,15 +1073,15 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 %  It follows a sweep sequence~$\Gamma_0, \dots \Gamma_p$ of~$\spine(\pi)$ and constructs~$\spine(\pi)$ by maintaining before step~$i$ the blossoming forest induced by the nodes of~$\spine(\pi)$ contained in~$\pi_1 \cup \dots \cup \pi_{i-1}$.
 %  The iterative procedure is as follows:
 %  \begin{itemize}
-%    \item start with the cut~$\Gamma_0$ formed by an incoming blossom labeled~$R \cap C$ for each connected component~$C$ of~$M \ssm \down[B]$,
+%    \item start with the cut~$\Gamma_0$ formed by an incoming blossom labeled~$R \cap C$ for each connected component~$C$ of~$M \ssm \Down[B]$,
 %    \item at step~$i$:
 %      \begin{itemize}
-%        \item create a node~$U$ for each non-empty intersection of~$\pi_i$ with a connected component of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_{i-1}] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
-%        \item attach as incoming arcs of~$U$ the outgoing blossoms of~$\Gamma_{i-1}$ whose labels are adjacent to~$U$ in~$M$,
-%        \item create at~$U$ one outgoing blossom labeled by~$R \cap C$ for each connected component~$C$ of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_i] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
+%        \item create a node~$X$ for each non-empty intersection of~$\pi_i$ with a connected component of~$M \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_{i-1}] \cup \Down[\pi_{i+1}] \cup \dots \cup \Down[\pi_p])$,
+%        \item attach as incoming arcs of~$X$ the outgoing blossoms of~$\Gamma_{i-1}$ whose labels are adjacent to~$X$ in~$M$,
+%        \item create at~$X$ one outgoing blossom labeled by~$R \cap C$ for each connected component~$C$ of~$M \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_i] \cup \Down[\pi_{i+1}] \cup \dots \cup \Down[\pi_p])$,
 %        \item define the new cut~$\Gamma_i$.
 %      \end{itemize}
-%    \item end with the cut~$\Gamma_p$ with an outgoing blossom for each connected component of~$M \ssm \up[B]$.
+%    \item end with the cut~$\Gamma_p$ with an outgoing blossom for each connected component of~$M \ssm \Up[B]$.
 %  \end{itemize}
 %  \vincent{improve that}
 %\end{definition}
@@ -1049,11 +1094,11 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
   \begin{itemize}[wide, labelwidth=!, labelindent=5pt]
     \item \textbf{construct}
     \begin{itemize}[wide, labelwidth=!, labelindent=10pt]
-      \item an arc~$\alpha^i_Y$ for each $0 \le i \le p$ and each component~$Y$ of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_i] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
-      \item a node~$n^i_X$ for each $1 \le i \le p$ and each component~$X$ of~$M \ssm (\up[\pi_1] \cup \dots \cup \up[\pi_{i-1}] \cup \down[\pi_{i+1}] \cup \dots \cup \down[\pi_p])$,
+      \item an arc~$\alpha^i_D$ for each $0 \le i \le p$ and each component~$D$ of~$M \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_i] \cup \Down[\pi_{i+1}] \cup \dots \cup \Down[\pi_p])$,
+      \item a node~$n^i_C$ for each $1 \le i \le p$ and each component~$C$ of~$M \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_{i-1}] \cup \Down[\pi_{i+1}] \cup \dots \cup \Down[\pi_p])$,
     \end{itemize}
-    \item \textbf{attach} the arcs~$\alpha^{i-1}_X$ (resp.~$\alpha^i_X$) with~$X \subseteq Y$ as incoming (resp.~outgoing)~arcs of the node~$n^i_Y$,
-    \item \textbf{relabel} the arc~$\alpha^i_X$ with~$X \cap R$ and the node~$\alpha^i_Y$ with~$Y \cap \pi_i$,
+    \item \textbf{attach} the arcs~$\alpha^{i-1}_C$ (resp.~$\alpha^i_C$) with~$C \subseteq D$ as incoming (resp.~outgoing)~arcs of the node~$n^i_D$,
+    \item \textbf{relabel} the arc~$\alpha^i_C$ with~$C \cap R$ and the node~$\alpha^i_D$ with~$D \cap \pi_i$,
     \item \textbf{contract} into a single arc any path of arcs passing through nodes with empty~labels.
   \end{itemize}
 \end{definition}
@@ -1066,6 +1111,10 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 \end{proposition}
 
 \begin{remark}
+  Note that if an ordered partition~$\pi$ of~$\vertexSet$ has~$k$ parts, then the spine~$\partitionToSpine(\pi)$ on~$G$ has at least $k$ nodes (it can have more, see \cref{fig:blossomingSpine}). In particular, the permutations of~$\vertexSet$ are sent to the corank~$0$ spines on~$G$.
+\end{remark}
+
+\begin{remark}
   The construction of \cref{def:surjection} can also be seen as a sweeping algorithm.
   \vincent{todo}
 \end{remark}
@@ -1073,17 +1122,45 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 \vincent{Specialize to permutations?}
 \vincent{Rewriting rules...}
 
+We now consider the equivalence relation~$\equiv_G$ whose classes are the fibers of the map~$\partitionToSpine$.
+
 \begin{definition}
   \label{def:equivalenceRelation}
-  We denote by~$\equiv_G$ the equivalence relation on ordered partitions of~$V_G$ defined by~$\pi \equiv_G \pi'$ iff $\partitionToSpine(\pi) = \partitionToSpine(\pi')$.
-  In other words, the equivalence classes of~$\equiv_G$ are the fibers of the map~$\partitionToSpine$.
-  \end{definition}
+  Let~$\equiv_G$ denote the equivalence relation on ordered partitions of~$\vertexSet$ defined by~$\pi \equiv_G \pi'$ if and only if $\partitionToSpine(\pi) = \partitionToSpine(\pi')$.
+\end{definition}
+
+\begin{example}
+  \label{exm:equivalenceRelations}
+  For instance, the equivalence relation~$\equiv_G$ on permutations is
+  \begin{enumerate}[(i)]
+    \item the \defn{trivial relation} when $G$ is complete or undecorated.
+    \item the various \defn{permutree relations} of~\cite{PilaudPons-permutrees} when~$G$ is a path (in particular the \defn{sylvester relation} for a down decorated path, and the \defn{Cambrian relations} for up-down decorated~paths).
+  \end{enumerate}
+  Note that in contrast to these specific examples, the equivalence relation~$\equiv$ has no reason to be a lattice congruence of the weak order.
+\end{example}
+
+\begin{proposition}
+  \label{prop:equivalenceRelation}
+  The equivalence relation~$\equiv_G$ on ordered partitions of~$\vertexSet$ is the transitive closure of the elementary relations
+  \[
+    \pi_1 | \dots | \pi_k | \pi_{k+1} | \dots | \pi_p \equiv_G \pi_1 | \dots | \pi_k \cup \pi_{k+1} | \dots | \pi_p
+  \]
+  where~$\pi_k$ and~$\pi_{k+1}$ belong to distinct connected components of~$G \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_{k-1}] \cup \Down[\pi_{k+2}] \cup \dots \cup \Down[\pi_p])$.
+\end{proposition}
+
+\begin{proof}
+  Follows from \cref{def:surjection}.
+\end{proof}
 
 \begin{remark}
-  \label{rem:latticeCongruence}
-  Note that~$\equiv$ has no reason to be a lattice congruence.
-  \vincent{todo}
+  Specializing to permutations, the equivalence relation~$\equiv_G$ on permutations of~$\vertexSet$ is the transitive closure of the elementary relations
+  \[
+    \sigma_1 \dots \sigma_k \sigma_{k+1} \dots \sigma_{|\vertexSet|} \equiv_G \sigma_1 \dots \sigma_{k+1} \sigma_k \dots \sigma_{|\vertexSet|}
+  \]
+  where~$\sigma_k$ and~$\sigma_{k+1}$ belong to distinct connected components of~$G \ssm (\Up[{\sigma^{-1}([k-1])}] \cup \Down[{\sigma^{-1}([|\vertexSet|] \ssm [k+1])}])$.
+  \vincent{Here, I would prefer to say that there is a vertex of~$G$ in between $\sigma_k$ and~$\sigma_{k+1}$...}
 \end{remark}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1093,11 +1170,11 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 \begin{definition}
   \label{def:refinement}
   %Let~$G$ and~$G'$ be two decorated block graphs.
-  We say that~$G$ \defn{refines}~$G'$ (and that $G'$ \defn{coarsens} $G$) if they are decorations of the same underlying block graph and $\down[V_G] \subseteq \down[V_{G'}]$ while $\up[V_G] \subseteq \up[V_{G'}]$.
+  We say that~$G$ \defn{refines}~$G'$ (and that $G'$ \defn{coarsens} $G$) if they are decorations of the same underlying block graph and $\Down[\vertexSet] \subseteq \Down[\vertexSet']$ while $\Up[\vertexSet] \subseteq \Up[\vertexSet']$.
 \end{definition}
 
 \begin{proposition}
-  \label{prop:refinementSurjection}
+  \label{prop:refinementBlocks}
   If~$G$ refines~$G'$, then
   \begin{itemize}
     \item any block of~$G'$ is a block of~$G$,
@@ -1110,17 +1187,41 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 \end{proof}
 
 \begin{proposition}
-  \label{prop:refinementSurjection}
+  \label{prop:refinementEquivalenceRelations}
   If~$G$ refines~$G'$, then~$\equiv_G$ refines~$\equiv_{G'}$.
 \end{proposition}
 
 \begin{proof}
-  \vincent{todo}
+  Follows from \cref{prop:equivalenceRelation}.
 \end{proof}
+
+For any ordered partitions~$\pi$ of~$\vertexSet$ and~$\pi'$ of~$\vertexSet'$ corresponding to the same ordered partition of the underlying block graph of~$G$ and~$G'$, \cref{prop:refinementEquivalenceRelations} affirms that the spine~$\spine = \partitionToSpine(\pi')$ of~$G'$ only depends on the spine~$\spine' = \partitionToSpine(\pi)$ of~$G$.
+This yields a natural surjection~$\surjectionSpines$ from spines on~$G$ to spines on~$G'$, which is clearly a poset morphism from~$\spinePoset[G]$ to~$\spinePoset[G']$.
+\vincent{Is it possible to define directly this surjection. This would save the surjection from ordered partitions to spines...}
+
+%\cref{prop:refinementEquivalenceRelations} yields a natural surjection~$\surjectionSpines$ from spines on~$G$ to spines on~$G'$.
+%Namely, for a spine~$\spine$ on~$G$, pick any ordered partition~$\pi$ of~$\vertexSet$ such that~$\spine = \partitionToSpine(\pi)$, let~$\pi'$ be the corresponding ordered partition of~$\vertexSet'$ where only the decoration differ, and let~$\spine' = \partitionToSpine(\pi')$.
+%This surjection is clearly a poset morphism from~$\spinePoset[G]$ to~$\spinePoset[G']$.
 
 \begin{example}
   \vincent{Surjections from spines to acyclic orientations of~$G$.}
 \end{example}
+
+\begin{definition}
+  \label{def:surjection}
+  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$.
+  For a spine~$\spine$ on~$G$, we construct a blossoming spine~$\spineToSpine(\spine)$ on~$M$ in four steps:
+  \begin{itemize}[wide, labelwidth=!, labelindent=5pt]
+    \item \textbf{construct}
+    \begin{itemize}[wide, labelwidth=!, labelindent=10pt]
+      \item an arc~$\varepsilon_\gamma^D$ for each arc~$\gamma$ of~$\spine$ and each component~$D$ of~$M \ssm (\Up[{\so[\gamma]}] \cup \Down[{\ta[\gamma]}])$,
+      \item a node~$n_X^C$ for each node~$X$ of~$\spine$ and each component~$C$ of~$M \ssm ()$,
+    \end{itemize}
+    \item \textbf{attach} the arcs~$\alpha^{i-1}_C$ (resp.~$\alpha^i_C$) with~$C \subseteq D$ as incoming (resp.~outgoing)~arcs of the node~$n^i_D$,
+    \item \textbf{relabel} the arc~$\alpha^i_C$ with~$C \cap R$ and the node~$\alpha^i_D$ with~$D \cap \pi_i$,
+    \item \textbf{contract} into a single arc any path of arcs passing through nodes with empty~labels.
+  \end{itemize}
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1141,13 +1242,13 @@ Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\p
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Geometry: spine fans and polytopes}
+\section{Geometry: Spine Fans and Polytopes}
 
-We denote by~$(\b{e}_v)_{v \in V_G}$ the standard basis of~$\R^{V_G}$.
-We denote by~$\one_U \eqdef \sum_{u \in U} \b{e}_u$ the characteristic vector of a subset~$U \subseteq V_G$, and write just~$\one$ for~$\one_{V_G}$.
+We denote by~$(\b{e}_v)_{v \in \vertexSet}$ the standard basis of~$\R^{\vertexSet}$.
+We denote by~$\one_X \eqdef \sum_{x \in X} \b{e}_x$ the characteristic vector of a subset~$X \subseteq \vertexSet$, and write just~$\one$ for~$\one_{\vertexSet}$.
 %We consider the hyperplane
 %\[
-%\Hyp \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}.
+%\Hyp \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = \weight_{\vertexSet}}.
 %\]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1161,44 +1262,52 @@ The \defn{faces} of a cone are its intersections with its supporting linear hype
 A (polyhedral) \defn{fan}~$\c{F}$ is a collection of polyhedral cones closed under faces (if~$\polytope{C}$ is a face of~$\polytope{C'}$, then~$\polytope{C'} \in \c{F} \Rightarrow \polytope{C'} \in \c{F}$) and intersecting along faces (any two cones of~$\c{F}$ intersect along a face of both).
 The \defn{rays} of~$\c{F}$ are its dimension~$1$ cones, and the \defn{regions} of~$\c{F}$ are its inclusion maximal cones.
 The fan~$\c{F}$ is \defn{essential} when its inclusion minimal cone is the origin, \defn{complete} when its cones cover the space, and \defn{simplicial} when all its cones are simplicial (generated by linearly independent vectors).
-We next consider two very classical examples of fans.
+In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = 0}}$ of~$\R^{\vertexSet}$.
 
-\begin{example}
-  \label{exm:braidFan}
-  The \defn{braid arrangement} is the collection of hyperplanes~$\set{\b{x} \in \R^{V_G}}{x_u = x_v}$ for all~$u \ne v \in V_G$.
-  Since this arrangement is not essential (all its hyperplanes contain the line generated by~$\one$), we consider its intersection with the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}}$.
-  This intersection defines the \defn{braid fan}~$\braidFan$.
-  Each surjection~$\pi : V_G \to [k+1]$ corresponds to a $k$-dimensional cone~$\normalCone(\pi) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ iff } \pi(u) \le \pi(v)}$ of~$\braidFan$.
-  In particular, the regions of~$\braidFan$ correspond to bijections~$V_G \to [|V_G|]$ and the rays of~$\braidFan$ correspond to proper subsets of~$V_G$ (neither empty nor all~$V_G$).
-  \vincent{Not sure if we want surjections or ordered partitions here.}
-%More generally, we associate to an acyclic oriented graph~$H$ whose nodes partition~$V_G$ the cone~$\normalCone(H) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all } u \preccurlyeq_H v}$, where~$u \preccurlyeq_H v$ means that there is a directed path in~$H$ from the node containing~$u$ to the node containing~$v$ (in particular, ~$u =_H v$ if~$u$ and~$v$ belong to the same node of~$H$).
-%Recall that a \defn{preposet} on~$V_G$ is a reflexive and transitive binary relation~$R \subsetea V_G \times V_G$.
-%An equivalence relation is a symmetric preposet, and a poset if an antisymmetric preposet.
-%Any preposet~$R$ decomposes into an equivalence relation~$\equiv_R \eqdef \set{(u,v) \in R}{(v,u) \in R}$ together with a poset structure~${\prec_R \eqdef \, R/\!\equiv_R}$ on the equivalence classes of~$\equiv_R$.
-%Let~$H$ be an acyclic oriented graph~$H$ whose nodes partition~$V_G$.
-%For two vertices~$u,v \in V_G$, we write~$u \preccurlyeq_H v$ if there is a directed path in~$H$ from the node containing~$u$ to the node containing~$v$ (in particular, ~$u =_H v$ if~$u$ and~$v$ belong to the same node of~$H$).
-%We associate to~$H$ the two cones
-%\[
-%  \normalCone(H) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all } u \preccurlyeq_H v}
-%  \quad\text{and}\quad
-%  \primalCone(H) \eqdef \cone\set{\b{e}_u - \b{e}_v}{\text{for all } u \preccurlyeq_H v}.
-%\]
-%Note that these two cones are polar to each other.
-\end{example}
-
-\begin{example}
-  \label{exm:graphicalFan}
-  The \defn{graphical arrangement} of~$G$ is the collections of hyperplanes~$\set{\b{x} \in \R^{V_G}}{x_u = x_v}$ for all~$\{u,v\} \in E_G$.
-  Its intersection with the hyperplane~$\Hyp[0]$ defines the \defn{graphical fan}~$\graphicalFan$.
-  The faces of~$\graphicalFan$ correspond to the pairs~$(p,o)$ where~$p$ is a partition of~$V_G$ into connected subgraphs, and~$o$ is an acyclic orientation of the quotient graph~$G/p$.
-  In particular, the regions of~$\graphicalFan$ correspond to the acyclic orientations of~$G$.
-\end{example}
-
-We consider the following fan which is sandwiched between the braid fan and the graphical fan.
+%We next consider two very classical examples of fans.
+%
+%\begin{example}
+%  \label{exm:braidFan}
+%  The \defn{braid arrangement} is the collection of hyperplanes~$\set{\b{x} \in \R^{\vertexSet}}{x_u = x_v}$ for all~$u \ne v \in \vertexSet$.
+%  Since this arrangement is not essential (all its hyperplanes contain the line generated by~$\one$), we consider its intersection with the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = 0}}$.
+%  This intersection defines the \defn{braid fan}~$\braidFan$.
+%  Each surjection~$\pi : \vertexSet \to [k+1]$ corresponds to a $k$-dimensional cone~$\normalCone(\pi) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ iff } \pi(u) \le \pi(v)}$ of~$\braidFan$.
+%  In particular, the regions of~$\braidFan$ correspond to bijections~$\vertexSet \to [|\vertexSet|]$ and the rays of~$\braidFan$ correspond to proper subsets of~$\varnothing \ne X \ne \vertexSet$.
+%  \vincent{Not sure if we want surjections or ordered partitions here.}
+%%More generally, we associate to an acyclic oriented graph~$H$ whose nodes partition~$\vertexSet$ the cone~$\normalCone(H) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all } u \preccurlyeq_H v}$, where~$u \preccurlyeq_H v$ means that there is a directed path in~$H$ from the node containing~$u$ to the node containing~$v$ (in particular, ~$u =_H v$ if~$u$ and~$v$ belong to the same node of~$H$).
+%%Recall that a \defn{preposet} on~$\vertexSet$ is a reflexive and transitive binary relation~$R \subsetea \vertexSet \times \vertexSet$.
+%%An equivalence relation is a symmetric preposet, and a poset if an antisymmetric preposet.
+%%Any preposet~$R$ decomposes into an equivalence relation~$\equiv_R \eqdef \set{(u,v) \in R}{(v,u) \in R}$ together with a poset structure~${\prec_R \eqdef \, R/\!\equiv_R}$ on the equivalence classes of~$\equiv_R$.
+%%Let~$H$ be an acyclic oriented graph~$H$ whose nodes partition~$\vertexSet$.
+%%For two vertices~$u,v \in \vertexSet$, we write~$u \preccurlyeq_H v$ if there is a directed path in~$H$ from the node containing~$u$ to the node containing~$v$ (in particular, ~$u =_H v$ if~$u$ and~$v$ belong to the same node of~$H$).
+%%We associate to~$H$ the two cones
+%%\[
+%%  \normalCone(H) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all } u \preccurlyeq_H v}
+%%  \quad\text{and}\quad
+%%  \primalCone(H) \eqdef \cone\set{\b{e}_u - \b{e}_v}{\text{for all } u \preccurlyeq_H v}.
+%%\]
+%%Note that these two cones are polar to each other.
+%\end{example}
+%
+%\vincent{We could introduce here the sylvester fan. But it would be a repetition with the spine fan. Not sure.}
+%%\begin{example}
+%%  \label{exm:sylvesterFan}
+%%  \vincent{Todo}
+%%\end{example}
+%
+%\begin{example}
+%  \label{exm:graphicalFan}
+%  The \defn{graphical arrangement} of~$G$ is the collections of hyperplanes~$\set{\b{x} \in \R^{\vertexSet}}{x_u = x_v}$ for all~$\{u,v\} \in \edgeSet$.
+%  Its intersection with the hyperplane~$\Hyp[0]$ defines the \defn{graphical fan}~$\graphicalFan$.
+%  The cones of~$\graphicalFan$ correspond to the pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs, and~$o$ is an acyclic orientation of the quotient graph~$G/p$.
+%  In particular, the regions of~$\graphicalFan$ correspond to the acyclic orientations of~$G$.
+%\end{example}
+%
+%We consider the following fan which is sandwiched between the braid fan and the graphical fan.
 
 \begin{definition}
   \label{def:spineFan}
-  For a spine~$\spine$, we denote by~$\normalCone(\spine)$ the cone of~$\Hyp[0]$ defined by the inequalities~$x_u \le x_v$ for all directed paths joining~$u$ to~$v$ in~$\spine$ (in particular, $x_u = x_v$ when $u,v$ belong to the same node of~$\spine$).
+  For a spine~$\spine$, we denote by~$\normalCone(\spine)$ the cone of~$\Hyp[0]$ defined by the inequalities~${x_u \le x_v}$ for all directed paths joining~$u$ to~$v$ in~$\spine$ (in particular, $x_u = x_v$ when $u,v$ belong to the same node of~$\spine$).
 %  \[
 %    \normalCone(\spine) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all (possibly trivial) directed paths } u \to v \text{ in } \spine}
 %  \]
@@ -1230,13 +1339,24 @@ We consider the following fan which is sandwiched between the braid fan and the 
 %  This immediately follows from \cref{subsec:surjectionMaps}.
 %\end{proof}
 
+%\begin{example}
+%  \label{exm:braidFanGraphicalFan}
+%  The spine fan~$\spineFan$ recovers the braid fan~$\braidFan$ of \cref{exm:braidFan} and the graphical fan~$\graphicalFan$ of \cref{exm:graphicalFan} in the following two extreme situations:
+%  \begin{itemize}
+%    \item if~$\Down[\vertexSet] = \Up[\vertexSet] = \varnothing$, then the spine fan~$\spineFan$ is the braid fan~$\braidFan$,
+%    \item if~$\Down[\vertexSet] = \Up[\vertexSet] = \vertexSet$, then the spine fan~$\spineFan$ is the graphical fan~$\graphicalFan$.
+%  \end{itemize}
+%\end{example}
+
 \begin{example}
-  \label{exm:braidFanGraphicalFan}
-  The spine fan~$\spineFan$ recovers the braid fan~$\braidFan$ of \cref{exm:braidFan} and the graphical fan~$\graphicalFan$ of \cref{exm:graphicalFan} in the following two extreme situations:
-  \begin{itemize}
-    \item if~$\down[V_G] = \up[V_G] = \varnothing$, then the spine fan~$\spineFan$ is the braid fan~$\braidFan$,
-    \item if~$\down[V_G] = \up[V_G] = V_G$, then the spine fan~$\spineFan$ is the graphical fan~$\graphicalFan$.
-  \end{itemize}
+  \label{exm:spineFans}
+  For instance, the spine fan is:
+  \begin{enumerate}[(i)]
+    \item the \defn{braid fan}~$\braidFan$ when~$G$ is complete or undecorated. It is the fan defined from the classical \defn{braid arrangement} of the hyperplanes~$\set{\b{x} \in \R^{\vertexSet}}{x_u = x_v}$ for all vertices~$u \ne v \in \vertexSet$. It has a $k$-dimensional cone~$\normalCone(\pi) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ iff } \pi(u) \le \pi(v)}$ for each surjection~$\pi : \vertexSet \to [k+1]$. In particular, the regions of~$\braidFan$ correspond to bijections~${\vertexSet \to [|\vertexSet|]}$ and the rays of~$\braidFan$ correspond to proper subsets of~$\varnothing \ne X \ne \vertexSet$.
+    \item the \defn{nested fan} of~$G$ studied in~\cite{CarrDevadoss, Zelevinsky} when~$G$ is down decorated (in particular the classical \defn{sylvester fan} when~$G$ is a down decorated path).
+    \item the \defn{graphical fan}~$\graphicalFan$ when~$G$ is fully decorated (in particular the \defn{coordinate fan} when~$G$ is a fully decorated tree). It is the fan defined from the \defn{graphical arrangement} of the hyperplanes~$\set{\b{x} \in \R^{\vertexSet}}{x_u = x_v}$ for all edges~$\{u, v\} \in \vertexSet$. The cones of~$\graphicalFan$ correspond to the pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs, and~$o$ is an acyclic orientation of the quotient graph~$G/p$. In particular, the regions of~$\graphicalFan$ correspond to the acyclic orientations of~$G$.
+    \item the various \defn{permutree fans} of~\cite{PilaudPons-permutrees} when~$G$ is a path (in particular the various type~$A$ \defn{Cambrian fans} for up-down decorated paths).
+  \end{enumerate}
 \end{example}
 
 \begin{proposition}
@@ -1246,7 +1366,7 @@ We consider the following fan which is sandwiched between the braid fan and the 
 \end{proposition}
 
 \begin{proof}
-  \vincent{todo}
+  Follows from \cref{prop:refinementEquivalenceRelations}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1258,36 +1378,50 @@ The \defn{faces} of~$\polytope{P}$ are its intersections with its supporting aff
 The \defn{vertices} of~$\polytope{P}$ are its dimension~$0$ faces, and the \defn{facets} of~$\polytope{P}$ are its codimension~$1$ faces.
 The \defn{normal cone} of a face~$\polytope{F}$ of~$\polytope{P}$ is the cone of all linear functions whose maximum over~$\polytope{P}$ is attained precisely on~$\polytope{F}$.
 The \defn{normal fan} of~$\polytope{P}$ is the fan formed by the normal cones of all the faces of~$\polytope{P}$.
-We next consider two very classical examples of polytopes.
 All our polytopes are parametrized by a weight function, which does not change their combinatorics but provides more freedom for their geometry.
 
 \begin{definition}
   \label{def:weight}
   For a set~$X$, we denote by~$\monombinom{X}$ the set of~$\binom{|X|+1}{2}$ subsets of~$X$ of size $1$ or~$2$.
-  We fix a \defn{weight}~$\weight_p$ for all~$p \in \monombinom{V_G}$, and we define~$\weight_U \eqdef \sum_{p \in \monombinom{U}} \weight_p$ for any subset~$U$ of~$V_G$.
+  We fix a \defn{weight}~$\weight_p$ for all~$p \in \monombinom{\vertexSet}$, and we define~$\weight_X \eqdef \sum_{p \in \monombinom{X}} \weight_p$ for any subset~$X$ of~$\vertexSet$.
 \end{definition}
 
-\begin{example}
-  \label{exm:permutahedron}
-  The \defn{permutahedron}~$\Perm$ is the polytope defined equivalently as
-  \begin{itemize}
-%    \item the convex hull of the points~$\sum_{u,v \in V_G} \delta_{\sigma(u) \le \sigma(v)} \weight_{uv} \b{e}_v$ for all bijections~$\sigma: V_G \to [|V_G|]$,
-    \item the convex hull of the points~$\point[\sigma] \eqdef \sum_{p \in \monombinom{V_G}} \weight_p \b{e}_{\max_\sigma(p)}$ for all bijections~$\sigma: V_G \to [|V_G|]$,
-    \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}$ with the affine halfspaces~$\HS_U \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one_U}{\b{x}} \ge \weight_U}$ for all subsets~$\varnothing \ne U \subsetneq V_G$,
-    \item the Minkowski sum~$\sum_{p \in \monombinom{V_G}} \weight_p \triangle_p$, where~$\triangle_p \eqdef \conv\set{\b{e}_v}{v \in p}$.
-  \end{itemize}
-  The braid fan~$\braidFan$ is the normal fan of the permutahedron~$\Perm$.
-  Note that the barycenter of~$\Perm$ is the point~$\b{0}^\weight \eqdef \sum_{p \in \monombinom{V_G}} \frac{\weight_p}{|p|} \one_p$.
-\end{example}
-
-\begin{example}
-  \label{exm:graphicalZonotope}
-  The \defn{graphical zonotope}~$\Zono$ is the polytope defined as...
-  The graphical fan~$\graphicalFan$ is the normal fan of the graphical zonotope~$\Zono$.
-  \vincent{todo. Be careful with the translation part...}
-\end{example}
-
-We consider the following polytope which is sandwiched between the permutahedron and the graphical zonotope.
+%We next consider two very classical examples of polytopes.
+%
+%\begin{example}
+%  \label{exm:permutahedron}
+%  The \defn{permutahedron}~$\Perm$ is the polytope defined equivalently as
+%  \begin{itemize}
+%%    \item the convex hull of the points~$\sum_{u,v \in \vertexSet} \delta_{\sigma(u) \le \sigma(v)} \weight_{uv} \b{e}_v$ for all bijections~$\sigma: \vertexSet \to [|\vertexSet|]$,
+%    \item the convex hull of the points~$\point[\sigma] \eqdef \sum_{p \in \monombinom{\vertexSet}} \weight_p \b{e}_{\max_\sigma(p)}$ for all bijections~$\sigma: \vertexSet \to [|\vertexSet|]$,
+%    \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = \weight_{\vertexSet}}$ with the affine halfspaces~$\HS_X \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one_X}{\b{x}} \ge \weight_X}$ for all proper subsets~$\varnothing \ne X \subsetneq \vertexSet$,
+%    \item the Minkowski sum~$\sum_{p \in \monombinom{\vertexSet}} \weight_p \triangle_p$, where~$\triangle_p \eqdef \conv\set{\b{e}_v}{v \in p}$.
+%  \end{itemize}
+%  The braid fan~$\braidFan$ is the normal fan of the permutahedron~$\Perm$.
+%  Note that the barycenter of~$\Perm$ is the point~$\b{0}^\weight \eqdef \sum_{p \in \monombinom{\vertexSet}} \frac{\weight_p}{|p|} \one_p$.
+%\end{example}
+%
+%\vincent{We could introduce here the graph associahedron. But it would be a repetition with the spine fan. Not sure.}
+%\begin{example}
+%  \label{exm:associahedron}
+%  The \defn{graph associahedron}~$\Asso$ is the polytope defined equivalently as
+%  \vincent{todo}
+%  \begin{itemize}
+%    \item the convex hull of the points~$\point[{\spine[T]}] \eqdef \dots$,
+%    \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = \weight_{\vertexSet}}$ with the affine halfspaces~$\HS_X \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one_X}{\b{x}} \ge \weight_X}$ for all proper subsets~$\varnothing \ne X \subsetneq \vertexSet$ which induce a connected subgraph of~$G$,
+%    \item the Minkowski sum~$\sum_{X} \weight_X \triangle_X$, where~$\triangle_X \eqdef \conv\set{\b{e}_u}{u \in X}$.
+%  \end{itemize}
+%  The sylvester fan~$\sylvesterFan$ is the normal fan of the associahedron~$\Asso$.
+%\end{example}
+%
+%\begin{example}
+%  \label{exm:graphicalZonotope}
+%  The \defn{graphical zonotope}~$\Zono$ is the polytope defined as...
+%  The graphical fan~$\graphicalFan$ is the normal fan of the graphical zonotope~$\Zono$.
+%  \vincent{todo. Be careful with the translation part...}
+%\end{example}
+%
+%We consider the following polytope which is sandwiched between the permutahedron and the graphical zonotope.
 
 \begin{definition}
   For a maximal spine~$\spine$ on~$G$, we denote by~$\Pi(\spine)$ the set of (undirected and simple) paths joining two (possibly identical) nodes of~$\spine$.
@@ -1303,11 +1437,10 @@ We consider the following polytope which is sandwiched between the permutahedron
   For any weight matrix~$\weight$, the spine fan~$\spineFan$ is the normal fan of the \defn{spine polytope}~$\Spin$ defined irredundantly and equivalently as
   \begin{enumerate}[(i)]
     \item the convex hull of the points~$\point \eqdef \sum_{\pi \in \Pi(\spine)} \weight_{\boundary} \big( \one_{\peaks} - \one_{\valleys \ssm \boundary} \big)$ for all corank~$0$ spines~$\spine$~on~$G$,
-    \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one}{\b{x}} = \weight_{V_G}}$ with the affine halfspaces~$\HS_B \eqdef \bigset{\b{x} \in \R^{V_G}}{\dotprod{\one_B}{\b{x}} \ge \weight_B}$ for all blocks of~$G$.
+    \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = \weight_{\vertexSet}}$ with the affine halfspaces~$\HS_B \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one_B}{\b{x}} \ge \weight_B}$ for all blocks of~$G$.
+%    \item the intersection of the hyperplane~$\Hyp$ with the halfspaces~$\HS_B$ for all blocks of~$G$.
   \end{enumerate}
 \end{theorem}
-
-\vincent{Examples of vertices and facets from the pictures.}
 
 Our proof of \cref{thm:permutreehedra} is based on the following result of C.~Hohlweg, C.~Lange, and H.~Thomas~\cite{HohlwegLangeThomas}.
 
@@ -1335,40 +1468,41 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 
 \begin{lemma}
   \label{lem:vertexFacetIncidences}
-  We have~$\dotprod{\one}{\point} = \weight_{V_G}$ and $\dotprod{\one_{\so[\gamma]}}{\point} = \weight_{\so[\gamma]}$ for all arcs~$\gamma$ of~$\spine$.
+  We have~$\dotprod{\one}{\point} = \weight_{\vertexSet}$ and $\dotprod{\one_{\so[\gamma]}}{\point} = \weight_{\so[\gamma]}$ for all arcs~$\gamma$ of~$\spine$.
 \end{lemma}
 
 \begin{proof}
   Along any path~$\pi$, the peaks and valleys alternate, so that~$\dotprod{\one}{\one_{\peaks} - \one_{\valleys \ssm \boundary}} = 1$.
-  This shows that~$\dotprod{\one}{\point} = \sum_{\pi \in \Pi(\spine)} \weight_{\boundary} = \weight_{V_G}$ since any two vertices of~$V_G$ are connected by precisely one simple path in~$\spine$.
+  This shows that~$\dotprod{\one}{\point} = \sum_{\pi \in \Pi(\spine)} \weight_{\boundary} = \weight_{\vertexSet}$ since any two vertices of~$\vertexSet$ are connected by precisely one simple path in~$\spine$.
   
   Consider now an arc~$\gamma$ of~$\spine$.
   Again, the peaks and valleys alternate along any path~$\pi$.
   Moreover, if~$\pi$ contains~$\gamma$, then the closest node to~$\gamma$ in~$\peaks \cup \valleys$ in~$\so[\gamma]$ (resp.~in~$\ta[\gamma]$) is a valley (resp.~a peak).
   Hence, $\dotprod{\one_{\so[\gamma]}}{\one_{\peaks} - \one_{\valleys \ssm \boundary}} = 1$ if~$\gamma$ is included in~$\so[\gamma]$ and~$0$ otherwise.
-  We conclude that~$\dotprod{\one_{\so[\gamma]}}{\point} = \sum_{\pi \in \Pi(\spine), \; \boundary \subseteq \so[\gamma]} \weight_{\boundary} = \weight_{V_G}$ since any two vertices of~$\so[\gamma]$ are connected by precisely one simple path in~$\spine$.
+  We conclude that~$\dotprod{\one_{\so[\gamma]}}{\point} = \sum_{\pi \in \Pi(\spine), \; \boundary \subseteq \so[\gamma]} \weight_{\boundary} = \weight_{\vertexSet}$ since any two vertices of~$\so[\gamma]$ are connected by precisely one simple path in~$\spine$.
 \end{proof}
 
 \begin{lemma}
   \label{lem:flipDifference}
-  If~$\spine$ and~$\spine'$ are two corank~$0$ spines on~$G$ such that~$\spine'$ is obtained from~$\spine$ by flipping an arc joining node~$u$ to node~$v$, then the difference~$\point[\spine] = \point[\spine']$ is a positive multiple of~$\b{e}_u - \b{e}_v$.
+  If~$\spine$ and~$\spine'$ are two corank~$0$ spines on~$G$ such that~$\spine'$ is obtained from~$\spine$ by flipping an arc joining node~$x$ to node~$y$, then the difference~$\point[\spine] = \point[\spine']$ is a positive multiple of~$\b{e}_x - \b{e}_y$.
 \end{lemma}
 
 \begin{proof}
-  Let~$A_u$ (resp.~$B_u$) denote the union of the source (resp.~target) sets of the arcs which are incoming to~$u$ (resp.~outgoing from~$u$) in both~$\spine$ and~$\spine'$, and define similarly~$A_v$ (resp.~$B_v$).
-  Let~$x,y \in V_G$ and denote by~$\pi$ (resp.~$\pi'$) the path in~$\spine$ (resp.~$\spine'$) joining~$u$ to~$v$.
+  Let~$A_x$ (resp.~$B_x$) denote the union of the source (resp.~target) sets of the arcs which are incoming to~$x$ (resp.~outgoing from~$x$) in both~$\spine$ and~$\spine'$, and define similarly~$A_y$ (resp.~$B_y$).
+  Let~$u,v \in \vertexSet$ and denote by~$\pi$ (resp.~$\pi'$) the path in~$\spine$ (resp.~$\spine'$) joining~$u$ to~$v$.
   Observe that the paths~$\pi$ and~$\pi'$ have the same peaks and valleys, except if
   \begin{itemize}
-    \item $x \in A_u$ and~$y \in \{v\} \cup A_v$, then $u \in \peaks[\pi'] \ssm \peaks[\pi]$ while~$v \in \peaks[\pi] \ssm \peaks[\pi']$,
-    \item $x \in A_u$ and~$y \in B_v$, then $u \in \peaks[\pi'] \ssm \peaks[\pi]$ while~$v \in \valleys[\pi'] \ssm \valleys[\pi]$,
-    \item $x \in \{u\} \cup B_u$ and~$y \in \{v\} \cup A_v$, then $u \in \valleys[\pi] \ssm \valleys[\pi']$ while~$v \in \peaks[\pi] \ssm \peaks[\pi']$,
-    \item $x \in \{u\} \cup B_u$ and~$y \in B_v$, then $u \in \valleys[\pi] \ssm \valleys[\pi']$ while~$v \in \valleys[\pi'] \ssm \valleys[\pi]$.
+    \item $u \in A_x$ and~$v \in \{y\} \cup A_y$, then $x \in \peaks[\pi'] \ssm \peaks[\pi]$ while~$y \in \peaks[\pi] \ssm \peaks[\pi']$,
+    \item $u \in A_x$ and~$v \in B_y$, then $x \in \peaks[\pi'] \ssm \peaks[\pi]$ while~$y \in \valleys[\pi'] \ssm \valleys[\pi]$,
+    \item $u \in \{x\} \cup B_x$ and~$v \in \{y\} \cup A_y$, then $x \in \valleys[\pi] \ssm \valleys[\pi']$ while~$y \in \peaks[\pi] \ssm \peaks[\pi']$,
+    \item $u \in \{x\} \cup B_x$ and~$v \in B_y$, then $x \in \valleys[\pi] \ssm \valleys[\pi']$ while~$y \in \valleys[\pi'] \ssm \valleys[\pi]$.
   \end{itemize}
   We thus obtain that
   \(
-    \point[\spine] - \point[\spine'] = \weight_{U \times V} (\b{e}_u - \b{e}_v)
+    \point[\spine] - \point[\spine'] = \weight_{X \times Y} (\b{e}_x - \b{e}_y)
   \)
-  where~$\weight_{U \times V}$ denotes the sum of the weights of the pairs formed by an element of~$U \eqdef \{u\} \cup A_u \cup B_u$ and an element of~$V \eqdef \{v\} \cup A_v \cup B_v$.
+  where~$\weight_{X \times Y}$ denotes the sum of the weights of the pairs formed by an element of~$X \eqdef \{x\} \cup A_x \cup B_x$ and an element of~$Y \eqdef \{y\} \cup A_y \cup B_y$.
+  Finally, we observe that~$\weight_{X \times Y} \ge \weight_{\{x,v\}} > 0$ by our positivity assumption on the weight function.
 \end{proof}
 
 \begin{proof}[Proof of \cref{thm:permutreehedra}]
@@ -1376,13 +1510,25 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
   It follows that the spine polytope~$\Spin$ realizes the nested complex~$\nestedComplex$ and that its normal fan is the spine fan~$\spineFan$.
 \end{proof}
 
+%\begin{example}
+%  \label{exm:permutahedronGraphicalZonotope}
+%  The spine polytope~$\Spin$ recovers the permutahedron~$\Perm$ of \cref{exm:permutahedron} and the graphical zonotope~$\Zono$ of \cref{exm:graphicalZonotope} in the following two extreme situations:
+%  \begin{itemize}
+%    \item if~$\Down[\vertexSet] = \Up[\vertexSet] = \varnothing$, then the spine polytope~$\Spin$ is the permutahedron~$\Perm$,
+%    \item if~$\Down[\vertexSet] = \Up[\vertexSet] = \vertexSet$, then the spine polytope~$\Spin$ is the graphical zonotope~$\Zono$.
+%  \end{itemize}
+%\end{example}
+
 \begin{example}
-  \label{exm:permutahedronGraphicalZonotope}
-  The spine polytope~$\Spin$ recovers the permutahedron~$\Perm$ of \cref{exm:permutahedron} and the graphical zonotope~$\Zono$ of \cref{exm:graphicalZonotope} in the following two extreme situations:
-  \begin{itemize}
-    \item if~$\down[V_G] = \up[V_G] = \varnothing$, then the spine polytope~$\Spin$ is the permutahedron~$\Perm$,
-    \item if~$\down[V_G] = \up[V_G] = V_G$, then the spine polytope~$\Spin$ is the graphical zonotope~$\Zono$.
-  \end{itemize}
+  \label{exm:spinePolytopes}
+  For instance, the spine polytope is:
+  \begin{enumerate}[(i)]
+    \item the classical \defn{permutahedron}~$\Perm$ when~$G$ is complete or undecorated.
+    \item the \defn{graph associahedron} of~$G$ studied in~\cite{CarrDevadoss, Devadoss, Postnikov, FeichtnerSturmfels, Zelevinsky, Pilaud-removahedra} when~$G$ is down decorated (in particular the classical \defn{associahedron} of~\cite{ShniderSternberg, Loday} when~$G$ is a down decorated~path).
+    \item the \defn{graphical zonotope}~$\Zono$ when~$G$ is fully decorated (in particular a \defn{parallelepiped} when~$G$ is a fully decorated tree).
+    \item the various \defn{permutreehedra} of~\cite{PilaudPons-permutrees} when~$G$ is a path (in particular the various \defn{associahedra} of~\cite{HohlwegLange, LangePilaud} for up-down decorated paths).
+  \end{enumerate}
+\vincent{toy example and low-dimensional examples.}
 \end{example}
 
 \begin{proposition}
@@ -1450,8 +1596,8 @@ There are four combinatorial models for the facets of a block graph permutreehed
 \begin{enumerate}
   \item a \defn{rank~$1$ spine} on~$G$, \ie a spine on~$G$ with precisely two nodes,
   \item a \defn{maple subtree} of~$M$, \ie a maple tree induced by a connected subset of~$M$, or equivalently a connected component of $M \ssm B$ for a subset~$B$ of blue vertices of~$M$,
-  \item a \defn{signed tube} of~$G$, \ie a pair~$(\down[W], \up[W])$ of maple subtrees of~$M$ such that $\partial \down[W] \subseteq \down[V] \cap \up[W]$ and $\partial \up[W] \subseteq \up[V] \cap \down[W]$,
-  \item a \defn{signed biconvex subset} of~$G$, \ie a subset~$V$ of vertices of~$G$ which is positive convex and whose complement is negative convex. This is also what we called splittable partition.
+  \item a \defn{signed tube} of~$G$, \ie a pair~$(\Down[Z], \Up[Z])$ of maple subtrees of~$M$ such that $\partial \Down[Z] \subseteq \Down[Y] \cap \Up[Z]$ and $\partial \Up[Z] \subseteq \Up[Y] \cap \Down[Z]$,
+  \item a \defn{signed biconvex subset} of~$G$, \ie a subset~$Y$ of vertices of~$G$ which is positive convex and whose complement is negative convex. This is also what we called splittable partition.
 \end{enumerate}
 We can read the spine complex on these 4 models.
 
