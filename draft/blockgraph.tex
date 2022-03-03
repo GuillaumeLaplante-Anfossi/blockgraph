@@ -282,7 +282,7 @@ In this paper, we consider the following additional decorations.
 
 \begin{definition}
   A \defn{decorated} maple tree (resp.~block graph) is a maple tree where each blue vertex~$v$ (resp.~each vertex~$v$) is decorated as~$v, \up, \down$ or~$\updown$.
-  For a subset~$X$ of vertices, we denote by~$\up[X]$ the set of vertices~$\up$ and~$\updown$ of~$X$, and by~$\Down[X]$ the set of vertices~$\down$ and~$\updown$ of~$X$.
+  For a subset~$X$ of vertices, we denote by~$\Up[X]$ the set of vertices~$\up$ and~$\updown$ of~$X$, and by~$\Down[X]$ the set of vertices~$\down$ and~$\updown$ of~$X$.
   \vincent{fix}
 \end{definition}
 
@@ -1484,7 +1484,7 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 
 \begin{lemma}
   \label{lem:flipDifference}
-  If~$\spine$ and~$\spine'$ are two corank~$0$ spines on~$G$ such that~$\spine'$ is obtained from~$\spine$ by flipping an arc joining node~$x$ to node~$y$, then the difference~$\point[\spine] = \point[\spine']$ is a positive multiple of~$\b{e}_x - \b{e}_y$.
+  If~$\spine$ and~$\spine'$ are two corank~$0$ spines on~$G$ such that~$\spine'$ is obtained from~$\spine$ by flipping an arc joining node~$x$ to node~$y$, then the difference~$\point[\spine] - \point[\spine']$ is a positive multiple of~$\b{e}_x - \b{e}_y$.
 \end{lemma}
 
 \begin{proof}
