@@ -256,6 +256,7 @@ It is the maximal generalization, according to \cite{Pilaud-removahedra}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Maple trees and block graphs}
+\label{subsec:MapleTreesBlockGraphs}
 
 \begin{definition}
   A \defn{maple tree} is a tree whose vertices are properly colored (\ie no monochromatic edge) in red and blue such that all leaves are red.
@@ -364,9 +365,11 @@ In this paper, we consider the following additional decorations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Spine poset}
+\subsection{Spines}
+\label{subsec:spines}
 
 \begin{definition}
+  \label{def:sourceTargetSets}
 %  Consider an arc~$\gamma$ in a directed tree~$\spine$ whose nodes are sets.
 %  The \defn{source set}~$\so[\gamma]$ (resp.~\defn{target set}~$\ta[\gamma]$) of~$\gamma$ is the union of the nodes in the connected component of~$\spine \ssm \{\gamma\}$ containing the source (resp.~target)~of~$\gamma$.
   In a directed tree~$\spine$ whose nodes are sets,
@@ -403,12 +406,28 @@ In this paper, we consider the following additional decorations.
   \vincent{give two examples of spines on the block graph of \cref{fig:mapleBlock}, one maximal and one not.}
 \end{example}
 
+\vincent{to clean here}
+%\begin{proposition}
+%  \label{prop:spines}
+%  Let $\b{G}$ be a decorated block graph, let $\spine$ be a spine on $\b{G}$, and let~$\gamma$ be an arc of~$\spine$ joining a node~$X$ to a node~$Y$.
+%  Then
+%  \begin{enumerate}[(i)]
+%    \item $\so[\gamma]$ and~$\ta[\gamma]$ form a non-trivial partition of the vertex set of~$G$, with $\so[\gamma]$ contained in a connected component of~$G \ssm \Down[{\ta[\gamma]}]$ and $\ta[\gamma]$ contained in a connected component of~$G \ssm \Up[{\so[\gamma]}]$,
+%    \item 
+%  \end{enumerate}
+%\end{proposition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Spine poset}
+\label{subsec:spinePoset}
+
 We now define two natural operations on spines: arc contraction and node splitting.
 These operations are illustrated in \cref{fig:contractionSplitting}.
 
 \begin{definition}
   \label{def:arccontraction}
-  Let $\b{G}$ be a decorated block graph, let $\spine$ be a spine on $\b{G}$, and let~$\gamma$ be an arc of~$\spine$ with endpoints~$X$ and~$Y$.
+  Let~$\gamma$ be an arc of a spine~$\spine$ on $\b{G}$, joining a node~$X$ to a node~$Y$.
   The \defn{contraction} of~$\gamma$ in~$\spine$ is the directed tree obtained from~$\spine$ by replacing the nodes~$X$ and~$Y$ by a single node~$Z \eqdef X \cup Y$ and attaching to~$Z$ all arcs incident to either~$X$~or~$Y$.
   See \cref{fig:contractionSplitting}.
 \end{definition}
@@ -501,7 +520,7 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
 \end{proposition}
 
 \begin{proof} 
-  Let $\spine'$ be a directed tree obtained by contracting an arc $\gamma$ with endpoints~$X$ and~$Y$ in a spine $\spine$ on~$\b{G}$.
+  Let $\spine'$ be a directed tree obtained by contracting an arc $\gamma$ joining~$X$ to~$Y$ in a spine $\spine$ on~$\b{G}$.
   We clearly just need to prove the local condition of \cref{def:spine} around the node~$Z \eqdef X \cup Y$ of~$\spine'$.
   We give the argument for the incoming arcs; the argument for the outgoing arcs is symmetric. 
 
@@ -523,13 +542,13 @@ To define the reverse operation of node splitting, we first need the following n
 
 \begin{definition}
   \label{def:splittable}
-  Let~$\b{G} \eqdef (G, \decoration)$ be a decorated block graph, and let~$Z$ be a subset of vertices of~$G$.
+  Let~$Z$ be a subset of vertices of~$G$.
   A partition~$X \sqcup Y = Z$ is \defn{$\b{G}$-splittable} if~$X \ne \varnothing$ is contained in a connected component of~$G \ssm \Down[Y]$ and $Y \ne \varnothing$ is contained in a connected component of~$G \ssm \Up[X]$.
 \end{definition}
 
 \begin{proposition}
   \label{prop:splittablePartitions}
-  Let $\b{G}$ be a decorated block graph. Any subset $Z$ of vertices of~$G$ with $|Z| \ge 2$ admits a $\b{G}$-splittable partition.
+  Any subset $Z$ of vertices of~$G$ with $|Z| \ge 2$ admits a $\b{G}$-splittable partition.
 \end{proposition}
 
 \begin{proof} 
@@ -541,7 +560,8 @@ To define the reverse operation of node splitting, we first need the following n
 
 \begin{definition}
   \label{def:nodeSplitting} 
-  Let $\b{G}$ be a decorated block graph, let $\spine$ be a spine on $\b{G}$, let~$Z$ be a node of~$\spine$, and let~$X \sqcup Y = Z$ be a splittable partition of~$Z$.
+  %Let $\spine$ be a spine on $\b{G}$, let~$Z$ be a node of~$\spine$, and let~$X \sqcup Y = Z$ be a splittable partition of~$Z$.
+  Let~$X \sqcup Y = Z$ be a splittable partition of a node~$Z$ of a spine~$\spine$ on~$\b{G}$.
   The \defn{splitting} of~$X \sqcup Y$ in~$\spine$ is the directed tree obtained from~$\spine$ by replacing the node~$Z$ by an arc~$\gamma$ connecting a node~$X$ to a node~$Y$,~and
   \begin{itemize}
     \item connecting each incoming arc~$\alpha$ of~$Z$ to~$X$ if its source set~$\so[\alpha]$ is contained in a connected component of $G \ssm \Down[Z]$ adjacent to $\Down[X]$ and to~$Y$ otherwise, 
@@ -625,7 +645,19 @@ To define the reverse operation of node splitting, we first need the following n
   All the results in this section hold if and only if $G$ is a block graph. 
   \vincent{Not the right place...}
 \end{remark}
-  
+
+\begin{corollary}
+  \label{coro:splittablePartitions}
+  Let~$\gamma$ be an arc of a spine~$\spine$ on~$\b{G}$, joining a node~$X$ to a node~$Y$.
+  Then~$\so[\gamma]$ and~$\ta[\gamma]$ form a $\b{G}$-splittable partition of the vertex set of~$G$.
+\end{corollary}
+
+\begin{proof}
+  Consider the rank~$1$ spine~$\spine'$ on~$\b{G}$ obtained by contracting all arcs in~$\spine$ except~$\gamma$. 
+  By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
+  Hence, $\so[\gamma]$ and~$\ta[\gamma]$ form a $\b{G}$-splittable partition of the vertex set of~$G$.
+\end{proof}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Nested complex}
@@ -710,10 +742,10 @@ To define the reverse operation of node splitting, we first need the following n
   \para{Well-defined}
   Observe that for any spine~$\spine$ on~$\b{G}$:
   \begin{itemize}
-    \item For any arc~$\gamma$ of~$\spine$, the source set~$\so[\gamma]$ is a block of~$\b{G}$. 
-    Indeed, consider the rank~$1$ spine~$\spine'$ on~$\b{G}$ obtained by contracting all arcs in~$\spine$ except~$\gamma$. 
-    By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
-    Hence, the partition~$\so[\gamma] \sqcup \ta[\gamma]$ is splittable.
+    \item For any arc~$\gamma$ of~$\spine$, the source set~$\so[\gamma]$ is a block of~$\b{G}$ by \cref{coro:splittablePartitions}. 
+%    Indeed, consider the rank~$1$ spine~$\spine'$ on~$\b{G}$ obtained by contracting all arcs in~$\spine$ except~$\gamma$. 
+%    By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
+%    Hence, the partition~$\so[\gamma] \sqcup \ta[\gamma]$ is splittable.
     \item For any two arcs~$\gamma$ and~$\gamma'$ of~$\spine$, the blocks~$\so[\gamma]$ and~$\so[\gamma']$ of~$\b{G}$ are compatible. 
     Indeed, since the spine~$\spine$ is a tree, there is a unique path~$\pi$ joining~$\gamma$ to~$\gamma'$ in~$\spine$.
     As illustrated in \cref{fig:sourceSetsCompatible}, we observe that:
@@ -967,7 +999,7 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
   In a spine~$\spine$ on~$\b{G}$, we label
   \begin{itemize}
     \item each node~$X$ by the connected component~$\labeling(X)$ of~$M \ssm \big( \Up[{\so[X]}] \cup \Down[{\ta[X]}] \big)$ containing~$X$,
-    \item each arc~$\gamma$ by the intersection~$\labeling(\gamma)$ of the connected component of~$\smash{M \ssm \Up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ with the connected component of~$\smash{M \ssm \Down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$.
+    \item each arc~$\gamma$ by the intersection~$\labeling(\gamma)$ of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
   \end{itemize}
 %  We denote by~$\labeling$ the label map on nodes and arcs of~$\spine$.
 \end{definition}
@@ -1003,7 +1035,7 @@ We now add a little more to a labeled spine.
 %  It is obtained from~$\spine$ by
 %  \begin{enumerate}[(i)]
 %    \item labeling each node~$X$ of~$\spine$ by the connected component of~$M \ssm (\Up[{\so[X]}] \cup \Down[{\ta[X]}])$ containing~$X$,
-%    \item labeling each arc~$\gamma$ of~$\spine$ by the intersection of the connected component of~$\smash{M \ssm \Up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ with the connected component of~$\smash{M \ssm \Down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$,
+%    \item labeling each arc~$\gamma$ of~$\spine$ by the intersection of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$,
 %    \item adding at each node~$X$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by~$C$ for each connected component~$C$ of~$M \ssm \Down[{X \cup \ta[X]}]$ (resp.~of~$M \ssm \Up[{X \cup \so[X]}]$) adjacent to~$X$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
 %  \end{enumerate}
 %  We call \defn{blossoming spines} of~$M$ the blossomings of the spines of~$G$.
@@ -1028,7 +1060,7 @@ We thus simplify all pictures of blossoming spines by writing only the red (lett
 \begin{proposition}
   \label{prop:blossomingSpine}
   Let~$\b{M} \eqdef (M, \decoration)$ be a decorated maple tree, let~$\b{G} \eqdef (G, \decoration)$ be the decorated block graph obtained by tapping~$M$, and let~$\spine$ be a spine on~$\b{G}$.
-  For any cut~$\Gamma$ of~$\spine\blossom$, the labels of the nodes, arcs and blossoms of~$\Gamma$ are precisely the connected components of~$\smash{M \ssm \big( \Up[{\so[\Gamma]}] \cup \Down[{\ta[\Gamma]}] \big)}$.
+  For any cut~$\Gamma$ of~$\spine\blossom$, the labels of the nodes, arcs and blossoms of~$\Gamma$ are precisely the connected components of~$M \ssm \big( \Up[{\so[\Gamma]}] \cup \Down[{\ta[\Gamma]}] \big)$.
 \end{proposition}
 
 \begin{proof}
@@ -1119,14 +1151,18 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
   In a spine~$\spine$ on~$\b{G}$, we label
   \begin{itemize}
     \item each node~$X$ by the connected component~$\labeling(X)$ of~$M \ssm \big( \Up[{\so[X]}] \cup \Down[{\ta[X]}] \big)$ containing~$X$,
-    \item each arc~$\gamma$ by the intersection~$\labeling(\gamma)$ of the connected component of~$\smash{M \ssm \Up[{\so[\gamma]}]}$ containing~$\ta[\gamma]$ with the connected component of~$\smash{M \ssm \Down[{\ta[\gamma]}]}$ containing~$\so[\gamma]$.
+    \item each arc~$\gamma$ by the intersection~$\labeling(\gamma)$ of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
   \end{itemize}
 %  We denote by~$\labeling$ the label map on nodes and arcs of~$\spine$.
-\vincent{Maybe need to say that this is well-defined. Meaning that $X$ is in a connected component of~$M \ssm \big( \Up[{\so[X]}] \cup \Down[{\ta[X]}] \big)$, and same for $\gamma$. Also that the labels are non-empty, because $\labeling(X) \supseteq X$ and because~$\labeling(\gamma)$ contains all vertices of~$M$ neighbors to both~$\so[\gamma]$ and~$\ta[\gamma]$.}
 \end{definition}
 
-We will see in \cref{subsec:blossomingSpines} that this labeling behaves very nicely with respect to cuts of~$\spine$.
-We postpone this property as it is not needed for the purposes of this section.
+\begin{remark}
+  It follows from \cref{coro:splittablePartitions} that $\labeling(X)$ and~$\labeling(\gamma)$ are well-defined.
+  Moreover, they are both non-empty since~$\labeling(X)$ contains~$X$ and~$\labeling(\gamma)$ contains all red vertices of~$M$ which are neighbors to both~$\so[\gamma]$ and~$\ta[\gamma]$.
+  We will see in \cref{subsec:blossomingSpines} that these labels behave properly with respect to cuts of~$\spine$.
+  We postpone this property as it is not needed for the purposes of this section.
+\end{remark}
+
 Using the labeling of \cref{def:labeledSpine}, we are now ready to define the surjection~$\surjectionSpines$.
 
 \begin{definition}
@@ -1161,10 +1197,11 @@ Using the labeling of \cref{def:labeledSpine}, we are now ready to define the su
 %\end{definition}
 
 \begin{remark}
-  Note that \cref{def:refinementSpines} needs a few justifications:
+  Note that: % \cref{def:refinementSpines} needs a few justifications:
   \begin{enumerate}[(i)]
-    \item Since the vertex set of~$G$ is the disjoint union of the nodes of~$\spine$, it is still the disjoint union of the nodes of~$\spine'$.
-    \item For an arc~$\gamma$ of~$\spine$ and a connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}] \cup \Down[{\ta[\gamma]}] \big)$ there is a unique connected component~$D$ of ${M \ssm \big( \Up[{\so[{\so[\gamma]}]}] \cup \Down[{\ta[{\so[\gamma]}]}] \big)}$ containing~$C$, and a unique connected component~$E$ of ${M \ssm \big( \Up[{\so[{\ta[\gamma]}]}] \cup \Down[{\ta[{\ta[\gamma]}]}] \big)}$ containing~$C$. Indeed... todo.
+    \item Since~$X$ is contained both in~$\labeling(X)$ and in ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$, the nodes~$n_X^C$ partition the node~$X$. Hence, since the nodes of~$\spine$ partition~$\vertexSet$, the nodes of~$\spine'$ partition~$\vertexSet$.
+    \item For an arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and a connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ there is a unique connected component~$D$ of ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ containing~$C$, and a unique connected component~$E$ of ${M \ssm \big( \Up[{\so[Y]}][\decoration'] \cup \Down[{\ta[Y]}][\decoration'] \big)}$ containing~$C$. Indeed... todo.
+    \item By construction, the map~$n_X^C \mapsto X$ is a graph homomorphism from the transitive closure of~$\spine'$ to the transitive closure of~$\spine$. Moreover, $\spine'$ is the contraction minimal spine on~$\b{G}'$ such that the inclusion map defines a graph homomorphism from the transitive closure of~$\spine'$ to the transitive closure of~$\spine$.
     \item The directed graph before contraction is a tree. Indeed... todo
     \item The directed tree after contraction of the empty nodes is a spine on~$\b{G}'$. Indeed... todo.
   \end{enumerate}
