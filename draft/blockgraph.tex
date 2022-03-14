@@ -161,6 +161,7 @@
 \newcommandx{\ta}[1][1=o]{\textsc{t}_{#1}} % target set
 % spines
 \newcommandx{\spine}[1][1=S]{#1} % spine
+\newcommandx{\almostSpine}[1][1=S]{\smash{\widetilde{#1}}} % spine
 \newcommandx{\spines}[1][1=\b{G}]{\mathcal{S}(#1)} % set of spines
 \newcommandx{\spinePoset}[1][1=\b{G}]{\mathcal{P}_{#1}} % spine poset
 \newcommand{\blossom}{^\text{\ding{96}}} % blossom
@@ -1060,25 +1061,36 @@ Using this labeling, we are now ready to define the surjection~$\surjectionSpine
   \label{def:refinementSpines}
   Let~$M$ be a maple tree and~$G$ be the block graph obtained by tapping~$M$.
   Consider two decorations~$\decoration, \decoration'$ on~$B$ such that~$\decoration$ refines~$\decoration'$.
-  To a spine~$\spine$ on~$\b{G} \eqdef (G, \decoration)$, we associate the spine~$\spine'$ on~$\b{G}' \eqdef (G, \decoration')$ obtained by contracting the empty nodes in the directed tree with
+  To a spine~$\spine$ on~$\b{G} \eqdef (G, \decoration)$, we associate the spine~$\spine'$ on~$\b{G}' \eqdef (G, \decoration')$ obtained by contracting the empty nodes in the directed tree~$\almostSpine'$ with
   \begin{itemize}
-    \item a node~$\nodeSurj{X}{C} \eqdef X \cap C$ for each node~$X$ of~$\spine$ and each connected component~$C$ of \linebreak ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ contained in~$\labeling(X)$,
+    \item a node~$\nodeSurj{X}{D} \eqdef X \cap D$ for each node~$X$ of~$\spine$ and each connected component~$D$ of \linebreak ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ contained in~$\labeling(X)$,
     \item an arc~$\arcSurj{\gamma}{C}$ joining the unique node~$\nodeSurj{X}{D}$ with~$C \subseteq D$ to the unique node~$\nodeSurj{Y}{E}$~with~${C \subseteq E}$ for each arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and each connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ contained in~$\labeling(\gamma)$.
   \end{itemize}
   We denote by~$\surjectionSpines$ the map that sends the spine $\spine$ on~$\b{G}$ to the spine~$\spine'$ on~$\b{G}'$.
 \end{definition}
 
-We first need to prove that \cref{def:refinementSpines} is correct.
-This requires the following statements.
+Our next three statements aim at showing the correctness of \cref{def:refinementSpines}.
+\vincent{Maybe first need to prove that ``unique node'' is correct.}
+% For an arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and a connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ there is a unique connected component~$D$ of ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ containing~$C$, and a unique connected component~$E$ of ${M \ssm \big( \Up[{\so[Y]}][\decoration'] \cup \Down[{\ta[Y]}][\decoration'] \big)}$ containing~$C$. Indeed... todo.
+For this, we first study the directed tree~$\almostSpine'$ described in \cref{def:refinementSpines} before contraction of the empty nodes.
 
 \begin{lemma}
   \label{lem:refinementSpines1}
-  For any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\spine'$, any (non-directed) path~$\pi$ in~$\spine'$ containing~$\arcSurj{\gamma}{C}$, and any node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$ (resp.~$\nodeSurj{Y}{E}$), the set~$F$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ (resp.~of~$M \ssm \Up[\nodeSurj{X}{D}]$) containing~$C$.
+  The map~$\nodeSurj{X}{D} \mapsto X$ is a directed graph morphism from~$\almostSpine'$ to~$\spine$.
 \end{lemma}
 
 \begin{proof}
-  We prove this statement simultaneously on all arcs of~$\spine'$, by induction on the length of~$\pi$.
-  By symmetry, we only treat the case when~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$.
+  This immediately follows from the definition, since any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\almostSpine'$ comes from an arc~$\gamma$ joining~$X$ to~$Y$.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:refinementSpines2}
+  For any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\almostSpine'$, any (non-directed) path~$\pi$ in~$\almostSpine'$ containing~$\arcSurj{\gamma}{C}$, and any node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$ (resp.~$\nodeSurj{Y}{E}$), the set~$F$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ (resp.~of~$M \ssm \Up[\nodeSurj{X}{D}]$) containing~$C$.
+\end{lemma}
+
+\begin{proof}
+  We prove this statement simultaneously on all arcs of~$\almostSpine'$, by induction on the length of~$\pi$.
+  By symmetry, we only treat the case when~$\nodeSurj{Z}{F}$ is in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$.
   
   We start with the base case of the induction when~$\pi$ is just the arc~$\arcSurj{\gamma}{C}$.
   Observe first that since~$\gamma$ joins~$X$ to~$Y$, the set~$Y$ is contained in both~$\ta[\gamma]$ and~$\ta[X]$.
@@ -1101,31 +1113,22 @@ This requires the following statements.
   For any spine~$\spine$ on~$\b{G}$, the graph~$\spine'$ is indeed a spine on~$\b{G}'$.
 \end{lemma}
 
-\begin{proof}  
-  Since~$X$ is contained both in~$\labeling(X)$ and in ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$, the non-empty nodes~$\nodeSurj{X}{C}$ partition the node~$X$.
+\begin{proof}
+  We first prove that~$\almostSpine'$ is indeed a directed tree, by proving that it is connected and acyclic.
+  \begin{itemize}
+    \item \uline{connected}: Consider an edge~$\{u,v\}$ of~$G$. Since~$u$ and~$v$ belong to the same connected component of~$G \ssm U$ for any subset~$U$ of~$\vertexSet$, there is a directed path~$\pi$ in~$\spine$ between the node containing~$u$ and the node containing~$v$. For any node~$X$ (resp.~arc~$\gamma$) in the interior of this path, $u$ and~$v$ also belong to the same connected component~$D_\star$~of~$M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)$ (resp.~$C_\star$~of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$). The corresponding nodes~$\nodeSurj{X}{D_\star}$ and arcs~$\arcSurj{\gamma}{C_\star}$ along the path~$\pi$ thus form a path in~$\almostSpine'$ between the node containing~$u$ and the node containing~$v$. The connectedness of~$G$ thus implies the connectedness of~$\almostSpine'$.
+    \item \uline{acyclic}: Assume that~$\almostSpine'$ contains a (non-directed) cycle~$\sigma'$. By \cref{lem:refinementSpines1}, the corresponding arcs in~$\spine$ also form a (non-directed, with possible edge repetitions) cycle~$\sigma$. Since~$\spine$ is a directed tree, $\sigma$ has two incoming arcs at the same node. Hence, $\sigma'$ also has two incoming arcs at the same node. Therefore, there are two paths in~$\almostSpine'$ starting at the same node and arriving to the same node through different incoming arcs, contradicting \cref{lem:refinementSpines2}.
+  \end{itemize}
+  We conclude that~$\spine'$ is a directed tree as it is obtained by contractions in the directed tree~$\almostSpine'$.
+  We thus just need to check the two conditions of \cref{def:spine}.
+
+  First, since any node~$X$ of~$\spine$ is contained both in~$\labeling(X)$ and in ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$, the non-empty nodes~$\nodeSurj{X}{D}$ partition the node~$X$.
   Hence, since the nodes of~$\spine$ partition~$\vertexSet$, the nodes of~$\spine'$ partition~$\vertexSet$. This shows the global condition of \cref{def:spine}.
-  
-  We now need to prove that~$\spine'$ is a tree and satisfies the local condition of \cref{def:spine}.
-  For this, we prove that for any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\spine'$, any (non-directed) path~$\pi$ in~$\spine'$ containing~$\arcSurj{\gamma}{C}$, and any node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$ (resp.~$\nodeSurj{Y}{E}$), the set~$F$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ (resp.~of~$M \ssm \Up[\nodeSurj{X}{D}]$) containing~$C$.
-  We prove this property simultaneously on all arcs of~$\spine'$, by induction on the length of~$\pi$.
 
-  Observe first that since~$\gamma$ joins~$X$ to~$Y$, the set~$Y$ is contained in both~$\ta[\gamma]$ and~$\ta[X]$.
-  Since~$\nodeSurj{Y}{E} \subseteq Y$, it follows that both~$C$ and~$D$ belong to a connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$, and it must be the same since~$C \subseteq D$.
-  We conclude that~$\nodeSurj{X}{C}$ belongs to the connected component of~${M \ssm \Down[\nodeSurj{Y}{E}]}$ containing~$D$.
-  By symmetry, this proves the base case of the induction when~$\pi$ is just the arc~$\arcSurj{\gamma}{C}$.
+  Finally, consider two incoming arcs~$\arcSurj{\alpha}{C}$ and~$\arcSurj{\alpha'}{C'}$ of a node~$\nodeSurj{X}{D}$ in~$\almostSpine$.
+  By \cref{lem:refinementSpines2}, the source sets $\so[\arcSurj{\alpha}{C}]$ and~$\so[\arcSurj{\alpha'}{C'}]$ are contained in distinct connected components of~$G \ssm \Down[\nodeSurj{X}{D}]$.
+  By symmetry, we thus conclude that~$\almostSpine'$, and thus~$\spine'$, satisfies the local condition of \cref{def:spine}.
 \end{proof}
-
-
-\begin{remark}
-  Note that: % \cref{def:refinementSpines} needs a few justifications:
-  \begin{enumerate}[(i)]
-    \item Since~$X$ is contained both in~$\labeling(X)$ and in ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$, the non-empty nodes~$\nodeSurj{X}{C}$ partition the node~$X$. Hence, since the nodes of~$\spine$ partition~$\vertexSet$, the nodes of~$\spine'$ partition~$\vertexSet$.
-    \item For an arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and a connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ there is a unique connected component~$D$ of ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ containing~$C$, and a unique connected component~$E$ of ${M \ssm \big( \Up[{\so[Y]}][\decoration'] \cup \Down[{\ta[Y]}][\decoration'] \big)}$ containing~$C$. Indeed... todo.
-    \item By construction, the map~$\nodeSurj{X}{C} \mapsto X$ is a graph homomorphism from the transitive closure of~$\spine'$ to the transitive closure of~$\spine$. Moreover, $\spine'$ is the contraction minimal spine on~$\b{G}'$ such that the inclusion map defines a graph homomorphism from the transitive closure of~$\spine'$ to the transitive closure of~$\spine$.
-    \item The directed graph before contraction is a tree. Indeed... todo
-    \item The directed tree after contraction of the empty nodes is a spine on~$\b{G}'$. Indeed... todo.
-  \end{enumerate}
-\end{remark}
 
 \begin{proposition}
   \label{prop:refinementSpines}
@@ -1137,7 +1140,6 @@ This requires the following statements.
 \end{proposition}
 
 \begin{proof}
-  First, we need to prove that~$\spine'$ is indeed a spine on~$\b{G}'$.
   \vincent{todo}
 \end{proof}
 
