@@ -157,14 +157,15 @@
 \newcommandx{\down}[1][1=v]{\underline{#1}} 
 \newcommandx{\updown}[1][1=v]{\overline{\underline{#1}}} 
 % source and target
-\newcommandx{\so}[1][1=i]{\textsc{s}(#1)} % source set
-\newcommandx{\ta}[1][1=o]{\textsc{t}(#1)} % target set
+\newcommandx{\so}[1][1=i]{\textsc{s}_{#1}} % source set
+\newcommandx{\ta}[1][1=o]{\textsc{t}_{#1}} % target set
 % spines
 \newcommandx{\spine}[1][1=S]{#1} % spine
 \newcommandx{\spines}[1][1=\b{G}]{\mathcal{S}(#1)} % set of spines
 \newcommandx{\spinePoset}[1][1=\b{G}]{\mathcal{P}_{#1}} % spine poset
 \newcommand{\blossom}{^\text{\ding{96}}} % blossom
 \newcommand{\labeling}{\lambda} % labels in blossoming trees
+\newcommandx{\equivalenceSpines}[2][1=\b{G}, 2=\b{G}']{\equiv_{#1 \to #2}} % equivalence relation on spines
 % nested complex
 \newcommandx{\nested}[1][1=N]{#1} % nested set
 \newcommand{\negNested}{\preceq} % negative nested
@@ -178,6 +179,8 @@
 \newcommand{\nestedToSpine}{\mathsf{S}} % nested set to spine
 \newcommand{\partitionToSpine}{\mathsf{S}} % partition to spine
 \newcommandx{\surjectionSpines}[2][1=\b{G}, 2=\b{G}']{\Phi_{#1 \to #2}} % spine to spine
+\newcommand{\nodeSurj}[2]{\smash{n_{#1}^{#2}}} % node surjection
+\newcommand{\arcSurj}[2]{\smash{\varepsilon_{#1}^{#2}}} % arc surjection
 
 % GEOMETRY
 
@@ -261,6 +264,7 @@ It is the maximal generalization, according to \cite{Pilaud-removahedra}.
 \begin{definition}
   A \defn{maple tree} is a tree whose vertices are properly colored (\ie no monochromatic edge) in red and blue such that all leaves are red.
   The \defn{tapping} of a maple tree consists in replacing each red vertex by a clique on its blue neighbors.
+  A \defn{maple subtree} is an induced subtree which is also a maple tree.
 \end{definition}
 
 \begin{definition}
@@ -641,15 +645,9 @@ To define the reverse operation of node splitting, we first need the following n
   \end{itemize}
 \end{remark}
 
-\begin{remark}
-  All the results in this section hold if and only if $G$ is a block graph. 
-  \vincent{Not the right place...}
-\end{remark}
-
 \begin{corollary}
   \label{coro:splittablePartitions}
-  Let~$\gamma$ be an arc of a spine~$\spine$ on~$\b{G}$, joining a node~$X$ to a node~$Y$.
-  Then~$\so[\gamma]$ and~$\ta[\gamma]$ form a $\b{G}$-splittable partition of the vertex set of~$G$.
+  For any arc arc~$\gamma$ of a spine~$\spine$ on~$\b{G}$, the sets~$\so[\gamma]$ and~$\ta[\gamma]$ form a $\b{G}$-splittable partition of the vertex set of~$G$.
 \end{corollary}
 
 \begin{proof}
@@ -657,6 +655,11 @@ To define the reverse operation of node splitting, we first need the following n
   By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
   Hence, $\so[\gamma]$ and~$\ta[\gamma]$ form a $\b{G}$-splittable partition of the vertex set of~$G$.
 \end{proof}
+
+\begin{remark}
+  All the results in this section hold if and only if $G$ is a block graph. 
+  \vincent{Not the right place...}
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -756,7 +759,7 @@ To define the reverse operation of node splitting, we first need the following n
       \item If $\pi$ connects the sources of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \negDisjoint \so[\gamma]'$.
       Indeed, there is at least one node~$X$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
       By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \Down[X]$.
-      Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \Down[X]$ hence of~$G \ssm \Down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
+      Hence, we obtain that~${\so[\gamma] \subseteq \so[\alpha]}$ and~${\so[\gamma] \subseteq \so[\alpha']}$ belong to distinct connected components of~$G \ssm \Down[X]$ hence of~${G \ssm \Down[{\vertexSet \ssm (\so[\gamma] \cup \so[\alpha'])}]}$.
       \item Similarly, if $\pi$ connects the targets of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \posDisjoint \so[\gamma]'$.
     \end{itemize}
   \end{itemize}
@@ -986,10 +989,17 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Blossoming spines}
-\label{subsec:blossomingSpines}
+\subsection{Refinement and surjection maps}
+\label{subsec:surjectionMaps}
 
-In the next section, we aim at describing natural surjections between spines of certain decorated block graphs.
+\begin{definition}
+  \label{def:refinement}
+  For two decorations~$\decoration$ and~$\decoration'$ on a set~$\vertexSet$, we say that~$\decoration$ \defn{refines}~$\decoration'$ (and that $\decoration'$ \defn{coarsens} $\decoration$) if~$\Down[\vertexSet] \subseteq \Down[\vertexSet][\decoration']$ and $\Up[\vertexSet] \subseteq \Up[\vertexSet][\decoration']$.
+  For two decorated block graphs~$\b{G} \eqdef (G, \decoration)$ and~$\b{G}' \eqdef (G', \decoration')$, we say that~$\b{G}$ \defn{refines}~$\b{G}'$ (and that $\b{G}'$ \defn{coarsens} $\b{G}$) if~$G = G'$ and $\decoration$ refines~$\decoration'$.
+\end{definition}
+
+We now define a natural surjection~$\surjectionSpines$ from the spines on~$\b{G}$ to the spines on~$\b{G}'$ when~$\b{G}$ refines~$\b{G}'$.
+%Here, we need the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}, hence we work with the maple tree~$M$ corresponding to the block graph~$G$.
 For this, it is convenient to add further information to a spine on~$\b{G}$.
 Here, we need to manipulate both the vertices and the cliques of~$G$, thus we consider a maple tree~$M$ corresponding to the block graph~$G$.
 
@@ -999,10 +1009,180 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
   In a spine~$\spine$ on~$\b{G}$, we label
   \begin{itemize}
     \item each node~$X$ by the connected component~$\labeling(X)$ of~$M \ssm \big( \Up[{\so[X]}] \cup \Down[{\ta[X]}] \big)$ containing~$X$,
-    \item each arc~$\gamma$ by the intersection~$\labeling(\gamma)$ of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
+%    \item each arc~$\gamma$ by the intersection~$\labeling(\gamma)$ of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
+    \item each arc~$\gamma$ by the connected component~$\labeling(\gamma)$ of~$M \ssm \big( \Up[{\so[\gamma]}] \cup \Down[{\ta[\gamma]}] \big)$ containing the red vertices of~$M$ adjacent to both~$\so[\gamma]$ and~$\ta[\gamma]$.
   \end{itemize}
 %  We denote by~$\labeling$ the label map on nodes and arcs of~$\spine$.
 \end{definition}
+
+\begin{remark}
+  \label{rem:labeledSpine}
+  The labeling~$\labeling$ of \cref{def:labeledSpine} can be described alternatively using \cref{coro:splittablePartitions}.
+  For any arc~$\gamma$ in a spine~$\spine$, denote by~$C_\gamma$ the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ and by~$C^\gamma$ the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
+%  For any arc~$\gamma$ in a spine~$\spine$, denote by~$C_\gamma$ (resp.~$C^\gamma$) the connected component of~$M \ssm \Up[{\so[\gamma]}]$ (resp.~$M \ssm \Down[{\ta[\gamma]}]$) containing~$\ta[\gamma]$ (resp.~$\so[\gamma]$).
+  Then 
+  \begin{itemize}
+    \item $\labeling(X) = \bigcap_\alpha C_\alpha \; \cap \; \bigcap_\beta C^\beta$ where $\alpha$ (resp.~$\beta$) runs over incoming (resp.~outgoing) arcs~of~$X$,
+    \item $\labeling(\gamma) = C_\gamma \cap C^\gamma$.
+  \end{itemize}     
+%  It follows from \cref{coro:splittablePartitions} that $\labeling(X)$ and~$\labeling(\gamma)$ are well-defined.
+%  Indeed, for any arc~$\gamma$ in a spine~$\spine$, denote by~$C_\gamma$ the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ and by~$C^\gamma$ the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
+%  Then $\labeling(\gamma) = C_\gamma \cap C^\gamma$ and $\labeling(X)$ is the intersection of the~$C_\alpha$ for all incoming arcs~$\alpha$ of~$X$ with the~$C^\beta$ for all outgoing arcs~$\beta$~of~$X$, which all contain~$X$.
+%%  \begin{itemize}
+%%    \item $\labeling(X)$ is the intersection of the~$C_\alpha$ for all incoming arcs~$\alpha$ of~$X$ with the~$C^\beta$ for all outgoing arcs~$\beta$~of~$X$, and they all contain~$X$,
+%%    \item $\labeling(\gamma)$ is the intersection of~$C_\gamma$ with~$C^\gamma$, and both contain the red vertices of~$M$ adjacent to both~$\so[\gamma]$ and~$\ta[\gamma]$.
+%%  \end{itemize}   
+%%  Indeed,
+%%  \begin{itemize}
+%%    \item if~$C_\alpha$ (resp.~$C^\beta$) denotes the connected component of~$M \ssm \Up[{\so[\alpha]}]$ (resp.~of~$M \ssm \Down[{\ta[\beta]}]$) containing~$X$ for an incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$, then $\labeling(X)$ is the intersection of the~$C_\alpha$ for all incoming arcs~$\alpha$ of~$X$ with the~$C^\beta$ for all outgoing arcs~$\beta$~of~$X$, %and they all contain~$X$,
+%%    \item $\labeling(\gamma)$ is the intersection of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$, and both contain the red vertices of~$M$ adjacent to both~$\so[\gamma]$ and~$\ta[\gamma]$.
+%%  \end{itemize}
+%%  Moreover, they are both non-empty since~$\labeling(X)$ contains~$X$ and~$\labeling(\gamma)$ contains all red vertices of~$M$ which are neighbors to both~$\so[\gamma]$ and~$\ta[\gamma]$.
+\end{remark}
+
+\begin{lemma}
+  \label{lem:labeledSpine}
+%  We have~$\labeling(\alpha) \cap \labeling(\alpha') = \varnothing$ for two incoming arcs~$\alpha, \alpha'$ at the same node~$X$ of~$\spine$.
+  We have~$\labeling(\gamma) \cap \labeling(\gamma') = \varnothing$ for any two distinct arcs~$\gamma, \gamma'$ incoming at (resp.~outgoing from) the same node of~$\spine$.
+\end{lemma}
+
+\begin{proof}
+  Assume for instance that~$\alpha, \alpha'$ are distinct incoming arcs at a node~$X$ of~$\spine$.
+  By \cref{def:spine}, the source sets~$\so[\alpha]$ and~$\so[\alpha']$ belong to distinct connected components~$C$ and~$C'$ of~$M \ssm \Down[X]$.
+  Moreover, $\labeling(\alpha) \subseteq C$ since~$X \subseteq \ta[\alpha]$ and similarly~$\labeling(\alpha') \subseteq C'$.
+  Hence~$\labeling(\alpha) \cap \labeling(\alpha') = \varnothing$.
+\end{proof}
+
+We postpone to \cref{subsec:blossomingSpines} further properties of the labeling of \cref{def:labeledSpine} which are not strictly needed for the purposes of the present section.
+Using this labeling, we are now ready to define the surjection~$\surjectionSpines$.
+
+\begin{definition}
+  \label{def:refinementSpines}
+  Let~$M$ be a maple tree and~$G$ be the block graph obtained by tapping~$M$.
+  Consider two decorations~$\decoration, \decoration'$ on~$B$ such that~$\decoration$ refines~$\decoration'$.
+  To a spine~$\spine$ on~$\b{G} \eqdef (G, \decoration)$, we associate the spine~$\spine'$ on~$\b{G}' \eqdef (G, \decoration')$ obtained by contracting the empty nodes in the directed tree with
+  \begin{itemize}
+    \item a node~$\nodeSurj{X}{C} \eqdef X \cap C$ for each node~$X$ of~$\spine$ and each connected component~$C$ of \linebreak ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ contained in~$\labeling(X)$,
+    \item an arc~$\arcSurj{\gamma}{C}$ joining the unique node~$\nodeSurj{X}{D}$ with~$C \subseteq D$ to the unique node~$\nodeSurj{Y}{E}$~with~${C \subseteq E}$ for each arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and each connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ contained in~$\labeling(\gamma)$.
+  \end{itemize}
+  We denote by~$\surjectionSpines$ the map that sends the spine $\spine$ on~$\b{G}$ to the spine~$\spine'$ on~$\b{G}'$.
+\end{definition}
+
+We first need to prove that \cref{def:refinementSpines} is correct.
+This requires the following statements.
+
+\begin{lemma}
+  \label{lem:refinementSpines1}
+  For any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\spine'$, any (non-directed) path~$\pi$ in~$\spine'$ containing~$\arcSurj{\gamma}{C}$, and any node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$ (resp.~$\nodeSurj{Y}{E}$), the set~$F$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ (resp.~of~$M \ssm \Up[\nodeSurj{X}{D}]$) containing~$C$.
+\end{lemma}
+
+\begin{proof}
+  We prove this statement simultaneously on all arcs of~$\spine'$, by induction on the length of~$\pi$.
+  By symmetry, we only treat the case when~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$.
+  
+  We start with the base case of the induction when~$\pi$ is just the arc~$\arcSurj{\gamma}{C}$.
+  Observe first that since~$\gamma$ joins~$X$ to~$Y$, the set~$Y$ is contained in both~$\ta[\gamma]$ and~$\ta[X]$.
+  Since~$\nodeSurj{Y}{E} \subseteq Y$, it follows that both~$C$ and~$D$ are contained in a connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$.
+  Since~$C \subseteq D$, we conclude that~$D$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$.
+%  By symmetry, $E$ is contained in the connected component of~$M \ssm \Up[\nodeSurj{X}{D}]$ containing~$C$.
+  
+  Consider now an arbitrary path~$\pi$ containing~$\arcSurj{\gamma}{C}$ and a node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$.
+%  By induction, we can assume that~$\nodeSurj{Z}{F}$ is an endpoint of~$\pi$, and we denote by~$\arcSurj{\eta}{G}$ the arc of~$\pi$ incident to~$\nodeSurj{Z}{F}$, and by~$\nodeSurj{W}{H}$ the other endpoint of~$\arcSurj{\eta}{G}$.
+  We distinguish two situations:
+  \begin{itemize}
+    \item If~$\pi$ has a node~$\nodeSurj{W}{G}$ with two outgoing arcs in between~$\nodeSurj{Y}{E}$ and~$\nodeSurj{Z}{F}$, then the induction hypothesis ensures that~$E$ and~$F$ are contained in distinct connected components of~${M \ssm \Up[\nodeSurj{W}{G}]}$ and that~$G$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$. This implies that~$F$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$.
+    \item Otherwise, the path~$\pi$ has a directed subpath from~$\nodeSurj{Z}{F}$ to~$\nodeSurj{Y}{E}$. Let~$\nodeSurj{W}{G}$ denote the node after~$\nodeSurj{Z}{F}$ and~$\arcSurj{\eta}{H}$ the arc joining~$\nodeSurj{Z}{F}$ to~$\nodeSurj{W}{G}$. By induction, $G$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$. Since~$\nodeSurj{Y}{E} \subseteq Y \subseteq \ta[Z]$, the set~$F$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$. Since~$H$ is a subset of both~$F$ and~$G$, we thus obtain that~$F$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$. \qedhere
+  \end{itemize}
+%  We conclude by symmetry if~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{Y}{F}$.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:refinementSpines2}
+  For any spine~$\spine$ on~$\b{G}$, the graph~$\spine'$ is indeed a spine on~$\b{G}'$.
+\end{lemma}
+
+\begin{proof}  
+  Since~$X$ is contained both in~$\labeling(X)$ and in ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$, the non-empty nodes~$\nodeSurj{X}{C}$ partition the node~$X$.
+  Hence, since the nodes of~$\spine$ partition~$\vertexSet$, the nodes of~$\spine'$ partition~$\vertexSet$. This shows the global condition of \cref{def:spine}.
+  
+  We now need to prove that~$\spine'$ is a tree and satisfies the local condition of \cref{def:spine}.
+  For this, we prove that for any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\spine'$, any (non-directed) path~$\pi$ in~$\spine'$ containing~$\arcSurj{\gamma}{C}$, and any node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$ (resp.~$\nodeSurj{Y}{E}$), the set~$F$ is contained in the connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$ (resp.~of~$M \ssm \Up[\nodeSurj{X}{D}]$) containing~$C$.
+  We prove this property simultaneously on all arcs of~$\spine'$, by induction on the length of~$\pi$.
+
+  Observe first that since~$\gamma$ joins~$X$ to~$Y$, the set~$Y$ is contained in both~$\ta[\gamma]$ and~$\ta[X]$.
+  Since~$\nodeSurj{Y}{E} \subseteq Y$, it follows that both~$C$ and~$D$ belong to a connected component of~$M \ssm \Down[\nodeSurj{Y}{E}]$, and it must be the same since~$C \subseteq D$.
+  We conclude that~$\nodeSurj{X}{C}$ belongs to the connected component of~${M \ssm \Down[\nodeSurj{Y}{E}]}$ containing~$D$.
+  By symmetry, this proves the base case of the induction when~$\pi$ is just the arc~$\arcSurj{\gamma}{C}$.
+\end{proof}
+
+
+\begin{remark}
+  Note that: % \cref{def:refinementSpines} needs a few justifications:
+  \begin{enumerate}[(i)]
+    \item Since~$X$ is contained both in~$\labeling(X)$ and in ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$, the non-empty nodes~$\nodeSurj{X}{C}$ partition the node~$X$. Hence, since the nodes of~$\spine$ partition~$\vertexSet$, the nodes of~$\spine'$ partition~$\vertexSet$.
+    \item For an arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and a connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ there is a unique connected component~$D$ of ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ containing~$C$, and a unique connected component~$E$ of ${M \ssm \big( \Up[{\so[Y]}][\decoration'] \cup \Down[{\ta[Y]}][\decoration'] \big)}$ containing~$C$. Indeed... todo.
+    \item By construction, the map~$\nodeSurj{X}{C} \mapsto X$ is a graph homomorphism from the transitive closure of~$\spine'$ to the transitive closure of~$\spine$. Moreover, $\spine'$ is the contraction minimal spine on~$\b{G}'$ such that the inclusion map defines a graph homomorphism from the transitive closure of~$\spine'$ to the transitive closure of~$\spine$.
+    \item The directed graph before contraction is a tree. Indeed... todo
+    \item The directed tree after contraction of the empty nodes is a spine on~$\b{G}'$. Indeed... todo.
+  \end{enumerate}
+\end{remark}
+
+\begin{proposition}
+  \label{prop:refinementSpines}
+  If~$\b{G}$ refines~$\b{G}'$, then the map~$\surjectionSpines$ is a surjection from the spines on~$\b{G}$ to the spines on~$\b{G}'$.
+  Moreover, the spine~$\surjectionSpines(\spine')$ is the unique spine on~$\b{G}'$ of which the spine~$\spine$ on~$\b{G}$ is an extension.
+  \vincent{this is incorrect at the moment. I want to say that it is the contraction minimal spine of~$\b{G}'$ of which~$\spine$ is an extension.}
+  \vincent{add surjective}
+  \vincent{Note that the map is rank monotone, but not graded.}
+\end{proposition}
+
+\begin{proof}
+  First, we need to prove that~$\spine'$ is indeed a spine on~$\b{G}'$.
+  \vincent{todo}
+\end{proof}
+
+\begin{definition}
+  \label{def:equivalenceRelation}
+  If~$\b{G}$ refines~$\b{G}'$, then the fibers of the surjection~$\surjectionSpines$ define an equivalence relation~$\equivalenceSpines$ on spines of~$\b{G}$. In other words, $\spine \equivalenceSpines \spine'$ if and only if~$\surjectionSpines(\spine) = \surjectionSpines(\spine')$.
+\end{definition}
+
+\begin{example}
+  \label{exm:equivalenceRelations}
+  \vincent{improve}
+  For instance, the equivalence relation~$\equiv_\b{G}$ on permutations is
+  \begin{enumerate}[(i)]
+    \item the \defn{trivial relation} when $\b{G}$ is complete or undecorated.
+    \item the various \defn{permutree relations} of~\cite{PilaudPons-permutrees} when~$G$ is a path (in particular the \defn{sylvester relation} for a down decorated path, and the \defn{Cambrian relations} for up-down decorated~paths).
+  \end{enumerate}
+  Note that in contrast to these specific examples, the equivalence relation~$\equiv$ has no reason to be a lattice congruence of the weak order.
+\end{example}
+
+\begin{proposition}
+  \label{prop:equivalenceRelation}
+  The equivalence relation $\equivalenceSpines$ is the transitive closure of the rewriting rule...
+  \vincent{todo: rewriting rule}
+\end{proposition}
+
+We finally compare the nested complexes~$\nestedComplex[\b{G}]$ and~$\nestedComplex[\b{G}']$
+\vincent{Not sure where I want that...}
+
+\begin{proposition}
+  \label{prop:refinementBlocks}
+  If~$\b{G}$ refines~$\b{G}'$, then
+  \begin{itemize}
+    \item any block of~$\b{G}'$ is a block of~$\b{G}$,
+    \item the nested complex~$\nestedComplex[\b{G}']$ contains the subcomplex of~$\nestedComplex[\b{G}]$ induced by the blocks of~$\b{G}'$.
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  \vincent{todo}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Blossoming spines}
+\label{subsec:blossomingSpines}
 
 We now add a little more to a labeled spine.
 
@@ -1131,114 +1311,6 @@ We thus simplify all pictures of blossoming spines by writing only the red (lett
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Refinement and surjection maps}
-\label{subsec:surjectionMaps}
-
-\begin{definition}
-  \label{def:refinement}
-  For two decorations~$\decoration$ and~$\decoration'$ on a set~$\vertexSet$, we say that~$\decoration$ \defn{refines}~$\decoration'$ (and that $\decoration'$ \defn{coarsens} $\decoration$) if~$\Down[\vertexSet] \subseteq \Down[\vertexSet][\decoration']$ and $\Up[\vertexSet] \subseteq \Up[\vertexSet][\decoration']$.
-  For two decorated block graphs~$\b{G} \eqdef (G, \decoration)$ and~$\b{G}' \eqdef (G', \decoration')$, we say that~$\b{G}$ \defn{refines}~$\b{G}'$ (and that $\b{G}'$ \defn{coarsens} $\b{G}$) if~$G = G'$ and $\decoration$ refines~$\decoration'$.
-\end{definition}
-
-We now define a natural surjection~$\surjectionSpines$ from the spines on~$\b{G}$ to the spines on~$\b{G}'$ when~$\b{G}$ refines~$\b{G}'$.
-%Here, we need the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}, hence we work with the maple tree~$M$ corresponding to the block graph~$G$.
-For this, it is convenient to add further information to a spine on~$\b{G}$.
-Here, we need to manipulate both the vertices and the cliques of~$G$, thus we consider a maple tree~$M$ corresponding to the block graph~$G$.
-
-\begin{definition}
-  \label{def:labeledSpine}
-  Let~$\b{M} \eqdef (M, \decoration)$ be a decorated maple tree and~$\b{G} \eqdef (G, \decoration)$ be the decorated block graph obtained by tapping~$M$.
-  In a spine~$\spine$ on~$\b{G}$, we label
-  \begin{itemize}
-    \item each node~$X$ by the connected component~$\labeling(X)$ of~$M \ssm \big( \Up[{\so[X]}] \cup \Down[{\ta[X]}] \big)$ containing~$X$,
-    \item each arc~$\gamma$ by the intersection~$\labeling(\gamma)$ of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
-  \end{itemize}
-%  We denote by~$\labeling$ the label map on nodes and arcs of~$\spine$.
-\end{definition}
-
-\begin{remark}
-  It follows from \cref{coro:splittablePartitions} that $\labeling(X)$ and~$\labeling(\gamma)$ are well-defined.
-  Moreover, they are both non-empty since~$\labeling(X)$ contains~$X$ and~$\labeling(\gamma)$ contains all red vertices of~$M$ which are neighbors to both~$\so[\gamma]$ and~$\ta[\gamma]$.
-  We will see in \cref{subsec:blossomingSpines} that these labels behave properly with respect to cuts of~$\spine$.
-  We postpone this property as it is not needed for the purposes of this section.
-\end{remark}
-
-Using the labeling of \cref{def:labeledSpine}, we are now ready to define the surjection~$\surjectionSpines$.
-
-\begin{definition}
-  \label{def:refinementSpines}
-  Let~$M$ be a maple tree and~$G$ be the block graph obtained by tapping~$M$.
-  Consider two decorations~$\decoration, \decoration'$ on~$B$ such that~$\decoration$ refines~$\decoration'$.
-  To a spine~$\spine$ on~$\b{G} \eqdef (G, \decoration)$, we associate the spine~$\spine'$ on~$\b{G}' \eqdef (G, \decoration')$ obtained by contracting the empty nodes in the directed tree with
-  \begin{itemize}
-    \item a node~$n_X^C \eqdef X \cap C$ for each node~$X$ of~$\spine$ and each connected component~$C$ of \linebreak ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ contained in~$\labeling(X)$,
-    \item an arc~$\varepsilon_\gamma^C$ joining the unique node~$n_X^D$ with~$C \subseteq D$ to the unique node~$n_Y^{E}$~with~${C \subseteq E}$ for each arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and each connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ contained in~$\labeling(\gamma)$.
-  \end{itemize}
-  We denote by~$\surjectionSpines$ the map that sends the spine $\spine$ on~$\b{G}$ to the spine~$\spine'$ on~$\b{G}'$.
-\end{definition}
-
-%\begin{definition}
-%  \label{def:refinementSpines}
-%  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$, and let~$G$ be the block graph obtained by tapping~$M$.
-%  Consider two decorations~$\decoration, \decoration'$ on~$B$ such that~$\decoration$ refines~$\decoration'$.
-%  For a blossoming spine~$\spine$ on~$\b{G}$, we construct a spine~$\spine'$ on~$\b{G}'$ in three steps:
-%  \begin{itemize}%[wide, labelwidth=!, labelindent=12pt]
-%    \item \textbf{construct}
-%    \begin{itemize}%[wide, labelwidth=!, labelindent=20pt]
-%      \item a node~$n_X^C \eqdef X \cap C$ labeled by~$\labeling(n_X^C) \eqdef C$ for each node~$X$ of~$\spine$ and each component~$C$ of~$M \ssm \big( \Up[{\so[X]}] \cup \Down[{\ta[X]}] \big)$ contained in~$\labeling(X)$,
-%      \item an arc~$\varepsilon_\gamma^D$ labeled by~$\labeling(\varepsilon_\gamma^D) \eqdef D$ for each arc~$\gamma$ of~$\spine$ and each component~$D$ of~$M \ssm \big( \Up[{\so[\gamma]}] \cup \Down[{\ta[\gamma]}] \big)$ contained in~$\labeling(\gamma)$,
-%    \end{itemize}
-%%    \item \textbf{attach} the arcs~$\varepsilon_\gamma^D$ with~$C \subseteq D$ as incoming (resp.~outgoing)~arcs of the node~$n_{\ta[\gamma]}^C$ (resp.~$n^{\so[\gamma]}_D$), for each arc~$\gamma$ of~$\spine$, 
-%    \item \textbf{attach} the arc~$\varepsilon_\gamma^D$ as an incoming (resp.~outgoing)~arc of the node~$n_X^C$, when~$C \supseteq D$ and~$X = \ta[\gamma]$ (resp.~$X = \so[\gamma]$),
-%%    \item \textbf{relabel} the arc~$\alpha^i_C$ with~$C \cap R$ and the node~$\alpha^i_D$ with~$D \cap \pi_i$,
-%    \item \textbf{contract} into a single arc any path of arcs passing through empty nodes.
-%%    	\item \textbf{erase} the blossoms and the labels on the arcs in the resulting blossoming spine to obtain a spine on~$\b{G}$.
-%  \end{itemize}
-%\end{definition}
-
-\begin{remark}
-  Note that: % \cref{def:refinementSpines} needs a few justifications:
-  \begin{enumerate}[(i)]
-    \item Since~$X$ is contained both in~$\labeling(X)$ and in ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$, the nodes~$n_X^C$ partition the node~$X$. Hence, since the nodes of~$\spine$ partition~$\vertexSet$, the nodes of~$\spine'$ partition~$\vertexSet$.
-    \item For an arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and a connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ there is a unique connected component~$D$ of ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ containing~$C$, and a unique connected component~$E$ of ${M \ssm \big( \Up[{\so[Y]}][\decoration'] \cup \Down[{\ta[Y]}][\decoration'] \big)}$ containing~$C$. Indeed... todo.
-    \item By construction, the map~$n_X^C \mapsto X$ is a graph homomorphism from the transitive closure of~$\spine'$ to the transitive closure of~$\spine$. Moreover, $\spine'$ is the contraction minimal spine on~$\b{G}'$ such that the inclusion map defines a graph homomorphism from the transitive closure of~$\spine'$ to the transitive closure of~$\spine$.
-    \item The directed graph before contraction is a tree. Indeed... todo
-    \item The directed tree after contraction of the empty nodes is a spine on~$\b{G}'$. Indeed... todo.
-  \end{enumerate}
-\end{remark}
-
-\begin{proposition}
-  \label{prop:refinementSpines}
-  If~$\b{G}$ refines~$\b{G}'$, then the map~$\surjectionSpines$ is a surjection from the spines on~$\b{G}$ to the spines on~$\b{G}'$.
-  Moreover, the spine~$\surjectionSpines(\spine')$ is the unique spine on~$\b{G}'$ of which the spine~$\spine$ on~$\b{G}$ is an extension.
-  \vincent{this is incorrect at the moment. I want to say that it is the contraction minimal spine of~$\b{G}'$ of which~$\spine$ is an extension.}
-  \vincent{add surjective}
-\end{proposition}
-
-\begin{proof}
-  First, we need to prove that~$\spine'$ is indeed a spine on~$\b{G}'$.
-  \vincent{todo}
-\end{proof}
-
-As the labels of a spine can be described directly from the spine, \cref{def:refinementSpines,prop:refinementSpines} define a surjection map from the spines of~$\b{G}$ to the spines of~$\b{G}'$ which we denote by~$\surjectionSpines$.
-
-We now compare the nested complexes~$\nestedComplex[\b{G}]$ and~$\nestedComplex[\b{G}']$
-
-\begin{proposition}
-  \label{prop:refinementBlocks}
-  If~$\b{G}$ refines~$\b{G}'$, then
-  \begin{itemize}
-    \item any block of~$\b{G}'$ is a block of~$\b{G}$,
-    \item the nested complex~$\nestedComplex[\b{G}']$ contains the subcomplex of~$\nestedComplex[\b{G}]$ induced by the blocks of~$\b{G}'$.
-  \end{itemize}
-\end{proposition}
-
-\begin{proof}
-  \vincent{todo}
-\end{proof}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \subsection{Surjection maps and rewriting rules}
 \label{subsec:surjectionMaps}
 
@@ -1340,52 +1412,6 @@ We now consider the equivalence relation~$\equiv_\b{G}$ whose classes are the fi
   where~$\sigma_k$ and~$\sigma_{k+1}$ belong to distinct connected components of~$G \ssm (\Up[{\sigma^{-1}([k-1])}] \cup \Down[{\sigma^{-1}([|\vertexSet|] \ssm [k+1])}])$.
   \vincent{Here, I would prefer to say that there is a vertex of~$G$ in between $\sigma_k$ and~$\sigma_{k+1}$...}
 \end{remark}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Refinement}
-\label{subsec:refinement}
-
-\begin{definition}
-  \label{def:refinement}
-  %Let~$\b{G}$ and~$\b{G}'$ be two decorated block graphs.
-  We say that~$\b{G}$ \defn{refines}~$\b{G}'$ (and that $\b{G}'$ \defn{coarsens} $\b{G}$) if they are decorations of the same underlying block graph and $\Down[\vertexSet] \subseteq \Down[\vertexSet']$ while $\Up[\vertexSet] \subseteq \Up[\vertexSet']$.
-\end{definition}
-
-\begin{proposition}
-  \label{prop:refinementBlocks}
-  If~$\b{G}$ refines~$\b{G}'$, then
-  \begin{itemize}
-    \item any block of~$\b{G}'$ is a block of~$\b{G}$,
-    \item the nested complex~$\nestedComplex[\b{G}']$ contains the subcomplex of~$\nestedComplex[\b{G}]$ induced by the blocks of~$\b{G}'$.
-  \end{itemize}
-\end{proposition}
-
-\begin{proof}
-  \vincent{todo}
-\end{proof}
-
-\begin{proposition}
-  \label{prop:refinementEquivalenceRelations}
-  If~$\b{G}$ refines~$\b{G}'$, then~$\equiv_\b{G}$ refines~$\equiv_{\b{G}'}$.
-\end{proposition}
-
-\begin{proof}
-  Follows from \cref{prop:equivalenceRelation}.
-\end{proof}
-
-For any ordered partitions~$\pi$ of~$\vertexSet$ and~$\pi'$ of~$\vertexSet'$ corresponding to the same ordered partition of the underlying block graph of~$\b{G}$ and~$\b{G}'$, \cref{prop:refinementEquivalenceRelations} affirms that the spine~$\spine = \partitionToSpine(\pi')$ of~$\b{G}'$ only depends on the spine~$\spine' = \partitionToSpine(\pi)$ of~$\b{G}$.
-This yields a natural surjection~$\surjectionSpines$ from spines on~$\b{G}$ to spines on~$\b{G}'$, which is clearly a poset morphism from~$\spinePoset[\b{G}]$ to~$\spinePoset[\b{G}']$.
-\vincent{Is it possible to define directly this surjection. This would save the surjection from ordered partitions to spines...}
-
-%\cref{prop:refinementEquivalenceRelations} yields a natural surjection~$\surjectionSpines$ from spines on~$\b{G}$ to spines on~$\b{G}'$.
-%Namely, for a spine~$\spine$ on~$\b{G}$, pick any ordered partition~$\pi$ of~$\vertexSet$ such that~$\spine = \partitionToSpine(\pi)$, let~$\pi'$ be the corresponding ordered partition of~$\vertexSet'$ where only the decoration differ, and let~$\spine' = \partitionToSpine(\pi')$.
-%This surjection is clearly a poset morphism from~$\spinePoset[\b{G}]$ to~$\spinePoset[\b{G}']$.
-
-\begin{example}
-  \vincent{Surjections from spines to acyclic orientations of~$G$.}
-\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
