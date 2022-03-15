@@ -1148,6 +1148,15 @@ It requires the labeling~$\labeling$ of the nodes and arcs of the spines describ
   We denote by~$\surjectionSpines$ the map that sends the spine $\spine$ on~$\b{G}$ to the spine~$\spine'$ on~$\b{G}'$.
 \end{definition}
 
+\begin{remark}
+  \label{rem:refinementBlossomingSpine}
+  A similar construction sends a blossoming spine~$\spine\blossom$ on~$\b{G}$ to a blossoming spine~${\spine\blossom}'$ on~$\b{G}'$.
+  Namely, we just need to add to the directed tree~$\almostSpine'$:
+  \begin{itemize}
+    \item an incoming (resp.~outgoing) blossom~$\arcSurj{\gamma}{C}$ attached to the unique node~$\nodeSurj{X}{D}$ with~$S \subseteq D$ for each incoming (resp.~outgoing) blossom~$\gamma$ of~$\spine\blossom$ attached to node~$X$.
+  \end{itemize}
+\end{remark}
+
 Our next three statements aim at showing the correctness of \cref{def:refinementSpines}.
 \vincent{Maybe first need to prove that ``unique node'' is correct.}
 % For an arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and a connected component~$C$ of~$M \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ there is a unique connected component~$D$ of ${M \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ containing~$C$, and a unique connected component~$E$ of ${M \ssm \big( \Up[{\so[Y]}][\decoration'] \cup \Down[{\ta[Y]}][\decoration'] \big)}$ containing~$C$. Indeed... todo.
@@ -1214,7 +1223,7 @@ We now describe the surjection map~$\surjectionSpines$ in terms of extensions de
 \begin{proposition}
   \label{prop:alternativeDescriptionRefinementSpines}
 %  Let~$\b{G}$ and~$\b{G}'$ be two decorated block graphs such that~$\b{G}$ refines~$\b{G'}$.
-  The spine~$\surjectionSpines(\spine)$ is the unique minimal spine in the spine poset~$\spinePoset[\b{G}']$ extended by the spine~$\spine$ of~$\b{G}$.
+  The spine~$\surjectionSpines(\spine)$ is the unique minimal element in the spine poset~$\spinePoset[\b{G}']$ extended by the spine~$\spine$ of~$\b{G}$.
 \end{proposition}
 
 \begin{proof}
@@ -1226,7 +1235,7 @@ We now describe the surjection map~$\surjectionSpines$ in terms of extensions de
 
 \begin{corollary}
   \label{coro:preimageRefinementSpines}
-  For a spine~$\spine'$ on~$\b{G}'$, the preimage~$\surjectionSpines^{-1}(\spine')$ is the set of maximal spines on~$\b{G}$ that extend~$\spine'$ but no spine on~$\b{G}'$ strictly below~$\spine'$ in~$\spinePoset[\b{G}']$.
+  For a spine~$\spine'$ on~$\b{G}'$, the preimage~$\surjectionSpines^{-1}(\spine')$ is the set of spines on~$\b{G}$ that extend~$\spine'$ but no spine on~$\b{G}'$ strictly below~$\spine'$ in~$\spinePoset[\b{G}']$.
   \vincent{Not really useful... I want to say that the map is surjective. What is the simplest way to see it?}
 \end{corollary}
 
