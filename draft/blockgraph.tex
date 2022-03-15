@@ -173,7 +173,6 @@
 \newcommand{\posNested}{\succeq} % positive nested
 \newcommand{\negDisjoint}{\perp} % negative disjoint
 \newcommand{\posDisjoint}{\;\top\;} % positive disjoint
-\newcommand{\compl}[1]{#1{}^\textsc{c}} % complement
 \newcommandx{\nestedComplex}[1][1=\b{G}]{\mathcal{N}_{#1}} % nested complex
 % maps
 \newcommand{\spineToNested}{\mathsf{N}} % spine to nested set
@@ -182,6 +181,8 @@
 \newcommandx{\surjectionSpines}[2][1=\b{G}, 2=\b{G}']{\Phi_{#1 \to #2}} % spine to spine
 \newcommand{\nodeSurj}[2]{\smash{n_{#1}^{#2}}} % node surjection
 \newcommand{\arcSurj}[2]{\smash{\varepsilon_{#1}^{#2}}} % arc surjection
+% insertion
+\newcommand{\insertion}[2]{#1 \ll #2} % insertion
 
 % GEOMETRY
 
@@ -256,11 +257,17 @@ It is the maximal generalization, according to \cite{Pilaud-removahedra}.
 
 \newpage
 \section{Combinatorics: Spine Poset and Nested Complex}
+\label{sec:combinatorics}
+
+This section is dedicated to the combinatorics of spines on decorated block graphs.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Maple trees and block graphs}
 \label{subsec:MapleTreesBlockGraphs}
+
+We start by defining the ground sets on which our constructions hold.
+We will use both maple trees and block graphs, which are closely related.
 
 \begin{definition}
   A \defn{maple tree} is a tree whose vertices are properly colored (\ie no monochromatic edge) in red and blue such that all leaves are red.
@@ -373,6 +380,8 @@ In this paper, we consider the following additional decorations.
 \subsection{Spines}
 \label{subsec:spines}
 
+We now define the main combinatorial objects studied in this paper.
+
 \begin{definition}
   \label{def:sourceTargetSets}
 %  Consider an arc~$\gamma$ in a directed tree~$\spine$ whose nodes are sets.
@@ -384,9 +393,6 @@ In this paper, we consider the following additional decorations.
   \end{itemize}
 \end{definition}
 
-%In this paper, we consider directed trees whose nodes are labeled by sets.
-%With a slight abuse of notation, we still write~$\so[\gamma]$ (resp.~$\ta[\gamma]$) for the union of the labels in the source (resp.~target) set of an arc~$\gamma$.
-
 \begin{definition}
   \label{def:spine}
   A \defn{spine} on a decorated block graph $\b{G} \eqdef (G,\decoration)$ is a directed tree $\spine$ such that
@@ -394,8 +400,6 @@ In this paper, we consider the following additional decorations.
     \item the nodes of~$\spine$ form a partition of the vertex set~$\vertexSet$ of~$G$, and 
     \item at each node~$X$ of~$\spine$, the source sets $\so[\alpha]$ of the incoming arcs $\alpha$ are contained in distinct connected components of $G \ssm \Down[X]$, and the target sets $\ta[\beta]$ of the outgoing arcs $\beta$ are contained in distinct connected components of $G \ssm \Up[X]$.
   \end{enumerate}
-%  We denote by $\spines$ the set of spines on~$\b{G}$.
-%  \vincent{not sure we really need this notation}
 \end{definition}
 
 \begin{example}
@@ -408,19 +412,25 @@ In this paper, we consider the following additional decorations.
     \item the \defn{$G$-ordered partitions}~\cite{Pilaud-acyclicReorientationLattices} (\ie pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs of~$G$, and~$o$ is an acyclic orientation of the quotient graph~$G/p$) when~$\b{G}$ is fully decorated.
     \item the \defn{Schr\"oder permutrees} of~\cite{PilaudPons-permutrees} when~$G$ is a path.
   \end{enumerate}
-  \vincent{give two examples of spines on the block graph of \cref{fig:mapleBlock}, one maximal and one not.}
+  \vincent{picture of two spines on the block graph of \cref{fig:mapleBlock} (one maximal and one not).}
 \end{example}
 
-\vincent{to clean here}
-%\begin{proposition}
-%  \label{prop:spines}
-%  Let $\b{G}$ be a decorated block graph, let $\spine$ be a spine on $\b{G}$, and let~$\gamma$ be an arc of~$\spine$ joining a node~$X$ to a node~$Y$.
-%  Then
-%  \begin{enumerate}[(i)]
-%    \item $\so[\gamma]$ and~$\ta[\gamma]$ form a non-trivial partition of the vertex set of~$G$, with $\so[\gamma]$ contained in a connected component of~$G \ssm \Down[{\ta[\gamma]}]$ and $\ta[\gamma]$ contained in a connected component of~$G \ssm \Up[{\so[\gamma]}]$,
-%    \item 
-%  \end{enumerate}
-%\end{proposition}
+For later purposes, it will convenient to see a spine as a preorder on the vertex set~$\vertexSet$ of~$G$.
+Let us first recall the definition of a preorder.
+
+\begin{definition}
+  \label{def:preorder}
+  Recall that a \defn{preorder} on~$\vertexSet$ is a reflexive and transitive binary relation on~$\vertexSet$.
+  For instance, an \defn{equivalence relation} is a symmetric preorder and a \defn{partial order} is an antisymmetric preorder.
+  Any preorder~$R$ decomposes into an equivalence relation~$\equiv_R \eqdef \set{(u,v) \in R}{(v,u) \in R}$ together with a partial order~${R/\!\equiv_R}$ on the equivalence classes of~$\equiv_R$.
+  For two preorders~$R, R'$ on~$\vertexSet$, we say that~$R$ \defn{extends}~$R'$ if $R \supseteq R'$ as subsets of~$\vertexSet \times \vertexSet$. %, \ie $u \, R' \, v$ implies $u \, R \, v$ for any~$u,v \in \vertexSet$.
+\end{definition}
+
+\begin{definition}
+  \label{def:preorderSpine}
+  Any spine~$\spine$ on~$\b{G}$ defines a preorder~$\preccurlyeq_{\spine}$ on~$\vertexSet$ by $u \preccurlyeq_{\spine} v$ if and only if there is a directed path in~$\spine$ from the node containing~$u$ ot the node containing~$v$.
+  For two spines~$\spine$ and~$\spine'$, we say that~$\spine$ \defn{extends}~$\spine'$ if~$\preccurlyeq_{\spine}$ extends~$\preccurlyeq_{\spine'}$.
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -430,94 +440,92 @@ In this paper, we consider the following additional decorations.
 We now define two natural operations on spines: arc contraction and node splitting.
 These operations are illustrated in \cref{fig:contractionSplitting}.
 
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}[scale=1.6]
+    
+    \node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $X$};
+    \node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $Y$};
+
+    \node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,0.6) {\small $\beta_1$};
+    \node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,0.6) {\small $\dots$};
+    \node (oj) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.3,0.6) {\small $\beta_k$};
+
+    \node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.62) {\small $\beta_{k+1}$};
+    \node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,1.6) {\small $\dots$};
+    \node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1,1.6) {\small $\beta_\ell$};
+
+    \node (i1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,-1.6) {\small $\alpha_1$};
+    \node (id) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-1.6) {\small $\dots$};
+    \node (im) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.6) {\small $\alpha_i$};
+
+    \node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.3,-0.62) {\small $\alpha_{i+1}$};
+    \node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.8,-0.6) {\small $\dots$};
+    \node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.2,-0.6) {\small $\alpha_j$};
+
+    \draw[->] (N0)--(o1); 
+    \draw[->] (N0)--(od);
+    \draw[->] (N0)--(oj);
+  
+    \draw[->] (N0)--(N1) node[midway,left] {$\gamma$} ; 
+    \draw[->] (N1)--(oj1); 
+    \draw[->] (N1)--(ojd);
+    \draw[->] (N1)--(ol);
+
+    \draw[->] (i1)--(N0);
+    \draw[->] (id)--(N0);
+    \draw[->] (im)--(N0); 
+
+    \draw[->] (im1)--(N1); 
+    \draw[->] (imd)--(N1);
+    \draw[->] (ik)--(N1);
+
+  \end{tikzpicture}
+  \quad 
+  \quad 
+  \resizebox{0.1\linewidth}{!}{
+  \raisebox{5.5em}{
+  \begin{tikzpicture}
+    \draw[->] (0,0)--(1,0); 
+    \draw[->] (1,-0.2)--(0,-0.2); 
+  \end{tikzpicture}}}
+  \quad 
+  \quad
+  \raisebox{1.5em}{
+  \begin{tikzpicture}[scale=1.2]
+    
+    \node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,0) {\small $X \cup Y$};
+  
+    \node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,1.5) {\small $\beta_1$};
+    \node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.5) {\small $\dots$};
+    \node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,1.5) {\small $\beta_\ell$};
+  
+  
+    \node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,-1.5) {\small $\alpha_1$};
+    \node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.5) {\small $\dots$};
+    \node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,-1.5) {\small $\alpha_j$};
+  
+  
+    \draw[->] (N1)--(oj1); 
+    \draw[->] (N1)--(ojd);
+    \draw[->] (N1)--(ol);
+  
+    \draw[->] (im1)--(N1); 
+    \draw[->] (imd)--(N1);
+    \draw[->] (ik)--(N1);
+  
+
+  \end{tikzpicture}}
+  \caption{Contraction and splitting on spines.}
+  \label{fig:contractionSplitting}
+\end{figure} 
+
 \begin{definition}
   \label{def:arccontraction}
   Let~$\gamma$ be an arc of a spine~$\spine$ on $\b{G}$, joining a node~$X$ to a node~$Y$.
   The \defn{contraction} of~$\gamma$ in~$\spine$ is the directed tree obtained from~$\spine$ by replacing the nodes~$X$ and~$Y$ by a single node~$Z \eqdef X \cup Y$ and attaching to~$Z$ all arcs incident to either~$X$~or~$Y$.
   See \cref{fig:contractionSplitting}.
 \end{definition}
-
-\begin{figure}[h!]
-\centering
-
-\begin{tikzpicture}[scale=1.6]
-    
-\node (N0) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-0.5) {\small $X$};
-\node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,0.5) {\small $Y$};
-
-\node (o1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1.2,0.6) {\small $\beta_1$};
-\node (od) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.8,0.6) {\small $\dots$};
-\node (oj) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.3,0.6) {\small $\beta_k$};
-
-\node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.62) {\small $\beta_{k+1}$};
-\node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.5,1.6) {\small $\dots$};
-\node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1,1.6) {\small $\beta_\ell$};
-
-\node (i1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-1,-1.6) {\small $\alpha_1$};
-\node (id) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.5,-1.6) {\small $\dots$};
-\node (im) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.6) {\small $\alpha_i$};
-
-\node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.3,-0.62) {\small $\alpha_{i+1}$};
-\node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.8,-0.6) {\small $\dots$};
-\node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (1.2,-0.6) {\small $\alpha_j$};
-
-\draw[->] (N0)--(o1); 
-\draw[->] (N0)--(od);
-\draw[->] (N0)--(oj);
-  
-\draw[->] (N0)--(N1) node[midway,left] {$\gamma$} ; 
-\draw[->] (N1)--(oj1); 
-\draw[->] (N1)--(ojd);
-\draw[->] (N1)--(ol);
-
-\draw[->] (i1)--(N0);
-\draw[->] (id)--(N0);
-\draw[->] (im)--(N0); 
-
-\draw[->] (im1)--(N1); 
-\draw[->] (imd)--(N1);
-\draw[->] (ik)--(N1);
-
-\end{tikzpicture}
-\quad 
-\quad 
-\resizebox{0.1\linewidth}{!}{
-  \raisebox{5.5em}{
-  \begin{tikzpicture}
-    \draw[->] (0,0)--(1,0); 
-    \draw[->] (1,-0.2)--(0,-0.2); 
-  \end{tikzpicture}}}
-\quad 
-\quad
-\raisebox{1.5em}{
-\begin{tikzpicture}[scale=1.2]
-    
-  \node (N1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,0) {\small $X \cup Y$};
-  
-  
-  \node (oj1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,1.5) {\small $\beta_1$};
-  \node (ojd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,1.5) {\small $\dots$};
-  \node (ol) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,1.5) {\small $\beta_\ell$};
-  
-  
-  \node (im1) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (-0.6,-1.5) {\small $\alpha_1$};
-  \node (imd) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0,-1.5) {\small $\dots$};
-  \node (ik) [circle,draw=none,minimum size=4mm,inner sep=0.1mm] at (0.6,-1.5) {\small $\alpha_j$};
-  
-  
-  \draw[->] (N1)--(oj1); 
-  \draw[->] (N1)--(ojd);
-  \draw[->] (N1)--(ol);
-  
-  \draw[->] (im1)--(N1); 
-  \draw[->] (imd)--(N1);
-  \draw[->] (ik)--(N1);
-  
-
-\end{tikzpicture}}
-\caption{Contraction and splitting on spines.}
-\label{fig:contractionSplitting}
-\end{figure} 
 
 \begin{proposition}
   \label{prop:arccontraction}
@@ -580,10 +588,6 @@ To define the reverse operation of node splitting, we first need the following n
   The splitting of any splittable partition in any spine on~$\b{G}$ is a spine on~$\b{G}$.
 \end{proposition}
 
-%\begin{remark}
-%  The following proof is "formal", i.e. it doesn't use the fact that $G$ is a block graph. 
-%\end{remark}
-
 \begin{proof}
   Let~$\spine'$ be a directed tree obtained by splitting a splittable partition~$X \sqcup Y = Z$ of a node~$Z$ in a spine $\spine$ on~$\b{G}$.
   We clearly just need to prove the local condition of \cref{def:spine} around the nodes~$X$ and~$Y$ of~$\spine'$.
@@ -623,6 +627,7 @@ To define the reverse operation of node splitting, we first need the following n
 \end{proof}
 
 \begin{definition}
+  \label{def:spinePoset}
   The \defn{spine poset}~$\spinePoset$ is the poset on spines on~$\b{G}$ defined by~$\spine \le \spine'$ if and only if~$\spine$ is obtained from~$\spine'$ by arc contractions, or equivalently~$\spine'$ is obtained from~$\spine$ by node~splittings.
 \end{definition}
 
@@ -646,6 +651,10 @@ To define the reverse operation of node splitting, we first need the following n
   \end{itemize}
 \end{remark}
 
+\begin{remark}
+  The lower (resp.~upper) ideal of the spine poset~$\spinePoset$ generated by a spine~$\spine$ are precisely the spines~$\spine'$ of~$\b{G}$ that extend (resp.~are extended by)~$\spine$ in the sense of \cref{def:preorderSpine}.
+\end{remark}
+
 \begin{corollary}
   \label{coro:splittablePartitions}
   For any arc arc~$\gamma$ of a spine~$\spine$ on~$\b{G}$, the sets~$\so[\gamma]$ and~$\ta[\gamma]$ form a $\b{G}$-splittable partition of the vertex set of~$G$.
@@ -665,75 +674,42 @@ To define the reverse operation of node splitting, we first need the following n
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Nested complex}
+\label{subsec:nestedComplex}
 
-\vincent{Do we want to say that the spine complex is a simplicial poset, which we want to prove is flag?}
-% We denote by~$\compl{B} \eqdef \vertexSet \ssm B$ the complement of a subset~$B$ of~$\vertexSet$.
+By definition, the spine poset is a simplicial poset (a poset where any interval is a boolean lattice).
+We next show that the spine poset is actually isomorphic to the inclusion poset of a flag simplicial complex.
 
 \begin{definition}
   \label{def:block}
   A \defn{block} of~$\b{G}$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$\vertexSet \ssm B$ forms a $\b{G}$-splittable partition of the vertex set~$\vertexSet$ (see \cref{def:splittable}).
-%  A \defn{block} of~$\b{G}$ is a subset~$B$ of~$\vertexSet$ such that $B \ne \varnothing$ is contained in a connected component of~$G \ssm \Down[\compl{B}]$ and $\compl{B} \ne \varnothing$ is contained in a connected component of~$G \ssm \Up[B]$.
-%  In other words, $B$ and its complement~$\compl{B}$ forms a splittable partition of~$\vertexSet$ (see \cref{def:splittable}).
 \end{definition}
 
 \begin{definition}
   \label{def:compatibleBlocks}
-%  A \defn{block} of~$\b{G}$ is a subset~$B$ of vertices of~$G$ such that~$B$ and its complement~$\vertexSet \ssm B$ forms a $\b{G}$-splittable partition of the vertex set of~$G$ (see \cref{def:splittable}).
-  %~$B \ne \varnothing$ is contained in a connected component of~$G \ssm \compl{B}$ and $\compl{B} \ne \varnothing$ is contained in a connected component of~$G \ssm B$.
-%  Two blocks~$B$ and~$B'$ are \defn{compatible} if any of the following conditions hold:
-%  \begin{itemize}
-%    \item $B \subseteq B'$,
-%    \item $B \supseteq B'$,
-%    \item $B \cap B' = \varnothing$ and $B \cup B'$ is not a block,
-%    \item $\compl{B} \cup \compl{B'} = \varnothing$ and~$B \cap B'$ is not a block.
-%  \end{itemize}
   Let~$B$ and~$B'$ be two blocks of~$\b{G}$.
   We write:
   \begin{itemize}
-    \item $B \negDisjoint B'$ if $B \cap B' = \varnothing$ and $B \cup B'$ is not a block of~$\b{G}$,
-    \item $B \posDisjoint B'$ if $B \cup B' = \vertexSet$ and~$B \cap B'$ is not a block of~$\b{G}$.
+    \item $B \negDisjoint B'$ when $B \cap B' = \varnothing$ and $B \cup B'$ is not a block of~$\b{G}$,
+    \item $B \posDisjoint B'$ when $B \cup B' = \vertexSet$ and~$B \cap B'$ is not a block of~$\b{G}$.
   \end{itemize}
   We say that~$B$ and~$B'$ are \defn{compatible} if $B \subseteq B'$, or $B \supseteq B'$, or $B \negDisjoint B'$ or $B \posDisjoint B'$.
 \end{definition}
 
 \begin{definition}
-  \label{def:spineComplex}
+  \label{def:nestedComplex}
   A \defn{nested set} on~$\b{G}$ is a set of pairwise compatible blocks of~$\b{G}$.
   The \defn{nested complex}~$\nestedComplex$ is the simplicial complex of nested sets on~$\b{G}$.
   In other words, it is the clique complex of the compatibility relation on blocks of~$\b{G}$.
 \end{definition}
 
-%\begin{lemma}
-%  \label{lem:arcBlock}
-%  The source set~$\so[\gamma]$ of an arc~$\gamma$ of a spine~$\spine$ on~$\b{G}$ is a block of~$\b{G}$.
-%\end{lemma}
-%
-%\begin{proof}
-%  Let~$\spine'$ be the rank~$1$ spine on~$\b{G}$ obtained by contracting all arcs in~$\spine$ except~$\gamma$.
-%  By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting.
-%  This implies that the partition~$\so[\gamma] \sqcup \ta[\gamma]$ is splittable.
-%\end{proof}
-%
-%\begin{lemma}
-%  \label{lem:compatibleArcBlocks}
-%  For two arcs~$\gamma$ and~$\gamma'$ of a spine~$\spine$ on~$\b{G}$, the blocks~$\so[\gamma]$ and~$\so[\gamma']$ of~$\b{G}$ are compatible.
-%\end{lemma}
-%
-%\begin{proof}
-%  Since the spine~$\spine$ is a tree, there is a unique path~$\pi$ joining~$\gamma$ to~$\gamma'$ in~$\spine$.
-%  If $\pi$ connects the target of~$\gamma$ to the source of~$\gamma'$, then~$\so[\gamma] \subseteq \so[\gamma']$, and \viceversa.
-%  If $\pi$ connects the sources of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \negDisjoint \so[\gamma]'$.
-%  Indeed, there is at least one node~$X$ of~$\spine$ where~$\pi$ has two incoming arcs~$\alpha, \alpha'$.
-%  By \cref{def:spine}, $\so[\alpha]$ and~$\so[\alpha']$ belong to two distinct connected components of~$G \ssm \Down[X]$.
-%  Hence, we obtain that~$\so[\gamma] \subseteq \so[\alpha]$ and~$\so[\gamma] \subseteq \so[\alpha']$ belong to distinct connected components of~$G \ssm \Down[X]$ hence of~$G \ssm \Down[\compl{(\so[\gamma] \cup \so[\alpha'])}]$.
-%  Similarly, if $\pi$ connects the targets of~$\gamma$ and~$\gamma'$, then $\so[\gamma] \posDisjoint \so[\gamma]'$.
-%  See \cref{fig:sourceSetsCompatible}.
-%  \vincent{borrow picture...}
-%\end{proof}
-%
-%\begin{corollary}
-%  Any spine on~$\b{G}$ defines a nested set on~$\b{G}$.
-%\end{corollary}
+\begin{example}
+  \label{exm:nestedComplex}
+  For instance, the nested sets are:
+  \begin{enumerate}[(i)]
+    \item the sets~$B_1 \subsetneq B_2 \subsetneq \dots \subsetneq B_k$ of nested subsets of~$\vertexSet$ when $\b{G}$ is complete or undecorated.
+    \item the \defn{$G$-nested trees} studied in~\cite{CarrDevadoss} when~$\b{G}$ is down decorated.
+  \end{enumerate}
+\end{example}
 
 \begin{proposition}
   \label{prop:spineToNested}
@@ -747,9 +723,6 @@ To define the reverse operation of node splitting, we first need the following n
   Observe that for any spine~$\spine$ on~$\b{G}$:
   \begin{itemize}
     \item For any arc~$\gamma$ of~$\spine$, the source set~$\so[\gamma]$ is a block of~$\b{G}$ by \cref{coro:splittablePartitions}. 
-%    Indeed, consider the rank~$1$ spine~$\spine'$ on~$\b{G}$ obtained by contracting all arcs in~$\spine$ except~$\gamma$. 
-%    By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
-%    Hence, the partition~$\so[\gamma] \sqcup \ta[\gamma]$ is splittable.
     \item For any two arcs~$\gamma$ and~$\gamma'$ of~$\spine$, the blocks~$\so[\gamma]$ and~$\so[\gamma']$ of~$\b{G}$ are compatible. 
     Indeed, since the spine~$\spine$ is a tree, there is a unique path~$\pi$ joining~$\gamma$ to~$\gamma'$ in~$\spine$.
     As illustrated in \cref{fig:sourceSetsCompatible}, we observe that:
@@ -827,6 +800,9 @@ This gives a description of the nodes of the spine~$\nestedToSpine(\nested)$ in 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Flips}
+\label{subsec:flips}
+
+In this section, we introduce an elementary local operation on spines on~$\b{G}$.
 
 \begin{definition}
   \label{def:flip}
@@ -837,7 +813,7 @@ This gives a description of the nodes of the spine~$\nestedToSpine(\nested)$ in 
   We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
 \end{definition}
 
-\vincent{Add picture of two corank $0$ spines connected by a flip.}
+\vincent{picture of two maximal spines connected by a flip.}
 
 \begin{figure}[h!]
 \begin{tikzpicture}[scale=1.6]
@@ -990,18 +966,10 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Refinement and surjection maps}
-\label{subsec:surjectionMaps}
+\subsection{Labeled spines and blossoming spines}
+\label{subsec:blossomingSpines}
 
-\begin{definition}
-  \label{def:refinement}
-  For two decorations~$\decoration$ and~$\decoration'$ on a set~$\vertexSet$, we say that~$\decoration$ \defn{refines}~$\decoration'$ (and that $\decoration'$ \defn{coarsens} $\decoration$) if~$\Down[\vertexSet] \subseteq \Down[\vertexSet][\decoration']$ and $\Up[\vertexSet] \subseteq \Up[\vertexSet][\decoration']$.
-  For two decorated block graphs~$\b{G} \eqdef (G, \decoration)$ and~$\b{G}' \eqdef (G', \decoration')$, we say that~$\b{G}$ \defn{refines}~$\b{G}'$ (and that $\b{G}'$ \defn{coarsens} $\b{G}$) if~$G = G'$ and $\decoration$ refines~$\decoration'$.
-\end{definition}
-
-We now define a natural surjection~$\surjectionSpines$ from the spines on~$\b{G}$ to the spines on~$\b{G}'$ when~$\b{G}$ refines~$\b{G}'$.
-%Here, we need the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}, hence we work with the maple tree~$M$ corresponding to the block graph~$G$.
-For this, it is convenient to add further information to a spine on~$\b{G}$.
+For later purposes, we now add further information to a spine on~$\b{G}$.
 Here, we need to manipulate both the vertices and the cliques of~$G$, thus we consider a maple tree~$M$ corresponding to the block graph~$G$.
 
 \begin{definition}
@@ -1013,11 +981,20 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
 %    \item each arc~$\gamma$ by the intersection~$\labeling(\gamma)$ of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
     \item each arc~$\gamma$ by the connected component~$\labeling(\gamma)$ of~$M \ssm \big( \Up[{\so[\gamma]}] \cup \Down[{\ta[\gamma]}] \big)$ containing the red vertices of~$M$ adjacent to both~$\so[\gamma]$ and~$\ta[\gamma]$.
   \end{itemize}
-%  We denote by~$\labeling$ the label map on nodes and arcs of~$\spine$.
+  We say that the spine~$\spine$ with its labeling~$\labeling$ is a \defn{labeled spine}.
+  \vincent{picture of two labeled spines (on the examples of spines given before).}
 \end{definition}
 
 \begin{remark}
-  \label{rem:labeledSpine}
+  \label{rem:labeledSpine1}
+  By definition, the labels of \cref{def:labeledSpine} are some maple subtrees of~$M$.
+  Note that a maple subtree of~$M$ is completely determined by its leaves, hence by its red vertices.
+  We thus simplify all pictures of labeled spines by writing only the red (letters) vertices of each label.
+  \vincent{We could even just write the leaves...}
+\end{remark}
+
+\begin{remark}
+  \label{rem:labeledSpine2}
   The labeling~$\labeling$ of \cref{def:labeledSpine} can be described alternatively using \cref{coro:splittablePartitions}.
   For any arc~$\gamma$ in a spine~$\spine$, denote by~$C_\gamma$ the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ and by~$C^\gamma$ the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
 %  For any arc~$\gamma$ in a spine~$\spine$, denote by~$C_\gamma$ (resp.~$C^\gamma$) the connected component of~$M \ssm \Up[{\so[\gamma]}]$ (resp.~$M \ssm \Down[{\ta[\gamma]}]$) containing~$\ta[\gamma]$ (resp.~$\so[\gamma]$).
@@ -1026,19 +1003,6 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
     \item $\labeling(X) = \bigcap_\alpha C_\alpha \; \cap \; \bigcap_\beta C^\beta$ where $\alpha$ (resp.~$\beta$) runs over incoming (resp.~outgoing) arcs~of~$X$,
     \item $\labeling(\gamma) = C_\gamma \cap C^\gamma$.
   \end{itemize}     
-%  It follows from \cref{coro:splittablePartitions} that $\labeling(X)$ and~$\labeling(\gamma)$ are well-defined.
-%  Indeed, for any arc~$\gamma$ in a spine~$\spine$, denote by~$C_\gamma$ the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ and by~$C^\gamma$ the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
-%  Then $\labeling(\gamma) = C_\gamma \cap C^\gamma$ and $\labeling(X)$ is the intersection of the~$C_\alpha$ for all incoming arcs~$\alpha$ of~$X$ with the~$C^\beta$ for all outgoing arcs~$\beta$~of~$X$, which all contain~$X$.
-%%  \begin{itemize}
-%%    \item $\labeling(X)$ is the intersection of the~$C_\alpha$ for all incoming arcs~$\alpha$ of~$X$ with the~$C^\beta$ for all outgoing arcs~$\beta$~of~$X$, and they all contain~$X$,
-%%    \item $\labeling(\gamma)$ is the intersection of~$C_\gamma$ with~$C^\gamma$, and both contain the red vertices of~$M$ adjacent to both~$\so[\gamma]$ and~$\ta[\gamma]$.
-%%  \end{itemize}   
-%%  Indeed,
-%%  \begin{itemize}
-%%    \item if~$C_\alpha$ (resp.~$C^\beta$) denotes the connected component of~$M \ssm \Up[{\so[\alpha]}]$ (resp.~of~$M \ssm \Down[{\ta[\beta]}]$) containing~$X$ for an incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$, then $\labeling(X)$ is the intersection of the~$C_\alpha$ for all incoming arcs~$\alpha$ of~$X$ with the~$C^\beta$ for all outgoing arcs~$\beta$~of~$X$, %and they all contain~$X$,
-%%    \item $\labeling(\gamma)$ is the intersection of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$, and both contain the red vertices of~$M$ adjacent to both~$\so[\gamma]$ and~$\ta[\gamma]$.
-%%  \end{itemize}
-%%  Moreover, they are both non-empty since~$\labeling(X)$ contains~$X$ and~$\labeling(\gamma)$ contains all red vertices of~$M$ which are neighbors to both~$\so[\gamma]$ and~$\ta[\gamma]$.
 \end{remark}
 
 \begin{lemma}
@@ -1054,8 +1018,123 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
   Hence~$\labeling(\alpha) \cap \labeling(\alpha') = \varnothing$.
 \end{proof}
 
-We postpone to \cref{subsec:blossomingSpines} further properties of the labeling of \cref{def:labeledSpine} which are not strictly needed for the purposes of the present section.
-Using this labeling, we are now ready to define the surjection~$\surjectionSpines$.
+We now add a little more to a labeled spine.
+This is not strictly needed for the purposes of the next section, but it enlightens the picture.
+
+\begin{definition}
+  \label{def:blossomingTree}
+  A \defn{directed blossoming tree} is a directed tree~$\spine$ with some additional 
+  \begin{itemize}
+    \item \defn{incoming blossoms} (arcs joining an empty node to a normal node) and 
+    \item \defn{outgoing blossoms} (arcs joining a normal node to an empty node).
+  \end{itemize}
+  A \defn{cut} of a directed blossoming tree~$\spine$ is a set~$\Gamma$ of nodes, arcs and blossoms of~$\spine$ such that any directed path joining the source of an incoming blossom of~$\spine$ to the target of an outgoing blossom of~$\spine$ contains precisely one element of~$\Gamma$.
+  When the nodes of~$\spine$ are sets, the \defn{source set}~$\so[\Gamma]$ (resp.~\defn{target set}~$\ta[\Gamma]$) of~$\Gamma$ is the union of the nodes of all connected components of~$\spine \ssm \Gamma$ which contain the source (resp.~target) of an incoming blossom.
+  For instance, the set of incoming (resp.~outgoing) blossoms is a cut of~$\spine$ whose source (resp.~target) set is empty and whose target (resp.~source) set is the union of the nodes of~$\spine$.
+\end{definition}
+
+\begin{definition}
+  \label{def:blossomingSpine}
+  Let~$\b{M} \eqdef (M, \decoration)$ be a decorated maple tree, let~$\b{G} \eqdef (G, \decoration)$ be the decorated block graph obtained by tapping~$M$, and let~$\spine$ be a spine on~$\b{G}$.
+  The \defn{blossoming spine}~$\spine\blossom$ is the labeled blossoming tree obtained from the labeled spine~$\spine$ by a adding at each node~$X$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by~$C$ for each connected component~$C$ of~$M \ssm \Down[\vertexSet]$ (resp.~of~$M \ssm \Up[\vertexSet]$) adjacent to~$X$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
+  \vincent{picture of two blossoming spines (on the examples of spines given before).}
+\end{definition}
+
+\begin{proposition}
+  \label{prop:blossomingSpine}
+  Let~$\b{M} \eqdef (M, \decoration)$ be a decorated maple tree, let~$\b{G} \eqdef (G, \decoration)$ be the decorated block graph obtained by tapping~$M$, and let~$\spine$ be a spine on~$\b{G}$.
+  For any cut~$\Gamma$ of~$\spine\blossom$, the labels of the nodes, arcs and blossoms of~$\Gamma$ are precisely the connected components of~$M \ssm \big( \Up[{\so[\Gamma]}] \cup \Down[{\ta[\Gamma]}] \big)$.
+\end{proposition}
+
+\begin{proof}
+  We prove the result by sweeping the blossoming spine~$\spine\blossom$.
+
+  The base case is the cut~$\Gamma_\circ$ of~$\spine\blossom$ consisting of all its incoming blossoms, which are labeled by the connected components of~$M \ssm \Down[\vertexSet]$.
+  Indeed, the label of any incoming blossom is a connected component of~$M \ssm \Down[\vertexSet]$ by definition.
+  Conversely, for any connected component~$C$ of~$M \ssm \Down[\vertexSet]$, the set of nodes of~$\spine$ adjacent to~$C$ forms a chain in~$\spine$ by \cref{def:spine}, and~$C$ appears as an incoming blossom of the minimal node of~$\spine$ in this chain.
+  
+  Consider now a node~$X$ of~$\spine\blossom$, and let~$A$ denote its set of incoming arcs and blossoms.
+  Consider now two cuts~$\Gamma$ and~$\Gamma'$ of~$\spine\blossom$ such that~$\Gamma \ssm A = \Gamma' \ssm \{X\}$ where~$A$ is the set of incoming arcs and blossoms of a node~$X$ of~$\spine\blossom$.
+  Note that the sets~$\labeling(\alpha)$ for~$\alpha \in A$ are precisely the connected components of~$M \ssm \big( \Up[{\so[\Gamma]}] \cup \Down[{\ta[\Gamma]}] \big)$ adjacent to~$X$, and that $\labeling(X)$ is the connected component of~$M \ssm \big( \Up[{\so[\Gamma']}] \cup \Down[{\ta[\Gamma']}] \big)$ containing~$X$.
+  We conclude that if the result holds for~$\Gamma$, then it also holds for~$\Gamma'$.
+  The argument is symmetric for two cuts~$\Gamma$ and~$\Gamma'$ of~$\spine\blossom$ such that~$\Gamma \ssm \{X\} = \Gamma' \ssm B$ where~$B$ is the set of outgoing arcs and blossoms of a node~$X$ of~$\spine\blossom$.
+  The result thus follows since any cut of~$\spine\blossom$ can be obtained from the cut~$\Gamma_\circ$ by a sequence of such moves.
+\end{proof}
+
+\begin{figure}[h!]
+\begin{tikzpicture}
+  \node (0) at (0, 0) {$\updown[2] \up[5] 6$};
+  \node (1) at (-3, 1) {$ade$};
+  \node (2) at (-1, 1) {$hi$};
+  \node (3) at (1, 1) {$fgjk$};
+  \node (4) at (3, 1) {$bc$};
+  \node (5) at (3, 3) {$bc$};
+  \node (6) at (1.5, 3) {$k$};
+  \node (7) at (0.5, 3) {$fgj$};
+  \node (8) at (-1, 3) {$hi$};
+  \node (9) at (-3, 3) {$ade$};
+  \node (10) at (1, 2) {$\up[9]$};
+  \node (11) at (-3, 2) {$14$};
+  \node (12) at (-1, -1) {$adefghijk$};
+  \node (13) at (1, -1) {$bc$};
+  \node (14) at (-1, -2) {$\down[7] 8$};
+  \node (15) at (1, -2) {$3$};
+  \node (16) at (-2, -3) {$adefghjk$};
+  \node (17) at (0, -3) {$i$};
+  \node (18) at (1, -3) {$bc$};
+  \draw[->] (18)--(15);
+  \draw[->] (17)--(14);
+  \draw[->] (16)--(14);
+  \draw[->] (15)--(13);
+  \draw[->] (14)--(12);
+  \draw[->] (13)--(0);
+  \draw[->] (12)--(0);
+  \draw[->] (0)--(1);
+  \draw[->] (0)--(2);
+  \draw[->] (0)--(3);
+  \draw[->] (0)--(4);
+  \draw[->] (1)--(11);
+  \draw[->] (2)--(8);
+  \draw[->] (3)--(10);
+  \draw[->] (4)--(5);
+  \draw[->] (11)--(9);
+  \draw[->] (10)--(7);
+  \draw[->] (10)--(6);
+  \draw[dotted] (-5,-3)--(16)--(17)--(18)--(5,-3);
+  \draw[dashed] (-5,-2)--(14)--(15)--(5,-2);
+  \draw[dotted] (-5,-1)--(12)--(13)--(5,-1);
+  \draw[dashed] (-5,0)--(0)--(5,0);
+  \draw[dotted] (-5,1)--(1)--(2)--(3)--(4)--(5,1);
+  \draw[dashed] (-5,2)--(11)--(10)--(5,2);
+  \draw[dotted] (-5,3)--(9)--(8)--(7)--(6)--(5)--(5,3);
+  \node (20) at (5.5, -3) {$\down[2] \down[7]$};
+  \node (21) at (5.5, -2) {$\down[2]$};
+  \node (22) at (5.5, -1) {$\down[2]$};
+  \node (23) at (5.5, 0) {};
+  \node (24) at (5.5, 1) {$\up[2] \up[5]$};
+  \node (25) at (5.5, 2) {$\up[2] \up[5]$};
+  \node (26) at (5.5, 3) {$\up[2] \up[5] \up[9]$};
+\end{tikzpicture}
+\caption{A blossoming spine on the maple tree of \cref{fig:mapleBlock}, reconstructed from $\pi = 3 \down[7] 8 | \updown[2] \up[5] 6 | 149$.}
+\label{fig:blossomingSpine}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Refinement and surjection maps}
+\label{subsec:surjectionMaps}
+
+We now consider a natural refinement order on decorated block graphs and define natural surjections between the spines of refining decorated block graphs.
+
+\begin{definition}
+  \label{def:refinement}
+  For two decorations~$\decoration$ and~$\decoration'$ on a set~$\vertexSet$, we say that~$\decoration$ \defn{refines}~$\decoration'$ (and that $\decoration'$ \defn{coarsens} $\decoration$) if~$\Down[\vertexSet] \subseteq \Down[\vertexSet][\decoration']$ and $\Up[\vertexSet] \subseteq \Up[\vertexSet][\decoration']$.
+  For two decorated block graphs~$\b{G} \eqdef (G, \decoration)$ and~$\b{G}' \eqdef (G', \decoration')$, we say that~$\b{G}$ \defn{refines}~$\b{G}'$ (and that $\b{G}'$ \defn{coarsens} $\b{G}$) if~$G = G'$ and $\decoration$ refines~$\decoration'$.
+  \vincent{picture of a pair of refining decorated block graphs, and two pairs of spines (related by the surjection, one maximal one not).}
+\end{definition}
+
+The following definition describes the natural surjection from the spines on~$\b{G}$ to the spines on~$\b{G}'$ when $\b{G}$ refines~$\b{G}'$.
+It requires the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}.
 
 \begin{definition}
   \label{def:refinementSpines}
@@ -1130,13 +1209,39 @@ For this, we first study the directed tree~$\almostSpine'$ described in \cref{de
   By symmetry, we thus conclude that~$\almostSpine'$, and thus~$\spine'$, satisfies the local condition of \cref{def:spine}.
 \end{proof}
 
+We now describe the surjection map~$\surjectionSpines$ in terms of extensions defined in \cref{def:preorderSpine} and the spine poset of \cref{def:spinePoset}.
+
+\begin{proposition}
+  \label{prop:alternativeDescriptionRefinementSpines}
+%  Let~$\b{G}$ and~$\b{G}'$ be two decorated block graphs such that~$\b{G}$ refines~$\b{G'}$.
+  The spine~$\surjectionSpines(\spine)$ is the unique minimal spine in the spine poset~$\spinePoset[\b{G}']$ extended by the spine~$\spine$ of~$\b{G}$.
+\end{proposition}
+
+\begin{proof}
+  Observe first that~$\spine$ indeed extends~$\surjectionSpines(\spine)$ by \cref{lem:refinementSpines1}.
+  Moreover, the spines of~$\b{G}'$ extended by~$\spine$ form an upper ideal of the spine poset~$\spinePoset[\b{G}']$.
+  We thus need to show that this upper set is generated by~$\surjectionSpines(\spine)$.
+  \vincent{todo}
+\end{proof}
+
+\begin{corollary}
+  \label{coro:preimageRefinementSpines}
+  For a spine~$\spine'$ on~$\b{G}'$, the preimage~$\surjectionSpines^{-1}(\spine')$ is the set of maximal spines on~$\b{G}$ that extend~$\spine'$ but no spine on~$\b{G}'$ strictly below~$\spine'$ in~$\spinePoset[\b{G}']$.
+  \vincent{Not really useful... I want to say that the map is surjective. What is the simplest way to see it?}
+\end{corollary}
+
+\begin{corollary}
+  \label{coro:preimageRefinementMaximalSpines}
+  For a maximal spine~$\spine'$ on~$\b{G}'$, the preimage~$\surjectionSpines^{-1}(\spine')$ is the set of maximal spines on~$\b{G}$ that extend~$\spine'$.
+\end{corollary}
+
 \begin{proposition}
   \label{prop:refinementSpines}
-  If~$\b{G}$ refines~$\b{G}'$, then the map~$\surjectionSpines$ is a surjection from the spines on~$\b{G}$ to the spines on~$\b{G}'$.
-  Moreover, the spine~$\surjectionSpines(\spine')$ is the unique spine on~$\b{G}'$ of which the spine~$\spine$ on~$\b{G}$ is an extension.
-  \vincent{this is incorrect at the moment. I want to say that it is the contraction minimal spine of~$\b{G}'$ of which~$\spine$ is an extension.}
-  \vincent{add surjective}
-  \vincent{Note that the map is rank monotone, but not graded.}
+  If~$\b{G}$ refines~$\b{G}'$, then the map~$\surjectionSpines$ is 
+  \begin{itemize}
+    \item a surjection from the spines on~$\b{G}$ to the spines on~$\b{G}'$,
+    \item a filtered map from the spine poset~$\spinePoset[\b{G}]$ to the spine poset~$\spinePoset[\b{G}']$, meaning that the rank of~$\surjectionSpines(\spine)$ is at least the rank of~$\spine$ (it can have more, see \cref{fig:blossomingSpine}).
+  \end{itemize}
 \end{proposition}
 
 \begin{proof}
@@ -1183,258 +1288,73 @@ We finally compare the nested complexes~$\nestedComplex[\b{G}]$ and~$\nestedComp
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Blossoming spines}
-\label{subsec:blossomingSpines}
-
-We now add a little more to a labeled spine.
-
-\begin{definition}
-  \label{def:blossomingTree}
-  A \defn{directed blossoming tree} is a directed tree~$\spine$ with some additional 
-  \begin{itemize}
-    \item \defn{incoming blossoms} (arcs joining an empty node to a normal node) and 
-    \item \defn{outgoing blossoms} (arcs joining a normal node to an empty node).
-  \end{itemize}
-  A \defn{cut} of a directed blossoming tree~$\spine$ is a set~$\Gamma$ of nodes, arcs and blossoms of~$\spine$ such that any directed path joining the source of an incoming blossom of~$\spine$ to the target of an outgoing blossom of~$\spine$ contains precisely one element of~$\Gamma$.
-%  When the nodes of~$\spine$ are sets, the \defn{source set}~$\so[\Gamma]$ (resp.~\defn{target set}~$\ta[\Gamma]$) of~$\Gamma$ is the union of the nodes of all connected components of~$\spine \ssm \Gamma$ which contain the source (resp.~target) of at least one arc of~$\Gamma$.
-  When the nodes of~$\spine$ are sets, the \defn{source set}~$\so[\Gamma]$ (resp.~\defn{target set}~$\ta[\Gamma]$) of~$\Gamma$ is the union of the nodes of all connected components of~$\spine \ssm \Gamma$ which contain the source of an incoming blossom.
-  For instance, the set of incoming (resp.~outgoing) blossoms is a cut of~$\spine$ whose source (resp.~target) set is empty and whose target (resp.~source) set is the union of the nodes of~$\spine$.
-\end{definition}
-
-%  A \defn{sweep sequence} of~$\spine$ is a sequence~$\Gamma_0, \dots, \Gamma_p$ of cuts of~$\spine$ such that $\Gamma_0$ is the cut formed by all incoming blossoms of~$\spine$ while $\Gamma_p$ is the cut formed by all outgoing blossoms of~$\spine$, and for all~$i \in [p]$, there is a node~$X_i$ of~$\spine$ such that~$\Gamma_{i-1} \ssm \so[X_i] = \Gamma_i \ssm \ta[X_i]$.
-
-\begin{definition}
-  \label{def:blossomingSpine}
-  Let~$\b{M} \eqdef (M, \decoration)$ be a decorated maple tree, let~$\b{G} \eqdef (G, \decoration)$ be the decorated block graph obtained by tapping~$M$, and let~$\spine$ be a spine on~$\b{G}$.
-  The \defn{blossoming spine}~$\spine\blossom$ is the labeled blossoming tree obtained from the labeled spine~$\spine$ by a adding at each node~$X$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by~$C$ for each connected component~$C$ of~$M \ssm \Down[{X \cup \ta[X]}]$ (resp.~of~$M \ssm \Up[{X \cup \so[X]}]$) adjacent to~$X$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
-  \vincent{give two examples of blossoming spines on the examples of spines given before.}
-\end{definition}
-
-%\begin{definition}
-%  \label{def:blossomingSpine}
-%  Let~$\b{M} \eqdef (M, \decoration)$ be a decorated maple tree and~$\b{G} \eqdef (G, \decoration)$ be the decorated block graph obtained by tapping~$M$.
-%  The \defn{blossoming}~$\spine\blossom$ of a spine~$\spine$ on~$\b{G}$ is a directed blossoming tree with the same nodes and arcs as~$\spine$ and some additional blossoms, and where all nodes and arcs (including blossoms) are additionally labeled by a maple subtrees of~$M$. \vincent{Maybe define maple subtree.}
-%  It is obtained from~$\spine$ by
-%  \begin{enumerate}[(i)]
-%    \item labeling each node~$X$ of~$\spine$ by the connected component of~$M \ssm (\Up[{\so[X]}] \cup \Down[{\ta[X]}])$ containing~$X$,
-%    \item labeling each arc~$\gamma$ of~$\spine$ by the intersection of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$,
-%    \item adding at each node~$X$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by~$C$ for each connected component~$C$ of~$M \ssm \Down[{X \cup \ta[X]}]$ (resp.~of~$M \ssm \Up[{X \cup \so[X]}]$) adjacent to~$X$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
-%  \end{enumerate}
-%  We call \defn{blossoming spines} of~$M$ the blossomings of the spines of~$G$.
-%  \vincent{give two examples of blossoming spines on the examples of spines given before.}
-%\end{definition}
-
-By definition, the labels of the nodes and the arcs of~$\spine\blossom$ are some maple subtrees of~$M$.
-Note that a maple subtree of~$M$ is completely determined by its leaves, hence by its red vertices.
-We thus simplify all pictures of blossoming spines by writing only the red (letters) vertices of each label.
-\vincent{We could even just write the leaves...}
-
-%\begin{lemma}
-%  \label{lem:connectedComponents}
-%  Let~$\b{M} \eqdef (M, \decoration)$ be a decorated maple tree, let~$\b{G} \eqdef (G, \decoration)$ be the decorated block graph obtained by tapping~$M$, and let~$\spine$ be a spine on~$\b{G}$.
-%  Then the labels of the incoming (resp.~outgoing) blossoms of~$S$ are precisely the intersections of~$R$ with the connected components of~${M \ssm \Down[B]}$ (resp.~of~${M \ssm \Up[B]}$).
-%\end{lemma}
-%
-%\begin{proof}
-%  \vincent{todo}
-%\end{proof}
-
-\begin{proposition}
-  \label{prop:blossomingSpine}
-  Let~$\b{M} \eqdef (M, \decoration)$ be a decorated maple tree, let~$\b{G} \eqdef (G, \decoration)$ be the decorated block graph obtained by tapping~$M$, and let~$\spine$ be a spine on~$\b{G}$.
-  For any cut~$\Gamma$ of~$\spine\blossom$, the labels of the nodes, arcs and blossoms of~$\Gamma$ are precisely the connected components of~$M \ssm \big( \Up[{\so[\Gamma]}] \cup \Down[{\ta[\Gamma]}] \big)$.
-\end{proposition}
-
-\begin{proof}
-  \vincent{Not clear how to argue that properly...}
-%  We first prove the result for the cut~$\Gamma$ of~$\spine$ given by all incoming blossoms of~$\spine$.
-%  \vincent{todo}
-%  Let~$\Gamma$ and~$\Gamma'$ be two cuts of~$\spine$ which differ by sweeping a node~$X$ of~$\spine$, meaning that $\Gamma \ssm \alpha(X) = \Gamma' \ssm \beta(X)$ where~$\alpha(X)$ and~$\beta(X)$ respectively denote the incoming and outgoing arcs of~$X$.
-%  \vincent{todo}
-\end{proof}
-
-\begin{figure}[h!]
-\begin{tikzpicture}
-  \node (0) at (0, 0) {$\updown[2] \up[5] 6$};
-  \node (1) at (-3, 1) {$ade$};
-  \node (2) at (-1, 1) {$hi$};
-  \node (3) at (1, 1) {$fgjk$};
-  \node (4) at (3, 1) {$bc$};
-  \node (5) at (3, 3) {$bc$};
-  \node (6) at (1.5, 3) {$k$};
-  \node (7) at (0.5, 3) {$fgj$};
-  \node (8) at (-1, 3) {$hi$};
-  \node (9) at (-3, 3) {$ade$};
-  \node (10) at (1, 2) {$\up[9]$};
-  \node (11) at (-3, 2) {$14$};
-  \node (12) at (-1, -1) {$adefghijk$};
-  \node (13) at (1, -1) {$bc$};
-  \node (14) at (-1, -2) {$\down[7] 8$};
-  \node (15) at (1, -2) {$3$};
-  \node (16) at (-2, -3) {$adefghjk$};
-  \node (17) at (0, -3) {$i$};
-  \node (18) at (1, -3) {$bc$};
-  \draw[->] (18)--(15);
-  \draw[->] (17)--(14);
-  \draw[->] (16)--(14);
-  \draw[->] (15)--(13);
-  \draw[->] (14)--(12);
-  \draw[->] (13)--(0);
-  \draw[->] (12)--(0);
-  \draw[->] (0)--(1);
-  \draw[->] (0)--(2);
-  \draw[->] (0)--(3);
-  \draw[->] (0)--(4);
-  \draw[->] (1)--(11);
-  \draw[->] (2)--(8);
-  \draw[->] (3)--(10);
-  \draw[->] (4)--(5);
-  \draw[->] (11)--(9);
-  \draw[->] (10)--(7);
-  \draw[->] (10)--(6);
-  \draw[dotted] (-5,-3)--(16)--(17)--(18)--(5,-3);
-  \draw[dashed] (-5,-2)--(14)--(15)--(5,-2);
-  \draw[dotted] (-5,-1)--(12)--(13)--(5,-1);
-  \draw[dashed] (-5,0)--(0)--(5,0);
-  \draw[dotted] (-5,1)--(1)--(2)--(3)--(4)--(5,1);
-  \draw[dashed] (-5,2)--(11)--(10)--(5,2);
-  \draw[dotted] (-5,3)--(9)--(8)--(7)--(6)--(5)--(5,3);
-  \node (20) at (5.5, -3) {$\down[2] \down[7]$};
-  \node (21) at (5.5, -2) {$\down[2]$};
-  \node (22) at (5.5, -1) {$\down[2]$};
-  \node (23) at (5.5, 0) {};
-  \node (24) at (5.5, 1) {$\up[2] \up[5]$};
-  \node (25) at (5.5, 2) {$\up[2] \up[5]$};
-  \node (26) at (5.5, 3) {$\up[2] \up[5] \up[9]$};
-\end{tikzpicture}
-\caption{A blossoming spine on the maple tree of \cref{fig:mapleBlock}, reconstructed from $\pi = 3 \down[7] 8 | \updown[2] \up[5] 6 | 149$.}
-\label{fig:blossomingSpine}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Surjection maps and rewriting rules}
-\label{subsec:surjectionMaps}
-
-\vincent{I want to do that directly from spines of~$\b{G}$ to spines of~$\b{G}'$ when~$\b{G}$ refines~$\b{G}'$.}
-
-Recall that an \defn{ordered partition} of a set~$B$ is a (ordered) sequence~$\pi \eqdef \pi_1 | \dots | \pi_p$ of non-empty (unordered) subsets of~$B$ which form a partition of~$B$.
-
-%\begin{definition}
-%  \label{def:sweepingAlgorithm}
-%  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$.
-%  The \defn{sweeping algorithm} is a procedure that maps an ordered partition~$\pi \eqdef \pi_1 | \dots | \pi_p$ of~$B$ into a blossoming spine~$\spine(\pi)$ on~$M$.
-%  It follows a sweep sequence~$\Gamma_0, \dots \Gamma_p$ of~$\spine(\pi)$ and constructs~$\spine(\pi)$ by maintaining before step~$i$ the blossoming forest induced by the nodes of~$\spine(\pi)$ contained in~$\pi_1 \cup \dots \cup \pi_{i-1}$.
-%  The iterative procedure is as follows:
-%  \begin{itemize}
-%    \item start with the cut~$\Gamma_0$ formed by an incoming blossom labeled~$R \cap C$ for each connected component~$C$ of~$M \ssm \Down[B]$,
-%    \item at step~$i$:
-%      \begin{itemize}
-%        \item create a node~$X$ for each non-empty intersection of~$\pi_i$ with a connected component of~$M \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_{i-1}] \cup \Down[\pi_{i+1}] \cup \dots \cup \Down[\pi_p])$,
-%        \item attach as incoming arcs of~$X$ the outgoing blossoms of~$\Gamma_{i-1}$ whose labels are adjacent to~$X$ in~$M$,
-%        \item create at~$X$ one outgoing blossom labeled by~$R \cap C$ for each connected component~$C$ of~$M \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_i] \cup \Down[\pi_{i+1}] \cup \dots \cup \Down[\pi_p])$,
-%        \item define the new cut~$\Gamma_i$.
-%      \end{itemize}
-%    \item end with the cut~$\Gamma_p$ with an outgoing blossom for each connected component of~$M \ssm \Up[B]$.
-%  \end{itemize}
-%  \vincent{improve that}
-%\end{definition}
-
-\begin{definition}
-  \label{def:surjection}
-  Let~$M$ be a maple tree with red vertices~$R$ and blue vertices~$B$.
-  For an ordered partition~$\pi \eqdef \pi_1 | \dots | \pi_p$ of~$B$, we construct a blossoming spine~$\partitionToSpine(\pi)$ on~$M$ in four steps:
-  \vincent{Do we want ordered partitions of surjections?}
-  \begin{itemize}[wide, labelwidth=!, labelindent=5pt]
-    \item \textbf{construct}
-    \begin{itemize}[wide, labelwidth=!, labelindent=10pt]
-      \item an arc~$\alpha^i_D$ for each $0 \le i \le p$ and each component~$D$ of~$M \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_i] \cup \Down[\pi_{i+1}] \cup \dots \cup \Down[\pi_p])$,
-      \item a node~$n^i_C$ for each $1 \le i \le p$ and each component~$C$ of~$M \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_{i-1}] \cup \Down[\pi_{i+1}] \cup \dots \cup \Down[\pi_p])$,
-    \end{itemize}
-    \item \textbf{attach} the arcs~$\alpha^{i-1}_C$ (resp.~$\alpha^i_C$) with~$C \subseteq D$ as incoming (resp.~outgoing)~arcs of the node~$n^i_D$,
-    \item \textbf{relabel} the arc~$\alpha^i_C$ with~$C \cap R$ and the node~$\alpha^i_D$ with~$D \cap \pi_i$,
-    \item \textbf{contract} into a single arc any path of arcs passing through nodes with empty~labels.
-  \end{itemize}
-\end{definition}
-
-\begin{proposition}
-  \label{prop:surjection}
-  For any ordered partition~$\pi \eqdef \pi_1 | \dots | \pi_p$, the directed graph~$\partitionToSpine(\pi)$ constructed in \cref{def:surjection} is a blossoming spine on~$M$.
-  Moreover, $\pi$ is an extension of~$\partitionToSpine(\pi)$.
-  \vincent{explain}
-\end{proposition}
-
-\begin{remark}
-  Note that if an ordered partition~$\pi$ of~$\vertexSet$ has~$k$ parts, then the spine~$\partitionToSpine(\pi)$ on~$\b{G}$ has at least $k$ nodes (it can have more, see \cref{fig:blossomingSpine}). In particular, the permutations of~$\vertexSet$ are sent to the corank~$0$ spines on~$\b{G}$.
-\end{remark}
-
-\begin{remark}
-  The construction of \cref{def:surjection} can also be seen as a sweeping algorithm.
-  \vincent{todo}
-\end{remark}
-
-\vincent{Specialize to permutations?}
-\vincent{Rewriting rules...}
-
-We now consider the equivalence relation~$\equiv_\b{G}$ whose classes are the fibers of the map~$\partitionToSpine$.
-
-\begin{definition}
-  \label{def:equivalenceRelation}
-  Let~$\equiv_\b{G}$ denote the equivalence relation on ordered partitions of~$\vertexSet$ defined by~$\pi \equiv_\b{G} \pi'$ if and only if $\partitionToSpine(\pi) = \partitionToSpine(\pi')$.
-\end{definition}
-
-\begin{example}
-  \label{exm:equivalenceRelations}
-  For instance, the equivalence relation~$\equiv_\b{G}$ on permutations is
-  \begin{enumerate}[(i)]
-    \item the \defn{trivial relation} when $\b{G}$ is complete or undecorated.
-    \item the various \defn{permutree relations} of~\cite{PilaudPons-permutrees} when~$G$ is a path (in particular the \defn{sylvester relation} for a down decorated path, and the \defn{Cambrian relations} for up-down decorated~paths).
-  \end{enumerate}
-  Note that in contrast to these specific examples, the equivalence relation~$\equiv$ has no reason to be a lattice congruence of the weak order.
-\end{example}
-
-\begin{proposition}
-  \label{prop:equivalenceRelation}
-  The equivalence relation~$\equiv_\b{G}$ on ordered partitions of~$\vertexSet$ is the transitive closure of the elementary relations
-  \[
-    \pi_1 | \dots | \pi_k | \pi_{k+1} | \dots | \pi_p \equiv_\b{G} \pi_1 | \dots | \pi_k \cup \pi_{k+1} | \dots | \pi_p
-  \]
-  where~$\pi_k$ and~$\pi_{k+1}$ belong to distinct connected components of~$G \ssm (\Up[\pi_1] \cup \dots \cup \Up[\pi_{k-1}] \cup \Down[\pi_{k+2}] \cup \dots \cup \Down[\pi_p])$.
-\end{proposition}
-
-\begin{proof}
-  Follows from \cref{def:surjection}.
-\end{proof}
-
-\begin{remark}
-  Specializing to permutations, the equivalence relation~$\equiv_\b{G}$ on permutations of~$\vertexSet$ is the transitive closure of the elementary relations
-  \[
-    \sigma_1 \dots \sigma_k \sigma_{k+1} \dots \sigma_{|\vertexSet|} \equiv_\b{G} \sigma_1 \dots \sigma_{k+1} \sigma_k \dots \sigma_{|\vertexSet|}
-  \]
-  where~$\sigma_k$ and~$\sigma_{k+1}$ belong to distinct connected components of~$G \ssm (\Up[{\sigma^{-1}([k-1])}] \cup \Down[{\sigma^{-1}([|\vertexSet|] \ssm [k+1])}])$.
-  \vincent{Here, I would prefer to say that there is a vertex of~$G$ in between $\sigma_k$ and~$\sigma_{k+1}$...}
-\end{remark}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \subsection{Links}
 \label{subsec:links}
 
+Finally, we describe the links of the nested complexes.
+It turns out that we have a sufficiently large family of simplicial complexes so that their links are just cartesian products of simplicial complexes in this family.
+
 \vincent{need to explain links in terms of spines as well...}
 
+\begin{definition}
+  \label{def:subBlockGraph}
+  Let~$M$ be a maple tree, let~$G$ be the block graph obtained by tapping~$M$, and let~$X \sqcup Y = \vertexSet$ be a partition of the vertex set~$\vertexSet$ of~$G$ (thus of the blue vertices of~$M$).
+  We denote by~$M_X$ the maple tree with blue vertices~$X$ obtained by contracting all edges of~$M$ incident to a vertex of~$Y$ (note that each red vertex of~$M_X$ is labeled by the concatenation of the labels of the corresponding red vertices in~$M$).
+  We denote by~$G_X$ the block graph with vertices~$X$ obtained by replacing each connected component of~$Y$ in~$G$ by a clique on its neighbors in~$G$.
+  Note that $G_X$ is obtained by tapping~$M_X$.
+  For a decorated maple tree~$\b{M} \eqdef (M,\decoration)$ and a decorated block graph~$\b{G} \eqdef (G,\decoration)$, we define~$\b{M}_X \eqdef (M_X, \decoration_X)$ and~$\b{G}_X \eqdef (G_X, \decoration_X)$ where~$\decoration_X$ is the restriction of~$\decoration$ to~$X$.
+\end{definition}
+
+\begin{definition}
+  \label{def:insert}
+  Let~$\b{M}$ be a decorated maple tree and~$\b{G}$ be the decorated block graph obtained by tapping~$M$.
+  Let~$\spine\blossom$ be a blossoming spine on~$\b{G}$, and let~$\spine\blossom_X$ be a blossoming spine on~$\b{G}_X$ for each node~$X$ of~$\spine\blossom$.
+  Note that the connected components of~$M_X \ssm \Down[X]$ (resp.~of~$M_X \ssm \Up[X]$) label both the incoming (resp.~outgoing) blossoms of~$\spine\blossom_X$ and the incoming (resp.~outgoing) arcs and blossoms at~$X$ in~$\spine\blossom$.
+  We denote by~$\insertion{\spine\blossom}{(\spine\blossom_X)_{X \in \spine\blossom}}$ the blossoming spine on~$\b{G}$ obtained by replacing each node~$X$ of~$\spine\blossom$ by the blossoming spine~$\spine\blossom_X$ (and reconnecting the blossoms of~$\spine\blossom_X$ to the arcs of~$\spine\blossom$ according to their labels).
+  \vincent{We need a picture}
+\end{definition}
+
+\begin{lemma}
+  \label{lem:insert}
+  The directed tree~$\insertion{\spine\blossom}{(\spine\blossom_X)_{X \in \spine\blossom}}$ is indeed a blossoming spine on~$\b{G}$.
+\end{lemma}
+
+\begin{proof}
+  \vincent{todo}
+\end{proof}
+
 \begin{proposition}
-  \label{prop:links}
-  The link of any face of the nested complex~$\nestedComplex$ of a decorated block graph~$\b{G}$ is a join of nested complexes of decorated block graphs.
+  \label{prop:linksSpines}
+  The blossoming spines on~$\b{G}$ which can be contracted to a given blossoming spine~$\spine\blossom$ on~$\b{G}$ are precisely the blossoming spines~$\insertion{\spine\blossom}{(\spine\blossom_X)_{X \in \spine\blossom}}$ for all choices of a blossoming spine~$\spine\blossom_X$ on~$\b{G}_X$ for each node~$X$ of~$\spine\blossom$.
 \end{proposition}
 
 \begin{proof}
   \vincent{todo}
 \end{proof}
+
+\cref{prop:linksSpines} rephrases as follows on the spine poset of \cref{subsec:spinePoset}, on the nested complex of \cref{subsec:nestedComplex}, and on the flip graph of \cref{subsec:flips}.
+\vincent{Maybe keep only the second one?}
+
+\begin{corollary}
+  \label{coro:linksSpinePoset}
+  The upper ideal of the spine poset~$\spinePoset$ generated by a given spine~$\spine$ is isomorphic to the Cartesian product of the spine posets~$\spinePoset[\b{G}_X]$ for the nodes~$X$ of~$\spine$.
+\end{corollary}
+
+\begin{corollary}
+  \label{coro:linksNestedComplex}
+  The link of the face of the nested complex~$\nestedComplex$ corresponding to a spine~$\spine$ is isomorphic to the join of the nested complexes~$\nestedComplex[\b{G}_X]$ for the nodes~$X$ of~$\spine$.
+\end{corollary}
+
+\begin{corollary}
+  \label{coro:linksFlipGraph}
+  The flip graph on the maximal spines on~$\b{G}$ that contract to a spine~$\spine$ is isomorphic to the Cartesian product of the flip graphs on maximal spines of~$\b{G}_X$ for the nodes~$X$ of~$\spine$.
+\end{corollary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Geometry: Spine Fans and Polytopes}
+\label{sec:geometry}
 
 We denote by~$(\b{e}_v)_{v \in \vertexSet}$ the standard basis of~$\R^{\vertexSet}$.
 We denote by~$\one_X \eqdef \sum_{x \in X} \b{e}_x$ the characteristic vector of a subset~$X \subseteq \vertexSet$, and write just~$\one$ for~$\one_{\vertexSet}$.
@@ -1446,6 +1366,7 @@ We denote by~$\one_X \eqdef \sum_{x \in X} \b{e}_x$ the characteristic vector of
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Spine fan}
+\label{subsec:spineFan}
 
 %We first recall some observations on the braid arrangement (see \eg \cite{Postnikov, PostnikovReinerWilliams}) and on graphical arrangements.
 %
@@ -1499,7 +1420,7 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 
 \begin{definition}
   \label{def:spineFan}
-  For a spine~$\spine$, we denote by~$\normalCone(\spine)$ the cone of~$\Hyp[0]$ defined by the inequalities~${x_u \le x_v}$ for all directed paths joining~$u$ to~$v$ in~$\spine$ (in particular, $x_u = x_v$ when $u,v$ belong to the same node of~$\spine$).
+  For a spine~$\spine$, we denote by~$\normalCone(\spine)$ the cone of~$\Hyp[0]$ defined by the inequalities~${x_u \le x_v}$ for all~$u,v \in \vertexSet$ such that there is a directed path in~$\spine$ joining the node containing~$u$ to the node containing~$v$ in~$\spine$ (in particular, $x_u = x_v$ when $u,v \in \vertexSet$ belong to the same node of~$\spine$).
 %  \[
 %    \normalCone(\spine) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all (possibly trivial) directed paths } u \to v \text{ in } \spine}
 %  \]
@@ -1514,8 +1435,7 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 \begin{proof}
   Since each spine~$\spine$ on~$\b{G}$ is a directed tree, the cone~$\normalCone(\spine)$ is simplicial, and its faces are the cones~$\normalCone(\spine')$ for all spines~$\spine'$ obtained by repeated arc contractions in~$\spine$ (in other words, for all spines in the lower ideal of the spine poset~$\spinePoset$ generated by~$\spine$).
   We thus just need to prove that the cones~$\normalCone(\spine)$ properly intersect and cover~$\Hyp[0]$, or equivalently, that the relative interiors of the cones~$\normalCone(\spine)$ partition~$\Hyp[0]$.
-  This immediately follows from \cref{subsec:surjectionMaps}.
-  \vincent{Be more precise here.}
+  This immediately follows from \cref{prop:alternativeDescriptionRefinementSpines}.
 \end{proof}
 
 \begin{corollary} 
@@ -1564,6 +1484,7 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Spine polytope}
+\label{subsec:spinePolytope}
 
 Recall that a \defn{polytope}~$\polytope{P}$ is the convex hull of a finite set of points, or equivalently a bounded intersection of a finite set of affine halfspaces.
 The \defn{faces} of~$\polytope{P}$ are its intersections with its supporting affine hyperplanes.
@@ -1628,7 +1549,7 @@ All our polytopes are parametrized by a weight function, which does not change t
   \label{thm:permutreehedra}
   For any weight matrix~$\weight$, the spine fan~$\spineFan$ is the normal fan of the \defn{spine polytope}~$\Spin$ defined irredundantly and equivalently as
   \begin{enumerate}[(i)]
-    \item the convex hull of the points~$\point \eqdef \sum_{\pi \in \Pi(\spine)} \weight_{\boundary} \big( \one_{\peaks} - \one_{\valleys \ssm \boundary} \big)$ for all corank~$0$ spines~$\spine$~on~$\b{G}$,
+    \item the convex hull of the points~$\point \eqdef \sum_{\pi \in \Pi(\spine)} \weight_{\boundary} \big( \one_{\peaks} - \one_{\valleys \ssm \boundary} \big)$ for all maximal spines~$\spine$~on~$\b{G}$,
     \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = \weight_{\vertexSet}}$ with the affine halfspaces~$\HS_B \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one_B}{\b{x}} \ge \weight_B}$ for all blocks of~$\b{G}$.
 %    \item the intersection of the hyperplane~$\Hyp$ with the halfspaces~$\HS_B$ for all blocks of~$\b{G}$.
   \end{enumerate}
@@ -1676,7 +1597,7 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 
 \begin{lemma}
   \label{lem:flipDifference}
-  If~$\spine$ and~$\spine'$ are two corank~$0$ spines on~$\b{G}$ such that~$\spine'$ is obtained from~$\spine$ by flipping an arc joining node~$x$ to node~$y$, then the difference~$\point[\spine] - \point[\spine']$ is a positive multiple of~$\b{e}_x - \b{e}_y$.
+  If~$\spine$ and~$\spine'$ are two maximal spines on~$\b{G}$ such that~$\spine'$ is obtained from~$\spine$ by flipping an arc joining node~$x$ to node~$y$, then the difference~$\point[\spine] - \point[\spine']$ is a positive multiple of~$\b{e}_x - \b{e}_y$.
 \end{lemma}
 
 \begin{proof}
@@ -1736,6 +1657,7 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Further geometric properties}
+\label{subsec:furtherGeometricProperties}
 
 \subsubsection{Faces}
 
@@ -1760,11 +1682,13 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Loday's weights}
+\label{subsec:Loday}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Algebra: operad structure}
+\label{sec:algebra}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
