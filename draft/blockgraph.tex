@@ -252,6 +252,9 @@ TBC
 Common generalization of \cite{Pilaud-signedTreeAssociahedraFPSAC, LangePilaud, PilaudPons-permutrees, Laplante-diagonalOperahedra}.
 It is the maximal generalization, according to \cite{Pilaud-removahedra}.
 
+\guillaume{dioperads and string topology}
+\guillaume{our dioperad might be initial in some operadic / Feynman / moment category}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -400,17 +403,58 @@ We now define the main combinatorial objects studied in this paper.
   \end{enumerate}
 \end{definition}
 
+\begin{figure}[h!]
+\resizebox{0.5\linewidth}{!}{
+\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+
+\node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
+\node (14) at (-1, 2) {$\blue 1 4$};
+\node (9) at (1, 2) {$\blue \up[9]$};
+\node (78) at (-1, -2) {$\blue \down[7] 8$};
+\node (3) at (1, -2) {$\blue 3$};
+
+\draw[->] (256)--(14); 
+\draw[->] (256)--(9); 
+\draw[->] (78)--(256); 
+\draw[->] (3)--(256); 
+
+\end{tikzpicture}
+
+\qquad
+
+\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+\node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+\node (5) at (0, 0.5) {$\blue \up[5]$};
+\node (14) at (-0.5, 1.5) {$\blue 14$};
+\node (6) at (0.5, 1.5) {$\blue 6$};
+\node (9) at (1, 2.5) {$\blue \up[9]$};
+\node (7) at (-1, -1.5) {$\blue \down[7]$};
+\node (8) at (-1.5, -2.5) {$\blue 8$};
+\node (3) at (0, -1.5) {$\blue 3$};
+%
+\draw[->] (8)--(7); 
+\draw[->] (7)--(2); 
+\draw[->] (3)--(2); 
+\draw[->] (2)--(5); 
+\draw[->] (5)--(14); 
+\draw[->] (5)--(6); 
+\draw[->] (6)--(9); 
+\end{tikzpicture}
+}
+\caption{Two spines on the block graph of \cref{fig:mapleBlock}. The one on the right is maximal.}
+\label{fig:exampleSpine}
+\end{figure} 
+
 \begin{example}
-  \label{exm:spines}
-  For instance, the spines correspond to:
-  \vincent{todo: other ideas?}
-  \begin{enumerate}[(i)]
-    \item the \defn{ordered partitions} of~$\vertexSet$ when $\b{G}$ is complete or undecorated.
-    \item the \defn{$G$-trees} studied in~\cite{Postnikov} when~$\b{G}$ is down decorated (in particular the classical \defn{Schr\"oder trees} when~$\b{G}$ is a down decorated path).
-    \item the \defn{$G$-ordered partitions}~\cite{Pilaud-acyclicReorientationLattices} (\ie pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs of~$G$, and~$o$ is an acyclic orientation of the quotient graph~$G/p$) when~$\b{G}$ is fully decorated.
-    \item the \defn{Schr\"oder permutrees} of~\cite{PilaudPons-permutrees} when~$G$ is a path.
-  \end{enumerate}
-  \vincent{picture of two spines on the block graph of \cref{fig:mapleBlock} (one maximal and one not).}
+\label{exm:spines}
+For instance, the spines correspond to:
+\vincent{todo: other ideas?}
+\begin{enumerate}[(i)]
+  \item the \defn{ordered partitions} of~$\vertexSet$ when $\b{G}$ is complete or undecorated.
+  \item the \defn{$G$-trees} studied in~\cite{Postnikov} when~$\b{G}$ is down decorated (in particular the classical \defn{Schr\"oder trees} when~$\b{G}$ is a down decorated path).
+  \item the \defn{$G$-ordered partitions}~\cite{Pilaud-acyclicReorientationLattices} (\ie pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs of~$G$, and~$o$ is an acyclic orientation of the quotient graph~$G/p$) when~$\b{G}$ is fully decorated.
+  \item the \defn{Schr\"oder permutrees} of~\cite{PilaudPons-permutrees} when~$G$ is a path.
+\end{enumerate}
 \end{example}
 
 For later purposes, it will convenient to see a spine as a preorder on the vertex set~$\vertexSet$ of~$G$.
@@ -439,7 +483,7 @@ We now define two natural operations on spines: arc contraction and node splitti
 These operations are illustrated in \cref{fig:contractionSplitting}.
 
 \begin{figure}[h!]
-  \centerline{
+  \resizebox{0.8\linewidth}{!}{
   \begin{tikzpicture}[scale=1.6]
     \node (N0) at (-0.5,-0.5) {\small $X$};
     \node (N1) at (0.5,0.5) {\small $Y$};
@@ -818,53 +862,51 @@ In this section, we introduce an elementary local operation on spines on~$\b{G}$
   We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
 \end{definition}
 
-\vincent{picture of two maximal spines connected by a flip.}
-
 \begin{figure}[h!]
-  \centerline{
-  \begin{tikzpicture}[scale=1.6]  
-    \node (N0) at (-0.5,-0.5) {\small $x$};
-    \node (N1) at (0.5,0.5) {\small $y$};
-    %
-    \node (o1) at (-1.2,0.6) {\small $\beta_1$};
-    \node (od) at (-0.8,0.6) {\small $\dots$};
-    \node (oj) at (-0.3,0.6) {\small $\beta_k$};
-    %
-    \node (oj1) at (0,1.62) {\small $\beta_{k+1}$};
-    \node (ojd) at (0.5,1.6) {\small $\dots$};
-    \node (ol) at (1,1.6) {\small $\beta_\ell$};
-    %
-    \node (2) at (1.5,1.6) {\small $\boldsymbol{\beta}$};
-    %
-    \node (1) at (-1.5,-1.6) {\small $\boldsymbol{\alpha}$};
-    %
-    \node (i1) at (-1,-1.6) {\small $\alpha_1$};
-    \node (id) at (-0.5,-1.6) {\small $\dots$};
-    \node (im) at (0,-1.6) {\small $\alpha_i$};
-    %
-    \node (im1) at (0.3,-0.62) {\small $\alpha_{i+1}$};
-    \node (imd) at (0.8,-0.6) {\small $\dots$};
-    \node (ik) at (1.2,-0.6) {\small $\alpha_j$};
-    %
-    \draw[->,thick] (1)--(N0); 
-    \draw[->,thick] (N1)--(2); 
-    %
-    \draw[->] (N0)--(o1); 
-    \draw[->] (N0)--(od);
-    \draw[->] (N0)--(oj);
-    %  
-    \draw[->] (N0)--(N1) node[midway, left] {$\gamma$} ; 
-    \draw[->] (N1)--(oj1); 
-    \draw[->] (N1)--(ojd);
-    \draw[->] (N1)--(ol);
-    %
-    \draw[->] (i1)--(N0);
-    \draw[->] (id)--(N0);
-    \draw[->] (im)--(N0); 
-    %
-    \draw[->] (im1)--(N1); 
-    \draw[->] (imd)--(N1);
-    \draw[->] (ik)--(N1);
+\centerline{
+\begin{tikzpicture}[scale=1.6]  
+  \node (N0) at (-0.5,-0.5) {\small $y$};
+  \node (N1) at (0.5,0.5) {\small $y$};
+  %
+  \node (o1) at (-1.2,0.6) {\small $\beta_1$};
+  \node (od) at (-0.8,0.6) {\small $\dots$};
+  \node (oj) at (-0.3,0.6) {\small $\beta_k$};
+  %
+  \node (oj1) at (0,1.62) {\small $\beta_{k+1}$};
+  \node (ojd) at (0.5,1.6) {\small $\dots$};
+  \node (ol) at (1,1.6) {\small $\beta_\ell$};
+  %
+  \node (2) at (1.5,1.6) {\small $\boldsymbol{\beta}$};
+  %
+  \node (1) at (-1.5,-1.6) {\small $\boldsymbol{\alpha}$};
+  %
+  \node (i1) at (-1,-1.6) {\small $\alpha_1$};
+  \node (id) at (-0.5,-1.6) {\small $\dots$};
+  \node (im) at (0,-1.6) {\small $\alpha_i$};
+  %
+  \node (im1) at (0.3,-0.62) {\small $\alpha_{i+1}$};
+  \node (imd) at (0.8,-0.6) {\small $\dots$};
+  \node (ik) at (1.2,-0.6) {\small $\alpha_j$};
+  %
+  \draw[->,thick] (1)--(N0); 
+  \draw[->,thick] (N1)--(2); 
+  %
+  \draw[->] (N0)--(o1); 
+  \draw[->] (N0)--(od);
+  \draw[->] (N0)--(oj);
+  %  
+  \draw[->] (N0)--(N1) node[midway, left] {$\gamma$} ; 
+  \draw[->] (N1)--(oj1); 
+  \draw[->] (N1)--(ojd);
+  \draw[->] (N1)--(ol);
+  %
+  \draw[->] (i1)--(N0);
+  \draw[->] (id)--(N0);
+  \draw[->] (im)--(N0); 
+  %
+  \draw[->] (im1)--(N1); 
+  \draw[->] (imd)--(N1);
+  \draw[->] (ik)--(N1);
   \end{tikzpicture}
   \raisebox{6.5em}{
   \begin{tikzpicture}[scale=1.2]
@@ -917,9 +959,59 @@ In this section, we introduce an elementary local operation on spines on~$\b{G}$
   \end{tikzpicture}
   }
   \caption{A spine flip.}
+  \label{fig:generalFlip}
 \end{figure}
 
 The fact that $\spine'$ is indeed a spine is immediate from the definitions. Contracting $\gamma$ in either $\spine$ or $\spine'$, we obtain the same spine $\spine''$. 
+
+\begin{figure}[h!]
+  \resizebox{0.6\linewidth}{!}{
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+  \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+  \node (5) at (0, 0.5) {$\blue \up[5]$};
+  \node (14) at (-0.5, 1.5) {$\blue 14$};
+  \node (6) at (0.5, 1.5) {$\blue 6$};
+  \node (9) at (1, 2.5) {$\blue \up[9]$};
+  \node (7) at (-1, -1.5) {$\blue \down[7]$};
+  \node (8) at (-1.5, -2.5) {$\blue 8$};
+  \node (3) at (0, -1.5) {$\blue 3$};
+  %
+  \draw[->] (8)--(7); 
+  \draw[->] (7)--(2); 
+  \draw[->] (3)--(2); 
+  \draw[->] (2)--(5) node[midway, left] {$\gamma$}; 
+  \draw[->] (5)--(14); 
+  \draw[->] (5)--(6); 
+  \draw[->] (6)--(9); 
+  \end{tikzpicture}
+  
+  \raisebox{6.5em}{
+  \begin{tikzpicture}[scale=1.2]
+    \draw[->] (0,0)--(1,0); 
+  \end{tikzpicture}}
+  
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+  \node (2) at (-0.5, 0.5) {$\blue \updown[2]$};
+  \node (5) at (0, -0.5) {$\blue \up[5]$};
+  \node (14) at (0.5, 0.5) {$\blue 14$};
+  \node (6) at (-1, 1.5) {$\blue 6$};
+  \node (9) at (-1.5, 2.5) {$\blue \up[9]$};
+  \node (7) at (0.5, -1.5) {$\blue \down[7]$};
+  \node (8) at (1, -2.5) {$\blue 8$};
+  \node (3) at (-1, -0.5) {$\blue 3$};
+  %
+  \draw[->] (8)--(7); 
+  \draw[->] (7)--(5); 
+  \draw[->] (3)--(2); 
+  \draw[->] (5)--(2) node[midway, right] {$\gamma$};  
+  \draw[->] (5)--(14); 
+  \draw[->] (2)--(6); 
+  \draw[->] (6)--(9); 
+  \end{tikzpicture}
+  }
+  \caption{Two maximal spines on the block graph of \cref{fig:mapleBlock}, related by a flip.}
+  \label{fig:exampleFlip}
+  \end{figure} 
 
 \begin{lemma} 
   \label{lemma:coveringpair} 
@@ -949,6 +1041,8 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
   The \defn{$\prec$-increasing flip poset} is the transitive closure of the $\prec$-increasing flip graph.
 \end{definition}
 
+For instance, the flip of \cref{fig:exampleFlip} is increasing with respect to the natural order on $V$.
+
 \begin{example}
   \label{exm:flipPosets}
   For instance, the increasing flip poset is (isomorphic to):
@@ -963,8 +1057,6 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 \begin{remark}
   The question of whether or not the increasing flip poset is a lattice is a difficult question. It depends on the decoration $\decoration$. We know that if $G$ is a path, it is always the case \cite{PilaudPons-permutrees}, for $G$ a block graph it is generally not true. See \cite{BarnardMcConville}. \guillaume{Nos calculs?; donner un exemple, un contre-exemple}\vincent{improve this remark.}
 \end{remark}
-
-\vincent{We need a picture of increasing flip poset here. Take the natural order for $\prec$.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -981,11 +1073,53 @@ Here, we need to manipulate both the vertices and the cliques of~$G$, thus we co
   \begin{itemize}
     \item each node~$X$ by the connected component~$\labeling(X)$ of~$M \ssm \big( \Up[{\so[X]}] \cup \Down[{\ta[X]}] \big)$ containing~$X$,
 %    \item each arc~$\gamma$ by the intersection~$\labeling(\gamma)$ of the connected component of~$M \ssm \Up[{\so[\gamma]}]$ containing~$\ta[\gamma]$ with the connected component of~$M \ssm \Down[{\ta[\gamma]}]$ containing~$\so[\gamma]$.
-    \item each arc~$\gamma$ by the connected component~$\labeling(\gamma)$ of~$M \ssm \big( \Up[{\so[\gamma]}] \cup \Down[{\ta[\gamma]}] \big)$ containing the red vertices of~$M$ adjacent to both~$\so[\gamma]$ and~$\ta[\gamma]$.
+    \item each arc~$\gamma$ by the connected component~$\labeling(\gamma)$ of~$M \ssm \big( \Up[{\so[\gamma]}] \cup \Down[{\ta[\gamma]}] \big)$ containing the red vertices of~$M$ adjacent to both~$\so[\gamma]$ and~$\ta[\gamma]$. \guillaume{ce ne sont pas tous les sommets de $M$?}
   \end{itemize}
   We say that the spine~$\spine$ with its labeling~$\labeling$ is a \defn{labeled spine}.
   \vincent{picture of two labeled spines (on the examples of spines given before).}
 \end{definition}
+
+\begin{figure}[h!]
+\resizebox{0.8\linewidth}{!}{
+\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+
+\node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
+\node (14) at (-1, 2) {$\blue 1 4$};
+\node (9) at (1, 2) {$\blue \up[9]$};
+\node (78) at (-1, -2) {$\blue \down[7] 8$};
+\node (3) at (1, -2) {$\blue 3$};
+
+\draw[->] (256)--(14) node[midway, left] {$ade$}; 
+\draw[->] (256)--(9) node[midway, right] {$fgjk$}; 
+\draw[->] (78)--(256) node[midway, left] {$adefghijk$}; 
+\draw[->] (3)--(256) node[midway, right] {$bc$}; 
+
+\end{tikzpicture}
+
+\qquad
+
+\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+\node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+\node (5) at (0, 0.5) {$\blue \up[5]$};
+\node (14) at (-0.5, 1.5) {$\blue 14$};
+\node (6) at (0.5, 1.5) {$\blue 6$};
+\node (9) at (1, 2.5) {$\blue \up[9]$};
+\node (7) at (-1, -1.5) {$\blue \down[7]$};
+\node (8) at (-1.5, -2.5) {$\blue 8$};
+\node (3) at (0, -1.5) {$\blue 3$};
+%
+\draw[->] (8)--(7) node[midway, left] {\small $adefghjk$}; 
+\draw[->] (7)--(2) node[midway, left] {\small $adefghijk$}; 
+\draw[->] (3)--(2) node[midway, right] {\small $bc$}; 
+\draw[->] (2)--(5) node[midway, left] {\small $adefghijk$}; 
+\draw[->] (5)--(14) node[midway, left] {\small $ade$}; 
+\draw[->] (5)--(6) node[midway, right] {\small $fgjk$}; 
+\draw[->] (6)--(9) node[midway, right] {\small $fgjk$}; 
+\end{tikzpicture}
+}
+\caption{The labeled versions of the two spines of \cref{fig:exampleSpine}.}
+\label{fig:exampleSpine}
+\end{figure} 
 
 \begin{remark}
   \label{rem:labeledSpine1}
@@ -1704,8 +1838,119 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Algebra: operad structure}
+\section{Algebra: Dioperad structure}
 \label{sec:algebra}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Recollections}
+
+Let $C$ be a set. 
+
+\begin{definition} A $C$-colored $(\mathbb{S},\mathbb{S})$-module is a family of $(\mathbb{S}_k,\mathbb{S}_l)$-modules $\mathcal{D}(c_1,\ldots,c_k;c_1',\ldots,c_l')$, indexed by the ordered pairs of non-empty ordered sequences $c_1,\ldots,c_k$ and $c_1',\ldots,c_l'$ of elements of $C$.
+\end{definition}
+
+\begin{definition}[Dioperad]
+\guillaume{todo}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Linear dioperad structure}
+
+In this section, every time we say maple tree, we mean a maple tree $M$ with the following extra data:
+\begin{enumerate}
+  \item Half-edges attached to the red vertices of $M$ such that every red vertex has valency at least 2;
+  \item Red vertices decorated by words, and not only by single letters;
+  \item A planar structure, and the choice of a root half-edge, such that the set of half-edges, as well as the set of (half-)edges attached to a given red vertex, inherits the canonical counterclockwise total order.
+\end{enumerate}
+
+Let $M$ be a maple tree with blue vertex set $V$. 
+For any subset of blue vertices $X \subset V$, we denote by $cc(M\setminus X)$ the set of connected components of $M\setminus X$. 
+
+\begin{definition}[Edge contraction] 
+We denote the maple tree resulting from the contraction of $X$ in $M$ by $M_{/X}$ \guillaume{todo}
+\end{definition}
+
+Let $\mathfrak{C}$ be the set of finite commutative words on a countably infinite alphabet.
+
+\begin{definition}[Admissibility] 
+Let $C$ be a connected component of $M \setminus \down[V]$ (resp. $M \setminus \up[V]$). 
+A word $m$ in $\mathfrak{C}$ is \emph{admissible for $C$} if $m$ is a subword of the union of the red vertices of $C$, and there exists a maple tree $M'$ with blue vertex set $V'$ such that 
+\begin{enumerate}
+  \item we have $V \subset V'$;
+  \item the partition $V \sqcup (V' \setminus V)$ is a splittable partition of $M'$;
+  \item the contraction of $V' \setminus V$ in $M'$ is equal to $M$;
+  \item the word $m$ is the union of the red vertices of the intersection between a connected component of $M'\setminus \up[V]$ (resp. $M' \setminus \down[V]$) and a connected component of $M'\setminus \down[(V'\setminus V)]$ (resp. $M' \setminus \up[(V'\setminus V)]$).
+\end{enumerate}
+\end{definition}
+
+
+We consider the following $C$-colored collection:
+
+$$
+\mathcal{D}(m_1,\ldots,m_k;n_1,\ldots,n_l)=
+\mathbb{K}\left\{
+\begin{array}{cl}
+\text{Maple tree } M \text{ with two bijections } \sigma : [k] \to cc(M\setminus \down[V]) \\
+\text{and } \tau : [l] \to cc(M\setminus \up[V]) \text{ such that for all } i, j \text{ the words} \\
+m_i \text{ and } n_j \text{ are admissible for } \sigma (i) \text{ and } \tau(j) \text{, respectively}  
+\end{array} 
+\right\} 
+$$
+
+Precomposition of $\sigma$ and $\tau$ with other permutations makes $\mathcal{D}$ into a $(\mathbb{S},\mathbb{S})$-module. 
+
+\begin{definition}
+Let $\sigma : [k] \to X$ and $\sigma' : [p] \to Y$ be two bijections, and let $i$ be in $[k]$. 
+The \emph{partial composition} $\circ_i$ of $\sigma$ and $\sigma'$ is the bijection $\sigma \circ_i \sigma' : [k+p-1] \to (X \setminus \sigma(i))\sqcup Y$ given by 
+\[
+\sigma \circ_i \sigma' (s)\coloneqq \left\{
+\begin{array}{cll}
+  \sigma(s) & \text{if}\  s<i \\
+  \sigma'(s-i+1) & \text{if}\ i\leq s \leq i+p-1 \\
+  \sigma(s-p+1)  & \text{if}\ i+p\leq s \leq k+p-1 \ .
+\end{array} 
+\right. 
+\]
+\end{definition}
+
+\begin{lemma}
+Let $M$ be a generator of $\mathcal{D}(m_1,\ldots,m_k;n_1,\ldots,n_l)$, and let $M'$ be a generator of $\mathcal{D}(m_1',\ldots,m_p';n_1',\ldots,n_q')$ such that $m_i=n_j$ for some $i \in [k]$ and $j \in [q]$. 
+Then, there exists a unique generator $M''$ of $$\mathcal{D}(m_1,\ldots,m_{i-1},m_1',\ldots,m_p',m_{i+1},\ldots,m_k;n_1,\ldots,n_{j-1},n_1',\ldots,n_q',n_{j+1},\ldots,n_l)$$ with bijections $\sigma \circ_i \sigma'$ and $\tau \circ_j \tau'$ such that $M''/M'=M$ and $M''/M=M'$.
+\end{lemma}
+
+\begin{proof} 
+Existence
+-Algorithm
+-Well-defined
+
+Unicity
+
+\end{proof}
+
+\begin{proposition}
+  The $(\mathbb{S},\mathbb{S})$-module $\mathcal{D}$, endowed with the preceding partial compositions and unit morphisms, forms a $C$-colored dioperad.
+\end{proposition}
+
+\begin{proof}
+  Associativity!
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Topological cellular dioperad structure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Differential graded structures}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Tensor product}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
