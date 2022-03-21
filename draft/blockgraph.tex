@@ -2064,6 +2064,77 @@ For any subset of blue vertices $X \subset V$, we denote by $cc(M\setminus X)$ t
 We denote the maple tree resulting from the contraction of $X$ in $M$ by $M_{/X}$ \guillaume{todo}
 \end{definition}
 
+A \emph{maple contraction subtree} is a maple tree $M'=M_{/X}$ obtained from $M$ by contraction of a subset $X$ of blue vertices and their adajcent edges.
+Such a tree is said to be \emph{admissible} if $X$ defines a splittable partition of $M$.
+
+Let $C$ be the set of commutative words on the red vertices of $M$. 
+We consider the following $C$-colored collection:
+
+$$
+\mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)=
+\mathbb{K}\left\{
+\begin{array}{cl}
+\text{Amissible maple contraction subtree } M' \text{ with two bijections }  \\
+\sigma : [k] \to cc(M'\setminus \down[V]) \text{ and } \tau : [l] \to cc(M'\setminus \up[V]) \text{ such that }\\
+x_i \text{ and } y_j \text{ are red vertices sets of } \sigma (i) \text{ and } \tau(j) \text{, respectively}  
+\end{array} 
+\right\} 
+$$
+
+\guillaume{ces espaces sont-ils de dimension 1?}
+
+Precomposition of $\sigma$ and $\tau$ with other permutations makes $\mathcal{D}_M$ into a $(\mathbb{S},\mathbb{S})$-module. 
+
+\begin{definition}
+Let $\sigma : [k] \to X$ and $\sigma' : [p] \to Y$ be two bijections, and let $i$ be in $[k]$. 
+The \emph{partial composition} $\sigma \circ_i \sigma' : [k+p-1] \to (X \setminus \sigma(i))\sqcup Y$ of $\sigma$ and $\sigma'$ is the bijection
+\[
+\sigma \circ_i \sigma' (s)\coloneqq \left\{
+\begin{array}{cll}
+  \sigma(s) & \text{if}\  s<i \\
+  \sigma'(s-i+1) & \text{if}\ i\leq s \leq i+p-1 \\
+  \sigma(s-p+1)  & \text{if}\ i+p\leq s \leq k+p-1 \ .
+\end{array} 
+\right. 
+\]
+\end{definition}
+
+\begin{lemma}
+Let $X$ be a generator of $\mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)$, and let $X'$ be a generator of $\mathcal{D}_M(x_1',\ldots,x_p';y_1',\ldots,y_q')$ such that $x_i=y_j'$ for some $i \in [k]$ and $j \in [q]$. 
+Then, there exists a unique generator $X''$ of $$\mathcal{D}_M(x_1,\ldots,x_{i-1},x_1',\ldots,x_p',x_{i+1},\ldots,x_k;y_1,\ldots,y_{j-1},y_1',\ldots,y_q',y_{j+1},\ldots,y_l)$$ with bijections $\sigma \circ_i \sigma'$ and $\tau \circ_j \tau'$ such that $X''/X'=X$ and $X''/X=X'$.
+\end{lemma}
+
+\begin{proof}
+  pas sur qu'on a bien ce qu'il faut: je n'ai pas l'impression que la seule donn\'ee de la couleur est suffisante pour savoir composer; de plus il faut \'eviter la composition de sous-arbres qui ont intersection non-vide dans leurs bleus
+\end{proof}
+
+\begin{proposition} 
+  The $(\mathbb{S},\mathbb{S})$-module $\mathcal{D}_M$, endowed with the preceding partial compositions and unit morphisms, forms a $C$-colored dioperad.
+\end{proposition}
+
+\begin{proof}
+  Associativity! 
+\end{proof}
+
+Let $\mathfrak{C}$ be the set of finite commutative words on the countably infinite alphabet \guillaume{a fixer au d\'ebut du papier!} labeling the red vertices of maple trees.
+We can consider the dioperads $\mathcal{D}_M$ as $\mathfrak{C}$-colored dioperads. 
+The $(\mathbb{S},\mathbb{S})$-module $$\mathcal{D} \coloneqq \bigoplus_M \mathcal{D}_M$$ inherits a colored dioperad structure, where the colors are pairs $(M,m)$ made up of a maple tree and an admissible word.
+Note that the underlying maple tree $M$ has to be the same for all colors in order to get non-trivial compositions. 
+
+Any admissible contraction subtree $N$ of $M$ defines a $\mathfrak{C}$-colored sub-dioperad $\mathcal{D}_N$ of $\mathcal{D}_M$.
+\guillaume{ne pourrions-nous pas prendre la colimite de ces inclusions??}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+---------------------------------
+
+\guillaume{ancienne version}
+
 Let $\mathfrak{C}$ be the set of finite commutative words on a countably infinite alphabet.
 
 \begin{definition}[Admissibility] 
