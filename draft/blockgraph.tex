@@ -78,6 +78,7 @@
 \DeclareMathOperator{\conv}{conv} % convex hull
 \DeclareMathOperator{\vect}{vect} % linear span
 \DeclareMathOperator{\cone}{cone} % cone hull
+\DeclareMathOperator{\colim}{colim} % colimit
 
 % others
 \newcommand{\ie}{\textit{i.e.}~} % id est
@@ -103,6 +104,7 @@
 \renewcommand{\topfraction}{1} % possibility to have one page of pictures
 \renewcommand{\bottomfraction}{1} % possibility to have one page of pictures
 \newcommand{\shade}[1]{{\color{cyan} #1}}
+\newcommand{\as}{{\scriptstyle \text{\rm !`}}} %Antischrieck
 
 % marginal comments
 \usepackage{todonotes}
@@ -2043,47 +2045,61 @@ Let $C$ be a set.
 \end{definition}
 
 \begin{definition}[Dioperad]
-\guillaume{todo}
+A $C$-colored dioperad is a $C$-colored $(\mathbb{S},\mathbb{S})$-module $\mathcal{D}$ together with partial compositions 
+$$
+\prescript{}{j}{\circ}^{}_i : \mathcal{D}_M(c_1,\ldots,c_k;d_1,\ldots,d_l) \otimes \mathcal{D}_M(c_1',\ldots,c_p';d_1',\ldots,d_q') 
+$$
+$$
+\longrightarrow \mathcal{D}_M(c_1,\ldots,c_{i-1},c_1',\ldots,c_p',c_{i+1},\ldots c_k;d_1,\ldots,d_{j-1},d_1',\ldots,d_q',d_{j+1},\ldots,d_l)
+$$
+whenever $c_i=d_j'$, and units $id_x \in \mathcal{D}(x;x)$ which satisfy appropriate unity, equivariance and associativity axioms, see \cite[Definition 11.18]{YauJohnson15}. 
 \end{definition}
+
+\guillaume{Equivalently, a dioperad is a monoid in ..., or an algebra over the monad of directed trees... }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Linear dioperad structure}
+\subsection{Dioperadic structures}
 
 In this section, every time we say maple tree, we mean a maple tree $M$ with the following extra data:
 \begin{enumerate}
   \item Half-edges attached to the red vertices of $M$ such that every red vertex has valency at least 2;
-  \item Red vertices decorated by words, and not only by single letters;
-  \item A planar structure, and the choice of a root half-edge, such that the set of half-edges, as well as the set of (half-)edges attached to a given red vertex, inherits the canonical counterclockwise total order.
+  \item A planar structure, and the choice of a root half-edge, such that the set of half-edges, as well as the set of (half-)edges attached to a given red vertex, inherits the canonical clockwise total order.
 \end{enumerate}
+The blue vertex set $V$ inherits a natural numbering by $1,\ldots,|V|$, obtained by starting at the root and going around $M$ in the clockwise direction, numbering a vertex the first time we see it. 
+We will consider only blossoming spines on $M$, and refer to them as spines. 
 
-Let $M$ be a maple tree with blue vertex set $V$. 
-For any subset of blue vertices $X \subset V$, we denote by $cc(M\setminus X)$ the set of connected components of $M\setminus X$. 
-
-\begin{definition}[Edge contraction] 
-We denote the maple tree resulting from the contraction of $X$ in $M$ by $M_{/X}$ \guillaume{todo}
+\begin{definition}[Block]
+  Let $M$ be a maple tree, with blue vertex set $V$. 
+  A \emph{block} $B$ of $M$ is a (possibly empty) node of a spine $S$ on $M$ which has been cut off from $M$. \guillaume{dessin} 
 \end{definition}
 
-A \emph{maple contraction subtree} is a maple tree $M'=M_{/X}$ obtained from $M$ by contraction of a subset $X$ of blue vertices and their adajcent edges.
-Such a tree is said to be \emph{admissible} if $X$ defines a splittable partition of $M$.
+Note that the same block can be obtained from different spines. 
+For an incoming or outgoing arc $\gamma$ of $B$, we define $\so[\gamma]$ and $\ta[\gamma]$ to be the source and targets sets of $\gamma$ in any spine $S$ from which $B$ is obtained (this is independent of the choice of $S$ \guillaume{justifier?}). 
+We denote the set of incoming (resp. outgoing) edges of $B$ by $i(B)$ (resp. $o(B)$).  
+In the case where $B$ is empty, we set $i(B)=o(B)$. 
 
-Let $C$ be the set of commutative words on the red vertices of $M$. 
+Let $C$ be the set of ordered pairs of subsets of $V$ which form a partition of $V$.
 We consider the following $C$-colored collection:
 
 $$
 \mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)=
 \mathbb{K}\left\{
 \begin{array}{cl}
-\text{Amissible maple contraction subtree } M' \text{ with two bijections }  \\
-\sigma : [k] \to cc(M'\setminus \down[V]) \text{ and } \tau : [l] \to cc(M'\setminus \up[V]) \text{ such that }\\
-x_i \text{ and } y_j \text{ are red vertices sets of } \sigma (i) \text{ and } \tau(j) \text{, respectively}  
+\text{Block } B \text{ of } M \text{ with two bijections }  \\
+\sigma : [k] \to i(B) \text{ and } \tau : [l] \to o(B) \text{ such that }\\
+x_i=(\so[\sigma(i)],\ta[\sigma(i)]) \text{ and } y_j=(\so[\tau(j)],\ta[\tau(j)]) \text{ for all } i,j  
 \end{array} 
 \right\} 
 $$
-
-\guillaume{ces espaces sont-ils de dimension 1?}
-
 Precomposition of $\sigma$ and $\tau$ with other permutations makes $\mathcal{D}_M$ into a $(\mathbb{S},\mathbb{S})$-module. 
+
+\begin{lemma}
+  Each space $\mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)$ is either zero or one-dimensional. 
+\end{lemma}
+
+\begin{proof} This follows from the definition of spine. \guillaume{justifier}
+\end{proof}
 
 \begin{definition}
 Let $\sigma : [k] \to X$ and $\sigma' : [p] \to Y$ be two bijections, and let $i$ be in $[k]$. 
@@ -2099,108 +2115,144 @@ The \emph{partial composition} $\sigma \circ_i \sigma' : [k+p-1] \to (X \setminu
 \]
 \end{definition}
 
-\begin{lemma}
-Let $X$ be a generator of $\mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)$, and let $X'$ be a generator of $\mathcal{D}_M(x_1',\ldots,x_p';y_1',\ldots,y_q')$ such that $x_i=y_j'$ for some $i \in [k]$ and $j \in [q]$. 
-Then, there exists a unique generator $X''$ of $$\mathcal{D}_M(x_1,\ldots,x_{i-1},x_1',\ldots,x_p',x_{i+1},\ldots,x_k;y_1,\ldots,y_{j-1},y_1',\ldots,y_q',y_{j+1},\ldots,y_l)$$ with bijections $\sigma \circ_i \sigma'$ and $\tau \circ_j \tau'$ such that $X''/X'=X$ and $X''/X=X'$.
-\end{lemma}
+\begin{definition}[Partial composition]
+Let $x_1,\ldots,x_k,x_1',\ldots,x_p',y_1,\ldots,y_l,y_1',\ldots,y_q'$ be colors of $C$ and suppose that there exists an $i \in [k]$ and a $j \in [q]$ such that $x_i=y_j'$. 
+We define the \emph{partial composition map}
+\[\prescript{}{j}{\circ}^{}_i \ \  : \ \  
+\mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l) \otimes \mathcal{D}_M(x_1',\ldots,x_p';y_1',\ldots,y_q') \]
+\[\longrightarrow \mathcal{D}_M(x_1,\ldots,x_{i-1},x_1',\ldots,x_p',x_{i+1},\ldots,x_k;y_1,\ldots,y_{j-1},y_1',\ldots,y_q',y_{j+1},\ldots,y_l)\]
+by sending the generators $(B,\sigma, \tau)$ and $(B',\sigma',\tau')$ to the block $B \prescript{}{j}{\circ}^{}_i B'$ equipped with the bijections $\sigma \circ_i \sigma'$ and $\tau \circ_j \tau'$.
+This block is defined as follows.  
+Let $S$ (resp. $S'$) be a spine on $M$ which contains $B$ (resp. $B'$), and let $\gamma$ (resp. $\gamma'$) be the incoming arc such that $(\so[\gamma],\ta[\gamma])=x_i=y_j'=(\so[\gamma'],\ta[\gamma'])$. 
+By the definition of the spine poset, there is a sequence of arcs contractions and node splitting transforming $S$ or $S'$ into a new spine $S''$ which has an arc $\gamma''$ with its source part equal to the source part of $\gamma'$ in $S'$, and its target part equal to the target part $\gamma$ in $S$. 
+Now, contracting the arc $\gamma''$ in $S''$, we obtain a spine and a new block made up of the two nodes $B$ and $B'$, that we denote by $B \prescript{}{j}{\circ}^{}_i B'$.
+\guillaume{well-defined?}
+\end{definition}
 
-\begin{proof}
-  pas sur qu'on a bien ce qu'il faut: je n'ai pas l'impression que la seule donn\'ee de la couleur est suffisante pour savoir composer; de plus il faut \'eviter la composition de sous-arbres qui ont intersection non-vide dans leurs bleus
-\end{proof}
+Observe that the generators of the spaces $\mathcal{D}_M(x;x), x \in C$ are units for this partial composition.
 
 \begin{proposition} 
-  The $(\mathbb{S},\mathbb{S})$-module $\mathcal{D}_M$, endowed with the preceding partial compositions and unit morphisms, forms a $C$-colored dioperad.
+\label{prop:dioperadstructure}
+  For any maple tree $M$, the preceding partial compositions and units endow the $(\mathbb{S},\mathbb{S})$-module $\mathcal{D}_M$ with a $C$-colored dioperad structure.
 \end{proposition}
 
 \begin{proof}
-  Associativity! 
+The unity and equivariance axioms are straightforward to verify. 
+The associativity axioms are also satisfied, since the order in which edge contractions are performed in a spine is not important.
+\guillaume{plus de d\'etails?}
 \end{proof}
 
-Let $\mathfrak{C}$ be the set of finite commutative words on the countably infinite alphabet \guillaume{a fixer au d\'ebut du papier!} labeling the red vertices of maple trees.
-We can consider the dioperads $\mathcal{D}_M$ as $\mathfrak{C}$-colored dioperads. 
-The $(\mathbb{S},\mathbb{S})$-module $$\mathcal{D} \coloneqq \bigoplus_M \mathcal{D}_M$$ inherits a colored dioperad structure, where the colors are pairs $(M,m)$ made up of a maple tree and an admissible word.
-Note that the underlying maple tree $M$ has to be the same for all colors in order to get non-trivial compositions. 
-
-Any admissible contraction subtree $N$ of $M$ defines a $\mathfrak{C}$-colored sub-dioperad $\mathcal{D}_N$ of $\mathcal{D}_M$.
-\guillaume{ne pourrions-nous pas prendre la colimite de ces inclusions??}
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
----------------------------------
-
-\guillaume{ancienne version}
-
-Let $\mathfrak{C}$ be the set of finite commutative words on a countably infinite alphabet.
-
-\begin{definition}[Admissibility] 
-Let $C$ be a connected component of $M \setminus \down[V]$ (resp. $M \setminus \up[V]$). 
-A word $m$ in $\mathfrak{C}$ is \emph{admissible for $C$} if $m$ is a subword of the union of the red vertices of $C$, and there exists a maple tree $M'$ with blue vertex set $V'$ such that 
-\begin{enumerate}
-  \item we have $V \subset V'$;
-  \item the partition $V \sqcup (V' \setminus V)$ is a splittable partition of $M'$;
-  \item the contraction of $V' \setminus V$ in $M'$ is equal to $M$;
-  \item the word $m$ is the union of the red vertices of the intersection between a connected component of $M'\setminus \up[V]$ (resp. $M' \setminus \down[V]$) and a connected component of $M'\setminus \down[(V'\setminus V)]$ (resp. $M' \setminus \up[(V'\setminus V)]$).
-\end{enumerate}
+\begin{definition}[Extended maple tree]
+  An \emph{extended maple tree} is a maple tree whose red vertices are decorated by commutative words made up of both letters ($a,b,c,\ldots$) and blue vertex labels ($\up[1],\down[2],\updown[3],4,\ldots$). 
 \end{definition}
 
+\begin{definition}[Extended source and target]
+  For a spine $S$ on an extended maple tree, and $\gamma$ an arc of $S$, we include in the sets $\so[\gamma]$ and $\ta[\gamma]$ the blue vertex sets in the labels of blossoms in the corresponding components of $S\setminus \{\gamma\}$.
+\end{definition}
 
+\begin{definition}[Contraction subtree] 
+Let $M$ be a maple tree, and let $X \subset V$ be a subset of blue vertices. 
+We denote by $M_{/X}$ the extended maple tree obtained by removing the vertices of $X$ and contracting all the adjacent edges and red vertices to a single red vertex, decorated by both the removed vertices of $X$ and the labels of the adjacent red vertices. 
+\guillaume{dessin}
+\end{definition}
+
+A non-trivial block $B$ of a maple tree $M$ can now be interpreted as a trivial spine on the extended maple tree $M_{/{B^c}}$, where $B^c\coloneqq V\setminus B$ is the complement of $B$ in $V$. 
+
+\begin{definition}[Admissible maple tree]
+  Let $M$ be an extended maple tree. 
+  An extended maple tree $M'$ is said to be \emph{$M$-admissible} if it can be obtained as the contraction subtree $M_{/{B^c}}$ for some block $B$ on $M$. 
+\end{definition}
+
+Let $\mathfrak{C}$ be the set of pairs of commutative words in the alphabet made up of letters $a,b,c,\ldots$ and decorated numbers $\up[1],\down[2],\updown[3],4,\ldots$
+Any dioperad $\mathcal{D}_M$ becomes a $\mathfrak{C}$-colored dioperad \guillaume{by setting many spaces to zero}.
+
+\begin{lemma}
+Let $M$ and $M'$ be two extended maple trees, and suppose that there is an $M'$-admissible extended maple tree $\iota(M)$ which is isomorphic to $M$, has the same blue vertices, and such that the label of each of its red vertex contains the label of the corresponding red vertex of $M'$ as a subword. 
+This tree isomorphisms induces an inclusion of $\mathfrak{C}$-colored dioperads $$\mathcal{D}_M \hookrightarrow \mathcal{D}_{M'}\ . $$
+\end{lemma}
+
+\begin{proof}
+  A few words.
+\end{proof}
+
+Consider the colimit over the diagram made up of all such dioperad inclusions
+\[ \mathcal{D} \coloneqq \colim_M \mathcal{D}_M \ . \]
+This is a $\mathfrak{C}$-colored dioperad (since this category is cocomplete \guillaume{justifier!!}), where all the extended version of the same (non-extended) maple tree are identified. 
+The dioperad $\mathcal{D}$ can be seen as 
+
+\begin{proposition}
+  The colored dioperad $\mathcal{D}$ is Koszul, and Koszul self-dual. 
+\end{proposition}
+
+\begin{proof} 
+  It is enough to prove the statement for each $\mathcal{D}_M$ separately \guillaume{? Si oui, justifier}. 
+\end{proof}
+
+\begin{remark}
+  One could also also consider the totalization \[ \mathcal{D} \coloneqq \bigoplus_M \mathcal{D}_M \] which is a dioperad colored by pairs $(M,c)$ made up of a maple tree and a color of $\mathfrak{C}$. 
+\end{remark}
+
+Let $M$ be a maple tree, with blue vertex set $V$. 
+A \emph{composite block} $B$ of $M$ is a (possibly empty) subtree of a spine $S$ on $M$ which has been cut off \guillaume{dessin}. 
+Note that a single composite bloc can come from different spines. 
+We denote the set of incoming (resp. outgoing) blossoms of $D$ by $i(D)$ (resp. $o(D)$).  
+In the case where $D$ is empty, we set $i(D)=o(D)$. 
+Let $C$ be the set of ordered pairs of subsets of $V$ which form a partition of $V$.
 We consider the following $C$-colored collection:
 
 $$
-\mathcal{D}(m_1,\ldots,m_k;n_1,\ldots,n_l)=
+\mathcal{D}^{\infty}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)=
 \mathbb{K}\left\{
 \begin{array}{cl}
-\text{Maple tree } M \text{ with two bijections } \sigma : [k] \to cc(M\setminus \down[V]) \\
-\text{and } \tau : [l] \to cc(M\setminus \up[V]) \text{ such that for all } i, j \text{ the words} \\
-m_i \text{ and } n_j \text{ are admissible for } \sigma (i) \text{ and } \tau(j) \text{, respectively}  
+\text{Generalized cell } D \text{ of } M \text{ with two bijections }  \\
+\sigma : [k] \to i(D) \text{ and } \tau : [l] \to o(D) \text{ such that }\\
+x_i=(\so[\sigma(i)],\ta[\sigma(i)]) \text{ and } y_j=(\so[\tau(j)],\ta[\tau(j)]) \text{ for all } i,j  
 \end{array} 
 \right\} 
 $$
+Precomposition of $\sigma$ and $\tau$ with other permutations makes $\mathcal{D}_M$ into a $(\mathbb{S},\mathbb{S})$-module.
 
-Precomposition of $\sigma$ and $\tau$ with other permutations makes $\mathcal{D}$ into a $(\mathbb{S},\mathbb{S})$-module. 
+Partial compositions and units can be defined exactly as in the case of $\mathcal{D}_M$. 
 
-\begin{definition}
-Let $\sigma : [k] \to X$ and $\sigma' : [p] \to Y$ be two bijections, and let $i$ be in $[k]$. 
-The \emph{partial composition} $\circ_i$ of $\sigma$ and $\sigma'$ is the bijection $\sigma \circ_i \sigma' : [k+p-1] \to (X \setminus \sigma(i))\sqcup Y$ given by 
-\[
-\sigma \circ_i \sigma' (s)\coloneqq \left\{
-\begin{array}{cll}
-  \sigma(s) & \text{if}\  s<i \\
-  \sigma'(s-i+1) & \text{if}\ i\leq s \leq i+p-1 \\
-  \sigma(s-p+1)  & \text{if}\ i+p\leq s \leq k+p-1 \ .
-\end{array} 
-\right. 
-\]
-\end{definition}
-
-\begin{lemma}
-Let $M$ be a generator of $\mathcal{D}(m_1,\ldots,m_k;n_1,\ldots,n_l)$, and let $M'$ be a generator of $\mathcal{D}(m_1',\ldots,m_p';n_1',\ldots,n_q')$ such that $m_i=n_j$ for some $i \in [k]$ and $j \in [q]$. 
-Then, there exists a unique generator $M''$ of $$\mathcal{D}(m_1,\ldots,m_{i-1},m_1',\ldots,m_p',m_{i+1},\ldots,m_k;n_1,\ldots,n_{j-1},n_1',\ldots,n_q',n_{j+1},\ldots,n_l)$$ with bijections $\sigma \circ_i \sigma'$ and $\tau \circ_j \tau'$ such that $M''/M'=M$ and $M''/M=M'$.
-\end{lemma}
-
-\begin{proof} 
-Existence
--Algorithm
--Well-defined
-
-Unicity
-
-\end{proof}
-
-\begin{proposition}
-  The $(\mathbb{S},\mathbb{S})$-module $\mathcal{D}$, endowed with the preceding partial compositions and unit morphisms, forms a $C$-colored dioperad.
+\begin{proposition} 
+  For any maple tree $M$, the preceding partial compositions and units endow the $\mathcal{D}^{\infty}_M$ with a $C$-colored dioperad structure.
 \end{proposition}
 
 \begin{proof}
-  Associativity!
+straightforward
 \end{proof}
 
+A generalized cell $D$ of $M$ can be interpreted as a spine on the maple tree obtained by contracting the complement of $D$ in $M$, where [...]
+Any dioperad $\mathcal{D}^{\infty}_M$ becomes a $\mathfrak{C}$-colored dioperad \guillaume{by setting many spaces to zero}, and the totalization \[ \mathcal{D}_{\infty} \coloneqq \bigoplus_M \mathcal{D}^{\infty}_M \] becomes a dioperad colored by pairs $(M,c)$ made up of a maple tree and a color of $\mathfrak{C}$. 
 
+\begin{remark}
+Dioperad inclusion morphisms (prove that this category is cocomplete), consider the colimit $\colim_M \mathcal{D}^{\infty}_M$ [...]
+\end{remark}
+
+\begin{proposition}
+  The colored dioperad $\mathcal{D}_\infty$ is free on cells. 
+\end{proposition}
+
+\begin{proof} 
+Grafting cells produce generalized cells. 
+There is a unique way to write a generalized cell by iterating this process, up to the dioperad associativity axioms. 
+So, this dioperad is free. 
+\end{proof}
+
+Now we turn $\mathcal{D}_\infty$ into a differential graded (dg) colored dioperad. 
+The differential is the unique derivation extending the map $\partial$, defined on cells by 
+\[ \partial(D, \sigma, \tau) \coloneqq - \sum_{D'} \pm (D',\sigma,\tau) \ , \] 
+where the sum runs over all the spines with 2 nodes $D'$ that contain $D$. 
+
+\begin{proposition}
+The dg colored dioperad $\mathcal{D}_\infty$ is the minimal model $\Omega \mathcal{D}^{\as}$ of $\mathcal{D}$. 
+\end{proposition}
+
+\begin{proof} \guillaume{!!}
+\end{proof}
+
+\begin{remark} Cyclic versions of the objects considered in this section
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
