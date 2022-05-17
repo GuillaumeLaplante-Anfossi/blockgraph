@@ -262,6 +262,8 @@ It is the maximal generalization, according to \cite{Pilaud-removahedra}.
 
 \guillaume{dioperads and string topology}
 \guillaume{our dioperad might be initial in some operadic / Feynman / moment category}
+\vincent{Block graphs already appear in our context: exactly the graphs whose graphical zonotope is simple, and exactly the graphs whose graph associahedra are removahedra. Btw, this is already a reason for the construction not working beyond block graphs.}
+\vincent{Line graphs of trees are exactly claw-free block graphs.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -413,57 +415,53 @@ We now define the main combinatorial objects studied in this paper.
 \end{definition}
 
 \begin{figure}[h!]
-\resizebox{0.5\linewidth}{!}{
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
-
-\node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
-\node (14) at (-1, 2) {$\blue 1 4$};
-\node (9) at (1, 2) {$\blue \up[9]$};
-\node (78) at (-1, -2) {$\blue \down[7] 8$};
-\node (3) at (1, -2) {$\blue 3$};
-
-\draw[->] (256)--(14); 
-\draw[->] (256)--(9); 
-\draw[->] (78)--(256); 
-\draw[->] (3)--(256); 
-
-\end{tikzpicture}
-
-\qquad
-
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-\node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-\node (5) at (0, 0.5) {$\blue \up[5]$};
-\node (14) at (-0.5, 1.5) {$\blue 14$};
-\node (6) at (0.5, 1.5) {$\blue 6$};
-\node (9) at (1, 2.5) {$\blue \up[9]$};
-\node (7) at (-1, -1.5) {$\blue \down[7]$};
-\node (8) at (-1.5, -2.5) {$\blue 8$};
-\node (3) at (0, -1.5) {$\blue 3$};
-%
-\draw[->] (8)--(7); 
-\draw[->] (7)--(2); 
-\draw[->] (3)--(2); 
-\draw[->] (2)--(5); 
-\draw[->] (5)--(14); 
-\draw[->] (5)--(6); 
-\draw[->] (6)--(9); 
-\end{tikzpicture}
-}
-\caption{Two spines on the block graph of \cref{fig:mapleBlock}. The one on the right is maximal.}
-\label{fig:exampleSpine}
+  \centerline{
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+    \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
+    \node (14) at (-1, 2) {$\blue 1 4$};
+    \node (9) at (1, 2) {$\blue \up[9]$};
+    \node (78) at (-1, -2) {$\blue \down[7] 8$};
+    \node (3) at (1, -2) {$\blue 3$};
+    %
+    \draw[->] (256)--(14); 
+    \draw[->] (256)--(9); 
+    \draw[->] (78)--(256); 
+    \draw[->] (3)--(256);
+  \end{tikzpicture}
+  \qquad
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (5) at (0, 0.5) {$\blue \up[5]$};
+    \node (14) at (-0.5, 1.5) {$\blue 14$};
+    \node (6) at (0.5, 1.5) {$\blue 6$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
+    \node (7) at (-1, -1.5) {$\blue \down[7]$};
+    \node (8) at (-1.5, -2.5) {$\blue 8$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    %
+    \draw[->] (8)--(7); 
+    \draw[->] (7)--(2); 
+    \draw[->] (3)--(2); 
+    \draw[->] (2)--(5); 
+    \draw[->] (5)--(14); 
+    \draw[->] (5)--(6); 
+    \draw[->] (6)--(9); 
+  \end{tikzpicture}
+  }
+  \caption{Two spines on the block graph of \cref{fig:mapleBlock}. The one on the right is maximal.}
+  \label{fig:exampleSpine}
 \end{figure} 
 
 \begin{example}
-\label{exm:spines}
-For instance, the spines correspond to:
-\vincent{todo: other ideas?}
-\begin{enumerate}[(i)]
-  \item the \defn{ordered partitions} of~$\vertexSet$ when $\decoratedGraph$ is complete or undecorated.
-  \item the \defn{$\Graph$-trees} studied in~\cite{Postnikov} when~$\decoratedGraph$ is down decorated (in particular the classical \defn{Schr\"oder trees} when~$\decoratedGraph$ is a down decorated path).
-  \item the \defn{$\Graph$-ordered partitions}~\cite{Pilaud-acyclicReorientationLattices} (\ie pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs of~$\Graph$, and~$o$ is an acyclic orientation of the quotient graph~$\Graph/p$) when~$\decoratedGraph$ is fully decorated.
-  \item the \defn{Schr\"oder permutrees} of~\cite{PilaudPons-permutrees} when~$\Graph$ is a path.
-\end{enumerate}
+  \label{exm:spines}
+  For instance, the spines correspond to:
+  \vincent{todo: other ideas?}
+  \begin{enumerate}[(i)]
+    \item the \defn{ordered partitions} of~$\vertexSet$ when $\decoratedGraph$ is complete or undecorated.
+    \item the \defn{$\Graph$-trees} studied in~\cite{Postnikov} when~$\decoratedGraph$ is down decorated (in particular the classical \defn{Schr\"oder trees} when~$\decoratedGraph$ is a down decorated path).
+    \item the \defn{$\Graph$-ordered partitions}~\cite{Pilaud-acyclicReorientationLattices} (\ie pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs of~$\Graph$, and~$o$ is an acyclic orientation of the quotient graph~$\Graph/p$) when~$\decoratedGraph$ is fully decorated.
+    \item the \defn{Schr\"oder permutrees} of~\cite{PilaudPons-permutrees} when~$\Graph$ is a path.
+  \end{enumerate}
 \end{example}
 
 For later purposes, it will convenient to see a spine as a preorder on the vertex set~$\vertexSet$ of~$\Graph$.
@@ -492,7 +490,7 @@ We now define two natural operations on spines: arc contraction and node splitti
 These operations are illustrated in \cref{fig:contractionSplitting}.
 
 \begin{figure}[h!]
-  \resizebox{0.8\linewidth}{!}{
+  \centerline{
   \begin{tikzpicture}[scale=1.6]
     \node (N0) at (-0.5,-0.5) {\small $X$};
     \node (N1) at (0.5,0.5) {\small $Y$};
@@ -530,6 +528,7 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
     \draw[->] (imd)--(N1);
     \draw[->] (ik)--(N1);
   \end{tikzpicture}
+  
   \qquad 
   \raisebox{6.5em}{
   \begin{tikzpicture}[scale=1.2]
@@ -538,6 +537,7 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
   \end{tikzpicture}
   }
   \qquad 
+  
   \raisebox{1.5em}{
   \begin{tikzpicture}[scale=1.2]
     \node (N1) at (0,0) {\small $X \cup Y$};
@@ -879,56 +879,57 @@ In this section, we introduce an elementary local operation on spines on~$\decor
 \end{definition}
 
 \begin{figure}[h!]
-\centerline{
-\begin{tikzpicture}[scale=1.6]  
-  \node (N0) at (-0.5,-0.5) {\small $y$};
-  \node (N1) at (0.5,0.5) {\small $y$};
-  %
-  \node (o1) at (-1.2,0.6) {\small $\beta_1$};
-  \node (od) at (-0.8,0.6) {\small $\dots$};
-  \node (oj) at (-0.3,0.6) {\small $\beta_k$};
-  %
-  \node (oj1) at (0,1.62) {\small $\beta_{k+1}$};
-  \node (ojd) at (0.5,1.6) {\small $\dots$};
-  \node (ol) at (1,1.6) {\small $\beta_\ell$};
-  %
-  \node (2) at (1.5,1.6) {\small $\boldsymbol{\beta}$};
-  %
-  \node (1) at (-1.5,-1.6) {\small $\boldsymbol{\alpha}$};
-  %
-  \node (i1) at (-1,-1.6) {\small $\alpha_1$};
-  \node (id) at (-0.5,-1.6) {\small $\dots$};
-  \node (im) at (0,-1.6) {\small $\alpha_i$};
-  %
-  \node (im1) at (0.3,-0.62) {\small $\alpha_{i+1}$};
-  \node (imd) at (0.8,-0.6) {\small $\dots$};
-  \node (ik) at (1.2,-0.6) {\small $\alpha_j$};
-  %
-  \draw[->,thick] (1)--(N0); 
-  \draw[->,thick] (N1)--(2); 
-  %
-  \draw[->] (N0)--(o1); 
-  \draw[->] (N0)--(od);
-  \draw[->] (N0)--(oj);
-  %  
-  \draw[->] (N0)--(N1) node[midway, left] {$\gamma$} ; 
-  \draw[->] (N1)--(oj1); 
-  \draw[->] (N1)--(ojd);
-  \draw[->] (N1)--(ol);
-  %
-  \draw[->] (i1)--(N0);
-  \draw[->] (id)--(N0);
-  \draw[->] (im)--(N0); 
-  %
-  \draw[->] (im1)--(N1); 
-  \draw[->] (imd)--(N1);
-  \draw[->] (ik)--(N1);
+  \centerline{
+  \begin{tikzpicture}[scale=1.6]  
+    \node (N0) at (-0.5,-0.5) {\small $x$};
+    \node (N1) at (0.5,0.5) {\small $y$};
+    %
+    \node (o1) at (-1.2,0.6) {\small $\beta_1$};
+    \node (od) at (-0.8,0.6) {\small $\dots$};
+    \node (oj) at (-0.3,0.6) {\small $\beta_k$};
+    %
+    \node (oj1) at (0,1.62) {\small $\beta_{k+1}$};
+    \node (ojd) at (0.5,1.6) {\small $\dots$};
+    \node (ol) at (1,1.6) {\small $\beta_\ell$};
+    %
+    \node (2) at (1.5,1.6) {\small $\boldsymbol{\beta}$};
+    %
+    \node (1) at (-1.5,-1.6) {\small $\boldsymbol{\alpha}$};
+    %
+    \node (i1) at (-1,-1.6) {\small $\alpha_1$};
+    \node (id) at (-0.5,-1.6) {\small $\dots$};
+    \node (im) at (0,-1.6) {\small $\alpha_i$};
+    %
+    \node (im1) at (0.3,-0.62) {\small $\alpha_{i+1}$};
+    \node (imd) at (0.8,-0.6) {\small $\dots$};
+    \node (ik) at (1.2,-0.6) {\small $\alpha_j$};
+    %
+    \draw[->,thick] (1)--(N0); 
+    \draw[->,thick] (N1)--(2); 
+    %
+    \draw[->] (N0)--(o1); 
+    \draw[->] (N0)--(od);
+    \draw[->] (N0)--(oj);
+    %  
+    \draw[->] (N0)--(N1) node[midway, left] {$\gamma$} ; 
+    \draw[->] (N1)--(oj1); 
+    \draw[->] (N1)--(ojd);
+    \draw[->] (N1)--(ol);
+    %
+    \draw[->] (i1)--(N0);
+    \draw[->] (id)--(N0);
+    \draw[->] (im)--(N0); 
+    %
+    \draw[->] (im1)--(N1); 
+    \draw[->] (imd)--(N1);
+    \draw[->] (ik)--(N1);
   \end{tikzpicture}
+  
   \raisebox{6.5em}{
   \begin{tikzpicture}[scale=1.2]
     \draw[->] (0,0)--(1,0); 
   \end{tikzpicture}}
-  \quad
+  
   \begin{tikzpicture}[scale=1.6]  
     \node (N0) at (-0.5,0.5) {\small $x$};
     \node (N1) at (0.5,-0.5) {\small $y$};
@@ -981,24 +982,24 @@ In this section, we introduce an elementary local operation on spines on~$\decor
 The fact that $\spine'$ is indeed a spine is immediate from the definitions. Contracting $\gamma$ in either $\spine$ or $\spine'$, we obtain the same spine $\spine''$. 
 
 \begin{figure}[h!]
-  \resizebox{0.6\linewidth}{!}{
+  \centerline{
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-  \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-  \node (5) at (0, 0.5) {$\blue \up[5]$};
-  \node (14) at (-0.5, 1.5) {$\blue 14$};
-  \node (6) at (0.5, 1.5) {$\blue 6$};
-  \node (9) at (1, 2.5) {$\blue \up[9]$};
-  \node (7) at (-1, -1.5) {$\blue \down[7]$};
-  \node (8) at (-1.5, -2.5) {$\blue 8$};
-  \node (3) at (0, -1.5) {$\blue 3$};
+    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (5) at (0, 0.5) {$\blue \up[5]$};
+    \node (14) at (-0.5, 1.5) {$\blue 14$};
+    \node (6) at (0.5, 1.5) {$\blue 6$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
+    \node (7) at (-1, -1.5) {$\blue \down[7]$};
+    \node (8) at (-1.5, -2.5) {$\blue 8$};
+    \node (3) at (0, -1.5) {$\blue 3$};
   %
-  \draw[->] (8)--(7); 
-  \draw[->] (7)--(2); 
-  \draw[->] (3)--(2); 
-  \draw[->] (2)--(5) node[midway, left] {$\gamma$}; 
-  \draw[->] (5)--(14); 
-  \draw[->] (5)--(6); 
-  \draw[->] (6)--(9); 
+    \draw[->] (8)--(7); 
+    \draw[->] (7)--(2); 
+    \draw[->] (3)--(2); 
+    \draw[->] (2)--(5) node[midway, left] {$\gamma$}; 
+    \draw[->] (5)--(14); 
+    \draw[->] (5)--(6); 
+    \draw[->] (6)--(9); 
   \end{tikzpicture}
   
   \raisebox{6.5em}{
@@ -1007,22 +1008,22 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
   \end{tikzpicture}}
   
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-  \node (2) at (-0.5, 0.5) {$\blue \updown[2]$};
-  \node (5) at (0, -0.5) {$\blue \up[5]$};
-  \node (14) at (0.5, 0.5) {$\blue 14$};
-  \node (6) at (-1, 1.5) {$\blue 6$};
-  \node (9) at (-1.5, 2.5) {$\blue \up[9]$};
-  \node (7) at (0.5, -1.5) {$\blue \down[7]$};
-  \node (8) at (1, -2.5) {$\blue 8$};
-  \node (3) at (-1, -0.5) {$\blue 3$};
-  %
-  \draw[->] (8)--(7); 
-  \draw[->] (7)--(5); 
-  \draw[->] (3)--(2); 
-  \draw[->] (5)--(2) node[midway, right] {$\gamma$};  
-  \draw[->] (5)--(14); 
-  \draw[->] (2)--(6); 
-  \draw[->] (6)--(9); 
+    \node (2) at (-0.5, 0.5) {$\blue \updown[2]$};
+    \node (5) at (0, -0.5) {$\blue \up[5]$};
+    \node (14) at (0.5, 0.5) {$\blue 14$};
+    \node (6) at (-1, 1.5) {$\blue 6$};
+    \node (9) at (-1.5, 2.5) {$\blue \up[9]$};
+    \node (7) at (0.5, -1.5) {$\blue \down[7]$};
+    \node (8) at (1, -2.5) {$\blue 8$};
+    \node (3) at (-1, -0.5) {$\blue 3$};
+    %
+    \draw[->] (8)--(7); 
+    \draw[->] (7)--(5); 
+    \draw[->] (3)--(2); 
+    \draw[->] (5)--(2) node[midway, right] {$\gamma$};  
+    \draw[->] (5)--(14); 
+    \draw[->] (2)--(6); 
+    \draw[->] (6)--(9); 
   \end{tikzpicture}
   }
   \caption{Two maximal spines on the block graph of \cref{fig:mapleBlock}, related by a flip.}
@@ -1095,45 +1096,43 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
 \end{definition}
 
 \begin{figure}[h!]
-\resizebox{0.8\linewidth}{!}{
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+  \centerline{
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+    \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
+    \node (14) at (-1, 2) {$\blue 1 4$};
+    \node (9) at (1, 2) {$\blue \up[9]$};
+    \node (78) at (-1, -2) {$\blue \down[7] 8$};
+    \node (3) at (1, -2) {$\blue 3$};
+    %
+    \draw[->] (256)--(14) node[midway, left] {$ade$}; 
+    \draw[->] (256)--(9) node[midway, right] {$fgjk$}; 
+    \draw[->] (78)--(256) node[midway, left] {$adefghijk$}; 
+    \draw[->] (3)--(256) node[midway, right] {$bc$}; 
+  \end{tikzpicture}
 
-\node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
-\node (14) at (-1, 2) {$\blue 1 4$};
-\node (9) at (1, 2) {$\blue \up[9]$};
-\node (78) at (-1, -2) {$\blue \down[7] 8$};
-\node (3) at (1, -2) {$\blue 3$};
+  \qquad
 
-\draw[->] (256)--(14) node[midway, left] {$ade$}; 
-\draw[->] (256)--(9) node[midway, right] {$fgjk$}; 
-\draw[->] (78)--(256) node[midway, left] {$adefghijk$}; 
-\draw[->] (3)--(256) node[midway, right] {$bc$}; 
-
-\end{tikzpicture}
-
-\qquad
-
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-\node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-\node (5) at (0, 0.5) {$\blue \up[5]$};
-\node (14) at (-0.5, 1.5) {$\blue 14$};
-\node (6) at (0.5, 1.5) {$\blue 6$};
-\node (9) at (1, 2.5) {$\blue \up[9]$};
-\node (7) at (-1, -1.5) {$\blue \down[7]$};
-\node (8) at (-1.5, -2.5) {$\blue 8$};
-\node (3) at (0, -1.5) {$\blue 3$};
-%
-\draw[->] (8)--(7) node[midway, left] {\small $adefghjk$}; 
-\draw[->] (7)--(2) node[midway, left] {\small $adefghijk$}; 
-\draw[->] (3)--(2) node[midway, right] {\small $bc$}; 
-\draw[->] (2)--(5) node[midway, left] {\small $adefghijk$}; 
-\draw[->] (5)--(14) node[midway, left] {\small $ade$}; 
-\draw[->] (5)--(6) node[midway, right] {\small $fgjk$}; 
-\draw[->] (6)--(9) node[midway, right] {\small $fgjk$}; 
-\end{tikzpicture}
-}
-\caption{The labeled versions of the two spines of \cref{fig:exampleSpine}.}
-\label{fig:exampleLabeledSpine}
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (5) at (0, 0.5) {$\blue \up[5]$};
+    \node (14) at (-0.5, 1.5) {$\blue 14$};
+    \node (6) at (0.5, 1.5) {$\blue 6$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
+    \node (7) at (-1, -1.5) {$\blue \down[7]$};
+    \node (8) at (-1.5, -2.5) {$\blue 8$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    %
+    \draw[->] (8)--(7) node[midway, left] {\small $adefghjk$}; 
+    \draw[->] (7)--(2) node[midway, left] {\small $adefghijk$}; 
+    \draw[->] (3)--(2) node[midway, right] {\small $bc$}; 
+    \draw[->] (2)--(5) node[midway, left] {\small $adefghijk$}; 
+    \draw[->] (5)--(14) node[midway, left] {\small $ade$}; 
+    \draw[->] (5)--(6) node[midway, right] {\small $fgjk$}; 
+    \draw[->] (6)--(9) node[midway, right] {\small $fgjk$}; 
+  \end{tikzpicture}
+  }
+  \caption{The labeled versions of the two spines of \cref{fig:exampleSpine}.}
+  \label{fig:exampleLabeledSpine}
 \end{figure} 
 
 \begin{remark}
@@ -1192,77 +1191,75 @@ This is not strictly needed for the purposes of the next section, but it enlight
 \end{definition}
 
 \begin{figure}[h!]
-\resizebox{0.8\linewidth}{!}{
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+  \centerline{
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+    \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
+    \node (14) at (-1, 2) {$\blue 1 4$};
+    \node (9) at (1, 2) {$\blue \up[9]$};
+    \node (78) at (-1, -2) {$\blue \down[7] 8$};
+    \node (3) at (1, -2) {$\blue 3$};
+    \node (i) at (-1.5, -3) {};
+    \node (adefghjk) at (-0.5, -3) {};
+    \node (bc) at (1.5, -3) {};
+    \node (k) at (1.5, 3) {};
+    \node (fgj) at (0.5, 3) {};
+    \node (ade) at (-1.5, 3) {};
+    \node (bc') at (-1.5, 0.75) {};
+    \node (hi) at (1.5, 0.75) {};
+    %
+    \draw[->] (256)--(14) node[midway, left] {$ade$}; 
+    \draw[->] (256)--(9) node[midway, right] {$fgjk$}; 
+    \draw[->] (78)--(256) node[midway, left] {$adefghijk$}; 
+    \draw[->] (3)--(256) node[midway, right] {$bc$}; 
+    \draw[->] (i)--(78) node[midway, left] {$i$}; 
+    \draw[->] (adefghjk)--(78) node[midway, right] {$adefghjk$};
+    \draw[->] (bc)--(3) node[midway, right] {$bc$}; 
+    \draw[->] (9)--(k) node[midway, right] {$k$}; 
+    \draw[->] (9)--(fgj) node[midway, left] {$fgj$};
+    \draw[->] (14)--(ade) node[midway, left] {$ade$};
+    \draw[->] (256)--(bc') node[midway, left] {$bc$};
+    \draw[->] (256)--(hi) node[midway, right] {$hi$};
+  \end{tikzpicture}
 
-\node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
-\node (14) at (-1, 2) {$\blue 1 4$};
-\node (9) at (1, 2) {$\blue \up[9]$};
-\node (78) at (-1, -2) {$\blue \down[7] 8$};
-\node (3) at (1, -2) {$\blue 3$};
-\node (i) at (-1.5, -3) {};
-\node (adefghjk) at (-0.5, -3) {};
-\node (bc) at (1.5, -3) {};
-\node (k) at (1.5, 3) {};
-\node (fgj) at (0.5, 3) {};
-\node (ade) at (-1.5, 3) {};
-\node (bc') at (-1.5, 0.75) {};
-\node (hi) at (1.5, 0.75) {};
+  \qquad
 
-\draw[->] (256)--(14) node[midway, left] {$ade$}; 
-\draw[->] (256)--(9) node[midway, right] {$fgjk$}; 
-\draw[->] (78)--(256) node[midway, left] {$adefghijk$}; 
-\draw[->] (3)--(256) node[midway, right] {$bc$}; 
-\draw[->] (i)--(78) node[midway, left] {$i$}; 
-\draw[->] (adefghjk)--(78) node[midway, right] {$adefghjk$};
-\draw[->] (bc)--(3) node[midway, right] {$bc$}; 
-\draw[->] (9)--(k) node[midway, right] {$k$}; 
-\draw[->] (9)--(fgj) node[midway, left] {$fgj$};
-\draw[->] (14)--(ade) node[midway, left] {$ade$};
-\draw[->] (256)--(bc') node[midway, left] {$bc$};
-\draw[->] (256)--(hi) node[midway, right] {$hi$};
-
-\end{tikzpicture}
-
-\qquad
-
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-\node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-\node (5) at (0, 0.5) {$\blue \up[5]$};
-\node (14) at (-0.5, 1.5) {$\blue 14$};
-\node (6) at (0.5, 1.5) {$\blue 6$};
-\node (9) at (1, 2.5) {$\blue \up[9]$};
-\node (7) at (-1, -1.5) {$\blue \down[7]$};
-\node (8) at (-1.5, -2.5) {$\blue 8$};
-\node (3) at (0, -1.5) {$\blue 3$};
-\node (ade) at (-1, 2.5) {};
-\node (fgj) at (0.5, 3.5) {};
-\node (k) at (1.5, 3.5) {};
-\node (adefghjk) at (-2, -3.5) {};
-\node (i) at (-0.5, -2.5) {};
-\node (bc) at (0.5, -2.5) {};
-\node (bc') at (-1, 0.5) {};
-\node (hi) at (1.5, 1) {};
-%
-\draw[->] (8)--(7) node[midway, left] {\small $adefghjk$}; 
-\draw[->] (7)--(2) node[midway, left] {\small $adefghijk$}; 
-\draw[->] (3)--(2) node[midway, right] {\small $bc$}; 
-\draw[->] (2)--(5) node[midway, right] {\small $adefghijk$}; 
-\draw[->] (5)--(14) node[midway, left] {\small $ade$}; 
-\draw[->] (5)--(6) node[midway, right] {\small $fgjk$}; 
-\draw[->] (6)--(9) node[midway, right] {\small $fgjk$}; 
-\draw[->] (14)--(ade) node[midway, left] {\small $ade$}; 
-\draw[->] (9)--(fgj) node[midway, left] {\small $fgj$}; 
-\draw[->] (9)--(k) node[midway, right] {\small $k$}; 
-\draw[->] (adefghjk)--(8) node[midway, left] {\small $adefghjk$}; 
-\draw[->] (i)--(7) node[midway, right] {\small $i$}; 
-\draw[->] (bc)--(3) node[midway, right] {\small $bc$};
-\draw[->] (2)--(bc') node[midway, left] {\small $bc$};
-\draw[->] (5)--(hi) node[midway, right] {\small $hi$};
-\end{tikzpicture}
-}
-\caption{The blossoming versions of the two spines of \cref{fig:exampleSpine}.}
-\label{fig:exampleBlossomingSpine}
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (5) at (0, 0.5) {$\blue \up[5]$};
+    \node (14) at (-0.5, 1.5) {$\blue 14$};
+    \node (6) at (0.5, 1.5) {$\blue 6$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
+    \node (7) at (-1, -1.5) {$\blue \down[7]$};
+    \node (8) at (-1.5, -2.5) {$\blue 8$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (ade) at (-1, 2.5) {};
+    \node (fgj) at (0.5, 3.5) {};
+    \node (k) at (1.5, 3.5) {};
+    \node (adefghjk) at (-2, -3.5) {};
+    \node (i) at (-0.5, -2.5) {};
+    \node (bc) at (0.5, -2.5) {};
+    \node (bc') at (-1, 0.5) {};
+    \node (hi) at (1.5, 1) {};
+    %
+    \draw[->] (8)--(7) node[midway, left] {\small $adefghjk$}; 
+    \draw[->] (7)--(2) node[midway, left] {\small $adefghijk$}; 
+    \draw[->] (3)--(2) node[midway, right] {\small $bc$}; 
+    \draw[->] (2)--(5) node[midway, right] {\small $adefghijk$}; 
+    \draw[->] (5)--(14) node[midway, left] {\small $ade$}; 
+    \draw[->] (5)--(6) node[midway, right] {\small $fgjk$}; 
+    \draw[->] (6)--(9) node[midway, right] {\small $fgjk$}; 
+    \draw[->] (14)--(ade) node[midway, left] {\small $ade$}; 
+    \draw[->] (9)--(fgj) node[midway, left] {\small $fgj$}; 
+    \draw[->] (9)--(k) node[midway, right] {\small $k$}; 
+    \draw[->] (adefghjk)--(8) node[midway, left] {\small $adefghjk$}; 
+    \draw[->] (i)--(7) node[midway, right] {\small $i$}; 
+    \draw[->] (bc)--(3) node[midway, right] {\small $bc$};
+    \draw[->] (2)--(bc') node[midway, left] {\small $bc$};
+    \draw[->] (5)--(hi) node[midway, right] {\small $hi$};
+  \end{tikzpicture}
+  }
+  \caption{The blossoming versions of the two spines of \cref{fig:exampleSpine}.}
+  \label{fig:exampleBlossomingSpine}
 \end{figure}
 
 \begin{proposition}
@@ -1352,134 +1349,134 @@ This is not strictly needed for the purposes of the next section, but it enlight
 We now consider a natural refinement order on decorated block graphs and define natural surjections between the spines of refining decorated block graphs.
 
 \begin{definition}
-  \label{def:refinement}
+  \label{def:refinementDecoratedGraphs}
   For two decorations~$\decoration$ and~$\decoration'$ on a set~$\vertexSet$, we say that~$\decoration$ \defn{refines}~$\decoration'$ (and that $\decoration'$ \defn{coarsens} $\decoration$) if~$\Down[\vertexSet] \subseteq \Down[\vertexSet][\decoration']$ and $\Up[\vertexSet] \subseteq \Up[\vertexSet][\decoration']$.
   For two decorated block graphs~$\decoratedGraph \eqdef (\Graph, \decoration)$ and~$\decoratedGraph' \eqdef (\Graph', \decoration')$, we say that~$\decoratedGraph$ \defn{refines}~$\decoratedGraph'$ (and that $\decoratedGraph'$ \defn{coarsens} $\decoratedGraph$) if~$\Graph = \Graph'$ and $\decoration$ refines~$\decoration'$.
   \vincent{picture of a pair of refining decorated block graphs, and two pairs of spines (related by the surjection, one maximal one not).}
 \end{definition}
 
 \begin{figure}
-\centerline{
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-  \node (1) at (-4, -19) {$\blue 1$};
-  \node (4) at (-4, -21) {$\blue 4$};
-  \node (5) at (-2, -21) {$\blue \up[5]$};
-  \node (7) at (-4, -23) {$\blue 7$};
-  \node (8) at (0, -23) {$\blue 8$};
-  \node (9) at (2, -23) {$\blue 9$};
-  \node (6) at (2, -21) {$\blue 6$};
-  \node (2) at (0, -19) {$\blue \updown[2]$};
-  \node (3) at (2, -19) {$\blue 3$};
-  %
-  \draw[-] (1)--(4)--(5)--(1); 
-  \draw[-] (2)--(6)--(8)--(5); 
-  \draw[-] (7)--(5)--(2)--(3); 
-  \draw[-] (2)--(8)--(9); 
-  \draw[-] (5)--(6); 
-\end{tikzpicture}
-\qquad
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-\node (1) at (-4, -19) {$\blue 1$};
-\node (4) at (-4, -21) {$\blue 4$};
-\node (5) at (-2, -21) {$\blue \up[5]$};
-\node (7) at (-4, -23) {$\blue \down[7]$};
-\node (8) at (0, -23) {$\blue 8$};
-\node (9) at (2, -23) {$\blue \up[9]$};
-\node (6) at (2, -21) {$\blue 6$};
-\node (2) at (0, -19) {$\blue \updown[2]$};
-\node (3) at (2, -19) {$\blue 3$};
-%
-\draw[-] (1)--(4)--(5)--(1); 
-\draw[-] (2)--(6)--(8)--(5); 
-\draw[-] (7)--(5)--(2)--(3); 
-\draw[-] (2)--(8)--(9); 
-\draw[-] (5)--(6); 
-\end{tikzpicture}
-}
-\caption{Two refining decorated block graphs: the graph on the left refines the graph on the right.}
-\label{fig:refiningBlock}
+  \centerline{
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (1) at (-4, -19) {$\blue 1$};
+    \node (4) at (-4, -21) {$\blue 4$};
+    \node (5) at (-2, -21) {$\blue \up[5]$};
+    \node (7) at (-4, -23) {$\blue 7$};
+    \node (8) at (0, -23) {$\blue 8$};
+    \node (9) at (2, -23) {$\blue 9$};
+    \node (6) at (2, -21) {$\blue 6$};
+    \node (2) at (0, -19) {$\blue \updown[2]$};
+    \node (3) at (2, -19) {$\blue 3$};
+    %
+    \draw[-] (1)--(4)--(5)--(1); 
+    \draw[-] (2)--(6)--(8)--(5); 
+    \draw[-] (7)--(5)--(2)--(3); 
+    \draw[-] (2)--(8)--(9); 
+    \draw[-] (5)--(6); 
+  \end{tikzpicture}
+
+  \qquad
+
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (1) at (-4, -19) {$\blue 1$};
+    \node (4) at (-4, -21) {$\blue 4$};
+    \node (5) at (-2, -21) {$\blue \up[5]$};
+    \node (7) at (-4, -23) {$\blue \down[7]$};
+    \node (8) at (0, -23) {$\blue 8$};
+    \node (9) at (2, -23) {$\blue \up[9]$};
+    \node (6) at (2, -21) {$\blue 6$};
+    \node (2) at (0, -19) {$\blue \updown[2]$};
+    \node (3) at (2, -19) {$\blue 3$};
+    %
+    \draw[-] (1)--(4)--(5)--(1); 
+    \draw[-] (2)--(6)--(8)--(5); 
+    \draw[-] (7)--(5)--(2)--(3); 
+    \draw[-] (2)--(8)--(9); 
+    \draw[-] (5)--(6); 
+  \end{tikzpicture}
+  }
+  \caption{Two refining decorated block graphs: the graph on the left refines the graph on the right.}
+  \label{fig:refinementDecoratedGraphs}
 \end{figure} 
 
 \begin{figure}[h!]
-\resizebox{\linewidth}{!}{
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
-
-\node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
-\node (14) at (-1, 2) {$\blue 1 4$};
-\node (9) at (1, 2) {$\blue \up[9]$};
-\node (78) at (-1, -2) {$\blue \down[7] 8$};
-\node (3) at (1, -2) {$\blue 3$};
-
-\draw[->] (256)--(14); 
-\draw[->] (256)--(9); 
-\draw[->] (78)--(256); 
-\draw[->] (3)--(256); 
-
-\end{tikzpicture}
-
-\qquad
-
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
-
-\node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
-\node (14) at (-1, 2) {$\blue 1 4$};
-\node (9) at (1, 2) {$\blue \up[9]$};
-\node (78) at (-1, -2) {$\blue \down[7] 8$};
-\node (3) at (1, -2) {$\blue 3$};
-
-\draw[->] (256)--(14); 
-\draw[->] (256)--(9); 
-\draw[->] (78)--(256); 
-\draw[->] (3)--(256); 
-
-\end{tikzpicture}
-
-\qquad
-
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-\node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-\node (5) at (0, 0.5) {$\blue \up[5]$};
-\node (14) at (-0.5, 1.5) {$\blue 14$};
-\node (6) at (0.5, 1.5) {$\blue 6$};
-\node (9) at (1, 2.5) {$\blue \up[9]$};
-\node (7) at (-1, -1.5) {$\blue \down[7]$};
-\node (8) at (-1.5, -2.5) {$\blue 8$};
-\node (3) at (0, -1.5) {$\blue 3$};
-%
-\draw[->] (8)--(7); 
-\draw[->] (7)--(2); 
-\draw[->] (3)--(2); 
-\draw[->] (2)--(5); 
-\draw[->] (5)--(14); 
-\draw[->] (5)--(6); 
-\draw[->] (6)--(9); 
-\end{tikzpicture}
-
-\begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-\node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-\node (5) at (0, 0.5) {$\blue \up[5]$};
-\node (14) at (-0.5, 1.5) {$\blue 14$};
-\node (6) at (0.5, 1.5) {$\blue 6$};
-\node (9) at (1, 2.5) {$\blue \up[9]$};
-\node (7) at (-1, -1.5) {$\blue \down[7]$};
-\node (8) at (-1.5, -2.5) {$\blue 8$};
-\node (3) at (0, -1.5) {$\blue 3$};
-%
-\draw[->] (8)--(7); 
-\draw[->] (7)--(2); 
-\draw[->] (3)--(2); 
-\draw[->] (2)--(5); 
-\draw[->] (5)--(14); 
-\draw[->] (5)--(6); 
-\draw[->] (6)--(9); 
-\end{tikzpicture}
-}
-\caption{Two pairs of refining spines on the block graphs of \cref{fig:refiningBlock}. }
-\label{fig:refiningSpine}
+  \centerline{
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]   
+    \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
+    \node (14) at (-1, 2) {$\blue 1 4$};
+    \node (9) at (1, 2) {$\blue \up[9]$};
+    \node (78) at (-1, -2) {$\blue \down[7] 8$};
+    \node (3) at (1, -2) {$\blue 3$};
+    %
+    \draw[->] (256)--(14); 
+    \draw[->] (256)--(9); 
+    \draw[->] (78)--(256); 
+    \draw[->] (3)--(256); 
+  \end{tikzpicture}
+    
+    \qquad
+    
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+    \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
+    \node (14) at (-1, 2) {$\blue 1 4$};
+    \node (9) at (1, 2) {$\blue \up[9]$};
+    \node (78) at (-1, -2) {$\blue \down[7] 8$};
+    \node (3) at (1, -2) {$\blue 3$};
+    %
+    \draw[->] (256)--(14); 
+    \draw[->] (256)--(9); 
+    \draw[->] (78)--(256); 
+    \draw[->] (3)--(256); 
+  \end{tikzpicture}
+    
+    \qquad
+    
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (5) at (0, 0.5) {$\blue \up[5]$};
+    \node (14) at (-0.5, 1.5) {$\blue 14$};
+    \node (6) at (0.5, 1.5) {$\blue 6$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
+    \node (7) at (-1, -1.5) {$\blue \down[7]$};
+    \node (8) at (-1.5, -2.5) {$\blue 8$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    %
+    \draw[->] (8)--(7); 
+    \draw[->] (7)--(2); 
+    \draw[->] (3)--(2); 
+    \draw[->] (2)--(5); 
+    \draw[->] (5)--(14); 
+    \draw[->] (5)--(6); 
+    \draw[->] (6)--(9); 
+  \end{tikzpicture}
+    
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (5) at (0, 0.5) {$\blue \up[5]$};
+    \node (14) at (-0.5, 1.5) {$\blue 14$};
+    \node (6) at (0.5, 1.5) {$\blue 6$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
+    \node (7) at (-1, -1.5) {$\blue \down[7]$};
+    \node (8) at (-1.5, -2.5) {$\blue 8$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    %
+    \draw[->] (8)--(7); 
+    \draw[->] (7)--(2); 
+    \draw[->] (3)--(2); 
+    \draw[->] (2)--(5); 
+    \draw[->] (5)--(14); 
+    \draw[->] (5)--(6); 
+    \draw[->] (6)--(9); 
+  \end{tikzpicture}
+  }
+  \caption{Two pairs of refining spines on the block graphs of \cref{fig:refinementDecoratedGraphs}. }
+  \label{fig:refinementSpines}
 \end{figure} 
 
-The following definition describes the natural surjection from the spines on~$\decoratedGraph$ to the spines on~$\decoratedGraph'$ when $\decoratedGraph$ refines~$\decoratedGraph'$.
-It requires the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}.
+The goal of this section is to define and describe a natural surjection~$\surjectionSpines$ from the spines on~$\decoratedGraph$ to the spines on~$\decoratedGraph'$ when $\decoratedGraph$ refines~$\decoratedGraph'$.
+The key property of~$\surjectionSpines(\spine)$ is given in \cref{prop:alternativeDescriptionRefinementSpines}, and should be considered as the definition of~$\surjectionSpines(\spine)$.
+However, proving this property requires the following direct description of~$\surjectionSpines(\spine)$, which uses the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}.
+\vincent{We do not need the sweeping algorithm anymore...}
 
 \begin{definition}
   \label{def:refinementSpines}
@@ -1502,7 +1499,7 @@ It requires the labeling~$\labeling$ of the nodes and arcs of the spines describ
   \end{itemize}
 \end{remark}
 
-Our next three statements aim at showing the correctness of \cref{def:refinementSpines}.
+Our next three statements aim at showing the correctness of \cref{def:refinementSpines}, meaning that~$\spine'$ is indeed a spine on~$\decoratedGraph'$.
 \vincent{Maybe first need to prove that ``unique node'' is correct.}
 % For an arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and a connected component~$C$ of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ there is a unique connected component~$D$ of ${\Maple \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ containing~$C$, and a unique connected component~$E$ of ${\Maple \ssm \big( \Up[{\so[Y]}][\decoration'] \cup \Down[{\ta[Y]}][\decoration'] \big)}$ containing~$C$. Indeed... todo.
 For this, we first study the directed tree~$\almostSpine'$ described in \cref{def:refinementSpines} before contraction of the empty nodes.
@@ -1564,21 +1561,23 @@ For this, we first study the directed tree~$\almostSpine'$ described in \cref{de
 \end{proof}
 
 We now describe the surjection map~$\surjectionSpines$ in terms of extensions defined in \cref{def:preorderSpine} and the spine poset of \cref{def:spinePoset}.
+The next statement should be though as the definition of~$\surjectionSpines$, but its proof requires the description of \cref{def:refinementSpines}.
 
 \begin{proposition}
   \label{prop:alternativeDescriptionRefinementSpines}
-%  Let~$\decoratedGraph$ and~$\decoratedGraph'$ be two decorated block graphs such that~$\decoratedGraph$ refines~$\b{G'}$.
+%  Let~$\decoratedGraph$ and~$\decoratedGraph'$ be two decorated block graphs such that~$\decoratedGraph$ refines~$\decoratedGraph'$.
   The spine~$\surjectionSpines(\spine)$ is the unique contraction minimal spine on~$\decoratedGraph'$ extended by the spine~$\spine$ of~$\decoratedGraph$.
 \end{proposition}
 
 \begin{proof}
   Observe first that 
+  \vincent{need to say explicitly that~$S$ extends~$S'$...}
   \begin{itemize}
     \item if~$\spine$ extends~$\spine'$, then each node~$X$ of~$\spine$ is the disjoint union of nodes~$X'_1, \dots, X'_k$ of~$\spine'$.
     \item if~$\spine$ extends~$\spine'$, then~$\spine'$ is a minimal spine extended by~$\spine$ if and only if for each node~$X$ of~$\spine$ is the disjoint union of nodes~$X'_1, \dots, X'_k$ incomparable in~$\spine'$.
   \end{itemize}
   It follows that~$\surjectionSpines(\spine)$ is indeed a minimal spine on~$\decoratedGraph'$ extended by~$\spine$.
-  Moreover, the spines of~$\decoratedGraph'$ extended by~$\spine$ form an upper ideal of the spine poset~$\spinePoset[\decoratedGraph']$.
+  Moreover, the spines on~$\decoratedGraph'$ extended by~$\spine$ form an upper ideal of the spine poset~$\spinePoset[\decoratedGraph']$.
   We thus need to show that it is the only minimal spine on~$\decoratedGraph'$ extended by~$\spine$.
   \vincent{todo}
 \end{proof}
