@@ -430,20 +430,22 @@ We now define the main combinatorial objects studied in this paper.
   \end{tikzpicture}
   \qquad
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (4) at (-1, 2.5) {$\blue 4$};
     \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (14) at (-0.5, 1.5) {$\blue 14$};
     \node (6) at (0.5, 1.5) {$\blue 6$};
-    \node (9) at (1, 2.5) {$\blue \up[9]$};
     \node (7) at (-1, -1.5) {$\blue \down[7]$};
     \node (8) at (-1.5, -2.5) {$\blue 8$};
-    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
     %
     \draw[->] (8)--(7); 
     \draw[->] (7)--(2); 
     \draw[->] (3)--(2); 
     \draw[->] (2)--(5); 
-    \draw[->] (5)--(14); 
+    \draw[->] (5)--(1); 
+    \draw[->] (1)--(4); 
     \draw[->] (5)--(6); 
     \draw[->] (6)--(9); 
   \end{tikzpicture}
@@ -984,20 +986,22 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 \begin{figure}[h!]
   \centerline{
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (4) at (-1, 2.5) {$\blue 4$};
     \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (14) at (-0.5, 1.5) {$\blue 14$};
     \node (6) at (0.5, 1.5) {$\blue 6$};
-    \node (9) at (1, 2.5) {$\blue \up[9]$};
     \node (7) at (-1, -1.5) {$\blue \down[7]$};
     \node (8) at (-1.5, -2.5) {$\blue 8$};
-    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
   %
     \draw[->] (8)--(7); 
     \draw[->] (7)--(2); 
     \draw[->] (3)--(2); 
     \draw[->] (2)--(5) node[midway, left] {$\gamma$}; 
-    \draw[->] (5)--(14); 
+    \draw[->] (5)--(1); 
+    \draw[->] (1)--(4); 
     \draw[->] (5)--(6); 
     \draw[->] (6)--(9); 
   \end{tikzpicture}
@@ -1008,20 +1012,22 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
   \end{tikzpicture}}
   
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (1) at (0.5, 0.5) {$\blue 1$};
     \node (2) at (-0.5, 0.5) {$\blue \updown[2]$};
+    \node (3) at (-1, -0.5) {$\blue 3$};
+    \node (4) at (1, 1.5) {$\blue 4$};
     \node (5) at (0, -0.5) {$\blue \up[5]$};
-    \node (14) at (0.5, 0.5) {$\blue 14$};
     \node (6) at (-1, 1.5) {$\blue 6$};
-    \node (9) at (-1.5, 2.5) {$\blue \up[9]$};
     \node (7) at (0.5, -1.5) {$\blue \down[7]$};
     \node (8) at (1, -2.5) {$\blue 8$};
-    \node (3) at (-1, -0.5) {$\blue 3$};
+    \node (9) at (-1.5, 2.5) {$\blue \up[9]$};
     %
     \draw[->] (8)--(7); 
     \draw[->] (7)--(5); 
     \draw[->] (3)--(2); 
     \draw[->] (5)--(2) node[midway, right] {$\gamma$};  
-    \draw[->] (5)--(14); 
+    \draw[->] (5)--(1); 
+    \draw[->] (1)--(4); 
     \draw[->] (2)--(6); 
     \draw[->] (6)--(9); 
   \end{tikzpicture}
@@ -1104,31 +1110,33 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
     \node (78) at (-1, -2) {$\blue \down[7] 8$};
     \node (3) at (1, -2) {$\blue 3$};
     %
-    \draw[->] (256)--(14) node[midway, left] {$ade$}; 
-    \draw[->] (256)--(9) node[midway, right] {$fgjk$}; 
-    \draw[->] (78)--(256) node[midway, left] {$adefghijk$}; 
-    \draw[->] (3)--(256) node[midway, right] {$bc$}; 
+    \draw[->] (256)--(14) node[midway, left] {\red \textit{ade}}; 
+    \draw[->] (256)--(9) node[midway, right] {\red \textit{fgjk}}; 
+    \draw[->] (78)--(256) node[midway, left] {\red \textit{adefghijk}}; 
+    \draw[->] (3)--(256) node[midway, right] {\red \textit{bc}}; 
   \end{tikzpicture}
 
   \qquad
 
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (4) at (-1, 2.5) {$\blue 4$};
     \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (14) at (-0.5, 1.5) {$\blue 14$};
     \node (6) at (0.5, 1.5) {$\blue 6$};
-    \node (9) at (1, 2.5) {$\blue \up[9]$};
     \node (7) at (-1, -1.5) {$\blue \down[7]$};
     \node (8) at (-1.5, -2.5) {$\blue 8$};
-    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
     %
-    \draw[->] (8)--(7) node[midway, left] {\small $adefghjk$}; 
-    \draw[->] (7)--(2) node[midway, left] {\small $adefghijk$}; 
-    \draw[->] (3)--(2) node[midway, right] {\small $bc$}; 
-    \draw[->] (2)--(5) node[midway, left] {\small $adefghijk$}; 
-    \draw[->] (5)--(14) node[midway, left] {\small $ade$}; 
-    \draw[->] (5)--(6) node[midway, right] {\small $fgjk$}; 
-    \draw[->] (6)--(9) node[midway, right] {\small $fgjk$}; 
+    \draw[->] (8)--(7) node[midway, left] {\red \textit{adefghjk}}; 
+    \draw[->] (7)--(2) node[midway, left] {\red \textit{adefghijk}}; 
+    \draw[->] (3)--(2) node[midway, right] {\red \textit{bc}}; 
+    \draw[->] (2)--(5) node[midway, left] {\red \textit{adefghijk}}; 
+    \draw[->] (5)--(1) node[midway, left] {\red \textit{ade}}; 
+    \draw[->] (1)--(4) node[midway, left] {\red \textit{ade}}; 
+    \draw[->] (5)--(6) node[midway, right] {\red \textit{fgjk}}; 
+    \draw[->] (6)--(9) node[midway, right] {\red \textit{fgjk}}; 
   \end{tikzpicture}
   }
   \caption{The labeled versions of the two spines of \cref{fig:exampleSpine}.}
@@ -1207,32 +1215,33 @@ This is not strictly needed for the purposes of the next section, but it enlight
     \node (bc') at (-1.5, 0.75) {};
     \node (hi) at (1.5, 0.75) {};
     %
-    \draw[->] (256)--(14) node[midway, left] {$ade$}; 
-    \draw[->] (256)--(9) node[midway, right] {$fgjk$}; 
-    \draw[->] (78)--(256) node[midway, left] {$adefghijk$}; 
-    \draw[->] (3)--(256) node[midway, right] {$bc$}; 
-    \draw[->] (i)--(78) node[midway, left] {$i$}; 
-    \draw[->] (adefghjk)--(78) node[midway, right] {$adefghjk$};
-    \draw[->] (bc)--(3) node[midway, right] {$bc$}; 
-    \draw[->] (9)--(k) node[midway, right] {$k$}; 
-    \draw[->] (9)--(fgj) node[midway, left] {$fgj$};
-    \draw[->] (14)--(ade) node[midway, left] {$ade$};
-    \draw[->] (256)--(bc') node[midway, left] {$bc$};
-    \draw[->] (256)--(hi) node[midway, right] {$hi$};
+    \draw[->] (256)--(14) node[midway, left] {\red \textit{ade}}; 
+    \draw[->] (256)--(9) node[midway, right] {\red \textit{fgjk}}; 
+    \draw[->] (78)--(256) node[midway, left] {\red \textit{adefghijk}}; 
+    \draw[->] (3)--(256) node[midway, right] {\red \textit{bc}}; 
+    \draw[->] (i)--(78) node[midway, left] {\red \textit{i}}; 
+    \draw[->] (adefghjk)--(78) node[midway, right] {\red \textit{adefghjk}};
+    \draw[->] (bc)--(3) node[midway, right] {\red \textit{bc}}; 
+    \draw[->] (9)--(k) node[midway, right] {\red \textit{k}}; 
+    \draw[->] (9)--(fgj) node[midway, left] {\red \textit{fgj}};
+    \draw[->] (14)--(ade) node[midway, left] {\red \textit{ade}};
+    \draw[->] (256)--(bc') node[midway, left] {\red \textit{bc}};
+    \draw[->] (256)--(hi) node[midway, right] {\red \textit{hi}};
   \end{tikzpicture}
 
   \qquad
 
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (4) at (-1, 2.5) {$\blue 4$};
     \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (14) at (-0.5, 1.5) {$\blue 14$};
     \node (6) at (0.5, 1.5) {$\blue 6$};
     \node (9) at (1, 2.5) {$\blue \up[9]$};
     \node (7) at (-1, -1.5) {$\blue \down[7]$};
     \node (8) at (-1.5, -2.5) {$\blue 8$};
-    \node (3) at (0, -1.5) {$\blue 3$};
-    \node (ade) at (-1, 2.5) {};
+    \node (ade) at (-1.5, 3.5) {};
     \node (fgj) at (0.5, 3.5) {};
     \node (k) at (1.5, 3.5) {};
     \node (adefghjk) at (-2, -3.5) {};
@@ -1241,21 +1250,22 @@ This is not strictly needed for the purposes of the next section, but it enlight
     \node (bc') at (-1, 0.5) {};
     \node (hi) at (1.5, 1) {};
     %
-    \draw[->] (8)--(7) node[midway, left] {\small $adefghjk$}; 
-    \draw[->] (7)--(2) node[midway, left] {\small $adefghijk$}; 
-    \draw[->] (3)--(2) node[midway, right] {\small $bc$}; 
-    \draw[->] (2)--(5) node[midway, right] {\small $adefghijk$}; 
-    \draw[->] (5)--(14) node[midway, left] {\small $ade$}; 
-    \draw[->] (5)--(6) node[midway, right] {\small $fgjk$}; 
-    \draw[->] (6)--(9) node[midway, right] {\small $fgjk$}; 
-    \draw[->] (14)--(ade) node[midway, left] {\small $ade$}; 
-    \draw[->] (9)--(fgj) node[midway, left] {\small $fgj$}; 
-    \draw[->] (9)--(k) node[midway, right] {\small $k$}; 
-    \draw[->] (adefghjk)--(8) node[midway, left] {\small $adefghjk$}; 
-    \draw[->] (i)--(7) node[midway, right] {\small $i$}; 
-    \draw[->] (bc)--(3) node[midway, right] {\small $bc$};
-    \draw[->] (2)--(bc') node[midway, left] {\small $bc$};
-    \draw[->] (5)--(hi) node[midway, right] {\small $hi$};
+    \draw[->] (8)--(7) node[midway, left] {\red \textit{adefghjk}}; 
+    \draw[->] (7)--(2) node[midway, left] {\red \textit{adefghijk}}; 
+    \draw[->] (3)--(2) node[midway, right] {\red \textit{bc}}; 
+    \draw[->] (2)--(5) node[midway, right] {\red \textit{adefghijk}}; 
+    \draw[->] (5)--(1) node[midway, left] {\red \textit{ade}}; 
+    \draw[->] (1)--(4) node[midway, left] {\red \textit{ade}}; 
+    \draw[->] (5)--(6) node[midway, right] {\red \textit{fgjk}}; 
+    \draw[->] (6)--(9) node[midway, right] {\red \textit{fgjk}}; 
+    \draw[->] (4)--(ade) node[midway, left] {\red \textit{ade}}; 
+    \draw[->] (9)--(fgj) node[midway, left] {\red \textit{fgj}}; 
+    \draw[->] (9)--(k) node[midway, right] {\red \textit{k}}; 
+    \draw[->] (adefghjk)--(8) node[midway, left] {\red \textit{adefghjk}}; 
+    \draw[->] (i)--(7) node[midway, right] {\red \textit{i}}; 
+    \draw[->] (bc)--(3) node[midway, right] {\red \textit{bc}};
+    \draw[->] (2)--(bc') node[midway, left] {\red \textit{bc}};
+    \draw[->] (5)--(hi) node[midway, right] {\red \textit{hi}};
   \end{tikzpicture}
   }
   \caption{The blossoming versions of the two spines of \cref{fig:exampleSpine}.}
@@ -1432,46 +1442,51 @@ We now consider a natural refinement order on decorated block graphs and define 
     \qquad
     
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (4) at (-1, 2.5) {$\blue 4$};
     \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (14) at (-0.5, 1.5) {$\blue 14$};
     \node (6) at (0.5, 1.5) {$\blue 6$};
-    \node (9) at (1, 2.5) {$\blue \up[9]$};
     \node (7) at (-1, -1.5) {$\blue \down[7]$};
     \node (8) at (-1.5, -2.5) {$\blue 8$};
-    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
     %
     \draw[->] (8)--(7); 
     \draw[->] (7)--(2); 
     \draw[->] (3)--(2); 
     \draw[->] (2)--(5); 
-    \draw[->] (5)--(14); 
+    \draw[->] (5)--(1); 
+    \draw[->] (1)--(4); 
     \draw[->] (5)--(6); 
     \draw[->] (6)--(9); 
   \end{tikzpicture}
     
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+    \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (4) at (-1, 2.5) {$\blue 4$};
     \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (14) at (-0.5, 1.5) {$\blue 14$};
     \node (6) at (0.5, 1.5) {$\blue 6$};
-    \node (9) at (1, 2.5) {$\blue \up[9]$};
     \node (7) at (-1, -1.5) {$\blue \down[7]$};
     \node (8) at (-1.5, -2.5) {$\blue 8$};
-    \node (3) at (0, -1.5) {$\blue 3$};
+    \node (9) at (1, 2.5) {$\blue \up[9]$};
     %
     \draw[->] (8)--(7); 
     \draw[->] (7)--(2); 
     \draw[->] (3)--(2); 
     \draw[->] (2)--(5); 
-    \draw[->] (5)--(14); 
+    \draw[->] (5)--(1); 
+    \draw[->] (1)--(4); 
     \draw[->] (5)--(6); 
     \draw[->] (6)--(9); 
   \end{tikzpicture}
   }
-  \caption{Two pairs of refining spines on the block graphs of \cref{fig:refinementDecoratedGraphs}. }
+  \caption{Two pairs of refining spines on the block graphs of \cref{fig:refinementDecoratedGraphs}.}
   \label{fig:refinementSpines}
 \end{figure} 
+\vincent{TODO: \cref{fig:refinementSpines} is not done yet...}
 
 The goal of this section is to define and describe a natural surjection~$\surjectionSpines$ from the spines on~$\decoratedGraph$ to the spines on~$\decoratedGraph'$ when $\decoratedGraph$ refines~$\decoratedGraph'$.
 The key property of~$\surjectionSpines(\spine)$ is given in \cref{prop:alternativeDescriptionRefinementSpines}, and should be considered as the definition of~$\surjectionSpines(\spine)$.
