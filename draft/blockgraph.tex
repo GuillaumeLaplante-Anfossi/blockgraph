@@ -1104,39 +1104,39 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
 \begin{figure}[h!]
   \centerline{
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
-    \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
-    \node (14) at (-1, 2) {$\blue 1 4$};
-    \node (9) at (1, 2) {$\blue \up[9]$};
-    \node (78) at (-1, -2) {$\blue \down[7] 8$};
-    \node (3) at (1, -2) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (14) at (-1, 2) {$\blue 1 4$};
+    \node[label=east:{\scriptsize \red \textit{fgjk}}] (9) at (1, 2) {$\blue \up[9]$};
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (78) at (-1, -2) {$\blue \down[7] 8$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (1, -2) {$\blue 3$};
     %
-    \draw[->] (256)--(14) node[midway, left] {\red \textit{ade}}; 
-    \draw[->] (256)--(9) node[midway, right] {\red \textit{fgjk}}; 
-    \draw[->] (78)--(256) node[midway, left] {\red \textit{adefghijk}}; 
-    \draw[->] (3)--(256) node[midway, right] {\red \textit{bc}}; 
+    \draw[->] (256)--(14) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (256)--(9) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
+    \draw[->] (78)--(256) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
+    \draw[->] (3)--(256) node[midway, right] {\scriptsize \red \textit{bc}}; 
   \end{tikzpicture}
 
   \qquad
 
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-    \node (1) at (-0.5, 1.5) {$\blue 1$};
-    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-    \node (3) at (0, -1.5) {$\blue 3$};
-    \node (4) at (-1, 2.5) {$\blue 4$};
-    \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (6) at (0.5, 1.5) {$\blue 6$};
-    \node (7) at (-1, -1.5) {$\blue \down[7]$};
-    \node (8) at (-1.5, -2.5) {$\blue 8$};
-    \node (9) at (1, 2.5) {$\blue \up[9]$};
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm, label distance=-3pt]  
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-0.5, 1.5) {$\blue 1$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (0, -1.5) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (4) at (-1, 2.5) {$\blue 4$};
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (5) at (0, 0.5) {$\blue \up[5]$};
+    \node[label=east:{\scriptsize \red \textit{fgjk}}] (6) at (0.5, 1.5) {$\blue 6$};
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (7) at (-1, -1.5) {$\blue \down[7]$};
+    \node[label=west:{\scriptsize \red \textit{adefghjk}}] (8) at (-1.5, -2.5) {$\blue 8$};
+    \node[label=east:{\scriptsize \red \textit{jgjk}}] (9) at (1, 2.5) {$\blue \up[9]$};
     %
-    \draw[->] (8)--(7) node[midway, left] {\red \textit{adefghjk}}; 
-    \draw[->] (7)--(2) node[midway, left] {\red \textit{adefghijk}}; 
-    \draw[->] (3)--(2) node[midway, right] {\red \textit{bc}}; 
-    \draw[->] (2)--(5) node[midway, left] {\red \textit{adefghijk}}; 
-    \draw[->] (5)--(1) node[midway, left] {\red \textit{ade}}; 
-    \draw[->] (1)--(4) node[midway, left] {\red \textit{ade}}; 
-    \draw[->] (5)--(6) node[midway, right] {\red \textit{fgjk}}; 
-    \draw[->] (6)--(9) node[midway, right] {\red \textit{fgjk}}; 
+    \draw[->] (8)--(7) node[midway, left] {\scriptsize \red \textit{adefghjk}}; 
+    \draw[->] (7)--(2) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
+    \draw[->] (3)--(2) node[midway, right] {\scriptsize \red \textit{bc}}; 
+    \draw[->] (2)--(5) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
+    \draw[->] (5)--(1) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (1)--(4) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (5)--(6) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
+    \draw[->] (6)--(9) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
   \end{tikzpicture}
   }
   \caption{The labeled versions of the two spines of \cref{fig:exampleSpine}.}
@@ -1201,11 +1201,11 @@ This is not strictly needed for the purposes of the next section, but it enlight
 \begin{figure}[h!]
   \centerline{
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
-    \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
-    \node (14) at (-1, 2) {$\blue 1 4$};
-    \node (9) at (1, 2) {$\blue \up[9]$};
-    \node (78) at (-1, -2) {$\blue \down[7] 8$};
-    \node (3) at (1, -2) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (14) at (-1, 2) {$\blue 1 4$};
+    \node[label=east:{\scriptsize \red \textit{fgjk}}] (9) at (1, 2) {$\blue \up[9]$};
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (78) at (-1, -2) {$\blue \down[7] 8$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (1, -2) {$\blue 3$};
     \node (i) at (-1.5, -3) {};
     \node (adefghjk) at (-0.5, -3) {};
     \node (bc) at (1.5, -3) {};
@@ -1215,57 +1215,57 @@ This is not strictly needed for the purposes of the next section, but it enlight
     \node (bc') at (-1.5, 0.75) {};
     \node (hi) at (1.5, 0.75) {};
     %
-    \draw[->] (256)--(14) node[midway, left] {\red \textit{ade}}; 
-    \draw[->] (256)--(9) node[midway, right] {\red \textit{fgjk}}; 
-    \draw[->] (78)--(256) node[midway, left] {\red \textit{adefghijk}}; 
-    \draw[->] (3)--(256) node[midway, right] {\red \textit{bc}}; 
-    \draw[->] (i)--(78) node[midway, left] {\red \textit{i}}; 
-    \draw[->] (adefghjk)--(78) node[midway, right] {\red \textit{adefghjk}};
-    \draw[->] (bc)--(3) node[midway, right] {\red \textit{bc}}; 
-    \draw[->] (9)--(k) node[midway, right] {\red \textit{k}}; 
-    \draw[->] (9)--(fgj) node[midway, left] {\red \textit{fgj}};
-    \draw[->] (14)--(ade) node[midway, left] {\red \textit{ade}};
-    \draw[->] (256)--(bc') node[midway, left] {\red \textit{bc}};
-    \draw[->] (256)--(hi) node[midway, right] {\red \textit{hi}};
+    \draw[->] (256)--(14) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (256)--(9) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
+    \draw[->] (78)--(256) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
+    \draw[->] (3)--(256) node[midway, right] {\scriptsize \red \textit{bc}}; 
+    \draw[->] (i)--(78) node[midway, left] {\scriptsize \red \textit{i}}; 
+    \draw[->] (adefghjk)--(78) node[midway, right] {\scriptsize \red \textit{adefghjk}};
+    \draw[->] (bc)--(3) node[midway, right] {\scriptsize \red \textit{bc}}; 
+    \draw[->] (9)--(k) node[midway, right] {\scriptsize \red \textit{k}}; 
+    \draw[->] (9)--(fgj) node[midway, left] {\scriptsize \red \textit{fgj}};
+    \draw[->] (14)--(ade) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (256)--(bc') node[midway, left] {\scriptsize \red \textit{bc}};
+    \draw[->] (256)--(hi) node[midway, right] {\scriptsize \red \textit{hi}};
   \end{tikzpicture}
 
   \qquad
 
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-    \node (1) at (-0.5, 1.5) {$\blue 1$};
-    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-    \node (3) at (0, -1.5) {$\blue 3$};
-    \node (4) at (-1, 2.5) {$\blue 4$};
-    \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (6) at (0.5, 1.5) {$\blue 6$};
-    \node (9) at (1, 2.5) {$\blue \up[9]$};
-    \node (7) at (-1, -1.5) {$\blue \down[7]$};
-    \node (8) at (-1.5, -2.5) {$\blue 8$};
+  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm, label distance=-3pt]  
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-0.5, 1.5) {$\blue 1$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (2) at (-0.5, -0.5) {$\blue \updown[2]$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (0, -1.5) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (4) at (-1, 2.5) {$\blue 4$};
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (5) at (0, 0.5) {$\blue \up[5]$};
+    \node[label=east:{\scriptsize \red \textit{fgjk}}] (6) at (0.5, 1.5) {$\blue 6$};
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (7) at (-1, -1.5) {$\blue \down[7]$};
+    \node[label=west:{\scriptsize \red \textit{adefghjk}}] (8) at (-1.5, -2.5) {$\blue 8$};
+    \node[label=east:{\scriptsize \red \textit{jgjk}}] (9) at (1, 2.5) {$\blue \up[9]$};
     \node (ade) at (-1.5, 3.5) {};
     \node (fgj) at (0.5, 3.5) {};
     \node (k) at (1.5, 3.5) {};
     \node (adefghjk) at (-2, -3.5) {};
     \node (i) at (-0.5, -2.5) {};
     \node (bc) at (0.5, -2.5) {};
-    \node (bc') at (-1, 0.5) {};
+    \node (bc') at (1, 0) {};
     \node (hi) at (1.5, 1) {};
     %
-    \draw[->] (8)--(7) node[midway, left] {\red \textit{adefghjk}}; 
-    \draw[->] (7)--(2) node[midway, left] {\red \textit{adefghijk}}; 
-    \draw[->] (3)--(2) node[midway, right] {\red \textit{bc}}; 
-    \draw[->] (2)--(5) node[midway, right] {\red \textit{adefghijk}}; 
-    \draw[->] (5)--(1) node[midway, left] {\red \textit{ade}}; 
-    \draw[->] (1)--(4) node[midway, left] {\red \textit{ade}}; 
-    \draw[->] (5)--(6) node[midway, right] {\red \textit{fgjk}}; 
-    \draw[->] (6)--(9) node[midway, right] {\red \textit{fgjk}}; 
-    \draw[->] (4)--(ade) node[midway, left] {\red \textit{ade}}; 
-    \draw[->] (9)--(fgj) node[midway, left] {\red \textit{fgj}}; 
-    \draw[->] (9)--(k) node[midway, right] {\red \textit{k}}; 
-    \draw[->] (adefghjk)--(8) node[midway, left] {\red \textit{adefghjk}}; 
-    \draw[->] (i)--(7) node[midway, right] {\red \textit{i}}; 
-    \draw[->] (bc)--(3) node[midway, right] {\red \textit{bc}};
-    \draw[->] (2)--(bc') node[midway, left] {\red \textit{bc}};
-    \draw[->] (5)--(hi) node[midway, right] {\red \textit{hi}};
+    \draw[->] (8)--(7) node[midway, left] {\scriptsize \red \textit{adefghjk}}; 
+    \draw[->] (7)--(2) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
+    \draw[->] (3)--(2) node[midway, right] {\scriptsize \red \textit{bc}}; 
+    \draw[->] (2)--(5) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
+    \draw[->] (5)--(1) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (1)--(4) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (5)--(6) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
+    \draw[->] (6)--(9) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
+    \draw[->] (4)--(ade) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (9)--(fgj) node[midway, left] {\scriptsize \red \textit{fgj}}; 
+    \draw[->] (9)--(k) node[midway, right] {\scriptsize \red \textit{k}}; 
+    \draw[->] (adefghjk)--(8) node[midway, left] {\scriptsize \red \textit{adefghjk}}; 
+    \draw[->] (i)--(7) node[midway, right] {\scriptsize \red \textit{i}}; 
+    \draw[->] (bc)--(3) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (2)--(bc') node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (5)--(hi) node[midway, right] {\scriptsize \red \textit{hi}};
   \end{tikzpicture}
   }
   \caption{The blossoming versions of the two spines of \cref{fig:exampleSpine}.}
