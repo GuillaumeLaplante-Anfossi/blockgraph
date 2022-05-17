@@ -451,7 +451,7 @@ We now define the main combinatorial objects studied in this paper.
   \end{tikzpicture}
   }
   \caption{Two spines on the block graph of \cref{fig:mapleBlock}. The one on the right is maximal.}
-  \label{fig:exampleSpine}
+  \label{fig:spines}
 \end{figure} 
 
 \begin{example}
@@ -473,8 +473,8 @@ Let us first recall the definition of a preorder.
   \label{def:preorder}
   Recall that a \defn{preorder} on~$\vertexSet$ is a reflexive and transitive binary relation~$\preccurlyeq$ on~$\vertexSet$.
   For instance, an \defn{equivalence relation} is a symmetric preorder and a \defn{partial order} is an antisymmetric preorder.
-  Any preorder~$\preccurlyeq$ decomposes into an equivalence relation~$\equiv \eqdef \set{(u,v) \in {\preccurlyeq}}{(v,u) \in {\preccurlyeq}}$ together with a partial order~${\le} \eqdef {\preccurlyeq}/{\equiv}$ on the equivalence classes of~$\equiv_R$.
-  For two preorders~$\preccurlyeq, \preccurlyeq'$ on~$\vertexSet$, we say that~$\preccurlyeq$ \defn{extends}~$\preccurlyeq'$ when ${\preccurlyeq} \supseteq {\preccurlyeq'}$ as subsets of~$\vertexSet \times \vertexSet$. %, \ie $u \, R' \, v$ implies $u \, R \, v$ for any~$u,v \in \vertexSet$.
+  Any preorder~$\preccurlyeq$ decomposes into an equivalence relation~$\equiv \eqdef \set{(u,v) \in {\preccurlyeq}}{(v,u) \in {\preccurlyeq}}$ together with a partial order~${\le} \eqdef {\preccurlyeq}/{\equiv}$ on the equivalence classes of~$\equiv$.
+  For two preorders~$\preccurlyeq, \preccurlyeq'$ on~$\vertexSet$, we say that~$\preccurlyeq$ \defn{extends}~$\preccurlyeq'$ when ${\preccurlyeq} \supseteq {\preccurlyeq'}$ as subsets of~$\vertexSet \times \vertexSet$.
 \end{definition}
 
 \begin{definition}
@@ -737,7 +737,6 @@ We next show that the spine poset is actually isomorphic to the inclusion poset 
 \begin{definition}
   \label{def:chunk}
   A \defn{chunk} of~$\decoratedGraph$ is a subset~$\chunk$ of vertices of~$\Graph$ such that~$\chunk$ and its complement~$\vertexSet \ssm \chunk$ form a $\decoratedGraph$-splittable partition of the vertex set~$\vertexSet$ (see \cref{def:splittable}).
-  \vincent{I changed block to chunk...}
 \end{definition}
 
 \begin{definition}
@@ -1033,7 +1032,7 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
   \end{tikzpicture}
   }
   \caption{Two maximal spines on the block graph of \cref{fig:mapleBlock}, related by a flip.}
-  \label{fig:exampleFlip}
+  \label{fig:flip}
   \end{figure} 
 
 \begin{lemma} 
@@ -1064,7 +1063,7 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
   The \defn{$\prec$-increasing flip poset} is the transitive closure of the $\prec$-increasing flip graph.
 \end{definition}
 
-For instance, the flip of \cref{fig:exampleFlip} is increasing with respect to the natural order on $V$.
+For instance, the flip of \cref{fig:flip} is increasing with respect to the natural order on $V$.
 
 \begin{example}
   \label{exm:flipPosets}
@@ -1101,6 +1100,13 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
   We say that the spine~$\spine$ with its labeling~$\labeling$ is a \defn{labeled spine}.
 \end{definition}
 
+\begin{remark}
+  \label{rem:labeledSpine1}
+  By definition, the labels of \cref{def:labeledSpine} are some maple subtrees of~$\Maple$.
+  Note that a maple subtree of~$\Maple$ is completely determined by its leaves, hence by its red vertices.
+  We thus simplify all pictures of labeled spines by writing only the red (letters) vertices of each label.
+  For instance, \cref{fig:labeledSpines} illustrates this labeling for the two spines of \cref{fig:spines}.
+%
 \begin{figure}[h!]
   \centerline{
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
@@ -1139,16 +1145,9 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
     \draw[->] (6)--(9) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
   \end{tikzpicture}
   }
-  \caption{The labeled versions of the two spines of \cref{fig:exampleSpine}.}
-  \label{fig:exampleLabeledSpine}
+  \caption{The labeled versions of the two spines of \cref{fig:spines}.}
+  \label{fig:labeledSpines}
 \end{figure} 
-
-\begin{remark}
-  \label{rem:labeledSpine1}
-  By definition, the labels of \cref{def:labeledSpine} are some maple subtrees of~$\Maple$.
-  Note that a maple subtree of~$\Maple$ is completely determined by its leaves, hence by its red vertices.
-  We thus simplify all pictures of labeled spines by writing only the red (letters) vertices of each label.
-  \vincent{We could even just write the leaves...}
 \end{remark}
 
 \begin{remark}
@@ -1198,6 +1197,10 @@ This is not strictly needed for the purposes of the next section, but it enlight
   The \defn{blossoming spine}~$\spine\blossom$ is the labeled blossoming tree obtained from the labeled spine~$\spine$ by a adding at each node~$X$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by~$C$ for each connected component~$C$ of~$\Maple \ssm \Down[\vertexSet]$ (resp.~of~$\Maple \ssm \Up[\vertexSet]$) adjacent to~$X$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
 \end{definition}
 
+\begin{remark}
+  As in \cref{rem:labeledSpine1}, it is sufficient in the pictures to write only the red vertices of each label.
+  For instance, \cref{fig:blossomingSpines} illustrates the blossoming spines of the two spines of \cref{fig:spines}.
+%
 \begin{figure}[h!]
   \centerline{
   \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
@@ -1268,9 +1271,10 @@ This is not strictly needed for the purposes of the next section, but it enlight
     \draw[->] (5)--(hi) node[midway, right] {\scriptsize \red \textit{hi}};
   \end{tikzpicture}
   }
-  \caption{The blossoming versions of the two spines of \cref{fig:exampleSpine}.}
-  \label{fig:exampleBlossomingSpine}
+  \caption{The blossoming versions of the two spines of \cref{fig:spines}.}
+  \label{fig:blossomingSpines}
 \end{figure}
+\end{remark}
 
 \begin{proposition}
   \label{prop:blossomingSpine}
@@ -1585,16 +1589,37 @@ The next statement should be though as the definition of~$\surjectionSpines$, bu
 \end{proposition}
 
 \begin{proof}
-  Observe first that 
-  \vincent{need to say explicitly that~$S$ extends~$S'$...}
-  \begin{itemize}
-    \item if~$\spine$ extends~$\spine'$, then each node~$X$ of~$\spine$ is the disjoint union of nodes~$X'_1, \dots, X'_k$ of~$\spine'$.
-    \item if~$\spine$ extends~$\spine'$, then~$\spine'$ is a minimal spine extended by~$\spine$ if and only if for each node~$X$ of~$\spine$ is the disjoint union of nodes~$X'_1, \dots, X'_k$ incomparable in~$\spine'$.
-  \end{itemize}
-  It follows that~$\surjectionSpines(\spine)$ is indeed a minimal spine on~$\decoratedGraph'$ extended by~$\spine$.
-  Moreover, the spines on~$\decoratedGraph'$ extended by~$\spine$ form an upper ideal of the spine poset~$\spinePoset[\decoratedGraph']$.
-  We thus need to show that it is the only minimal spine on~$\decoratedGraph'$ extended by~$\spine$.
-  \vincent{todo}
+  The spines on~$\decoratedGraph'$ extended by~$\spine$ clearly form an upper ideal~$I$ of the spine poset~$\spinePoset[\decoratedGraph']$.
+  Observe that~$\surjectionSpines(\spine)$ belongs to~$I$ by \cref{lem:refinementSpines1}, and that~$\surjectionSpines(\spine)$ is contraction minimal in~$I$ since each node of~$\spine$ is the disjoint union of incomparable nodes in~$\surjectionSpines(\spine)$ by \cref{def:refinementSpines}.
+  To conclude, we thus just need to prove that~$I$ has a unique minimal element.
+  Assume by contradiction that there are two distinct contraction minimal spines~$\spine'_\circ, \spine'_\bullet$ on~$\decoratedGraph'$ extended by~$\spine$.
+  Since~$\spine'_\circ$ and~$\spine'_\bullet$ are incomparable in the spine poset, there are vertices~$x,y \in \vertexSet$ such that~$x \preccurlyeq_{\spine'_\circ} y$ while~$x \not\preccurlyeq_{\spine'_\bullet} y$, or~$x \not\preccurlyeq_{\spine'_\circ} y$ while~$x \preccurlyeq_{\spine'_\bullet} y$.
+  Consider such a pair~$\{x,y\}$ whose distance in~$\Maple$ is minimal, and assume for instance that~$x \preccurlyeq_{\spine'_\circ} y$ while~$x \not\preccurlyeq_{\spine'_\bullet} y$.
+  Let~$X_\circ$ and~$Y_\circ$ be the nodes of~$\spine'_\circ$ containing~$x$ and~$y$ respectively, and let~$\pi_\circ$ be the unique path joining~$X_\circ$ to~$Y_\circ$ in~$\spine'_\circ$, and define similarly~$X_\bullet$, $Y_\bullet$ and~$\pi_\bullet$.
+  Since~$x \not\preccurlyeq_{\spine'_\bullet} y$, there is a node of~$\spine'_\bullet$ where~$\pi_\bullet$ has either two incoming or two outgoing arcs.
+  Let~$Z_\bullet$ be the closest such node from~$X_\bullet$.
+  We now distinguish two cases:
+  \begin{enumerate}[(i)]
+    \item Assume first that~$\pi_\bullet$ has two outgoing arcs at~$Z_\bullet$.
+    Since~$x$ and~$y$ belong to the target sets of two distinct outgoing arcs of~$Z$, there is~$z \in \Up[Z_\bullet][\decoration']$ which separates~$x$ and~$y$ in~$\Maple$.
+    Denote by~$Z_\circ$ the node of~$\spine'_\circ$ containing~$z$.
+    Since~$z \preccurlyeq_{\spine'_\bullet} x$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine'_\circ} z$ or~$z \preccurlyeq_{\spine'_\circ} x$.
+    If~$x \preccurlyeq_{\spine'_\circ} z$, we obtain that~$x \preccurlyeq_{\spine} z \preccurlyeq_{\spine} x$ (since~$\spine$ extends both~$\spine'_\circ$ and~$\spine'_\bullet$), which contradicts the minimality of~$\spine'_\bullet$ (the spine obtained by contracting the path joining~$Z_\bullet$ to~$X_\bullet$ in~$\spine'_\bullet$ would still be extended by~$\spine$).
+    We thus obtain that~$z \prec_{\spine'_\circ} x \preccurlyeq_{\spine'_\circ} y$.
+    This implies that~$x$ and~$y$ appear in the target set of the same outgoing arc at~$Z_\circ$, even if they are separated by~$z \in \Up[Z_\circ][\decoration']$, so that~$\spine'_\circ$ fails the local condition around~$Z_\circ$ to be a spine on~$\decoratedGraph'$.
+    %
+    \item Assume now that~$\pi_\bullet$ has two incoming arcs at~$Z_\bullet$.
+    Since~$x$ and~$y$ belong to the source sets of two distinct incoming arcs of~$Z_\bullet$, there is~$z \in \Down[Z_\bullet]$ which separates~$x$ and~$y$ in~$\Maple$.
+    Denote by~$Z_\circ$ the node of~$\spine'_\circ$ containing~$z$.
+    Since~$x \preccurlyeq_{\spine'_\bullet} z$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine'_\circ} z$ or~$z \preccurlyeq_{\spine'_\circ} x$.
+    If~$z \preccurlyeq_{\spine'_\circ} x$, we obtain that~$x \preccurlyeq_{\spine} z \preccurlyeq_{\spine} x$ (since~$\spine$ extends both~$\spine'_\circ$ and~$\spine'_\bullet$), which contradicts the minimality of~$\spine'_\bullet$ (the spine obtained by contracting the path joining~$X_\bullet$ to~$Z_\bullet$ in~$\spine'_\bullet$ would still be extended by~$\spine$).
+    We thus obtain that~$x \prec_{\spine'_\circ} z$.
+    If~$z$ does not appear along the path~$\pi_\circ$, we obtain that~$x$ and~$y$ appear in the source set of the same incoming arc at~$Z_\circ$, even if they are separated by~$z \in \Down[Z_\circ][\decoration']$, so that~$\spine'_\circ$ fails the local condition around~$Z_\circ$ to be a spine on~$\decoratedGraph'$.
+    Otherwise, since~$z \preccurlyeq_{\spine'_\circ} y$ and~$y$ is closer to~$z$ than to~$x$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$z \preccurlyeq_{\spine'_\bullet} y$ or~$y \preccurlyeq_{\spine'_\bullet} z$.
+    If~$y \preccurlyeq_{\spine'_\bullet} z$, we obtain that~$y \preccurlyeq_{\spine} z \preccurlyeq_{\spine} y$ (since~$\spine$ extends both~$\spine'_\circ$ and~$\spine'_\bullet$), which contradicts the minimality of~$\spine'_\circ$ (the spine obtained by contracting the path joining~$Z_\circ$ to~$Y_\circ$ in~$\spine'_\circ$ would still be extended by~$\spine$).
+    We thus obtain that~$x \preccurlyeq_{\spine'_\bullet} z \preccurlyeq_{\spine'_\bullet} y$, contradicting our assumption that~$x \not\preccurlyeq_{\spine'_\bullet} y$.
+    \qedhere
+  \end{enumerate}
 \end{proof}
 
 \begin{corollary}
