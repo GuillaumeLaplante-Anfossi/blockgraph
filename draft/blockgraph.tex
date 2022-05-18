@@ -105,6 +105,7 @@
 \renewcommand{\bottomfraction}{1} % possibility to have one page of pictures
 \newcommand{\shade}[1]{{\color{cyan} #1}}
 \newcommand{\as}{{\scriptstyle \text{\rm !`}}} %Antischrieck
+\tikzset{inner sep=0.4mm}
 
 % marginal comments
 \usepackage{todonotes}
@@ -336,45 +337,47 @@ In this paper, we consider the following additional decorations.
 
 \begin{figure}
   \centerline{
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+  \begin{tikzpicture}[scale=.7]  
     \node (1) at (-4, -19) {$\blue 1$};
+    \node (2) at (0, -19) {$\blue \updown[2]$};
+    \node (3) at (2, -19) {$\blue 3$};
     \node (4) at (-4, -21) {$\blue 4$};
     \node (5) at (-2, -21) {$\blue \up[5]$};
+    \node (6) at (2, -21) {$\blue 6$};
     \node (7) at (-4, -23) {$\blue \down[7]$};
     \node (8) at (0, -23) {$\blue 8$};
     \node (9) at (2, -23) {$\blue \up[9]$};
-    \node (6) at (2, -21) {$\blue 6$};
-    \node (2) at (0, -19) {$\blue \updown[2]$};
-    \node (3) at (2, -19) {$\blue 3$};
     %
-    \node (f) at (0, -21) {$\red f$};
-    \node (d) at (-3, -20) {$\red d$};
     \node (a) at (-5, -19) {$\red a$};
-    \node (e) at (-5, -21) {$\red e$};
-    \node (i) at (-5, -23) {$\red i$};
-    \node (h) at (-3, -22) {$\red h$};
-    \node (j) at (1, -23) {$\red j$};
-    \node (k) at (3, -23) {$\red k$};
-    \node (g) at (3, -21) {$\red g$};
     \node (b) at (1, -19) {$\red b$};
     \node (c) at (3, -19) {$\red c$};
+    \node (d) at (-3, -20) {$\red d$};
+    \node (e) at (-5, -21) {$\red e$};
+    \node (f) at (0, -21) {$\red f$};
+    \node (g) at (3, -21) {$\red g$};
+    \node (h) at (-3, -22) {$\red h$};
+    \node (i) at (-5, -23) {$\red i$};
+    \node (j) at (1, -23) {$\red j$};
+    \node (k) at (3, -23) {$\red k$};
     %
     \draw[-] (a)--(1)--(d)--(4)--(e); 
     \draw[-] (d)--(5)--(h)--(7)--(i); 
     \draw[-] (5)--(f)--(6)--(g); 
     \draw[-] (c)--(3)--(b)--(2)--(f)--(8)--(j)--(9)--(k); 
   \end{tikzpicture}
+
   \qquad
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+
+  \begin{tikzpicture}[scale=.7]  
     \node (1) at (-4, -19) {$\blue 1$};
+    \node (2) at (0, -19) {$\blue \updown[2]$};
+    \node (3) at (2, -19) {$\blue 3$};
     \node (4) at (-4, -21) {$\blue 4$};
     \node (5) at (-2, -21) {$\blue \up[5]$};
+    \node (6) at (2, -21) {$\blue 6$};
     \node (7) at (-4, -23) {$\blue \down[7]$};
     \node (8) at (0, -23) {$\blue 8$};
     \node (9) at (2, -23) {$\blue \up[9]$};
-    \node (6) at (2, -21) {$\blue 6$};
-    \node (2) at (0, -19) {$\blue \updown[2]$};
-    \node (3) at (2, -19) {$\blue 3$};
     %
     \draw[-] (1)--(4)--(5)--(1); 
     \draw[-] (2)--(6)--(8)--(5); 
@@ -416,7 +419,7 @@ We now define the main combinatorial objects studied in this paper.
 
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+  \begin{tikzpicture}
     \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
     \node (14) at (-1, 2) {$\blue 1 4$};
     \node (9) at (1, 2) {$\blue \up[9]$};
@@ -429,7 +432,7 @@ We now define the main combinatorial objects studied in this paper.
     \draw[->] (3)--(256);
   \end{tikzpicture}
   \qquad
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+  \begin{tikzpicture}
     \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
     \node (3) at (0, -1.5) {$\blue 3$};
@@ -984,7 +987,7 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+  \begin{tikzpicture}
     \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
     \node (3) at (0, -1.5) {$\blue 3$};
@@ -1010,7 +1013,7 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
     \draw[->] (0,0)--(1,0); 
   \end{tikzpicture}}
   
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+  \begin{tikzpicture}
     \node (1) at (0.5, 0.5) {$\blue 1$};
     \node (2) at (-0.5, 0.5) {$\blue \updown[2]$};
     \node (3) at (-1, -0.5) {$\blue 3$};
@@ -1109,7 +1112,7 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
 %
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+  \begin{tikzpicture}
     \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
     \node[label=west:{\scriptsize \red \textit{ade}}] (14) at (-1, 2) {$\blue 1 4$};
     \node[label=east:{\scriptsize \red \textit{fgjk}}] (9) at (1, 2) {$\blue \up[9]$};
@@ -1124,7 +1127,7 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
 
   \qquad
 
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm, label distance=-3pt]  
+  \begin{tikzpicture}
     \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-0.5, 1.5) {$\blue 1$};
     \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (2) at (-0.5, -0.5) {$\blue \updown[2]$};
     \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (0, -1.5) {$\blue 3$};
@@ -1203,38 +1206,38 @@ This is not strictly needed for the purposes of the next section, but it enlight
 %
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
+  \begin{tikzpicture}
     \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
     \node[label=west:{\scriptsize \red \textit{ade}}] (14) at (-1, 2) {$\blue 1 4$};
     \node[label=east:{\scriptsize \red \textit{fgjk}}] (9) at (1, 2) {$\blue \up[9]$};
     \node[label=west:{\scriptsize \red \textit{adefghijk}}] (78) at (-1, -2) {$\blue \down[7] 8$};
     \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (1, -2) {$\blue 3$};
-    \node (i) at (-1.5, -3) {};
-    \node (adefghjk) at (-0.5, -3) {};
+    \node (i) at (-0.5, -3) {};
+    \node (adefghjk) at (-1.5, -3) {};
     \node (bc) at (1.5, -3) {};
-    \node (k) at (1.5, 3) {};
-    \node (fgj) at (0.5, 3) {};
-    \node (ade) at (-1.5, 3) {};
-    \node (bc') at (-1.5, 0.75) {};
-    \node (hi) at (1.5, 0.75) {};
+    \node (bc') at (.8, 0.7) {};
+    \node (hi') at (0, 1) {};
+    \node (ade') at (-1.5, 3) {};
+    \node (fgj') at (0.5, 3) {};
+    \node (k') at (1.5, 3) {};
     %
     \draw[->] (256)--(14) node[midway, left] {\scriptsize \red \textit{ade}}; 
     \draw[->] (256)--(9) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
     \draw[->] (78)--(256) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
     \draw[->] (3)--(256) node[midway, right] {\scriptsize \red \textit{bc}}; 
-    \draw[->] (i)--(78) node[midway, left] {\scriptsize \red \textit{i}}; 
-    \draw[->] (adefghjk)--(78) node[midway, right] {\scriptsize \red \textit{adefghjk}};
+    \draw[->] (i)--(78) node[midway, right] {\scriptsize \red \textit{i}}; 
+    \draw[->] (adefghjk)--(78) node[midway, left] {\scriptsize \red \textit{adefghjk}};
     \draw[->] (bc)--(3) node[midway, right] {\scriptsize \red \textit{bc}}; 
-    \draw[->] (9)--(k) node[midway, right] {\scriptsize \red \textit{k}}; 
-    \draw[->] (9)--(fgj) node[midway, left] {\scriptsize \red \textit{fgj}};
-    \draw[->] (14)--(ade) node[midway, left] {\scriptsize \red \textit{ade}};
-    \draw[->] (256)--(bc') node[midway, left] {\scriptsize \red \textit{bc}};
-    \draw[->] (256)--(hi) node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (9)--(k') node[midway, right] {\scriptsize \red \textit{k}}; 
+    \draw[->] (9)--(fgj') node[midway, left] {\scriptsize \red \textit{fgj}};
+    \draw[->] (14)--(ade') node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (256)--(bc') node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (256)--(hi') node[midway, left] {\scriptsize \red \textit{hi}};
   \end{tikzpicture}
 
   \qquad
 
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm, label distance=-3pt]  
+  \begin{tikzpicture}
     \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-0.5, 1.5) {$\blue 1$};
     \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (2) at (-0.5, -0.5) {$\blue \updown[2]$};
     \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (0, -1.5) {$\blue 3$};
@@ -1244,14 +1247,14 @@ This is not strictly needed for the purposes of the next section, but it enlight
     \node[label=west:{\scriptsize \red \textit{adefghijk}}] (7) at (-1, -1.5) {$\blue \down[7]$};
     \node[label=west:{\scriptsize \red \textit{adefghjk}}] (8) at (-1.5, -2.5) {$\blue 8$};
     \node[label=east:{\scriptsize \red \textit{jgjk}}] (9) at (1, 2.5) {$\blue \up[9]$};
-    \node (ade) at (-1.5, 3.5) {};
-    \node (fgj) at (0.5, 3.5) {};
-    \node (k) at (1.5, 3.5) {};
     \node (adefghjk) at (-2, -3.5) {};
     \node (i) at (-0.5, -2.5) {};
     \node (bc) at (0.5, -2.5) {};
-    \node (bc') at (1, 0) {};
-    \node (hi) at (1.5, 1) {};
+    \node (bc') at (.5, -.2) {};
+    \node (hi') at (1, .8) {};
+    \node (ade') at (-1.5, 3.5) {};
+    \node (fgj') at (0.5, 3.5) {};
+    \node (k') at (1.5, 3.5) {};
     %
     \draw[->] (8)--(7) node[midway, left] {\scriptsize \red \textit{adefghjk}}; 
     \draw[->] (7)--(2) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
@@ -1261,14 +1264,14 @@ This is not strictly needed for the purposes of the next section, but it enlight
     \draw[->] (1)--(4) node[midway, left] {\scriptsize \red \textit{ade}}; 
     \draw[->] (5)--(6) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
     \draw[->] (6)--(9) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
-    \draw[->] (4)--(ade) node[midway, left] {\scriptsize \red \textit{ade}}; 
-    \draw[->] (9)--(fgj) node[midway, left] {\scriptsize \red \textit{fgj}}; 
-    \draw[->] (9)--(k) node[midway, right] {\scriptsize \red \textit{k}}; 
+    \draw[->] (4)--(ade') node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (9)--(fgj') node[midway, left] {\scriptsize \red \textit{fgj}}; 
+    \draw[->] (9)--(k') node[midway, right] {\scriptsize \red \textit{k}}; 
     \draw[->] (adefghjk)--(8) node[midway, left] {\scriptsize \red \textit{adefghjk}}; 
     \draw[->] (i)--(7) node[midway, right] {\scriptsize \red \textit{i}}; 
     \draw[->] (bc)--(3) node[midway, right] {\scriptsize \red \textit{bc}};
     \draw[->] (2)--(bc') node[midway, right] {\scriptsize \red \textit{bc}};
-    \draw[->] (5)--(hi) node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (5)--(hi') node[midway, right] {\scriptsize \red \textit{hi}};
   \end{tikzpicture}
   }
   \caption{The blossoming versions of the two spines of \cref{fig:spines}.}
@@ -1366,135 +1369,282 @@ We now consider a natural refinement order on decorated block graphs and define 
   \label{def:refinementDecoratedGraphs}
   For two decorations~$\decoration$ and~$\decoration'$ on a set~$\vertexSet$, we say that~$\decoration$ \defn{refines}~$\decoration'$ (and that $\decoration'$ \defn{coarsens} $\decoration$) if~$\Down[\vertexSet] \subseteq \Down[\vertexSet][\decoration']$ and $\Up[\vertexSet] \subseteq \Up[\vertexSet][\decoration']$.
   For two decorated block graphs~$\decoratedGraph \eqdef (\Graph, \decoration)$ and~$\decoratedGraph' \eqdef (\Graph', \decoration')$, we say that~$\decoratedGraph$ \defn{refines}~$\decoratedGraph'$ (and that $\decoratedGraph'$ \defn{coarsens} $\decoratedGraph$) if~$\Graph = \Graph'$ and $\decoration$ refines~$\decoration'$.
-  \vincent{picture of a pair of refining decorated block graphs, and two pairs of spines (related by the surjection, one maximal one not).}
 \end{definition}
 
 \begin{figure}
   \centerline{
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+  \begin{tikzpicture}[scale=.7]  
     \node (1) at (-4, -19) {$\blue 1$};
+    \node (2) at (0, -19) {$\blue \down[2]$};
+    \node (3) at (2, -19) {$\blue 3$};
     \node (4) at (-4, -21) {$\blue 4$};
     \node (5) at (-2, -21) {$\blue \up[5]$};
+    \node (6) at (2, -21) {$\blue 6$};
     \node (7) at (-4, -23) {$\blue 7$};
     \node (8) at (0, -23) {$\blue 8$};
     \node (9) at (2, -23) {$\blue 9$};
-    \node (6) at (2, -21) {$\blue 6$};
-    \node (2) at (0, -19) {$\blue \updown[2]$};
-    \node (3) at (2, -19) {$\blue 3$};
     %
-    \draw[-] (1)--(4)--(5)--(1); 
-    \draw[-] (2)--(6)--(8)--(5); 
-    \draw[-] (7)--(5)--(2)--(3); 
-    \draw[-] (2)--(8)--(9); 
-    \draw[-] (5)--(6); 
+    \node (a) at (-5, -19) {$\red a$};
+    \node (b) at (1, -19) {$\red b$};
+    \node (c) at (3, -19) {$\red c$};
+    \node (d) at (-3, -20) {$\red d$};
+    \node (e) at (-5, -21) {$\red e$};
+    \node (f) at (0, -21) {$\red f$};
+    \node (g) at (3, -21) {$\red g$};
+    \node (h) at (-3, -22) {$\red h$};
+    \node (i) at (-5, -23) {$\red i$};
+    \node (j) at (1, -23) {$\red j$};
+    \node (k) at (3, -23) {$\red k$};
+    %
+    \draw[-] (a)--(1)--(d)--(4)--(e); 
+    \draw[-] (d)--(5)--(h)--(7)--(i); 
+    \draw[-] (5)--(f)--(6)--(g); 
+    \draw[-] (c)--(3)--(b)--(2)--(f)--(8)--(j)--(9)--(k); 
   \end{tikzpicture}
 
   \qquad
 
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
+  \begin{tikzpicture}[scale=.7]  
     \node (1) at (-4, -19) {$\blue 1$};
-    \node (4) at (-4, -21) {$\blue 4$};
-    \node (5) at (-2, -21) {$\blue \up[5]$};
-    \node (7) at (-4, -23) {$\blue \down[7]$};
-    \node (8) at (0, -23) {$\blue 8$};
-    \node (9) at (2, -23) {$\blue \up[9]$};
-    \node (6) at (2, -21) {$\blue 6$};
     \node (2) at (0, -19) {$\blue \updown[2]$};
     \node (3) at (2, -19) {$\blue 3$};
+    \node (4) at (-4, -21) {$\blue 4$};
+    \node (5) at (-2, -21) {$\blue \updown[5]$};
+    \node (6) at (2, -21) {$\blue \up[6]$};
+    \node (7) at (-4, -23) {$\blue \down[7]$};
+    \node (8) at (0, -23) {$\blue \updown[8]$};
+    \node (9) at (2, -23) {$\blue 9$};
     %
-    \draw[-] (1)--(4)--(5)--(1); 
-    \draw[-] (2)--(6)--(8)--(5); 
-    \draw[-] (7)--(5)--(2)--(3); 
-    \draw[-] (2)--(8)--(9); 
-    \draw[-] (5)--(6); 
+    \node (a) at (-5, -19) {$\red a$};
+    \node (b) at (1, -19) {$\red b$};
+    \node (c) at (3, -19) {$\red c$};
+    \node (d) at (-3, -20) {$\red d$};
+    \node (e) at (-5, -21) {$\red e$};
+    \node (f) at (0, -21) {$\red f$};
+    \node (g) at (3, -21) {$\red g$};
+    \node (h) at (-3, -22) {$\red h$};
+    \node (i) at (-5, -23) {$\red i$};
+    \node (j) at (1, -23) {$\red j$};
+    \node (k) at (3, -23) {$\red k$};
+    %
+    \draw[-] (a)--(1)--(d)--(4)--(e); 
+    \draw[-] (d)--(5)--(h)--(7)--(i); 
+    \draw[-] (5)--(f)--(6)--(g); 
+    \draw[-] (c)--(3)--(b)--(2)--(f)--(8)--(j)--(9)--(k); 
   \end{tikzpicture}
   }
-  \caption{Two refining decorated block graphs: the graph on the left refines the graph on the right.}
+  \caption{The left decorated maple tree~$\decoratedMaple$ refines the right decorated maple tree~$\decoratedMaple'$.}
   \label{fig:refinementDecoratedGraphs}
 \end{figure} 
 
 \begin{figure}[h!]
-  \centerline{
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]   
-    \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
-    \node (14) at (-1, 2) {$\blue 1 4$};
-    \node (9) at (1, 2) {$\blue \up[9]$};
-    \node (78) at (-1, -2) {$\blue \down[7] 8$};
-    \node (3) at (1, -2) {$\blue 3$};
+  \centerline{    
+  \begin{tikzpicture}
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (79) at (0,1) {$\blue 7 9$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (248) at (0,2) {$\blue \down[2] 4 8$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (35) at (0,3) {$\blue 3 \up[5]$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-.5,4) {$\blue 1$};
+    \node[label=east:{\scriptsize \red \textit{bcfgjk}}] (6) at (.5,4) {$\blue 6$};
     %
-    \draw[->] (256)--(14); 
-    \draw[->] (256)--(9); 
-    \draw[->] (78)--(256); 
-    \draw[->] (3)--(256); 
+    \draw[->] (79)--(248) node[midway, left] {\scriptsize \red \textit{adefghijk}};
+    \draw[->] (248)--(35) node[midway, left] {\scriptsize \red \textit{abcdefghijk}};
+    \draw[->] (35)--(1) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (35)--(6) node[midway, right] {\scriptsize \red \textit{bcfgjk}};
   \end{tikzpicture}
     
-    \qquad
+  \qquad
     
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm] 
-    \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
-    \node (14) at (-1, 2) {$\blue 1 4$};
-    \node (9) at (1, 2) {$\blue \up[9]$};
-    \node (78) at (-1, -2) {$\blue \down[7] 8$};
-    \node (3) at (1, -2) {$\blue 3$};
+  \begin{tikzpicture}
+    \node[label=east:{\scriptsize \red \textit{hi}}] (7) at (1,1) {$\blue \down[7]$};
+    \node[label=east:{\scriptsize \red \textit{jk}}] (9) at (3,1) {$\blue 9$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (4) at (0,2) {$\blue 4$};
+    \node[label=east:{\scriptsize \red \textit{bcfgjk}}] (28) at (3,2) {$\blue \updown[2] \updown[8]$};
+    \node[label=west:{\scriptsize \red \textit{adefghi}}] (5) at (1,3) {$\blue \updown[5]$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (4,3) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (0,4) {$\blue 1$};
+    \node[label=east:{\scriptsize \red \textit{fg}}] (6) at (2,4) {$\blue \up[6]$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (e1) at (0,1) {$\blue \varnothing$};
+    \node[label=west:{\scriptsize \red \textit{fg}}] (e2) at (2,1) {$\blue \varnothing$};
+    \node[label=east:{\scriptsize \red \textit{hi}}] (e3) at (1,2) {$\blue \varnothing$};
+    \node[label=west:{\scriptsize \red \textit{jk}}] (e4) at (3,3) {$\blue \varnothing$};
+    \node[label=west:{\scriptsize \red \textit{jk}}] (e5) at (3,4) {$\blue \varnothing$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (e6) at (4,4) {$\blue \varnothing$};
     %
-    \draw[->] (256)--(14); 
-    \draw[->] (256)--(9); 
-    \draw[->] (78)--(256); 
-    \draw[->] (3)--(256); 
-  \end{tikzpicture}
+    \draw[->] (e1)--(4) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (7)--(e3) node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (e2)--(28) node[midway, left] {\scriptsize \red \textit{fg}};
+    \draw[->] (9)--(28) node[midway, right] {\scriptsize \red \textit{jk}};
+    \draw[->] (4)--(5) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (e3)--(5) node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (28)--(5) node[midway, right] {\scriptsize \red \textit{fg}};
+    \draw[->] (28)--(e4) node[midway, left] {\scriptsize \red \textit{jk}};
+    \draw[->] (28)--(3) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (5)--(1) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (5)--(6) node[midway, right] {\scriptsize \red \textit{fg}};
+    \draw[->] (e4)--(e5) node[midway, left] {\scriptsize \red \textit{jk}};
+    \draw[->] (3)--(e6) node[midway, right] {\scriptsize \red \textit{bc}};
+  \end{tikzpicture}    
+
+  \qquad
     
-    \qquad
-    
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-    \node (1) at (-0.5, 1.5) {$\blue 1$};
-    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-    \node (3) at (0, -1.5) {$\blue 3$};
-    \node (4) at (-1, 2.5) {$\blue 4$};
-    \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (6) at (0.5, 1.5) {$\blue 6$};
-    \node (7) at (-1, -1.5) {$\blue \down[7]$};
-    \node (8) at (-1.5, -2.5) {$\blue 8$};
-    \node (9) at (1, 2.5) {$\blue \up[9]$};
+  \begin{tikzpicture}
+    \node[label=east:{\scriptsize \red \textit{hi}}] (7) at (1,1) {$\blue \down[7]$};
+    \node[label=east:{\scriptsize \red \textit{jk}}] (9) at (2.5,1) {$\blue 9$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (4) at (0,2) {$\blue 4$};
+    \node[label=east:{\scriptsize \red \textit{bcfgjk}}] (28) at (2.5,2) {$\blue \updown[2] \updown[8]$};
+    \node[label=west:{\scriptsize \red \textit{adefghi}}] (5) at (1,3) {$\blue \updown[5]$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (2.5,3) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (0,4) {$\blue 1$};
+    \node[label=east:{\scriptsize \red \textit{fg}}] (6) at (2,4) {$\blue \up[6]$};
     %
-    \draw[->] (8)--(7); 
-    \draw[->] (7)--(2); 
-    \draw[->] (3)--(2); 
-    \draw[->] (2)--(5); 
-    \draw[->] (5)--(1); 
-    \draw[->] (1)--(4); 
-    \draw[->] (5)--(6); 
-    \draw[->] (6)--(9); 
-  \end{tikzpicture}
-    
-  \begin{tikzpicture}[circle, draw=none, minimum size=4mm, inner sep=0.1mm]  
-    \node (1) at (-0.5, 1.5) {$\blue 1$};
-    \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
-    \node (3) at (0, -1.5) {$\blue 3$};
-    \node (4) at (-1, 2.5) {$\blue 4$};
-    \node (5) at (0, 0.5) {$\blue \up[5]$};
-    \node (6) at (0.5, 1.5) {$\blue 6$};
-    \node (7) at (-1, -1.5) {$\blue \down[7]$};
-    \node (8) at (-1.5, -2.5) {$\blue 8$};
-    \node (9) at (1, 2.5) {$\blue \up[9]$};
-    %
-    \draw[->] (8)--(7); 
-    \draw[->] (7)--(2); 
-    \draw[->] (3)--(2); 
-    \draw[->] (2)--(5); 
-    \draw[->] (5)--(1); 
-    \draw[->] (1)--(4); 
-    \draw[->] (5)--(6); 
-    \draw[->] (6)--(9); 
+    \draw[->] (7)--(5) node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (9)--(28) node[midway, right] {\scriptsize \red \textit{jk}};
+    \draw[->] (4)--(5) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (28)--(5) node[midway, right] {\scriptsize \red \textit{fg}};
+    \draw[->] (28)--(3) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (5)--(1) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (5)--(6) node[midway, right] {\scriptsize \red \textit{fg}};
   \end{tikzpicture}
   }
-  \caption{Two pairs of refining spines on the block graphs of \cref{fig:refinementDecoratedGraphs}.}
+  \caption{A spine~$\spine$ on~$\decoratedMaple$ (left) and the spine~$\spine' = \surjectionSpines(\spine)$ on~$\decoratedMaple'$ (right) obtained by contracting the empty node in the directed tree~$\almostSpine$ (middle) defined in \cref{def:refinementSpines}.}
   \label{fig:refinementSpines}
 \end{figure} 
-\vincent{TODO: \cref{fig:refinementSpines} is not done yet...}
+
+\begin{figure}[h!]
+  \centerline{    
+  \begin{tikzpicture}
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (79) at (0,1) {$\blue 7 9$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (248) at (0,2) {$\blue \down[2] 4 8$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (35) at (0,3) {$\blue 3 \up[5]$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-1,4) {$\blue 1$};
+    \node[label=east:{\scriptsize \red \textit{bcfgjk}}] (6) at (1,4) {$\blue 6$};
+    \node (adefghijk) at (0,0) {};
+    \node (bc) at (.8,1.2) {};
+    \node (ade') at (-1,5) {};
+    \node (hi') at (0,4) {};
+    \node (bcfgjk') at (1,5) {};
+    %
+    \draw[->] (adefghijk)--(79) node[midway, left] {\scriptsize \red \textit{adefghijk}};
+    \draw[->] (79)--(248) node[midway, left] {\scriptsize \red \textit{adefghijk}};
+    \draw[->] (bc)--(248) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (248)--(35) node[midway, left] {\scriptsize \red \textit{abcdefghijk}};
+    \draw[->] (35)--(1) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (35)--(6) node[midway, right] {\scriptsize \red \textit{bcfgjk}};
+    \draw[->] (35)--(hi') node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (1)--(ade') node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (6)--(bcfgjk') node[midway, right] {\scriptsize \red \textit{bcfgjk}};
+  \end{tikzpicture}
+    
+  \quad
+    
+  \begin{tikzpicture}
+    \node[label=east:{\scriptsize \red \textit{hi}}] (7) at (1.5,1) {$\blue \down[7]$};
+    \node[label=east:{\scriptsize \red \textit{jk}}] (9) at (4,1) {$\blue 9$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (4) at (0,2) {$\blue 4$};
+    \node[label=east:{\scriptsize \red \textit{bcfgjk}}] (28) at (4,2) {$\blue \updown[2] \updown[8]$};
+    \node[label=west:{\scriptsize \red \textit{adefghi}}] (5) at (1.5,3) {$\blue \updown[5]$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (5,3) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (0.5,4) {$\blue 1$};
+    \node[label=east:{\scriptsize \red \textit{fg}}] (6) at (2.5,4) {$\blue \up[6]$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (e1) at (0,1) {$\blue \varnothing$};
+    \node[label=west:{\scriptsize \red \textit{fg}}] (e2) at (3,1) {$\blue \varnothing$};
+    \node[label=east:{\scriptsize \red \textit{hi}}] (e3) at (1.5,2) {$\blue \varnothing$};
+    \node[label=west:{\scriptsize \red \textit{jk}}] (e4) at (4,3) {$\blue \varnothing$};
+    \node[label=west:{\scriptsize \red \textit{jk}}] (e5) at (4,4) {$\blue \varnothing$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (e6) at (5,4) {$\blue \varnothing$};
+    \node (ade) at (0,0) {};
+    \node (h) at (1,0) {};
+    \node (i) at (2,0) {};
+    \node (fg) at (3,0) {};
+    \node (jk) at (4,0) {};
+    \node (bc) at (4.8,1.2) {};
+    \node (ade') at (0.5,5) {};
+    \node (f') at (2,5) {};
+    \node (g') at (3,5) {};
+    \node (jk') at (4,5) {};
+    \node (bc') at (5,5) {};
+    \node (hi') at (1.5,4) {};
+    %
+    \draw[->] (ade)--(e1) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (h)--(7) node[midway, left] {\scriptsize \red \textit{h}};
+    \draw[->] (i)--(7) node[midway, right] {\scriptsize \red \textit{i}};
+    \draw[->] (fg)--(e2) node[midway, left] {\scriptsize \red \textit{fg}};
+    \draw[->] (jk)--(9) node[midway, right] {\scriptsize \red \textit{jk}};
+    \draw[->] (e1)--(4) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (7)--(e3) node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (e2)--(28) node[midway, left] {\scriptsize \red \textit{fg}};
+    \draw[->] (9)--(28) node[midway, right] {\scriptsize \red \textit{jk}};
+    \draw[->] (bc)--(28) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (4)--(5) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (e3)--(5) node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (28)--(5) node[midway, right] {\scriptsize \red \textit{fg}};
+    \draw[->] (28)--(e4) node[midway, left] {\scriptsize \red \textit{jk}};
+    \draw[->] (28)--(3) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (5)--(1) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (5)--(hi') node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (5)--(6) node[midway, right] {\scriptsize \red \textit{fg}};
+    \draw[->] (e4)--(e5) node[midway, left] {\scriptsize \red \textit{jk}};
+    \draw[->] (3)--(e6) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (1)--(ade') node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (6)--(f') node[midway, right] {\scriptsize \red \textit{f}};
+    \draw[->] (6)--(g') node[midway, right] {\scriptsize \red \textit{g}};
+    \draw[->] (e5)--(jk') node[midway, left] {\scriptsize \red \textit{jk}};
+    \draw[->] (e6)--(bc') node[midway, right] {\scriptsize \red \textit{bc}};
+  \end{tikzpicture}    
+
+  \quad
+    
+  \begin{tikzpicture}
+    \node[label=east:{\scriptsize \red \textit{hi}}] (7) at (1,1) {$\blue \down[7]$};
+    \node[label=east:{\scriptsize \red \textit{jk}}] (9) at (3,1) {$\blue 9$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (4) at (0,2) {$\blue 4$};
+    \node[label=east:{\scriptsize \red \textit{bcfgjk}}] (28) at (3,2) {$\blue \updown[2] \updown[8]$};
+    \node[label=west:{\scriptsize \red \textit{adefghi}}] (5) at (1,3) {$\blue \updown[5]$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (4,3) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (0,4) {$\blue 1$};
+    \node[label=east:{\scriptsize \red \textit{fg}}] (6) at (2,4) {$\blue \up[6]$};
+    \node (ade) at (0,1) {};
+    \node (h) at (.5,0) {};
+    \node (i) at (1.5,0) {};
+    \node (fg) at (2,1) {};
+    \node (jk) at (3,0) {};
+    \node (bc) at (3.8,1.2) {};
+    \node (ade') at (0,5) {};
+    \node (f') at (1.5,5) {};
+    \node (g') at (2.5,5) {};
+    \node (jk') at (3,3) {};
+    \node (bc') at (4,4) {};
+    \node (hi') at (1,4) {};
+    %
+    \draw[->] (ade)--(4) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (h)--(7) node[midway, left] {\scriptsize \red \textit{h}};
+    \draw[->] (i)--(7) node[midway, right] {\scriptsize \red \textit{i}};
+    \draw[->] (fg)--(28) node[midway, left] {\scriptsize \red \textit{fg}};
+    \draw[->] (jk)--(9) node[midway, right] {\scriptsize \red \textit{jk}};
+    \draw[->] (7)--(5) node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (9)--(28) node[midway, right] {\scriptsize \red \textit{jk}};
+    \draw[->] (bc)--(28) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (4)--(5) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (28)--(5) node[midway, right] {\scriptsize \red \textit{fg}};
+    \draw[->] (28)--(jk') node[midway, left] {\scriptsize \red \textit{jk}};
+    \draw[->] (28)--(3) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (5)--(1) node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (5)--(hi') node[midway, right] {\scriptsize \red \textit{hi}};
+    \draw[->] (5)--(6) node[midway, right] {\scriptsize \red \textit{fg}};
+    \draw[->] (3)--(bc') node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (1)--(ade') node[midway, left] {\scriptsize \red \textit{ade}};
+    \draw[->] (6)--(f') node[midway, right] {\scriptsize \red \textit{f}};
+    \draw[->] (6)--(g') node[midway, right] {\scriptsize \red \textit{g}};
+  \end{tikzpicture}
+  }
+  \caption{A blossoming spine~$\spine\blossom$ on~$\decoratedMaple$ (left) and the blossoming spine~${\spine\blossom}' = \surjectionSpines(\spine\blossom)$ on~$\decoratedMaple'$ (right) obtained by contracting the empty node in the directed tree~$\almostSpine\blossom$ (middle) defined in \cref{def:refinementSpines,rem:refinementBlossomingSpine}.}
+  \label{fig:refinementBlossomingSpines}
+\end{figure} 
 
 The goal of this section is to define and describe a natural surjection~$\surjectionSpines$ from the spines on~$\decoratedGraph$ to the spines on~$\decoratedGraph'$ when $\decoratedGraph$ refines~$\decoratedGraph'$.
-The key property of~$\surjectionSpines(\spine)$ is given in \cref{prop:alternativeDescriptionRefinementSpines}, and should be considered as the definition of~$\surjectionSpines(\spine)$.
-However, proving this property requires the following direct description of~$\surjectionSpines(\spine)$, which uses the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}.
+The key property of~$\surjectionSpines(\spine)$ is given in \cref{prop:alternativeDescriptionRefinementSpines}, and should morally be considered as the definition of~$\surjectionSpines(\spine)$.
+However, proving this property requires the following direct description of~$\surjectionSpines(\spine)$, which is illustrated in \cref{fig:refinementSpines}.
+This description uses the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}.
 \vincent{We do not need the sweeping algorithm anymore...}
 
 \begin{definition}
@@ -1512,7 +1662,7 @@ However, proving this property requires the following direct description of~$\su
 \begin{remark}
   \label{rem:refinementBlossomingSpine}
   A similar construction sends a blossoming spine~$\spine\blossom$ on~$\decoratedGraph$ to a blossoming spine~${\spine\blossom}'$ on~$\decoratedGraph'$.
-  Namely, we just need to add to the directed tree~$\almostSpine'$:
+  Namely, we just need to complete the directed tree~$\almostSpine$ into the blossoming directed tree~$\almostSpine\blossom$ by adding:
   \begin{itemize}
     \item an incoming (resp.~outgoing) blossom~$\arcSurj{\gamma}{C}$ attached to the unique node~$\nodeSurj{X}{D}$ with~$S \subseteq D$ for each incoming (resp.~outgoing) blossom~$\gamma$ of~$\spine\blossom$ attached to node~$X$.
   \end{itemize}
@@ -1656,7 +1806,7 @@ The next statement should be though as the definition of~$\surjectionSpines$, bu
   \vincent{improve}
   For instance, the equivalence relation~$\equiv_{\decoratedGraph}$ on permutations is
   \begin{enumerate}[(i)]
-    \item the \defn{trivial relation} when $\decoratedGraph$ is complete or undecorated.
+    \item the \defn{trivial relation} when $\decoratedGraph$ is complete or undecorated,
     \item the various \defn{permutree relations} of~\cite{PilaudPons-permutrees} when~$\Graph$ is a path (in particular the \defn{sylvester relation} for a down decorated path, and the \defn{Cambrian relations} for up-down decorated~paths).
   \end{enumerate}
   Note that in contrast to these specific examples, the equivalence relation~$\equiv$ has no reason to be a lattice congruence of the weak order.
