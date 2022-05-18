@@ -1664,9 +1664,9 @@ This description uses the labeling~$\labeling$ of the nodes and arcs of the spin
 \begin{remark}
   \label{rem:refinementBlossomingSpine}
   A similar construction sends a blossoming spine~$\spine_\circ^\blossom$ on~$\decoratedGraph_\circ$ to a blossoming spine~$\spine_\bullet^\blossom$ on~$\decoratedGraph_\bullet$.
-  Namely, we just need to complete the directed tree~$\almostSpine_\bullet$ into the blossoming directed tree~$\almostSpine_\bullet^\blossom$ by adding:
+  Namely, we just need to complete the directed tree~$\almostSpine_\bullet$ described in \cref{def:refinementSpines} into a blossoming directed tree~$\almostSpine_\bullet^\blossom$ by adding:
   \begin{itemize}
-    \item an incoming (resp.~outgoing) blossom~$\arcSurj{\gamma}{C}$ attached to the unique node~$\nodeSurj{X}{D}$ with~$S \subseteq D$ for each incoming (resp.~outgoing) blossom~$\gamma$ of~$\spine_\circ^\blossom$ attached to node~$X$.
+    \item an incoming (resp.~outgoing) blossom~$\arcSurj{\gamma}{C}$ attached to the unique node~$\nodeSurj{X}{D}$ with~$C \subseteq D$ for each incoming (resp.~outgoing) blossom~$\gamma$ of~$\spine_\circ^\blossom$ attached to node~$X$ and each connected component~$C$ of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration_\bullet] \cup \Down[{\ta[\gamma]}][\decoration_\bullet] \big)$ contained in~$\labeling(\gamma)$.
   \end{itemize}
 \end{remark}
 
@@ -1686,7 +1686,7 @@ For this, we first study the directed tree~$\almostSpine_\bullet$ described in \
 
 \begin{lemma}
   \label{lem:refinementSpines2}
-  For any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\almostSpine_\bullet$, any (non-directed) path~$\pi$ in~$\almostSpine_\bullet$ containing~$\arcSurj{\gamma}{C}$, and any node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$ (resp.~$\nodeSurj{Y}{E}$), the set~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$ (resp.~of~$\Maple \ssm \Up[\nodeSurj{X}{D}]$) containing~$C$.
+  For any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\almostSpine_\bullet$, any (non-directed) path~$\pi$ in~$\almostSpine_\bullet$ containing~$\arcSurj{\gamma}{C}$, and any node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$ (resp.~$\nodeSurj{Y}{E}$), the set~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}][\decoration_\bullet]$ (resp.~of~$\Maple \ssm \Up[\nodeSurj{X}{D}][\decoration_\bullet]$) containing~$C$.
 \end{lemma}
 
 \begin{proof}
@@ -1695,16 +1695,16 @@ For this, we first study the directed tree~$\almostSpine_\bullet$ described in \
   
   We start with the base case of the induction when~$\pi$ is just the arc~$\arcSurj{\gamma}{C}$.
   Observe first that since~$\gamma$ joins~$X$ to~$Y$, the set~$Y$ is contained in both~$\ta[\gamma]$ and~$\ta[X]$.
-  Since~$\nodeSurj{Y}{E} \subseteq Y$, it follows that both~$C$ and~$D$ are contained in a connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$.
-  Since~$C \subseteq D$, we conclude that~$D$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$.
-%  By symmetry, $E$ is contained in the connected component of~$\Maple \ssm \Up[\nodeSurj{X}{D}]$ containing~$C$.
+  Since~$\nodeSurj{Y}{E} \subseteq Y$, it follows that both~$C$ and~$D$ are contained in a connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}][\decoration_\bullet]$.
+  Since~$C \subseteq D$, we conclude that~$D$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}][\decoration_\bullet]$ containing~$C$.
+%  By symmetry, $E$ is contained in the connected component of~$\Maple \ssm \Up[\nodeSurj{X}{D}][\decoration_\bullet]$ containing~$C$.
   
   Consider now an arbitrary path~$\pi$ containing~$\arcSurj{\gamma}{C}$ and a node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$.
 %  By induction, we can assume that~$\nodeSurj{Z}{F}$ is an endpoint of~$\pi$, and we denote by~$\arcSurj{\eta}{\Graph}$ the arc of~$\pi$ incident to~$\nodeSurj{Z}{F}$, and by~$\nodeSurj{W}{H}$ the other endpoint of~$\arcSurj{\eta}{\Graph}$.
   We distinguish two situations:
   \begin{itemize}
-    \item If~$\pi$ has a node~$\nodeSurj{W}{\Graph}$ with two outgoing arcs in between~$\nodeSurj{Y}{E}$ and~$\nodeSurj{Z}{F}$, then the induction hypothesis ensures that~$E$ and~$F$ are contained in distinct connected components of~${\Maple \ssm \Up[\nodeSurj{W}{\Graph}]}$ and that~$\Graph$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$. This implies that~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$.
-    \item Otherwise, the path~$\pi$ has a directed subpath from~$\nodeSurj{Z}{F}$ to~$\nodeSurj{Y}{E}$. Let~$\nodeSurj{W}{\Graph}$ denote the node after~$\nodeSurj{Z}{F}$ and~$\arcSurj{\eta}{H}$ the arc joining~$\nodeSurj{Z}{F}$ to~$\nodeSurj{W}{\Graph}$. By induction, $\Graph$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$. Since~$\nodeSurj{Y}{E} \subseteq Y \subseteq \ta[Z]$, the set~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$. Since~$H$ is a subset of both~$F$ and~$\Graph$, we thus obtain that~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$ containing~$C$. \qedhere
+    \item If~$\pi$ has a node~$\nodeSurj{W}{\Graph}$ with two outgoing arcs in between~$\nodeSurj{Y}{E}$ and~$\nodeSurj{Z}{F}$, then the induction hypothesis ensures that~$E$ and~$F$ are contained in distinct connected components of~${\Maple \ssm \Up[\nodeSurj{W}{\Graph}][\decoration_\bullet]}$ and that~$\Graph$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}][\decoration_\bullet]$ containing~$C$. This implies that~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}][\decoration_\bullet]$ containing~$C$.
+    \item Otherwise, the path~$\pi$ has a directed subpath from~$\nodeSurj{Z}{F}$ to~$\nodeSurj{Y}{E}$. Let~$\nodeSurj{W}{\Graph}$ denote the node after~$\nodeSurj{Z}{F}$ and~$\arcSurj{\eta}{H}$ the arc joining~$\nodeSurj{Z}{F}$ to~$\nodeSurj{W}{\Graph}$. By induction, $\Graph$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}][\decoration_\bullet]$ containing~$C$. Since~$\nodeSurj{Y}{E} \subseteq Y \subseteq \ta[Z]$, the set~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}][\decoration_\bullet]$. Since~$H$ is a subset of both~$F$ and~$\Graph$, we thus obtain that~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}][\decoration_\bullet]$ containing~$C$. \qedhere
   \end{itemize}
 %  We conclude by symmetry if~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{Y}{F}$.
 \end{proof}
@@ -1718,7 +1718,7 @@ For this, we first study the directed tree~$\almostSpine_\bullet$ described in \
   We first prove that~$\almostSpine_\bullet$ is connected.
   Consider an edge~$\{u,v\}$ of~$\Graph$.
   Since~$u$ and~$v$ belong to the same connected component of~$\Graph \ssm U$ for any subset~$U$ of~$\vertexSet$, there is a directed path~$\pi$ in~$\spine$ between the node containing~$u$ and the node containing~$v$.
-  For any node~$X$ (resp.~arc~$\gamma$) in the interior of this path, $u$ and~$v$ also belong to the same connected component~$D_\star$~of~$\Maple \ssm \big( \Up[{\so[X]}][\decoration_\bullet] \cup \Down[{\ta[X]}][\decoration_\bullet] \big)$ (resp.~$C_\star$~of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration_\bullet] \cup \Down[{\ta[\gamma]}][\decoration_\bullet] \big)$).
+  For any node~$X$ (resp.~arc~$\gamma$) in the interior of this path, $u$ and~$v$ also belong to the same connected component~$D_\star$~of~${\Maple \ssm \big( \Up[{\so[X]}][\decoration_\bullet] \cup \Down[{\ta[X]}][\decoration_\bullet] \big)}$ (resp.~$C_\star$~of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration_\bullet] \cup \Down[{\ta[\gamma]}][\decoration_\bullet] \big)$).
   The corresponding nodes~$\nodeSurj{X}{D_\star}$ and arcs~$\arcSurj{\gamma}{C_\star}$ along the path~$\pi$ thus form a path in~$\almostSpine_\bullet$ between the node containing~$u$ and the node containing~$v$.
   The connectedness of~$\Graph$ thus implies the connectedness of~$\almostSpine_\bullet$.
   
@@ -1742,7 +1742,7 @@ For this, we first study the directed tree~$\almostSpine_\bullet$ described in \
   Hence, since the nodes of~$\spine_\circ$ partition~$\vertexSet$, the nodes of~$\spine_\bullet$ partition~$\vertexSet$. This shows the global condition of \cref{def:spine}.
 
   Second, consider two incoming arcs~$\arcSurj{\alpha}{C}$ and~$\arcSurj{\alpha'}{C'}$ of a node~$\nodeSurj{X}{D}$ in~$\almostSpine_\bullet$.
-  By \cref{lem:refinementSpines2}, the source sets $\so[\arcSurj{\alpha}{C}]$ and~$\so[\arcSurj{\alpha'}{C'}]$ are contained in distinct connected components of~$\Graph \ssm \Down[\nodeSurj{X}{D}]$.
+  By \cref{lem:refinementSpines2}, the source sets $\so[\arcSurj{\alpha}{C}]$ and~$\so[\arcSurj{\alpha'}{C'}]$ are contained in distinct connected components of~$\Graph \ssm \Down[\nodeSurj{X}{D}][\decoration_\bullet]$.
   By symmetry, we thus conclude that~$\almostSpine_\bullet$, and thus~$\spine_\bullet$, satisfies the local condition of \cref{def:spine}.
 \end{proof}
 
@@ -1787,24 +1787,23 @@ The next statement should morally be though as the definition of~$\surjectionSpi
     \qedhere
   \end{enumerate}
 \end{proof}
-\vincent{I am here changing $\circ$ $\bullet$ everywhere...}
 
 \begin{proposition}
   \label{prop:filteredRefinementSpines}
   The map~$\surjectionSpines$ is a filtered poset morphism from the spine poset~$\spinePoset[\decoratedGraph_\circ]$ to the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, meaning that
   \begin{itemize}
     \item if~$\spine_\circ \le \spine_\circ'$ in~$\spinePoset[\decoratedGraph_\circ]$, then~$\surjectionSpines(\spine_\circ) \le \surjectionSpines(\spine_\circ')$ in~$\spinePoset[\decoratedGraph_\bullet]$,
+    \vincent{Is that correct?}
     \item the rank of~$\spine_\circ$ in~$\spinePoset[\decoratedGraph_\circ]$ is at most the rank of~$\surjectionSpines(\spine_\circ)$ in~$\spinePoset[\decoratedGraph_\bullet]$.
   \end{itemize}
 \end{proposition}
 
-
 \begin{proposition}
   \label{prop:refinementSpines}
-  If~$\decoratedGraph$ refines~$\decoratedGraph_\bullet$, then the map~$\surjectionSpines$ is 
+  If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then the map~$\surjectionSpines$ is 
   \begin{itemize}
-    \item a surjection from the spines on~$\decoratedGraph$ to the spines on~$\decoratedGraph_\bullet$,
-    \item a filtered map from the spine poset~$\spinePoset[\decoratedGraph]$ to the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, meaning that the rank of~$\surjectionSpines(\spine)$ is at least the rank of~$\spine$ (it can have more, see \cref{fig:blossomingSpine}).
+    \item a surjection from the spines on~$\decoratedGraph_\circ$ to the spines on~$\decoratedGraph_\bullet$,
+    \item a filtered map from the spine poset~$\spinePoset[\decoratedGraph_\circ]$ to the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, meaning that the rank of~$\surjectionSpines(\spine_\circ)$ is at least the rank of~$\spine_\circ$ (it can have more, see \cref{fig:blossomingSpine}).
     \vincent{In particular, the image of a maximal spine is a maximal spine.}
   \end{itemize}
 \end{proposition}
