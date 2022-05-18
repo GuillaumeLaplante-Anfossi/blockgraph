@@ -172,9 +172,9 @@
 \newcommandx{\almostSpine}[1][1=S]{\smash{\widetilde{#1}}} % spine
 \newcommandx{\spines}[1][1=\decoratedGraph]{\mathcal{S}(#1)} % set of spines
 \newcommandx{\spinePoset}[1][1=\decoratedGraph]{\mathcal{P}_{#1}} % spine poset
-\newcommand{\blossom}{^\text{\ding{96}}} % blossom
+\newcommand{\blossom}{\text{\ding{96}}} % blossom
 \newcommand{\labeling}{\lambda} % labels in blossoming trees
-\newcommandx{\equivalenceSpines}[2][1=\decoratedGraph, 2=\decoratedGraph']{\equiv_{#1 \to #2}} % equivalence relation on spines
+\newcommandx{\equivalenceSpines}[2][1=\decoratedGraph_\circ, 2=\decoratedGraph_\bullet]{\equiv_{#1 \to #2}} % equivalence relation on spines
 % nested complex
 \newcommandx{\chunk}[1][1=C]{#1} % chunck
 \newcommandx{\nested}[1][1=N]{#1} % nested set
@@ -187,7 +187,7 @@
 \newcommand{\spineToNested}{\mathsf{N}} % spine to nested set
 \newcommand{\nestedToSpine}{\mathsf{S}} % nested set to spine
 \newcommand{\partitionToSpine}{\mathsf{S}} % partition to spine
-\newcommandx{\surjectionSpines}[2][1=\decoratedGraph, 2=\decoratedGraph']{\Phi_{#1 \to #2}} % spine to spine
+\newcommandx{\surjectionSpines}[2][1=\decoratedGraph_\circ, 2=\decoratedGraph_\bullet]{\Phi_{#1 \to #2}} % spine to spine
 \newcommand{\nodeSurj}[2]{\smash{n_{#1}^{#2}}} % node surjection
 \newcommand{\arcSurj}[2]{\smash{\varepsilon_{#1}^{#2}}} % arc surjection
 % insertion
@@ -1197,7 +1197,7 @@ This is not strictly needed for the purposes of the next section, but it enlight
 \begin{definition}
   \label{def:blossomingSpine}
   Let~$\decoratedMaple \eqdef (\Maple, \decoration)$ be a decorated maple tree, let~$\decoratedGraph \eqdef (\Graph, \decoration)$ be the decorated block graph obtained by tapping~$\Maple$, and let~$\spine$ be a spine on~$\decoratedGraph$.
-  The \defn{blossoming spine}~$\spine\blossom$ is the labeled blossoming tree obtained from the labeled spine~$\spine$ by a adding at each node~$X$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by~$C$ for each connected component~$C$ of~$\Maple \ssm \Down[\vertexSet]$ (resp.~of~$\Maple \ssm \Up[\vertexSet]$) adjacent to~$X$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
+  The \defn{blossoming spine}~$\spine^\blossom$ is the labeled blossoming tree obtained from the labeled spine~$\spine$ by a adding at each node~$X$ of~$\spine$ an incoming (resp.~outgoing) blossom labeled by~$C$ for each connected component~$C$ of~$\Maple \ssm \Down[\vertexSet]$ (resp.~of~$\Maple \ssm \Up[\vertexSet]$) adjacent to~$X$ such that there is no incoming arc~$\alpha$ (resp.~outgoing arc~$\beta$) of~$X$ with~$\so[\alpha]$ (resp.~$\ta[\beta]$) contained in~$C$.
 \end{definition}
 
 \begin{remark}
@@ -1283,22 +1283,22 @@ This is not strictly needed for the purposes of the next section, but it enlight
 \begin{proposition}
   \label{prop:blossomingSpine}
   Let~$\decoratedMaple \eqdef (\Maple, \decoration)$ be a decorated maple tree, let~$\decoratedGraph \eqdef (\Graph, \decoration)$ be the decorated block graph obtained by tapping~$\Maple$, and let~$\spine$ be a spine on~$\decoratedGraph$.
-  For any cut~$\Gamma$ of~$\spine\blossom$, the labels of the nodes, arcs and blossoms of~$\Gamma$ are precisely the connected components of~$\Maple \ssm \big( \Up[{\so[\Gamma]}] \cup \Down[{\ta[\Gamma]}] \big)$.
+  For any cut~$\Gamma$ of~$\spine^\blossom$, the labels of the nodes, arcs and blossoms of~$\Gamma$ are precisely the connected components of~$\Maple \ssm \big( \Up[{\so[\Gamma]}] \cup \Down[{\ta[\Gamma]}] \big)$.
 \end{proposition}
 
 \begin{proof}
-  We prove the result by sweeping the blossoming spine~$\spine\blossom$.
+  We prove the result by sweeping the blossoming spine~$\spine^\blossom$.
 
-  The base case is the cut~$\Gamma_\circ$ of~$\spine\blossom$ consisting of all its incoming blossoms, which are labeled by the connected components of~$\Maple \ssm \Down[\vertexSet]$.
+  The base case is the cut~$\Gamma_\circ$ of~$\spine^\blossom$ consisting of all its incoming blossoms, which are labeled by the connected components of~$\Maple \ssm \Down[\vertexSet]$.
   Indeed, the label of any incoming blossom is a connected component of~$\Maple \ssm \Down[\vertexSet]$ by definition.
   Conversely, for any connected component~$C$ of~$\Maple \ssm \Down[\vertexSet]$, the set of nodes of~$\spine$ adjacent to~$C$ forms a chain in~$\spine$ by \cref{def:spine}, and~$C$ appears as an incoming blossom of the minimal node of~$\spine$ in this chain.
   
-%  Consider now a node~$X$ of~$\spine\blossom$, and let~$A$ denote its set of incoming arcs and blossoms.
-  Consider now two cuts~$\Gamma$ and~$\Gamma'$ of~$\spine\blossom$ such that~$\Gamma \ssm A = \Gamma' \ssm \{X\}$ where~$A$ is the set of incoming arcs and blossoms of a node~$X$ of~$\spine\blossom$.
+%  Consider now a node~$X$ of~$\spine^\blossom$, and let~$A$ denote its set of incoming arcs and blossoms.
+  Consider now two cuts~$\Gamma$ and~$\Gamma'$ of~$\spine^\blossom$ such that~$\Gamma \ssm A = \Gamma' \ssm \{X\}$ where~$A$ is the set of incoming arcs and blossoms of a node~$X$ of~$\spine^\blossom$.
   Note that the sets~$\labeling(\alpha)$ for~$\alpha \in A$ are precisely the connected components of~$\Maple \ssm \big( \Up[{\so[\Gamma]}] \cup \Down[{\ta[\Gamma]}] \big)$ adjacent to~$X$, and that $\labeling(X)$ is the connected component of~$\Maple \ssm \big( \Up[{\so[\Gamma']}] \cup \Down[{\ta[\Gamma']}] \big)$ containing~$X$.
   We conclude that if the result holds for~$\Gamma$, then it also holds for~$\Gamma'$.
-  The argument is symmetric for two cuts~$\Gamma$ and~$\Gamma'$ of~$\spine\blossom$ such that~$\Gamma \ssm \{X\} = \Gamma' \ssm B$ where~$B$ is the set of outgoing arcs and blossoms of a node~$X$ of~$\spine\blossom$.
-  The result thus follows since any cut of~$\spine\blossom$ can be obtained from the cut~$\Gamma_\circ$ by a sequence of such moves.
+  The argument is symmetric for two cuts~$\Gamma$ and~$\Gamma'$ of~$\spine^\blossom$ such that~$\Gamma \ssm \{X\} = \Gamma' \ssm B$ where~$B$ is the set of outgoing arcs and blossoms of a node~$X$ of~$\spine^\blossom$.
+  The result thus follows since any cut of~$\spine^\blossom$ can be obtained from the cut~$\Gamma_\circ$ by a sequence of such moves.
 \end{proof}
 %
 %\begin{figure}[h!]
@@ -1368,8 +1368,8 @@ We now consider a natural refinement order on decorated block graphs and define 
 
 \begin{definition}
   \label{def:refinementDecoratedGraphs}
-  For two decorations~$\decoration$ and~$\decoration'$ on a set~$\vertexSet$, we say that~$\decoration$ \defn{refines}~$\decoration'$ (and that $\decoration'$ \defn{coarsens} $\decoration$) if~$\Down[\vertexSet] \subseteq \Down[\vertexSet][\decoration']$ and $\Up[\vertexSet] \subseteq \Up[\vertexSet][\decoration']$.
-  For two decorated block graphs~$\decoratedGraph \eqdef (\Graph, \decoration)$ and~$\decoratedGraph' \eqdef (\Graph', \decoration')$, we say that~$\decoratedGraph$ \defn{refines}~$\decoratedGraph'$ (and that $\decoratedGraph'$ \defn{coarsens} $\decoratedGraph$) if~$\Graph = \Graph'$ and $\decoration$ refines~$\decoration'$.
+  For two decorations~$\decoration_\circ$ and~$\decoration_\bullet$ on a set~$\vertexSet$, we say that~$\decoration_\circ$ \defn{refines}~$\decoration_\bullet$ (and that $\decoration_\bullet$ \defn{coarsens} $\decoration_\circ$) if~$\Down[\vertexSet][\decoration_\circ] \subseteq \Down[\vertexSet][\decoration_\bullet]$ and $\Up[\vertexSet][\decoration_\circ] \subseteq \Up[\vertexSet][\decoration_\bullet]$.
+  For two decorated block graphs~$\decoratedGraph_\circ \eqdef (\Graph_\circ, \decoration_\circ)$ and~$\decoratedGraph_\bullet \eqdef (\Graph_\bullet, \decoration_\bullet)$, we say that~$\decoratedGraph_\circ$ \defn{refines}~$\decoratedGraph_\bullet$ (and that $\decoratedGraph_\bullet$ \defn{coarsens} $\decoratedGraph_\circ$) if~$\Graph_\circ = \Graph_\bullet$ and~$\decoration_\circ$~refines~$\decoration_\bullet$.
 \end{definition}
 
 \begin{figure}
@@ -1507,7 +1507,7 @@ We now consider a natural refinement order on decorated block graphs and define 
     \draw[->] (5)--(6) node[midway, right] {\scriptsize \red \textit{fg}};
   \end{tikzpicture}
   }
-  \caption{A spine~$\spine$ on~$\decoratedMaple$ (left) and the spine~$\spine' = \surjectionSpines(\spine)$ on~$\decoratedMaple'$ (right) obtained by contracting the empty node in the directed tree~$\almostSpine'$ (middle) defined in \cref{def:refinementSpines}.}
+  \caption{A spine~$\spine_\circ$ on~$\decoratedMaple_\circ$ (left) and the spine~$\spine_\bullet = \surjectionSpines(\spine_\circ)$ on~$\decoratedMaple_\bullet$ (right) obtained by contracting the empty node in the directed tree~$\almostSpine_\bullet$ (middle) defined in \cref{def:refinementSpines}.}
   \label{fig:refinementSpines}
 \end{figure} 
 
@@ -1638,58 +1638,59 @@ We now consider a natural refinement order on decorated block graphs and define 
     \draw[->] (6)--(g') node[midway, right] {\scriptsize \red \textit{g}};
   \end{tikzpicture}
   }
-  \caption{A blossoming spine~$\spine\blossom$ on~$\decoratedMaple$ (left) and the blossoming spine~${\spine\blossom}' = \surjectionSpines(\spine\blossom)$ on~$\decoratedMaple'$ (right) obtained by contracting the empty node in the directed tree~${\almostSpine\blossom}'$ (middle) defined in \cref{def:refinementSpines,rem:refinementBlossomingSpine}.}
+  \caption{A blossoming spine~$\spine_\circ^\blossom$ on~$\decoratedMaple_\circ$ (left) and the blossoming spine~$\spine_\bullet^\blossom = \surjectionSpines(\spine_\circ^\blossom)$ on~$\decoratedMaple_\bullet$ (right) obtained by contracting the empty node in the directed tree~$\almostSpine_\bullet^\blossom$ (middle) defined in \cref{def:refinementSpines,rem:refinementBlossomingSpine}.}
   \label{fig:refinementBlossomingSpines}
 \end{figure} 
 
-The goal of this section is to define and describe a natural surjection~$\surjectionSpines$ from the spines on~$\decoratedGraph$ to the spines on~$\decoratedGraph'$ when $\decoratedGraph$ refines~$\decoratedGraph'$.
-The key property of~$\surjectionSpines(\spine)$ is given in \cref{prop:alternativeDescriptionRefinementSpines}, and should morally be considered as the definition of~$\surjectionSpines(\spine)$.
-However, proving this property requires the following explicit combinatorial description of~$\surjectionSpines(\spine)$, which is illustrated in \cref{fig:refinementSpines}.
+Throughout this section, we assume that $\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$.
+Our objective is to define and describe a natural surjection~$\surjectionSpines$ from the spines on~$\decoratedGraph_\circ$ to the spines on~$\decoratedGraph_\bullet$.
+The key property of~$\surjectionSpines$ is given in \cref{prop:alternativeDescriptionRefinementSpines}, and should morally be considered as the definition of~$\surjectionSpines$.
+However, proving this property requires the following explicit combinatorial description of~$\surjectionSpines$, which is illustrated in \cref{fig:refinementSpines}.
 This description uses the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}.
 \vincent{We do not need the sweeping algorithm anymore...}
 
 \begin{definition}
   \label{def:refinementSpines}
   Let~$\Maple$ be a maple tree and~$\Graph$ be the block graph obtained by tapping~$\Maple$.
-  Consider two decorations~$\decoration, \decoration'$ on~$\vertexSet$ such that~$\decoration$ refines~$\decoration'$.
-  To a spine~$\spine$ on~$\decoratedGraph \eqdef (\Graph, \decoration)$, we associate the spine~$\spine'$ on~$\decoratedGraph' \eqdef (\Graph, \decoration')$ obtained by contracting the empty nodes in the directed tree~$\almostSpine'$ with
+  Consider two decorations~$\decoration_\circ, \decoration_\bullet$ on~$\vertexSet$ such that~$\decoration_\circ$ refines~$\decoration_\bullet$.
+  To a spine~$\spine_\circ$ on~$\decoratedGraph_\circ \eqdef (\Graph, \decoration_\circ)$, we associate the spine~$\spine_\bullet$ on~$\decoratedGraph_\bullet \eqdef (\Graph, \decoration_\bullet)$ obtained by contracting the empty nodes in the directed tree~$\almostSpine_\bullet$~with
   \begin{itemize}
-    \item a node~$\nodeSurj{X}{D} \eqdef X \cap D$ for each node~$X$ of~$\spine$ and each connected component~$D$ of \linebreak ${\Maple \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ contained in~$\labeling(X)$,
-    \item an arc~$\arcSurj{\gamma}{C}$ joining the unique node~$\nodeSurj{X}{D}$ with~$C \subseteq D$ to the unique node~$\nodeSurj{Y}{E}$~with~${C \subseteq E}$ for each arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and each connected component~$C$ of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ contained in~$\labeling(\gamma)$.
+    \item a node~$\nodeSurj{X}{D} \eqdef X \cap D$ for each node~$X$ of~$\spine_\circ$ and each connected component~$D$ of \linebreak ${\Maple \ssm \big( \Up[{\so[X]}][\decoration_\bullet] \cup \Down[{\ta[X]}][\decoration_\bullet] \big)}$ contained in~$\labeling(X)$,
+    \item an arc~$\arcSurj{\gamma}{C}$ joining the unique node~$\nodeSurj{X}{D}$ with~$C \subseteq D$ to the unique node~$\nodeSurj{Y}{E}$~with~${C \subseteq E}$ for each arc~$\gamma$ of~$\spine_\circ$ joining~$X$ to~$Y$ and each connected component~$C$ of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration_\bullet] \cup \Down[{\ta[\gamma]}][\decoration_\bullet] \big)$ contained in~$\labeling(\gamma)$.
   \end{itemize}
-  We denote by~$\surjectionSpines$ the map that sends the spine $\spine$ on~$\decoratedGraph$ to the spine~$\spine'$ on~$\decoratedGraph'$.
+  We denote by~$\surjectionSpines$ the map that sends the spine $\spine_\circ$ on~$\decoratedGraph_\circ$ to the spine~$\spine_\bullet$ on~$\decoratedGraph_\bullet$.
 \end{definition}
 
 \begin{remark}
   \label{rem:refinementBlossomingSpine}
-  A similar construction sends a blossoming spine~$\spine\blossom$ on~$\decoratedGraph$ to a blossoming spine~${\spine\blossom}'$ on~$\decoratedGraph'$.
-  Namely, we just need to complete the directed tree~$\almostSpine'$ into the blossoming directed tree~${\almostSpine\blossom}'$ by adding:
+  A similar construction sends a blossoming spine~$\spine_\circ^\blossom$ on~$\decoratedGraph_\circ$ to a blossoming spine~$\spine_\bullet^\blossom$ on~$\decoratedGraph_\bullet$.
+  Namely, we just need to complete the directed tree~$\almostSpine_\bullet$ into the blossoming directed tree~$\almostSpine_\bullet^\blossom$ by adding:
   \begin{itemize}
-    \item an incoming (resp.~outgoing) blossom~$\arcSurj{\gamma}{C}$ attached to the unique node~$\nodeSurj{X}{D}$ with~$S \subseteq D$ for each incoming (resp.~outgoing) blossom~$\gamma$ of~$\spine\blossom$ attached to node~$X$.
+    \item an incoming (resp.~outgoing) blossom~$\arcSurj{\gamma}{C}$ attached to the unique node~$\nodeSurj{X}{D}$ with~$S \subseteq D$ for each incoming (resp.~outgoing) blossom~$\gamma$ of~$\spine_\circ^\blossom$ attached to node~$X$.
   \end{itemize}
 \end{remark}
 
-Our next four statements aim at showing the correctness of \cref{def:refinementSpines}, meaning that~$\spine'$ is indeed a spine on~$\decoratedGraph'$.
+Our next four statements aim at showing the correctness of \cref{def:refinementSpines}, meaning that~$\spine_\bullet$ is indeed a spine on~$\decoratedGraph_\bullet$.
 \vincent{Maybe first need to prove that ``unique node'' is correct.}
-% For an arc~$\gamma$ of~$\spine$ joining~$X$ to~$Y$ and a connected component~$C$ of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$ there is a unique connected component~$D$ of ${\Maple \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$ containing~$C$, and a unique connected component~$E$ of ${\Maple \ssm \big( \Up[{\so[Y]}][\decoration'] \cup \Down[{\ta[Y]}][\decoration'] \big)}$ containing~$C$. Indeed... todo.
-For this, we first study the directed tree~$\almostSpine'$ described in \cref{def:refinementSpines} before contraction of the empty nodes.
+% For an arc~$\gamma$ of~$\spine_\circ$ joining~$X$ to~$Y$ and a connected component~$C$ of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration_\bullet] \cup \Down[{\ta[\gamma]}][\decoration_\bullet] \big)$ there is a unique connected component~$D$ of ${\Maple \ssm \big( \Up[{\so[X]}][\decoration_\bullet] \cup \Down[{\ta[X]}][\decoration_\bullet] \big)}$ containing~$C$, and a unique connected component~$E$ of ${\Maple \ssm \big( \Up[{\so[Y]}][\decoration_\bullet] \cup \Down[{\ta[Y]}][\decoration_\bullet] \big)}$ containing~$C$. Indeed... todo.
+For this, we first study the directed tree~$\almostSpine_\bullet$ described in \cref{def:refinementSpines} before contraction of the empty nodes.
 
 \begin{lemma}
   \label{lem:refinementSpines1}
-  The map~$\nodeSurj{X}{D} \mapsto X$ is a directed graph morphism from~$\almostSpine'$ to~$\spine$.
+  The map~$\nodeSurj{X}{D} \mapsto X$ is a directed graph morphism from~$\almostSpine_\bullet$ to~$\spine_\circ$.
 \end{lemma}
 
 \begin{proof}
-  This immediately follows from the definition, since any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\almostSpine'$ comes from an arc~$\gamma$ joining~$X$ to~$Y$.
+  This immediately follows from the definition, since any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\almostSpine_\bullet$ comes from an arc~$\gamma$ joining~$X$ to~$Y$ in~$\spine_\circ$.
 \end{proof}
 
 \begin{lemma}
   \label{lem:refinementSpines2}
-  For any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\almostSpine'$, any (non-directed) path~$\pi$ in~$\almostSpine'$ containing~$\arcSurj{\gamma}{C}$, and any node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$ (resp.~$\nodeSurj{Y}{E}$), the set~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$ (resp.~of~$\Maple \ssm \Up[\nodeSurj{X}{D}]$) containing~$C$.
+  For any arc~$\arcSurj{\gamma}{C}$ joining~$\nodeSurj{X}{D}$ to~$\nodeSurj{Y}{E}$ in~$\almostSpine_\bullet$, any (non-directed) path~$\pi$ in~$\almostSpine_\bullet$ containing~$\arcSurj{\gamma}{C}$, and any node~$\nodeSurj{Z}{F}$ in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$ (resp.~$\nodeSurj{Y}{E}$), the set~$F$ is contained in the connected component of~$\Maple \ssm \Down[\nodeSurj{Y}{E}]$ (resp.~of~$\Maple \ssm \Up[\nodeSurj{X}{D}]$) containing~$C$.
 \end{lemma}
 
 \begin{proof}
-  We prove this statement simultaneously on all arcs of~$\almostSpine'$, by induction on the length of~$\pi$.
+  We prove this statement simultaneously on all arcs of~$\almostSpine_\bullet$, by induction on the length of~$\pi$.
   By symmetry, we only treat the case when~$\nodeSurj{Z}{F}$ is in the connected component of~$\pi \ssm \arcSurj{\gamma}{C}$ containing~$\nodeSurj{X}{D}$.
   
   We start with the base case of the induction when~$\pi$ is just the arc~$\arcSurj{\gamma}{C}$.
@@ -1710,39 +1711,39 @@ For this, we first study the directed tree~$\almostSpine'$ described in \cref{de
 
 \begin{lemma}
   \label{lem:refinementSpines3}
-  The graph~$\almostSpine'$ is indeed a directed tree.
+  The graph~$\almostSpine_\bullet$ is indeed a directed tree.
 \end{lemma}
 
 \begin{proof}
-  We first prove that~$\almostSpine'$ is connected.
+  We first prove that~$\almostSpine_\bullet$ is connected.
   Consider an edge~$\{u,v\}$ of~$\Graph$.
   Since~$u$ and~$v$ belong to the same connected component of~$\Graph \ssm U$ for any subset~$U$ of~$\vertexSet$, there is a directed path~$\pi$ in~$\spine$ between the node containing~$u$ and the node containing~$v$.
-  For any node~$X$ (resp.~arc~$\gamma$) in the interior of this path, $u$ and~$v$ also belong to the same connected component~$D_\star$~of~$\Maple \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)$ (resp.~$C_\star$~of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration'] \cup \Down[{\ta[\gamma]}][\decoration'] \big)$).
-  The corresponding nodes~$\nodeSurj{X}{D_\star}$ and arcs~$\arcSurj{\gamma}{C_\star}$ along the path~$\pi$ thus form a path in~$\almostSpine'$ between the node containing~$u$ and the node containing~$v$.
-  The connectedness of~$\Graph$ thus implies the connectedness of~$\almostSpine'$.
+  For any node~$X$ (resp.~arc~$\gamma$) in the interior of this path, $u$ and~$v$ also belong to the same connected component~$D_\star$~of~$\Maple \ssm \big( \Up[{\so[X]}][\decoration_\bullet] \cup \Down[{\ta[X]}][\decoration_\bullet] \big)$ (resp.~$C_\star$~of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration_\bullet] \cup \Down[{\ta[\gamma]}][\decoration_\bullet] \big)$).
+  The corresponding nodes~$\nodeSurj{X}{D_\star}$ and arcs~$\arcSurj{\gamma}{C_\star}$ along the path~$\pi$ thus form a path in~$\almostSpine_\bullet$ between the node containing~$u$ and the node containing~$v$.
+  The connectedness of~$\Graph$ thus implies the connectedness of~$\almostSpine_\bullet$.
   
-  We now prove that~$\almostSpine'$ is acyclic.
-  Assume that~$\almostSpine'$ contains a (non-directed) cycle~$\sigma'$.
-  By \cref{lem:refinementSpines1}, the corresponding arcs in~$\spine$ also form a (non-directed, with possible edge repetitions) cycle~$\sigma$.
-  Since~$\spine$ is a directed tree, $\sigma$ has two incoming arcs at the same node. Hence, $\sigma'$ also has two incoming arcs at the same node.
-  Therefore, there are two paths in~$\almostSpine'$ starting at the same node and arriving to the same node through different incoming arcs, contradicting \cref{lem:refinementSpines2}.
+  We now prove that~$\almostSpine_\bullet$ is acyclic.
+  Assume that~$\almostSpine_\bullet$ contains a (non-directed) cycle~$\sigma_\bullet$.
+  By \cref{lem:refinementSpines1}, the corresponding arcs in~$\spine_\circ$ also form a (non-directed, with possible edge repetitions) cycle~$\sigma_\circ$.
+  Since~$\spine_\circ$ is a directed tree, $\sigma_\circ$ has two incoming arcs at the same node. Hence, $\sigma_\bullet$ also has two incoming arcs at the same node.
+  Therefore, there are two paths in~$\almostSpine_\bullet$ starting at the same node and arriving to the same node through different incoming arcs, contradicting \cref{lem:refinementSpines2}.
 \end{proof}
 
 \begin{lemma}
   \label{lem:refinementSpines4}
-  The graph~$\spine'$ is indeed a spine on~$\decoratedGraph'$.
+  The graph~$\spine_\bullet$ is indeed a spine on~$\decoratedGraph_\bullet$.
 \end{lemma}
 
 \begin{proof}
-  First, $\spine'$ is a directed tree as it is obtained by contractions in~$\almostSpine'$ which is a directed tree by \cref{lem:refinementSpines3}.
+  First, $\spine_\bullet$ is a directed tree as it is obtained by contractions in~$\almostSpine_\bullet$ which is a directed tree by \cref{lem:refinementSpines3}.
   We thus just need to check the two conditions of \cref{def:spine}.
 
-  First, since any node~$X$ of~$\spine$ is contained both in~$\labeling(X)$ and in ${\Maple \ssm \big( \Up[{\so[X]}][\decoration'] \cup \Down[{\ta[X]}][\decoration'] \big)}$, the non-empty nodes~$\nodeSurj{X}{D}$ partition the node~$X$.
-  Hence, since the nodes of~$\spine$ partition~$\vertexSet$, the nodes of~$\spine'$ partition~$\vertexSet$. This shows the global condition of \cref{def:spine}.
+  First, since any node~$X$ of~$\spine_\circ$ is contained both in~$\labeling(X)$ and in ${\Maple \ssm \big( \Up[{\so[X]}][\decoration_\bullet] \cup \Down[{\ta[X]}][\decoration_\bullet] \big)}$, the non-empty nodes~$\nodeSurj{X}{D}$ partition the node~$X$.
+  Hence, since the nodes of~$\spine_\circ$ partition~$\vertexSet$, the nodes of~$\spine_\bullet$ partition~$\vertexSet$. This shows the global condition of \cref{def:spine}.
 
-  Finally, consider two incoming arcs~$\arcSurj{\alpha}{C}$ and~$\arcSurj{\alpha'}{C'}$ of a node~$\nodeSurj{X}{D}$ in~$\almostSpine'$.
+  Second, consider two incoming arcs~$\arcSurj{\alpha}{C}$ and~$\arcSurj{\alpha'}{C'}$ of a node~$\nodeSurj{X}{D}$ in~$\almostSpine_\bullet$.
   By \cref{lem:refinementSpines2}, the source sets $\so[\arcSurj{\alpha}{C}]$ and~$\so[\arcSurj{\alpha'}{C'}]$ are contained in distinct connected components of~$\Graph \ssm \Down[\nodeSurj{X}{D}]$.
-  By symmetry, we thus conclude that~$\almostSpine'$, and thus~$\spine'$, satisfies the local condition of \cref{def:spine}.
+  By symmetry, we thus conclude that~$\almostSpine_\bullet$, and thus~$\spine_\bullet$, satisfies the local condition of \cref{def:spine}.
 \end{proof}
 
 We now describe the surjection map~$\surjectionSpines$ in terms of the extensions of \cref{def:preorderSpine} and of the spine poset of \cref{def:spinePoset}.
@@ -1750,59 +1751,60 @@ The next statement should morally be though as the definition of~$\surjectionSpi
 
 \begin{proposition}
   \label{prop:alternativeDescriptionRefinementSpines}
-  The spine~$\surjectionSpines(\spine)$ is the unique contraction minimal spine on~$\decoratedGraph'$ extended by the spine~$\spine$ of~$\decoratedGraph$.
+  The spine~$\surjectionSpines(\spine_\circ)$ is the unique contraction minimal spine on~$\decoratedGraph_\bullet$ extended by the spine~$\spine_\circ$.
 \end{proposition}
 
 \begin{proof}
-  The spines on~$\decoratedGraph'$ extended by~$\spine$ clearly form an upper ideal~$I$ of the spine poset~$\spinePoset[\decoratedGraph']$.
-  Observe that~$\surjectionSpines(\spine)$ belongs to~$I$ by \cref{lem:refinementSpines1}, and that~$\surjectionSpines(\spine)$ is contraction minimal in~$I$ since each node of~$\spine$ is the disjoint union of incomparable nodes in~$\surjectionSpines(\spine)$ by \cref{def:refinementSpines}.
+  The spines on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$ clearly form an upper ideal~$I$ of the spine poset~$\spinePoset[\decoratedGraph_\bullet]$.
+  Observe that~$\surjectionSpines(\spine_\circ)$ belongs to~$I$ by \cref{lem:refinementSpines1}, and that~$\surjectionSpines(\spine_\circ)$ is contraction minimal in~$I$ since each node of~$\spine_\circ$ is the disjoint union of incomparable nodes in~$\surjectionSpines(\spine_\circ)$ by \cref{def:refinementSpines}.
   To conclude, we thus just need to prove that~$I$ has a unique minimal element.
-  Assume by contradiction that there are two distinct contraction minimal spines~$\spine'_\circ, \spine'_\bullet$ on~$\decoratedGraph'$ extended by~$\spine$.
-  Since~$\spine'_\circ$ and~$\spine'_\bullet$ are incomparable in the spine poset, there are vertices~$x,y \in \vertexSet$ such that~$x \preccurlyeq_{\spine'_\circ} y$ while~$x \not\preccurlyeq_{\spine'_\bullet} y$, or~$x \not\preccurlyeq_{\spine'_\circ} y$ while~$x \preccurlyeq_{\spine'_\bullet} y$.
-  Consider such a pair~$\{x,y\}$ whose distance in~$\Maple$ is minimal, and assume for instance that~$x \preccurlyeq_{\spine'_\circ} y$ while~$x \not\preccurlyeq_{\spine'_\bullet} y$.
-  Let~$X_\circ$ and~$Y_\circ$ be the nodes of~$\spine'_\circ$ containing~$x$ and~$y$ respectively, and let~$\pi_\circ$ be the unique path joining~$X_\circ$ to~$Y_\circ$ in~$\spine'_\circ$, and define similarly~$X_\bullet$, $Y_\bullet$ and~$\pi_\bullet$.
-  Since~$x \not\preccurlyeq_{\spine'_\bullet} y$, there is a node of~$\spine'_\bullet$ where~$\pi_\bullet$ has either two incoming or two outgoing arcs.
-  Let~$Z_\bullet$ be the closest such node from~$X_\bullet$.
+  Assume by contradiction that there are two distinct contraction minimal spines~$\spine_\bullet, \spine_\bullet'$ on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$.
+  Since~$\spine_\bullet$ and~$\spine_\bullet'$ are incomparable in the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, there are vertices~$x,y \in \vertexSet$ such that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$, or~$x \not\preccurlyeq_{\spine_\bullet} y$ while~$x \preccurlyeq_{\spine_\bullet'} y$.
+  Consider such a pair~$\{x,y\}$ whose distance in~$\Maple$ is minimal, and assume for instance that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$.
+  Let~$X$ and~$Y$ be the nodes of~$\spine_\bullet$ containing~$x$ and~$y$ respectively, and let~$\pi$ be the unique path joining~$X$ to~$Y$ in~$\spine_\bullet$, and define similarly~$X'$, $Y'$ and~$\pi'$ in~$\spine_\bullet'$.
+  Since~$x \not\preccurlyeq_{\spine_\bullet'} y$, there is a node of~$\spine_\bullet'$ where~$\pi'$ has either two incoming or two outgoing arcs.
+  Let~$Z'$ be the closest such node from~$X'$.
   We now distinguish two cases:
   \begin{enumerate}[(i)]
-    \item Assume first that~$\pi_\bullet$ has two outgoing arcs at~$Z_\bullet$.
-    Since~$x$ and~$y$ belong to the target sets of two distinct outgoing arcs of~$Z$, there is~$z \in \Up[Z_\bullet][\decoration']$ which separates~$x$ and~$y$ in~$\Maple$.
-    Denote by~$Z_\circ$ the node of~$\spine'_\circ$ containing~$z$.
-    Since~$z \preccurlyeq_{\spine'_\bullet} x$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine'_\circ} z$ or~$z \preccurlyeq_{\spine'_\circ} x$.
-    If~$x \preccurlyeq_{\spine'_\circ} z$, we obtain that~$x \preccurlyeq_{\spine} z \preccurlyeq_{\spine} x$ (since~$\spine$ extends both~$\spine'_\circ$ and~$\spine'_\bullet$), which contradicts the minimality of~$\spine'_\bullet$ (the spine obtained by contracting the path joining~$Z_\bullet$ to~$X_\bullet$ in~$\spine'_\bullet$ would still be extended by~$\spine$).
-    We thus obtain that~$z \prec_{\spine'_\circ} x \preccurlyeq_{\spine'_\circ} y$.
-    This implies that~$x$ and~$y$ appear in the target set of the same outgoing arc at~$Z_\circ$, even if they are separated by~$z \in \Up[Z_\circ][\decoration']$, so that~$\spine'_\circ$ fails the local condition around~$Z_\circ$ to be a spine on~$\decoratedGraph'$.
+    \item Assume first that~$\pi'$ has two outgoing arcs at~$Z'$.
+    Since~$x$ and~$y$ belong to the target sets of two distinct outgoing arcs of~$Z'$, there is~$z \in \Up[Z'][\decoration_\bullet]$ which separates~$x$ and~$y$ in~$\Maple$.
+    Denote by~$Z$ the node of~$\spine_\bullet$ containing~$z$.
+    Since~$z \preccurlyeq_{\spine_\bullet'} x$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine_\bullet} z$ or~$z \preccurlyeq_{\spine_\bullet} x$.
+    If~$x \preccurlyeq_{\spine_\bullet} z$, we obtain that~$x \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} x$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the minimality of~$\spine_\bullet'$ (the spine obtained by contracting the path joining~$Z'$ to~$X'$ in~$\spine_\bullet'$ would still be extended by~$\spine_\circ$).
+    We thus obtain that~$z \prec_{\spine_\bullet} x \preccurlyeq_{\spine_\bullet} y$.
+    This implies that~$x$ and~$y$ appear in the target set of the same outgoing arc at~$Z$, even if they are separated by~$z \in \Up[Z][\decoration_\bullet]$, so that~$\spine_\bullet$ fails the local condition around~$Z$ to be a spine on~$\decoratedGraph_\bullet$.
     %
-    \item Assume now that~$\pi_\bullet$ has two incoming arcs at~$Z_\bullet$.
-    Since~$x$ and~$y$ belong to the source sets of two distinct incoming arcs of~$Z_\bullet$, there is~$z \in \Down[Z_\bullet]$ which separates~$x$ and~$y$ in~$\Maple$.
-    Denote by~$Z_\circ$ the node of~$\spine'_\circ$ containing~$z$.
-    Since~$x \preccurlyeq_{\spine'_\bullet} z$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine'_\circ} z$ or~$z \preccurlyeq_{\spine'_\circ} x$.
-    If~$z \preccurlyeq_{\spine'_\circ} x$, we obtain that~$x \preccurlyeq_{\spine} z \preccurlyeq_{\spine} x$ (since~$\spine$ extends both~$\spine'_\circ$ and~$\spine'_\bullet$), which contradicts the minimality of~$\spine'_\bullet$ (the spine obtained by contracting the path joining~$X_\bullet$ to~$Z_\bullet$ in~$\spine'_\bullet$ would still be extended by~$\spine$).
-    We thus obtain that~$x \prec_{\spine'_\circ} z$.
-    If~$z$ does not appear along the path~$\pi_\circ$, we obtain that~$x$ and~$y$ appear in the source set of the same incoming arc at~$Z_\circ$, even if they are separated by~$z \in \Down[Z_\circ][\decoration']$, so that~$\spine'_\circ$ fails the local condition around~$Z_\circ$ to be a spine on~$\decoratedGraph'$.
-    Otherwise, since~$z \preccurlyeq_{\spine'_\circ} y$ and~$y$ is closer to~$z$ than to~$x$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$z \preccurlyeq_{\spine'_\bullet} y$ or~$y \preccurlyeq_{\spine'_\bullet} z$.
-    If~$y \preccurlyeq_{\spine'_\bullet} z$, we obtain that~$y \preccurlyeq_{\spine} z \preccurlyeq_{\spine} y$ (since~$\spine$ extends both~$\spine'_\circ$ and~$\spine'_\bullet$), which contradicts the minimality of~$\spine'_\circ$ (the spine obtained by contracting the path joining~$Z_\circ$ to~$Y_\circ$ in~$\spine'_\circ$ would still be extended by~$\spine$).
-    We thus obtain that~$x \preccurlyeq_{\spine'_\bullet} z \preccurlyeq_{\spine'_\bullet} y$, contradicting our assumption that~$x \not\preccurlyeq_{\spine'_\bullet} y$.
+    \item Assume now that~$\pi'$ has two incoming arcs at~$Z'$.
+    Since~$x$ and~$y$ belong to the source sets of two distinct incoming arcs of~$Z'$, there is~$z \in \Down[Z']$ which separates~$x$ and~$y$ in~$\Maple$.
+    Denote by~$Z$ the node of~$\spine_\bullet$ containing~$z$.
+    Since~$x \preccurlyeq_{\spine_\bullet'} z$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine_\bullet} z$ or~$z \preccurlyeq_{\spine_\bullet} x$.
+    If~$z \preccurlyeq_{\spine_\bullet} x$, we obtain that~$x \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} x$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the minimality of~$\spine_\bullet'$ (the spine obtained by contracting the path joining~$X'$ to~$Z'$ in~$\spine_\bullet'$ would still be extended by~$\spine_\circ$).
+    We thus obtain that~$x \prec_{\spine_\bullet} z$.
+    If~$z$ does not appear along the path~$\pi$, we obtain that~$x$ and~$y$ appear in the source set of the same incoming arc at~$Z$, even if they are separated by~$z \in \Down[Z][\decoration_\bullet]$, so that~$\spine_\bullet$ fails the local condition around~$Z$ to be a spine on~$\decoratedGraph_\bullet$.
+    Otherwise, since~$z \preccurlyeq_{\spine_\bullet} y$ and~$y$ is closer to~$z$ than to~$x$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$z \preccurlyeq_{\spine_\bullet'} y$ or~$y \preccurlyeq_{\spine_\bullet'} z$.
+    If~$y \preccurlyeq_{\spine_\bullet'} z$, we obtain that~$y \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} y$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the minimality of~$\spine_\bullet$ (the spine obtained by contracting the path joining~$Z$ to~$Y$ in~$\spine_\bullet$ would still be extended by~$\spine_\circ$).
+    We thus obtain that~$x \preccurlyeq_{\spine_\bullet'} z \preccurlyeq_{\spine_\bullet'} y$, contradicting our assumption that~$x \not\preccurlyeq_{\spine_\bullet'} y$.
     \qedhere
   \end{enumerate}
 \end{proof}
+\vincent{I am here changing $\circ$ $\bullet$ everywhere...}
 
 \begin{proposition}
   \label{prop:filteredRefinementSpines}
-  The map~$\surjectionSpines$ is a filtered poset morphism from the spine poset~$\spinePoset[\decoratedGraph]$ to the spine poset~$\spinePoset[\decoratedGraph']$, meaning that
+  The map~$\surjectionSpines$ is a filtered poset morphism from the spine poset~$\spinePoset[\decoratedGraph_\circ]$ to the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, meaning that
   \begin{itemize}
-    \item if~$\spine_\circ \le \spine_\bullet$ in~$\spinePoset[\decoratedGraph]$, then~$\surjectionSpines(\spine_\circ) \le \surjectionSpines(\spine_\bullet)$ in~$\spinePoset[\decoratedGraph']$,
-    \item the rank of~$\spine$ in~$\spinePoset[\decoratedGraph]$ is at most the rank of~$\surjectionSpines(\spine)$ in~$\spinePoset[\decoratedGraph']$.
+    \item if~$\spine_\circ \le \spine_\circ'$ in~$\spinePoset[\decoratedGraph_\circ]$, then~$\surjectionSpines(\spine_\circ) \le \surjectionSpines(\spine_\circ')$ in~$\spinePoset[\decoratedGraph_\bullet]$,
+    \item the rank of~$\spine_\circ$ in~$\spinePoset[\decoratedGraph_\circ]$ is at most the rank of~$\surjectionSpines(\spine_\circ)$ in~$\spinePoset[\decoratedGraph_\bullet]$.
   \end{itemize}
 \end{proposition}
 
 
 \begin{proposition}
   \label{prop:refinementSpines}
-  If~$\decoratedGraph$ refines~$\decoratedGraph'$, then the map~$\surjectionSpines$ is 
+  If~$\decoratedGraph$ refines~$\decoratedGraph_\bullet$, then the map~$\surjectionSpines$ is 
   \begin{itemize}
-    \item a surjection from the spines on~$\decoratedGraph$ to the spines on~$\decoratedGraph'$,
-    \item a filtered map from the spine poset~$\spinePoset[\decoratedGraph]$ to the spine poset~$\spinePoset[\decoratedGraph']$, meaning that the rank of~$\surjectionSpines(\spine)$ is at least the rank of~$\spine$ (it can have more, see \cref{fig:blossomingSpine}).
+    \item a surjection from the spines on~$\decoratedGraph$ to the spines on~$\decoratedGraph_\bullet$,
+    \item a filtered map from the spine poset~$\spinePoset[\decoratedGraph]$ to the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, meaning that the rank of~$\surjectionSpines(\spine)$ is at least the rank of~$\spine$ (it can have more, see \cref{fig:blossomingSpine}).
     \vincent{In particular, the image of a maximal spine is a maximal spine.}
   \end{itemize}
 \end{proposition}
@@ -1813,7 +1815,7 @@ The next statement should morally be though as the definition of~$\surjectionSpi
 
 \begin{definition}
   \label{def:equivalenceRelation}
-  If~$\decoratedGraph$ refines~$\decoratedGraph'$, then the fibers of the surjection~$\surjectionSpines$ define an equivalence relation~$\equivalenceSpines$ on spines of~$\decoratedGraph$. In other words, $\spine \equivalenceSpines \spine'$ if and only if~$\surjectionSpines(\spine) = \surjectionSpines(\spine')$.
+  If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then the fibers of the surjection~$\surjectionSpines$ define an equivalence relation~$\equivalenceSpines$ on spines of~$\decoratedGraph_\circ$. In other words, $\spine_\circ \equivalenceSpines \spine_\circ'$ if and only if~$\surjectionSpines(\spine_\circ) = \surjectionSpines(\spine_\circ')$.
 \end{definition}
 
 \begin{example}
@@ -1833,15 +1835,15 @@ The next statement should morally be though as the definition of~$\surjectionSpi
   \vincent{todo: rewriting rule}
 \end{proposition}
 
-We finally compare the chunk nested complexes~$\nestedComplex[\decoratedGraph]$ and~$\nestedComplex[\decoratedGraph']$
+We finally compare the chunk nested complexes~$\nestedComplex[\decoratedGraph]$ and~$\nestedComplex[\decoratedGraph_\bullet]$
 \vincent{Not sure where I want that...}
 
 \begin{proposition}
   \label{prop:refinementBlocks}
-  If~$\decoratedGraph$ refines~$\decoratedGraph'$, then
+  If~$\decoratedGraph$ refines~$\decoratedGraph_\bullet$, then
   \begin{itemize}
-    \item any chunk of~$\decoratedGraph'$ is a chunk of~$\decoratedGraph$,
-    \item the chunk nested complex~$\nestedComplex[\decoratedGraph']$ contains the subcomplex of~$\nestedComplex[\decoratedGraph]$ induced by the chunks of~$\decoratedGraph'$.
+    \item any chunk of~$\decoratedGraph_\bullet$ is a chunk of~$\decoratedGraph$,
+    \item the chunk nested complex~$\nestedComplex[\decoratedGraph_\bullet]$ contains the subcomplex of~$\nestedComplex[\decoratedGraph]$ induced by the chunks of~$\decoratedGraph_\bullet$.
   \end{itemize}
 \end{proposition}
 
@@ -1871,15 +1873,15 @@ It turns out that we have a sufficiently large family of simplicial complexes so
 \begin{definition}
   \label{def:insert}
   Let~$\decoratedMaple$ be a decorated maple tree and~$\decoratedGraph$ be the decorated block graph obtained by tapping~$\Maple$.
-  Let~$\spine\blossom$ be a blossoming spine on~$\decoratedGraph$, and let~$\spine\blossom_X$ be a blossoming spine on~$\decoratedGraph_X$ for each node~$X$ of~$\spine\blossom$.
-  Note that the connected components of~$\Maple_X \ssm \Down[X]$ (resp.~of~$\Maple_X \ssm \Up[X]$) label both the incoming (resp.~outgoing) blossoms of~$\spine\blossom_X$ and the incoming (resp.~outgoing) arcs and blossoms at~$X$ in~$\spine\blossom$.
-  We denote by~$\insertion{\spine\blossom}{(\spine\blossom_X)_{X \in \spine\blossom}}$ the blossoming spine on~$\decoratedGraph$ obtained by replacing each node~$X$ of~$\spine\blossom$ by the blossoming spine~$\spine\blossom_X$ (and reconnecting the blossoms of~$\spine\blossom_X$ to the arcs of~$\spine\blossom$ according to their labels).
+  Let~$\spine^\blossom$ be a blossoming spine on~$\decoratedGraph$, and let~$\spine^\blossom_X$ be a blossoming spine on~$\decoratedGraph_X$ for each node~$X$ of~$\spine^\blossom$.
+  Note that the connected components of~$\Maple_X \ssm \Down[X]$ (resp.~of~$\Maple_X \ssm \Up[X]$) label both the incoming (resp.~outgoing) blossoms of~$\spine^\blossom_X$ and the incoming (resp.~outgoing) arcs and blossoms at~$X$ in~$\spine^\blossom$.
+  We denote by~$\insertion{\spine^\blossom}{(\spine^\blossom_X)_{X \in \spine^\blossom}}$ the blossoming spine on~$\decoratedGraph$ obtained by replacing each node~$X$ of~$\spine^\blossom$ by the blossoming spine~$\spine^\blossom_X$ (and reconnecting the blossoms of~$\spine^\blossom_X$ to the arcs of~$\spine^\blossom$ according to their labels).
   \vincent{We need a picture}
 \end{definition}
 
 \begin{lemma}
   \label{lem:insert}
-  The directed tree~$\insertion{\spine\blossom}{(\spine\blossom_X)_{X \in \spine\blossom}}$ is indeed a blossoming spine on~$\decoratedGraph$.
+  The directed tree~$\insertion{\spine^\blossom}{(\spine^\blossom_X)_{X \in \spine^\blossom}}$ is indeed a blossoming spine on~$\decoratedGraph$.
 \end{lemma}
 
 \begin{proof}
@@ -1888,7 +1890,7 @@ It turns out that we have a sufficiently large family of simplicial complexes so
 
 \begin{proposition}
   \label{prop:linksSpines}
-  The blossoming spines on~$\decoratedGraph$ which can be contracted to a given blossoming spine~$\spine\blossom$ on~$\decoratedGraph$ are precisely the blossoming spines~$\insertion{\spine\blossom}{(\spine\blossom_X)_{X \in \spine\blossom}}$ for all choices of a blossoming spine~$\spine\blossom_X$ on~$\decoratedGraph_X$ for each node~$X$ of~$\spine\blossom$.
+  The blossoming spines on~$\decoratedGraph$ which can be contracted to a given blossoming spine~$\spine^\blossom$ on~$\decoratedGraph$ are precisely the blossoming spines~$\insertion{\spine^\blossom}{(\spine^\blossom_X)_{X \in \spine^\blossom}}$ for all choices of a blossoming spine~$\spine^\blossom_X$ on~$\decoratedGraph_X$ for each node~$X$ of~$\spine^\blossom$.
 \end{proposition}
 
 \begin{proof}
@@ -2036,7 +2038,7 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 
 \begin{proposition}
   \label{prop:refinementSpineFan}
-  If~$\decoratedGraph$ refines~$\decoratedGraph'$, the spine fan~$\spineFan[\decoratedGraph]$ refines the spine fan~$\spineFan[\decoratedGraph']$.
+  If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, the spine fan~$\spineFan[\decoratedGraph_\circ]$ refines the spine fan~$\spineFan[\decoratedGraph_\bullet]$.
   In particular, the spine fan~$\spineFan$ coarsens the braid fan~$\braidFan$ and refines the graphical fan~$\graphicalFan$.
 \end{proposition}
 
@@ -2209,7 +2211,7 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 
 \begin{proposition}
   \label{prop:refinementSpinePolytopes}
-  If~$\decoratedGraph$ refines~$\decoratedGraph'$, then all facet inequalities of~$\Spin[\decoratedGraph]$ are facet inequalities of~$\Spin[\decoratedGraph']$.
+  If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then all facet inequalities of~$\Spin[\decoratedGraph_\circ]$ are facet inequalities of~$\Spin[\decoratedGraph_\bullet]$.
   In particular, the spine polytope~$\Spin$ contains the permutahedron~$\Perm$ and is contained in the graphical zonotope~$\Zono$.
 \end{proposition}
 
