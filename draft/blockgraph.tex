@@ -237,7 +237,7 @@
 
 %\keywords{Polytopes...}
 
-\thanks{The first author was supported by the European Union's Horizon 2020 research and innovation program under the Marie Sklodowska-Curie grant agreement No 754362 \inlinegraphics{EU.png}, by the Natural Sciences and Engineering Research Council of Canada (NSERC) and by the ANR-20-CE40-0016 Higher Algebra, Geometry and Topology. The second author is supported by the French ANR grants CAPPS~17\,CE40\,0018, and CHARMS~19\,CE40\,0017.}
+\thanks{The first author was supported by the European Union's Horizon 2020 research and innovation program under the Marie Sklodowska-Curie grant agreement No 754362 \inlinegraphics{EU.png}, by the Natural Sciences and Engineering Research Council of Canada (NSERC) and by the ANR-20-CE40-0016 Higher Algebra, Geometry and Topology. The second author is supported by the French ANR grants CAPPS~17\,CE40\,0018, and CHARMS~19\,CE40\,0017 and by the French\,--\,Austrian project PAGCAP (ANR~21\,CE48\,0020 \& FWF I 5788).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -265,6 +265,11 @@ It is the maximal generalization, according to \cite{Pilaud-removahedra}.
 \guillaume{our dioperad might be initial in some operadic / Feynman / moment category}
 \vincent{Block graphs already appear in our context: exactly the graphs whose graphical zonotope is simple, and exactly the graphs whose graph associahedra are removahedra. Btw, this is already a reason for the construction not working beyond block graphs.}
 \vincent{Line graphs of trees are exactly claw-free block graphs.}
+
+\begin{remark}
+  All the results in this section hold if and only if $\Graph$ is a block graph. 
+  \vincent{Not the right place...}
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -306,6 +311,8 @@ We will use both maple trees and block graphs, which essentially encode the same
 Note that a block graph is obtained by tapping different maple trees. For instance, one can arbitrarily add red leaves to the blue vertices.
 In this paper, we start from a maple tree~$\Maple$ and consider the block graph~$\Graph$ obtained by tapping~$\Maple$.
 We denote by~$\vertexSet$ the vertex set of~$\Graph$ (equivalently the set of blue vertices of~$\Maple$).
+We use the block graph~$\Graph$ when we only need to manipulate its vertices, and the maple tree~$\Maple$ when we really need to manipulate both the vertices and the cliques of~$\Graph$.
+Maple trees will also be fundamental for operadic constructions in \cref{..}.
 
 For convenience, in a maple tree, we label the blue vertices by digits (or numbers) and the red vertices by letters (or words).
 Consequently, in a block graph, we label the vertices by digits (or numbers) and the cliques by letters (or words).
@@ -474,24 +481,39 @@ Let us first recall the definition of a preorder.
 
 \begin{definition}
   \label{def:preorder}
-  Recall that a \defn{preorder} on~$\vertexSet$ is a reflexive and transitive binary relation~$\preccurlyeq$ on~$\vertexSet$.
+  A \defn{preorder} on~$\vertexSet$ is a reflexive and transitive binary relation~$\preccurlyeq$ on~$\vertexSet$.
   For instance, an \defn{equivalence relation} is a symmetric preorder and a \defn{partial order} is an antisymmetric preorder.
   Any preorder~$\preccurlyeq$ decomposes into an equivalence relation~$\equiv \eqdef \set{(u,v) \in {\preccurlyeq}}{(v,u) \in {\preccurlyeq}}$ together with a partial order~${\le} \eqdef {\preccurlyeq}/{\equiv}$ on the equivalence classes of~$\equiv$.
-  For two preorders~$\preccurlyeq, \preccurlyeq'$ on~$\vertexSet$, we say that~$\preccurlyeq$ \defn{extends}~$\preccurlyeq'$ when ${\preccurlyeq} \supseteq {\preccurlyeq'}$ as subsets of~$\vertexSet \times \vertexSet$.
 \end{definition}
 
 \begin{definition}
   \label{def:preorderSpine}
   Any spine~$\spine$ on~$\decoratedGraph$ defines a preorder~$\preccurlyeq_{\spine}$ on~$\vertexSet$ by $u \preccurlyeq_{\spine} v$ if and only if there is a directed path in~$\spine$ from the node containing~$u$ ot the node containing~$v$ (in particular, $u \equiv_{\spine} v$ if $u$~and~$v$ belong to the same node of~$\spine$).
-  For two spines~$\spine$ and~$\spine'$, we say that~$\spine$ \defn{extends}~$\spine'$ if~$\preccurlyeq_{\spine}$ extends~$\preccurlyeq_{\spine'}$.
 \end{definition}
+
+\vincent{Insist here that the nodes of~$\spine$ are the equivalence classes of~$\equiv_{\spine}$.}
+\vincent{We should try to translate of the definition of spine to a characterization of the corresponding preorders.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Spine poset}
 \label{subsec:spinePoset}
 
-We now define two natural operations on spines: arc contraction and node splitting.
+We now consider a natural order relation on spines.
+This relation is easier to define on the preorders associated to the spines.
+
+\begin{definition}
+  \label{def:extensionPreorders}
+  For two preorders~$\preccurlyeq, \preccurlyeq'$ on~$\vertexSet$, we say that~$\preccurlyeq$ \defn{extends}~$\preccurlyeq'$ when ${\preccurlyeq} \supseteq {\preccurlyeq'}$ as subsets of~$\vertexSet \times \vertexSet$.
+  For two spines~$\spine$ on~$\decoratedGraph$ and~$\spine'$ on~$\decoratedGraph'$, we say that~$\spine$ \defn{extends}~$\spine'$ if~$\preccurlyeq_{\spine}$ extends~$\preccurlyeq_{\spine'}$.
+\end{definition}
+
+\begin{definition}
+  \label{def:spinePoset}
+  The \defn{spine poset}~$\spinePoset$ is the poset on spines on~$\decoratedGraph$ defined by~$\spine \le \spine'$ if and only if~$\spine$ extends~$\spine'$.
+\end{definition}
+
+To understand the spine poset and its cover relations, we now introduce two natural operations on spines: arc contraction and node splitting.
 These operations are illustrated in \cref{fig:contractionSplitting}.
 
 \begin{figure}[h!]
@@ -665,25 +687,39 @@ To define the reverse operation of node splitting, we first need the following n
   \end{itemize}
 \end{proof}
 
+We now connect arc contractions and node splittings with the spine poset.
+
 \begin{proposition}
-  \label{prop:contractionSplitting}
-  Arc contraction and node splitting are inverse operations.
+  \label{prop:spinePoset}
+  The following conditions are equivalent for two spines~$\spine, \spine'$ on~$\decoratedGraph$:
+  \begin{enumerate}[(i)]
+  \item $\spine \le \spine'$ in the spine poset~$\spinePoset$,
+  \item $\spine$ is obtained from~$\spine'$ by a sequence of arc contractions,
+  \item $\spine'$ is obtained from~$\spine$ by a sequence of node splittings.
+  \end{enumerate}
+  Hence, the cover relations of the spine poset~$\spinePoset$ precisely correspond to the arc contractions and to the node splittings.
 \end{proposition}
 
 \begin{proof}
   It is clear that if~$\spine'$ is the splitting of~$X \sqcup Y$ in~$\spine$, then~$\spine$ is the contraction of the arc joining~$X$ to~$Y$ in~$\spine'$.
   Conversely, if~$\spine$ is the contraction of an arc joining~$X$ to~$Y$ in~$\spine'$, then the partition~$X \sqcup Y$ is splittable by \cref{def:spine}, and~$\spine'$ is the splitting of~$X \sqcup Y$~in~$\spine$.
+  This shows that arc contraction and node splitting are inverse operations, which by iteration proves the equivalence between (ii) and (iii).
+  Moreover, it immediately follows from \cref{def:preorderSpine} that (ii) or (iii) imply that~$\spine$ extends~$\spine'$, which is (i).
+  We thus just need to check that (i) implies (ii).
+    \vincent{todo}
+%  Assume thus that~$\spine$ extends~$\spine'$.
+%  Since~${\preccurlyeq_{\spine}} \supseteq {\preccurlyeq_{\spine'}}$, we have~${\equiv_{\spine}} \supseteq {\equiv_{\spine'}}$, so that the nodes of~$\spine$ are disjoint unions of the nodes of~$\spine'$.
+%  We now distinguish two cases:
+%  \begin{itemize}
+%    \item Assume first that the nodes of~$\spine$ are precisely the nodes of~$\spine'$. We conclude that~$\spine = \spine'$.
+%    \vincent{todo}
+%    \item Assume now that there is a node~$X$ of~$\spine$ and at least two nodes~$X'_1, X'_2$ of~$\spine'$ such that~$X \supseteq X'_1 \sqcup X'_2$.
+%    \qedhere
+%  \end{itemize}
 \end{proof}
 
-\begin{definition}
-  \label{def:spinePoset}
-  The \defn{spine poset}~$\spinePoset$ is the poset on spines on~$\decoratedGraph$ defined by~$\spine \le \spine'$ if and only if~$\spine$ is obtained from~$\spine'$ by arc contractions, or equivalently~$\spine'$ is obtained from~$\spine$ by node~splittings.
-\end{definition}
-
 \begin{corollary} 
-  The spine poset is graded by the number of nodes.
-  Hence, the cover relations of the spine poset are precisely given by arc contractions, or equivalently node splittings.
-  Moreover,
+  The spine poset~$\spinePoset$ is graded by the number of nodes and
   \begin{itemize}
     \item the unique rank $0$ (\ie minimal) element is the spine with a single node, 
     \item the rank~$1$ elements are the spines with precisely two nodes, 
@@ -706,13 +742,6 @@ To define the reverse operation of node splitting, we first need the following n
   \end{itemize}
 \end{remark}
 
-\begin{remark}
-  Note that contraction order of~$\spinePoset$ is also the extension order on the preorders associated to spines in \cref{def:preorderSpine}.
-  Namely, $\spine \le \spine'$ in~$\spinePoset$ if and only if~${\preccurlyeq_{\spine}} \supseteq {\preccurlyeq_{\spine'}}$.
-  Hence, the lower (resp.~upper) ideal of the spine poset~$\spinePoset$ generated by a spine~$\spine$ are precisely the spines~$\spine'$ of~$\decoratedGraph$ that extend (resp.~are extended by)~$\spine$ in the sense of \cref{def:preorderSpine}.
-  \vincent{Not sure I need the last sentence.}
-\end{remark}
-
 \begin{corollary}
   \label{coro:splittablePartitions}
   For any arc arc~$\gamma$ of a spine~$\spine$ on~$\decoratedGraph$, the sets~$\so[\gamma]$ and~$\ta[\gamma]$ form a $\decoratedGraph$-splittable partition of the vertex set of~$\Graph$.
@@ -720,14 +749,9 @@ To define the reverse operation of node splitting, we first need the following n
 
 \begin{proof}
   Consider the rank~$1$ spine~$\spine'$ on~$\decoratedGraph$ obtained by contracting all arcs in~$\spine$ except~$\gamma$. 
-  By \cref{prop:contractionSplitting}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
+  By \cref{prop:spinePoset}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
   Hence, $\so[\gamma]$ and~$\ta[\gamma]$ form a $\decoratedGraph$-splittable partition of the vertex set of~$\Graph$.
 \end{proof}
-
-\begin{remark}
-  All the results in this section hold if and only if $\Graph$ is a block graph. 
-  \vincent{Not the right place...}
-\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -770,7 +794,7 @@ We next show that the spine poset is actually isomorphic to the inclusion poset 
 \end{example}
 
 \begin{proposition}
-  \label{}
+  \label{prop:spineToNested}
   The map~$\spineToNested$ defined by~$\spineToNested(\spine) \eqdef \set{\so[\gamma]}{\gamma \text{ arc of } \spine}$ is a poset isomorphism from the spine poset~$\spinePoset$ to the face poset of the chunk nested complex~$\nestedComplex$.
 \end{proposition}
 
@@ -1044,8 +1068,7 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 \end{lemma}
 
 \begin{proof}
-  This follows from \cref{prop:nodeSplitting,prop:contractionSplitting}.
-  \vincent{I don't understand why it is so simple compared to the proof in my paper...}
+  This follows from \cref{prop:nodeSplitting,prop:spinePoset}.
 \end{proof}
   
 \begin{definition}
@@ -1746,20 +1769,22 @@ For this, we first study the directed tree~$\almostSpine_\bullet$ described in \
   By symmetry, we thus conclude that~$\almostSpine_\bullet$, and thus~$\spine_\bullet$, satisfies the local condition of \cref{def:spine}.
 \end{proof}
 
-We now describe the surjection map~$\surjectionSpines$ in terms of the extensions of \cref{def:preorderSpine} and of the spine poset of \cref{def:spinePoset}.
+We now describe the surjection map~$\surjectionSpines$ in terms of the spine extensions of \cref{def:extensionPreorders}.
+So far, we have used spine extensions to define the spine poset in \cref{def:spinePoset}.
+Here, we use spine extensions to compare the spines on~$\decoratedGraph_\circ$ with the spines on~$\decoratedGraph_\bullet$.
 The next statement should morally be though as the definition of~$\surjectionSpines$, but its proof requires the explicit combinatorial description of \cref{def:refinementSpines}.
 
 \begin{proposition}
   \label{prop:alternativeDescriptionRefinementSpines}
-  The spine~$\surjectionSpines(\spine_\circ)$ is the unique contraction minimal spine on~$\decoratedGraph_\bullet$ extended by the spine~$\spine_\circ$.
+  The spine~$\surjectionSpines(\spine_\circ)$ is the unique extension maximal spine on~$\decoratedGraph_\bullet$ extended by the spine~$\spine_\circ$.
 \end{proposition}
 
 \begin{proof}
-  The spines on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$ clearly form an upper ideal~$I$ of the spine poset~$\spinePoset[\decoratedGraph_\bullet]$.
-  Observe that~$\surjectionSpines(\spine_\circ)$ belongs to~$I$ by \cref{lem:refinementSpines1}, and that~$\surjectionSpines(\spine_\circ)$ is contraction minimal in~$I$ since each node of~$\spine_\circ$ is the disjoint union of incomparable nodes in~$\surjectionSpines(\spine_\circ)$ by \cref{def:refinementSpines}.
-  To conclude, we thus just need to prove that~$I$ has a unique minimal element.
-  Assume by contradiction that there are two distinct contraction minimal spines~$\spine_\bullet, \spine_\bullet'$ on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$.
-  Since~$\spine_\bullet$ and~$\spine_\bullet'$ are incomparable in the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, there are vertices~$x,y \in \vertexSet$ such that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$, or~$x \not\preccurlyeq_{\spine_\bullet} y$ while~$x \preccurlyeq_{\spine_\bullet'} y$.
+  The spines on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$ clearly form a lower ideal~$I$ of the extension order.
+  Observe that~$\surjectionSpines(\spine_\circ)$ belongs to~$I$ by \cref{lem:refinementSpines1}, and that~$\surjectionSpines(\spine_\circ)$ is extension maximal in~$I$ since each node of~$\spine_\circ$ is the disjoint union of incomparable nodes in~$\surjectionSpines(\spine_\circ)$ by \cref{def:refinementSpines}.
+  To conclude, we thus just need to prove that~$I$ has a unique maximal element.
+  Assume by contradiction that there are two distinct extension maximal spines~$\spine_\bullet, \spine_\bullet'$ on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$.
+  Hence, there are vertices~$x,y \in \vertexSet$ such that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$, or~$x \not\preccurlyeq_{\spine_\bullet} y$ while~$x \preccurlyeq_{\spine_\bullet'} y$.
   Consider such a pair~$\{x,y\}$ whose distance in~$\Maple$ is minimal, and assume for instance that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$.
   Let~$X$ and~$Y$ be the nodes of~$\spine_\bullet$ containing~$x$ and~$y$ respectively, and let~$\pi$ be the unique path joining~$X$ to~$Y$ in~$\spine_\bullet$, and define similarly~$X'$, $Y'$ and~$\pi'$ in~$\spine_\bullet'$.
   Since~$x \not\preccurlyeq_{\spine_\bullet'} y$, there is a node of~$\spine_\bullet'$ where~$\pi'$ has either two incoming or two outgoing arcs.
@@ -1770,7 +1795,7 @@ The next statement should morally be though as the definition of~$\surjectionSpi
     Since~$x$ and~$y$ belong to the target sets of two distinct outgoing arcs of~$Z'$, there is~$z \in \Up[Z'][\decoration_\bullet]$ which separates~$x$ and~$y$ in~$\Maple$.
     Denote by~$Z$ the node of~$\spine_\bullet$ containing~$z$.
     Since~$z \preccurlyeq_{\spine_\bullet'} x$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine_\bullet} z$ or~$z \preccurlyeq_{\spine_\bullet} x$.
-    If~$x \preccurlyeq_{\spine_\bullet} z$, we obtain that~$x \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} x$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the minimality of~$\spine_\bullet'$ (the spine obtained by contracting the path joining~$Z'$ to~$X'$ in~$\spine_\bullet'$ would still be extended by~$\spine_\circ$).
+    If~$x \preccurlyeq_{\spine_\bullet} z$, we obtain that~$x \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} x$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the maximality of~$\spine_\bullet'$ (the spine obtained by contracting the path joining~$Z'$ to~$X'$ in~$\spine_\bullet'$ would still be extended by~$\spine_\circ$).
     We thus obtain that~$z \prec_{\spine_\bullet} x \preccurlyeq_{\spine_\bullet} y$.
     This implies that~$x$ and~$y$ appear in the target set of the same outgoing arc at~$Z$, even if they are separated by~$z \in \Up[Z][\decoration_\bullet]$, so that~$\spine_\bullet$ fails the local condition around~$Z$ to be a spine on~$\decoratedGraph_\bullet$.
     %
@@ -1778,11 +1803,11 @@ The next statement should morally be though as the definition of~$\surjectionSpi
     Since~$x$ and~$y$ belong to the source sets of two distinct incoming arcs of~$Z'$, there is~$z \in \Down[Z']$ which separates~$x$ and~$y$ in~$\Maple$.
     Denote by~$Z$ the node of~$\spine_\bullet$ containing~$z$.
     Since~$x \preccurlyeq_{\spine_\bullet'} z$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine_\bullet} z$ or~$z \preccurlyeq_{\spine_\bullet} x$.
-    If~$z \preccurlyeq_{\spine_\bullet} x$, we obtain that~$x \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} x$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the minimality of~$\spine_\bullet'$ (the spine obtained by contracting the path joining~$X'$ to~$Z'$ in~$\spine_\bullet'$ would still be extended by~$\spine_\circ$).
+    If~$z \preccurlyeq_{\spine_\bullet} x$, we obtain that~$x \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} x$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the maximality of~$\spine_\bullet'$ (the spine obtained by contracting the path joining~$X'$ to~$Z'$ in~$\spine_\bullet'$ would still be extended by~$\spine_\circ$).
     We thus obtain that~$x \prec_{\spine_\bullet} z$.
     If~$z$ does not appear along the path~$\pi$, we obtain that~$x$ and~$y$ appear in the source set of the same incoming arc at~$Z$, even if they are separated by~$z \in \Down[Z][\decoration_\bullet]$, so that~$\spine_\bullet$ fails the local condition around~$Z$ to be a spine on~$\decoratedGraph_\bullet$.
     Otherwise, since~$z \preccurlyeq_{\spine_\bullet} y$ and~$y$ is closer to~$z$ than to~$x$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$z \preccurlyeq_{\spine_\bullet'} y$ or~$y \preccurlyeq_{\spine_\bullet'} z$.
-    If~$y \preccurlyeq_{\spine_\bullet'} z$, we obtain that~$y \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} y$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the minimality of~$\spine_\bullet$ (the spine obtained by contracting the path joining~$Z$ to~$Y$ in~$\spine_\bullet$ would still be extended by~$\spine_\circ$).
+    If~$y \preccurlyeq_{\spine_\bullet'} z$, we obtain that~$y \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} y$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the maximality of~$\spine_\bullet$ (the spine obtained by contracting the path joining~$Z$ to~$Y$ in~$\spine_\bullet$ would still be extended by~$\spine_\circ$).
     We thus obtain that~$x \preccurlyeq_{\spine_\bullet'} z \preccurlyeq_{\spine_\bullet'} y$, contradicting our assumption that~$x \not\preccurlyeq_{\spine_\bullet'} y$.
     \qedhere
   \end{enumerate}
@@ -1793,19 +1818,25 @@ The next statement should morally be though as the definition of~$\surjectionSpi
   The map~$\surjectionSpines$ is a filtered poset morphism from the spine poset~$\spinePoset[\decoratedGraph_\circ]$ to the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, meaning that
   \begin{itemize}
     \item if~$\spine_\circ \le \spine_\circ'$ in~$\spinePoset[\decoratedGraph_\circ]$, then~$\surjectionSpines(\spine_\circ) \le \surjectionSpines(\spine_\circ')$ in~$\spinePoset[\decoratedGraph_\bullet]$,
-    \vincent{Is that correct?}
     \item the rank of~$\spine_\circ$ in~$\spinePoset[\decoratedGraph_\circ]$ is at most the rank of~$\surjectionSpines(\spine_\circ)$ in~$\spinePoset[\decoratedGraph_\bullet]$.
   \end{itemize}
+  In particular, if~$\spine_\circ$ is maximal in~$\spinePoset[\decoratedGraph_\circ]$ then~$\surjectionSpines(\spine_\circ)$ is maximal in~$\spinePoset[\decoratedGraph_\bullet]$.
 \end{proposition}
+
+\begin{proof}
+  Let~$\spine_\circ$ and~$\spine_\circ'$ be two spines on~$\decoratedGraph_\circ$ and let~$\spine_\bullet \eqdef \surjectionSpines(\spine_\circ)$ and~$\spine_\bullet' \eqdef \surjectionSpines(\spine_\circ')$ be the corresponding spines on~$\decoratedGraph_\bullet$.
+  
+  For the first point, note that if~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}}$, then \cref{prop:alternativeDescriptionRefinementSpines} ensures that~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\spine_\circ'$ extends~$\spine_\bullet'$) so that~${\preccurlyeq_{\spine_\bullet}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\preccurlyeq_{\spine_\bullet}$ is extension maximal among the spines of~$\decoratedGraph_\bullet$ extending~$\preccurlyeq_{\spine_\circ}$).
+  Hence $\spine_\circ \le \spine_\circ'$  in~$\spinePoset[\decoratedGraph_\circ]$ implies $\spine_\bullet \le \spine_\bullet'$ in~$\spinePoset[\decoratedGraph_\bullet]$.
+
+  For the second point, recall that the rank of a spine~$\spine$ in the contraction poset is its number of nodes, which is the number of equivalence classes of the equivalence relation defined by~$x \preccurlyeq_{\spine} y$ and~$y \preccurlyeq_{\spine} x$.
+  Since~$\preccurlyeq_{\spine_\circ} \supseteq \preccurlyeq_{\spine_\bullet}$, this shows that the rank of~$\spine_\circ$ is at most the rank of~$\spine_\bullet$.
+\end{proof}
 
 \begin{proposition}
   \label{prop:refinementSpines}
-  If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then the map~$\surjectionSpines$ is 
-  \begin{itemize}
-    \item a surjection from the spines on~$\decoratedGraph_\circ$ to the spines on~$\decoratedGraph_\bullet$,
-    \item a filtered map from the spine poset~$\spinePoset[\decoratedGraph_\circ]$ to the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, meaning that the rank of~$\surjectionSpines(\spine_\circ)$ is at least the rank of~$\spine_\circ$ (it can have more, see \cref{fig:blossomingSpine}).
-    \vincent{In particular, the image of a maximal spine is a maximal spine.}
-  \end{itemize}
+  For any spine~$\spine_\bullet$ on~$\decoratedGraph_\bullet$, there exists at least one spine~$\spine_\circ$ on~$\decoratedGraph_\circ$ such that ${\surjectionSpines(\spine_\circ) = \spine_\bullet}$ and the partitions of~$\vertexSet$ by the nodes of~$\spine_\circ$ and~$\spine_\bullet$ coincide.
+  In particular, the map~$\surjectionSpines$ is a surjection from the spines on~$\decoratedGraph_\circ$ to the spines on~$\decoratedGraph_\bullet$.
 \end{proposition}
 
 \begin{proof}
@@ -1814,7 +1845,7 @@ The next statement should morally be though as the definition of~$\surjectionSpi
 
 \begin{definition}
   \label{def:equivalenceRelation}
-  If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then the fibers of the surjection~$\surjectionSpines$ define an equivalence relation~$\equivalenceSpines$ on spines of~$\decoratedGraph_\circ$. In other words, $\spine_\circ \equivalenceSpines \spine_\circ'$ if and only if~$\surjectionSpines(\spine_\circ) = \surjectionSpines(\spine_\circ')$.
+  The fibers of the surjection~$\surjectionSpines$ define an equivalence relation~$\equivalenceSpines$ on spines of~$\decoratedGraph_\circ$. In other words, $\spine_\circ \equivalenceSpines \spine_\circ'$ if and only if~$\surjectionSpines(\spine_\circ) = \surjectionSpines(\spine_\circ')$.
 \end{definition}
 
 \begin{example}
@@ -1985,6 +2016,7 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 \begin{definition}
   \label{def:spineFan}
   For a spine~$\spine$, we denote by~$\normalCone(\spine)$ the cone of~$\Hyp[0]$ defined by the inequalities~${x_u \le x_v}$ for all~$u,v \in \vertexSet$ such that there is a directed path in~$\spine$ joining the node containing~$u$ to the node containing~$v$ in~$\spine$ (in particular, $x_u = x_v$ when $u,v \in \vertexSet$ belong to the same node of~$\spine$).
+  \vincent{recall that this is also the definition of the associated preposet...}
 %  \[
 %    \normalCone(\spine) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all (possibly trivial) directed paths } u \to v \text{ in } \spine}
 %  \]
@@ -2042,7 +2074,8 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 \end{proposition}
 
 \begin{proof}
-  Follows from \cref{prop:refinementEquivalenceRelations}.
+  Follows from \cref{subsec:surjectionMaps}.
+  \vincent{Say a bit more here.}
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
