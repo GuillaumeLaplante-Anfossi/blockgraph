@@ -707,8 +707,8 @@ We now connect arc contractions and node splittings with the spine poset.
   Moreover, it immediately follows from \cref{def:preorderSpine} that (ii) or (iii) imply that~$\spine$ extends~$\spine'$, which is (i).
   We thus just need to check that (i) implies (ii).
 
-  Assume that~$\spine$ extends~$\spine'$ and that there is no contraction in~$\spine'$ that preserves this property.
-  If~$\spine \ne \spine'$, then there are vertices~$x, y \in \vertexSet$ such that~$x \preccurlyeq_{\spine} y$ while~$x \not\preccurlyeq_{\spine'} y$.
+  Assume by contradiction that~$\spine \ne \spine'$, that~$\spine$ extends~$\spine'$, and that there is no contraction in~$\spine'$ that preserves this property.
+  Since~$\spine \ne \spine'$ and~$\spine$ extends~$\spine'$, there are vertices~$x, y \in \vertexSet$ such that~$x \preccurlyeq_{\spine} y$ while~$x \not\preccurlyeq_{\spine'} y$.
   Consider such a pair~$\{x,y\}$ whose distance in~$\Graph$ is minimal.
   Let~$X$ and~$Y$ be the nodes of~$\spine$ containing~$x$ and~$y$ respectively, and let~$\pi$ be the path joining~$X$ to~$Y$ in~$\spine$, and define similarly~$X'$, $Y'$ and~$\pi'$~in~$\spine'$.
 
@@ -1805,6 +1805,7 @@ The next statement should morally be though as the definition of~$\surjectionSpi
   Observe that~$\surjectionSpines(\spine_\circ)$ belongs to~$I$ by \cref{lem:refinementSpines1}, and that~$\surjectionSpines(\spine_\circ)$ is extension maximal in~$I$ since each node of~$\spine_\circ$ is the disjoint union of incomparable nodes in~$\surjectionSpines(\spine_\circ)$ by \cref{def:refinementSpines}.
   To conclude, we thus just need to prove that~$I$ has a unique maximal element.
 
+  \vincent{The rest of the proof is closely related to the proof of \cref{prop:spinePoset}... I still need to think if I can do better.}
   Assume by contradiction that there are two distinct extension maximal spines~$\spine_\bullet, \spine_\bullet'$ on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$.
   Hence, there are vertices~$x,y \in \vertexSet$ such that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$, or~$x \not\preccurlyeq_{\spine_\bullet} y$ while~$x \preccurlyeq_{\spine_\bullet'} y$.
   Consider such a pair~$\{x,y\}$ whose distance in~$\Graph$ is minimal, and assume for instance that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$.
