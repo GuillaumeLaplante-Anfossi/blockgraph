@@ -706,16 +706,37 @@ We now connect arc contractions and node splittings with the spine poset.
   This shows that arc contraction and node splitting are inverse operations, which by iteration proves the equivalence between (ii) and (iii).
   Moreover, it immediately follows from \cref{def:preorderSpine} that (ii) or (iii) imply that~$\spine$ extends~$\spine'$, which is (i).
   We thus just need to check that (i) implies (ii).
-    \vincent{todo}
-%  Assume thus that~$\spine$ extends~$\spine'$.
-%  Since~${\preccurlyeq_{\spine}} \supseteq {\preccurlyeq_{\spine'}}$, we have~${\equiv_{\spine}} \supseteq {\equiv_{\spine'}}$, so that the nodes of~$\spine$ are disjoint unions of the nodes of~$\spine'$.
-%  We now distinguish two cases:
-%  \begin{itemize}
-%    \item Assume first that the nodes of~$\spine$ are precisely the nodes of~$\spine'$. We conclude that~$\spine = \spine'$.
-%    \vincent{todo}
-%    \item Assume now that there is a node~$X$ of~$\spine$ and at least two nodes~$X'_1, X'_2$ of~$\spine'$ such that~$X \supseteq X'_1 \sqcup X'_2$.
-%    \qedhere
-%  \end{itemize}
+
+  Assume that~$\spine$ extends~$\spine'$ and that there is no contraction in~$\spine'$ that preserves this property.
+  If~$\spine \ne \spine'$, then there are vertices~$x, y \in \vertexSet$ such that~$x \preccurlyeq_{\spine} y$ while~$x \not\preccurlyeq_{\spine'} y$.
+  Consider such a pair~$\{x,y\}$ whose distance in~$\Graph$ is minimal.
+  Let~$X$ and~$Y$ be the nodes of~$\spine$ containing~$x$ and~$y$ respectively, and let~$\pi$ be the path joining~$X$ to~$Y$ in~$\spine$, and define similarly~$X'$, $Y'$ and~$\pi'$~in~$\spine'$.
+
+  Note that~$\pi'$ is not fully directed from~$X'$ to~$Y'$ since~$x \not\preccurlyeq_{\spine'} y$.
+  Assume now that~$\pi'$ is fully directed from~$Y'$ to~$X'$.
+  For any~$z \in \vertexSet$ contained in a node along~$\pi'$, we have~$y \preccurlyeq_{\spine'} z \preccurlyeq_{\spine'} x$, which implies that~$y \preccurlyeq_{\spine} z \preccurlyeq_{\spine} x$ (since~$\spine$ extends~$\spine'$), so that~$x \equiv_{\spine} y \equiv_{\spine} z$ (since~$x \preccurlyeq_{\spine} y$).
+  Said differently, all vertices of~$\vertexSet$ that appear in the nodes along~$\pi'$ are equivalent for~$\equiv_{\spine}$.
+  Hence, contracting any arc of~$\spine'$ along the path~$\pi'$ yields a spine which is still extended by~$\spine$, contradicting our assumption.
+  
+  We can thus now assume that~$\pi'$ is not a directed path, so that there is a node of~$\spine'$ where~$\pi'$ has either two incoming or two outgoing arcs.
+  Let~$Z'$ be the closest such node from~$X'$.
+  We now distinguish two cases:
+  \begin{enumerate}[(i)]
+    \item Assume first that~$\pi'$ has two outgoing arcs at~$Z'$.
+    Since~$x$ and~$y$ belong to the target sets of two distinct outgoing arcs of~$Z'$, there is~$z \in \Up[Z']$ which separates~$x$ and~$y$ in~$\Graph$.
+    Denote by~$Z$ the node of~$\spine$ containing~$z$.
+    Since~$z \preccurlyeq_{\spine'} x$ and~$\spine$ extends~$\spine'$, we have~$z \preccurlyeq_{\spine} x \preccurlyeq_{\spine} y$.
+    This implies that~$x$ and~$y$ appear in the target set of the same outgoing arc at~$Z$, even if they are separated by~$z \in \Up[Z]$, so that~$\spine$ fails the local condition around~$Z$ to be a spine~on~$\decoratedGraph$.
+    %
+    \item Assume now that~$\pi'$ has two incoming arcs at~$Z'$.
+    Since~$x$ and~$y$ belong to the source sets of two distinct incoming arcs of~$Z'$, there is~$z \in \Down[Z']$ which separates~$x$ and~$y$ in~$\Graph$.
+    Denote by~$Z$ the node of~$\spine$ containing~$z$.
+    Since~$x \preccurlyeq_{\spine'} z$ and~$\spine$ extends~$\spine'$, we have~$x \preccurlyeq_{\spine} z$.
+    Since~$z \not\preccurlyeq_{\spine'} y$ and~$y$ is closer to~$z$ than to~$x$ in~$\Graph$, our choice of~$\{x,y\}$ ensures that~$z \not\preccurlyeq_{\spine} y$.
+    Hence, $Z$ does not appear along the path~$\pi$.
+    This implies that~$x$ and~$y$ appear in the source set of the same incoming arc at~$Z$, even if they are separated by~$z \in \Down[Z]$, so that~$\spine$ fails the local condition around~$Z$ to be a spine~on~$\decoratedGraph$.
+    \qedhere
+  \end{enumerate}
 \end{proof}
 
 \begin{corollary} 
@@ -1783,30 +1804,38 @@ The next statement should morally be though as the definition of~$\surjectionSpi
   The spines on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$ clearly form a lower ideal~$I$ of the extension order.
   Observe that~$\surjectionSpines(\spine_\circ)$ belongs to~$I$ by \cref{lem:refinementSpines1}, and that~$\surjectionSpines(\spine_\circ)$ is extension maximal in~$I$ since each node of~$\spine_\circ$ is the disjoint union of incomparable nodes in~$\surjectionSpines(\spine_\circ)$ by \cref{def:refinementSpines}.
   To conclude, we thus just need to prove that~$I$ has a unique maximal element.
+
   Assume by contradiction that there are two distinct extension maximal spines~$\spine_\bullet, \spine_\bullet'$ on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$.
   Hence, there are vertices~$x,y \in \vertexSet$ such that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$, or~$x \not\preccurlyeq_{\spine_\bullet} y$ while~$x \preccurlyeq_{\spine_\bullet'} y$.
-  Consider such a pair~$\{x,y\}$ whose distance in~$\Maple$ is minimal, and assume for instance that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$.
-  Let~$X$ and~$Y$ be the nodes of~$\spine_\bullet$ containing~$x$ and~$y$ respectively, and let~$\pi$ be the unique path joining~$X$ to~$Y$ in~$\spine_\bullet$, and define similarly~$X'$, $Y'$ and~$\pi'$ in~$\spine_\bullet'$.
-  Since~$x \not\preccurlyeq_{\spine_\bullet'} y$, there is a node of~$\spine_\bullet'$ where~$\pi'$ has either two incoming or two outgoing arcs.
+  Consider such a pair~$\{x,y\}$ whose distance in~$\Graph$ is minimal, and assume for instance that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$.
+  Let~$X$ and~$Y$ be the nodes of~$\spine_\bullet$ containing~$x$ and~$y$ respectively, and let~$\pi$ be the path joining~$X$ to~$Y$ in~$\spine_\bullet$, and define similarly~$X'$, $Y'$ and~$\pi'$ in~$\spine_\bullet'$.
+
+  Note that~$\pi'$ is not fully directed from~$X'$ to~$Y'$ since~$x \not\preccurlyeq_{\spine_\bullet'} y$.
+  Assume now that~$\pi'$ is fully directed from~$Y'$ to~$X'$.
+  For any~$z \in \vertexSet$ contained in a node along~$\pi'$, we have~$y \preccurlyeq_{\spine_\bullet'} z \preccurlyeq_{\spine_\bullet'} x$, which implies that~$y \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} x$ (since~$\spine_\circ$ extends~$\spine_\bullet'$), so that~$x \equiv_{\spine_\circ} y \equiv_{\spine_\circ} z$ (since~$x \preccurlyeq_{\spine_\circ} y$).
+  Said differently, all vertices of~$\vertexSet$ that appear in the nodes along~$\pi'$ are equivalent for~$\equiv_{\spine_\circ}$.
+  Hence, contracting any arc of~$\spine_\bullet'$ along the path~$\pi'$ yields a spine which is still extended by~$\spine_\circ$, contradicting our assumption.
+
+  We can thus now assume that~$\pi'$ is not a directed path, so that is a node of~$\spine_\bullet'$ where~$\pi'$ has either two incoming or two outgoing arcs.
   Let~$Z'$ be the closest such node from~$X'$.
   We now distinguish two cases:
   \begin{enumerate}[(i)]
     \item Assume first that~$\pi'$ has two outgoing arcs at~$Z'$.
-    Since~$x$ and~$y$ belong to the target sets of two distinct outgoing arcs of~$Z'$, there is~$z \in \Up[Z'][\decoration_\bullet]$ which separates~$x$ and~$y$ in~$\Maple$.
+    Since~$x$ and~$y$ belong to the target sets of two distinct outgoing arcs of~$Z'$, there is~$z \in \Up[Z'][\decoration_\bullet]$ which separates~$x$ and~$y$ in~$\Graph$.
     Denote by~$Z$ the node of~$\spine_\bullet$ containing~$z$.
-    Since~$z \preccurlyeq_{\spine_\bullet'} x$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine_\bullet} z$ or~$z \preccurlyeq_{\spine_\bullet} x$.
+    Since~$z \preccurlyeq_{\spine_\bullet'} x$ and~$x$ is closer to~$z$ than to~$y$ in~$\Graph$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine_\bullet} z$ or~$z \preccurlyeq_{\spine_\bullet} x$.
     If~$x \preccurlyeq_{\spine_\bullet} z$, we obtain that~$x \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} x$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the maximality of~$\spine_\bullet'$ (the spine obtained by contracting the path joining~$Z'$ to~$X'$ in~$\spine_\bullet'$ would still be extended by~$\spine_\circ$).
     We thus obtain that~$z \prec_{\spine_\bullet} x \preccurlyeq_{\spine_\bullet} y$.
     This implies that~$x$ and~$y$ appear in the target set of the same outgoing arc at~$Z$, even if they are separated by~$z \in \Up[Z][\decoration_\bullet]$, so that~$\spine_\bullet$ fails the local condition around~$Z$ to be a spine on~$\decoratedGraph_\bullet$.
     %
     \item Assume now that~$\pi'$ has two incoming arcs at~$Z'$.
-    Since~$x$ and~$y$ belong to the source sets of two distinct incoming arcs of~$Z'$, there is~$z \in \Down[Z']$ which separates~$x$ and~$y$ in~$\Maple$.
+    Since~$x$ and~$y$ belong to the source sets of two distinct incoming arcs of~$Z'$, there is~$z \in \Down[Z'][\decoration_\bullet]$ which separates~$x$ and~$y$ in~$\Graph$.
     Denote by~$Z$ the node of~$\spine_\bullet$ containing~$z$.
-    Since~$x \preccurlyeq_{\spine_\bullet'} z$ and~$x$ is closer to~$z$ than to~$y$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine_\bullet} z$ or~$z \preccurlyeq_{\spine_\bullet} x$.
+    Since~$x \preccurlyeq_{\spine_\bullet'} z$ and~$x$ is closer to~$z$ than to~$y$ in~$\Graph$, our choice of~$\{x,y\}$ ensures that either~$x \preccurlyeq_{\spine_\bullet} z$ or~$z \preccurlyeq_{\spine_\bullet} x$.
     If~$z \preccurlyeq_{\spine_\bullet} x$, we obtain that~$x \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} x$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the maximality of~$\spine_\bullet'$ (the spine obtained by contracting the path joining~$X'$ to~$Z'$ in~$\spine_\bullet'$ would still be extended by~$\spine_\circ$).
     We thus obtain that~$x \prec_{\spine_\bullet} z$.
     If~$z$ does not appear along the path~$\pi$, we obtain that~$x$ and~$y$ appear in the source set of the same incoming arc at~$Z$, even if they are separated by~$z \in \Down[Z][\decoration_\bullet]$, so that~$\spine_\bullet$ fails the local condition around~$Z$ to be a spine on~$\decoratedGraph_\bullet$.
-    Otherwise, since~$z \preccurlyeq_{\spine_\bullet} y$ and~$y$ is closer to~$z$ than to~$x$ in~$\Maple$, our choice of~$\{x,y\}$ ensures that either~$z \preccurlyeq_{\spine_\bullet'} y$ or~$y \preccurlyeq_{\spine_\bullet'} z$.
+    Otherwise, since~$z \preccurlyeq_{\spine_\bullet} y$ and~$y$ is closer to~$z$ than to~$x$ in~$\Graph$, our choice of~$\{x,y\}$ ensures that either~$z \preccurlyeq_{\spine_\bullet'} y$ or~$y \preccurlyeq_{\spine_\bullet'} z$.
     If~$y \preccurlyeq_{\spine_\bullet'} z$, we obtain that~$y \preccurlyeq_{\spine_\circ} z \preccurlyeq_{\spine_\circ} y$ (since~$\spine_\circ$ extends both~$\spine_\bullet$ and~$\spine_\bullet'$), which contradicts the maximality of~$\spine_\bullet$ (the spine obtained by contracting the path joining~$Z$ to~$Y$ in~$\spine_\bullet$ would still be extended by~$\spine_\circ$).
     We thus obtain that~$x \preccurlyeq_{\spine_\bullet'} z \preccurlyeq_{\spine_\bullet'} y$, contradicting our assumption that~$x \not\preccurlyeq_{\spine_\bullet'} y$.
     \qedhere
@@ -2032,6 +2061,7 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
   Since each spine~$\spine$ on~$\decoratedGraph$ is a directed tree, the cone~$\normalCone(\spine)$ is simplicial, and its faces are the cones~$\normalCone(\spine')$ for all spines~$\spine'$ obtained by repeated arc contractions in~$\spine$ (in other words, for all spines in the lower ideal of the spine poset~$\spinePoset$ generated by~$\spine$).
   We thus just need to prove that the cones~$\normalCone(\spine)$ properly intersect and cover~$\Hyp[0]$, or equivalently, that the relative interiors of the cones~$\normalCone(\spine)$ partition~$\Hyp[0]$.
   This immediately follows from \cref{prop:alternativeDescriptionRefinementSpines}.
+  \vincent{Need to say more here.}
 \end{proof}
 
 \begin{corollary} 
