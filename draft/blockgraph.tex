@@ -1707,7 +1707,7 @@ This description uses the labeling~$\labeling$ of the nodes and arcs of the spin
 
 \begin{remark}
   \label{rem:refinementBlossomingSpine}
-  A similar construction sends a blossoming spine~$\spine_\circ^\blossom$ on~$\decoratedGraph_\circ$ to a blossoming spine~$\spine_\bullet^\blossom$ on~$\decoratedGraph_\bullet$.
+  A similar construction sends a blossoming spine~$\spine_\circ^\blossom$ on~$\decoratedGraph_\circ$ to a blossoming spine~$\spine_\bullet^\blossom$ on~$\decoratedGraph_\bullet$, and is illustrated in \cref{fig:refinementBlossomingSpines}.
   Namely, we just need to complete the directed tree~$\almostSpine_\bullet$ described in \cref{def:refinementSpines} into a blossoming directed tree~$\almostSpine_\bullet^\blossom$ by adding:
   \begin{itemize}
     \item an incoming (resp.~outgoing) blossom~$\arcSurj{\gamma}{C}$ attached to the unique node~$\nodeSurj{X}{D}$ with~$C \subseteq D$ for each incoming (resp.~outgoing) blossom~$\gamma$ of~$\spine_\circ^\blossom$ attached to node~$X$ and each connected component~$C$ of~$\Maple \ssm \big( \Up[{\so[\gamma]}][\decoration_\bullet] \cup \Down[{\ta[\gamma]}][\decoration_\bullet] \big)$ contained in~$\labeling(\gamma)$.
@@ -1843,25 +1843,39 @@ The next statement should morally be though as the definition of~$\surjectionSpi
   \end{enumerate}
 \end{proof}
 
+We now explore some properties of the map~$\surjectionSpines$.
+
 \begin{proposition}
-  \label{prop:filteredRefinementSpines}
-  The map~$\surjectionSpines$ is a filtered poset morphism from the spine poset~$\spinePoset[\decoratedGraph_\circ]$ to the spine poset~$\spinePoset[\decoratedGraph_\bullet]$, meaning that
-  \begin{itemize}
-    \item if~$\spine_\circ \le \spine_\circ'$ in~$\spinePoset[\decoratedGraph_\circ]$, then~$\surjectionSpines(\spine_\circ) \le \surjectionSpines(\spine_\circ')$ in~$\spinePoset[\decoratedGraph_\bullet]$,
-    \item the rank of~$\spine_\circ$ in~$\spinePoset[\decoratedGraph_\circ]$ is at most the rank of~$\surjectionSpines(\spine_\circ)$ in~$\spinePoset[\decoratedGraph_\bullet]$.
-  \end{itemize}
-  In particular, if~$\spine_\circ$ is maximal in~$\spinePoset[\decoratedGraph_\circ]$ then~$\surjectionSpines(\spine_\circ)$ is maximal in~$\spinePoset[\decoratedGraph_\bullet]$.
+  \label{prop:orderPreservingRefinementSpines}
+  The map~$\surjectionSpines$ is order-preserving, meaning that $\spine_\circ \le \spine_\circ'$ in~$\spinePoset[\decoratedGraph_\circ]$ implies~$\surjectionSpines(\spine_\circ) \le \surjectionSpines(\spine_\circ')$ in~$\spinePoset[\decoratedGraph_\bullet]$.
 \end{proposition}
 
 \begin{proof}
   Let~$\spine_\circ$ and~$\spine_\circ'$ be two spines on~$\decoratedGraph_\circ$ and let~$\spine_\bullet \eqdef \surjectionSpines(\spine_\circ)$ and~$\spine_\bullet' \eqdef \surjectionSpines(\spine_\circ')$ be the corresponding spines on~$\decoratedGraph_\bullet$.
-  
-  For the first point, note that if~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}}$, then \cref{prop:alternativeDescriptionRefinementSpines} ensures that~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\spine_\circ'$ extends~$\spine_\bullet'$) so that~${\preccurlyeq_{\spine_\bullet}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\preccurlyeq_{\spine_\bullet}$ is extension maximal among the spines of~$\decoratedGraph_\bullet$ extending~$\preccurlyeq_{\spine_\circ}$).
+  If~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}}$, then \cref{prop:alternativeDescriptionRefinementSpines} ensures that~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\spine_\circ'$ extends~$\spine_\bullet'$) so that~${\preccurlyeq_{\spine_\bullet}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\preccurlyeq_{\spine_\bullet}$ is extension maximal among the spines of~$\decoratedGraph_\bullet$ extending~$\preccurlyeq_{\spine_\circ}$).
   Hence $\spine_\circ \le \spine_\circ'$  in~$\spinePoset[\decoratedGraph_\circ]$ implies $\spine_\bullet \le \spine_\bullet'$ in~$\spinePoset[\decoratedGraph_\bullet]$.
-
-  For the second point, recall that the rank of a spine~$\spine$ in the contraction poset is its number of nodes, which is the number of equivalence classes of the equivalence relation defined by~$x \preccurlyeq_{\spine} y$ and~$y \preccurlyeq_{\spine} x$.
-  Since~$\preccurlyeq_{\spine_\circ} \supseteq \preccurlyeq_{\spine_\bullet}$, this shows that the rank of~$\spine_\circ$ is at most the rank of~$\spine_\bullet$.
 \end{proof}
+
+\begin{proposition}
+  \label{prop:filteredRefinementSpines}
+  The nodes of~$\spine_\circ$ are partitioned by the nodes of~$\surjectionSpines(\spine_\circ)$.
+\end{proposition}
+
+\begin{proof}
+  There are two possible approaches.
+  The first is the explicit combinatorial description of~$\surjectionSpines(\spine_\circ)$ given in \cref{def:refinementSpines}.
+  The second is to observe that the nodes of a spine~$\spine$ are the classes of the equivalence relation~$\equiv_{\spine}$ defined by~$x \equiv_{\spine} y$ if $x \preccurlyeq_{\spine} y$ and~$y \preccurlyeq_{\spine} x$, and to observe that~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\bullet}}$ implies that~$\equiv_{\spine_\circ}$ refines~$\equiv_{\spine_\bullet}$.
+\end{proof}
+
+\begin{corollary}
+  \label{coro:filteredRefinementSpines}
+  \begin{enumerate}[(i)]
+  \item the rank of~$\spine_\circ$ in~$\spinePoset[\decoratedGraph_\circ]$ is at most the rank of~$\surjectionSpines(\spine_\circ)$ in~$\spinePoset[\decoratedGraph_\bullet]$,
+  \item if~$\spine_\circ$ is maximal in~$\spinePoset[\decoratedGraph_\circ]$ then~$\surjectionSpines(\spine_\circ)$ is maximal in~$\spinePoset[\decoratedGraph_\bullet]$,
+  \item if~$\spine_\circ$ refines~$\spine_\bullet$ and~$\spine_\circ$ and~$\spine_\bullet$ have the same rank, then~$\surjectionSpines(\spine_\circ) = \spine_\bullet$ and the nodes of~$\spine_\circ$ coincide with the nodes of~$\spine_\bullet$.
+  \end{enumerate}
+  \vincent{todo: small explanation}
+\end{corollary}
 
 \begin{proposition}
   \label{prop:refinementSpines}
@@ -1870,6 +1884,14 @@ The next statement should morally be though as the definition of~$\surjectionSpi
 \end{proposition}
 
 \begin{proof}
+  The proof works by induction on the rank of~$\spine_\bullet$.
+  To initialize the induction, observe that the tree with a single node~$\vertexSet$ is a spine on both~$\decoratedGraph_\circ$ and~$\decoratedGraph_\bullet$ and is its own image by~$\surjectionSpines$.
+  Consider now two spines~$\spine_\bullet, \spine_\bullet'$ on~$\decoratedGraph_\bullet$ such that~$\spine_\bullet'$ is obtained by splitting a $\decoratedGraph_\bullet$-splittable partition~$X \sqcup Y$ of a node~$Z$ in~$\spine_\bullet$.
+  Assume that we know a spine~$\spine_\circ$ on~$\decoratedGraph_\circ$ such that~${\surjectionSpines(\spine_\circ) = \spine_\bullet}$ and the partitions of~$\vertexSet$ by the nodes of~$\spine_\circ$ and~$\spine_\bullet$ coincide.
+  Therefore, $Z$ is also a node of~$\spine_\circ$, and the partition~$X \sqcup Y$ is also~$\decoratedGraph_\circ$-splittable since it is $\decoratedGraph_\bullet$-splittable and~$\decoration_\circ$ refines~$\decoration_\bullet$.
+  Let~$\spine_\circ'$ denote the spine obtained by splitting the  $\decoratedGraph_\circ$-splittable partition~$X \sqcup Y$ of the node~$Z$ in~$\spine_\circ$.
+  By construction, the partitions of~$\vertexSet$ by the nodes of~$\spine_\circ'$ and~$\spine_\bullet'$ coincide.
+  By \cref{coro:filteredRefinementSpines}, we just need to show that~$\spine_\circ$ extends~$\spine_\bullet$, which will prove that~${\surjectionSpines(\spine_\circ') = \spine_\bullet'}$.
   \vincent{todo}
 \end{proof}
 
