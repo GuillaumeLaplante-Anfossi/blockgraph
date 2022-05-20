@@ -334,6 +334,8 @@ In this paper, we consider the following additional decorations.
   A \defn{decorated block graph} is a pair~$\decoratedGraph \eqdef (\Graph, \decoration)$ where~$\Graph$ is a block graph and $\decoration$ is a decoration on the vertex set of~$\Graph$.
 \end{definition}
 
+\vincent{Say somewhere that the decoration of the blue leaves of~$\Maple$ (meaning the leaves of $\Maple$ minus its leaves) are irrelevant...}
+
 \begin{example}
   \label{exm:specialGraphs}
   Our results will be illustrated with the following special cases:
@@ -487,16 +489,78 @@ Let us first recall the definition of a preorder.
   \label{def:preorder}
   A \defn{preorder} on~$\vertexSet$ is a reflexive and transitive binary relation~$\preccurlyeq$ on~$\vertexSet$.
   For instance, an \defn{equivalence relation} is a symmetric preorder and a \defn{partial order} is an antisymmetric preorder.
-  Any preorder~$\preccurlyeq$ decomposes into an equivalence relation~$\equiv \eqdef \set{(u,v) \in {\preccurlyeq}}{(v,u) \in {\preccurlyeq}}$ together with a partial order~${\le} \eqdef {\preccurlyeq}/{\equiv}$ on the equivalence classes of~$\equiv$.
+  Any preorder~$\preccurlyeq$ decomposes into an equivalence relation~$\equiv \eqdef \set{(x,y) \in {\preccurlyeq}}{(y,x) \in {\preccurlyeq}}$ together with a partial order~${\le} \eqdef {\preccurlyeq}/{\equiv}$ on the equivalence classes of~$\equiv$.
 \end{definition}
 
 \begin{definition}
-  \label{def:preorderSpine}
-  Any spine~$\spine$ on~$\decoratedGraph$ defines a preorder~$\preccurlyeq_{\spine}$ on~$\vertexSet$ by $u \preccurlyeq_{\spine} v$ if and only if there is a directed path in~$\spine$ from the node containing~$u$ ot the node containing~$v$ (in particular, $u \equiv_{\spine} v$ if $u$~and~$v$ belong to the same node of~$\spine$).
+  \label{def:spinePreorder1}
+  Any spine~$\spine$ on~$\decoratedGraph$ defines a preorder~$\preccurlyeq_{\spine}$ on~$\vertexSet$ by $x \preccurlyeq_{\spine} y$ if and only if there is a directed path in~$\spine$ from the node containing~$x$ ot the node containing~$y$ (in particular, $x \equiv_{\spine} y$ if $x$~and~$y$ belong to the same node of~$\spine$).
 \end{definition}
 
-\vincent{Insist here that the nodes of~$\spine$ are the equivalence classes of~$\equiv_{\spine}$.}
-\vincent{We should try to translate of the definition of spine to a characterization of the corresponding preorders.}
+Our next statement characterize the preorders obtained from \cref{def:spinePreorder1}.
+
+\begin{definition}
+  \label{def:spinePreorder2}
+  A \defn{spine preorder} on~$\decoratedGraph$ is a preorder~$\preccurlyeq$ on~$\vertexSet$ such that any~$x,y \in \vertexSet$ are comparable in~$\preccurlyeq$ (\ie $x \preccurlyeq y$ or~$x \succcurlyeq y$) if and only if there is no subsequence~$x = z_i, z_{i+1}, \dots, z_j = y$ with~$i + 1 < j$ of the sequence of nodes along the unique induced path joining~$x$ to~$y$ in~$\Graph$ such that
+  \begin{itemize}
+    \item $z_d \in \Down[\vertexSet]$ and~$z_{d-1} \prec z_d \succ z_{d+1}$ for all~$i < d < j$ odd, and
+    \item $z_u \in \Up[\vertexSet]$ and~$z_{u-1} \succ z_u \prec z_{u+1}$ for all~$i < u < j$ even.
+  \end{itemize}
+\end{definition}
+
+\begin{lemma}
+  \label{lem:spinePreorder1}
+  For any spine~$\spine$ on~$\decoratedGraph$, the preorder~$\preccurlyeq_{\spine}$ is a spine preorder on~$\decoratedGraph$.
+\end{lemma}
+
+\begin{proof}
+%  Consider first a spine~$\spine$ on~$\decoratedGraph$ and its associated preorder~$\preccurlyeq_{\spine}$.
+  Let~$x, y \in \vertexSet$ and~$\pi$ be the (possibly undirected) path in~$\spine$ joining the node containing~$x$ to the node containing~$y$.
+  By \cref{def:spinePreorder1}, $x$ and~$y$ are comparable in~$\preccurlyeq_{\spine}$ if and only if~$\pi$ is a directed path.
+  We thus just need to check that~$\pi$ is a not directed path if and only if there is a subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
+  
+  Assume first that~$\pi$ is not a directed path and consider the nodes of~$\pi$ where~$\pi$ has no incoming or no outgoing arc.
+  Labeled these nodes by~$Z_i, \dots, Z_j$ in order along the path~$\pi$ such that~$x \in Z_i$, $y \in Z_j$ and~$\pi$ has two incoming arcs at~$Z_d$ for $i < d < j$ odd, and two outgoing arcs at~$Z_u$ for~$i < u < j$ even.
+  By \cref{def:spine}, $Z_{d-1}$ and~$Z_{d+1}$ belong to distinct connected components of~$\Graph \ssm \Down[Z_d]$ and are thus separated by some~$z_d \in \Down[Z_d]$ for each $i < d < j$ odd, and $Z_{u-1}$ and~$Z_{u+1}$ belong to distinct connected components of~$\Graph \ssm \Up[Z_u]$ and are thus separated by some~$z_u \in \Up[Z_u]$ for each $i < u < j$ even.
+  We have thus found the subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
+
+  Conversely, assume that there is a subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
+  Let~$Z_i, \dots, Z_j$ denote the nodes of~$\spine$ containing~$z_i, \dots, z_j$ respectively.
+  By \cref{def:spinePreorder1}, there is a directed path joining~$Z_u$ to~$Z_d$ for any~$i \le u, d \le j$ with~$d$ odd, $u$ even, and~$|d-u|=1$.
+  Hence, the path~$\pi$ passes through the nodes~$Z_i, \dots, Z_j$, and has two incoming arcs at each~$Z_d$ with~$i < d < j$ odd, and two outgoing arcs at each~$Z_u$ with~$i < u < j$ even.
+  Therefore, $\pi$ is not a directed path.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:spinePreorder2}
+  For any spine preorder~$\preccurlyeq$ on~$\decoratedGraph$ with equivalence relation~${\equiv} \eqdef \set{(x,y) \in {\preccurlyeq}}{(y,x) \in {\preccurlyeq}}$, the Hasse diagram of~${\preccurlyeq}/{\equiv}$ is a spine on~$\decoratedGraph$.
+\end{lemma}
+
+\begin{proof}
+  Let~$H$ be the Hasse diagram of~${\preccurlyeq}/{\equiv}$.
+  By definition, its nodes partition the vertex set~$\vertexSet$.
+  We now prove that~$H$ is a directed tree by showing that its underlying undirected graph is connected and acyclic.
+  \vincent{todo}
+\end{proof}
+
+\begin{proposition}
+  \label{prop:spinePreorder}
+  The map~$\spine \mapsto {\preccurlyeq_{\spine}}$ is a bijection from the spines on~$\decoratedGraph$ to the spine preorders~on~$\decoratedGraph$.
+\end{proposition}
+
+\begin{proof}
+  Observe first that the map~$\spine \mapsto {\preccurlyeq_{\spine}}$ is injective.
+  Indeed, the nodes of~$\spine$ are the classes of the equivalence relation~$\equiv_{\spine}$ defined by~$x \equiv_{\spine} y$ if and only if~$x \preccurlyeq_{\spine} y$ and~$y \preccurlyeq_{\spine} x$, and~$\spine$ is the Hasse digram of the poset~${\preccurlyeq_{\spine}} / {\equiv_{\spine}}$ (this holds since~$\spine$ is transitively reduced because it is a directed tree).
+  Hence~$\spine \mapsto {\preccurlyeq_{\spine}}$ is a bijection on its image, which is precisely the set of spine preorders on~$\decoratedGraph$ by \cref{lem:spinePreorder1,lem:spinePreorder2}.
+\end{proof}
+
+\begin{example}
+  For instance, the spine preorders on~$\decoratedGraph$ are:
+  \begin{enumerate}[(i)]
+    \item \defn{complete preorders} on~$\vertexSet$ (\ie $x \preccurlyeq y$ or $x \succcurlyeq y$ or both for any~$x,y \in \vertexSet$) when~$\decoratedGraph$ is complete or undecorated,
+    \item \defn{Schr\"oder preorders} when~$\decoratedGraph$ is a down decorated path, \ie preorders on~$[n]$ in which any~$1 \le i < k \le n$ are comparable (\ie~$i \preccurlyeq k$ or $i \succcurlyeq k$ or both) if and only if there is no~$i < j < k$ such that~$i \prec j \succ k$.
+  \end{enumerate}
+\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -631,7 +695,7 @@ To define the reverse operation of node splitting, we first need the following n
 \begin{definition}
   \label{def:splittable}
   Let~$Z$ be a subset of vertices of~$\Graph$.
-  A partition~$X \sqcup Y = Z$ is \defn{$\decoratedGraph$-splittable} if~$X \ne \varnothing$ is contained in a connected component of~$\Graph \ssm \Down[Y]$ and $Y \ne \varnothing$ is contained in a connected component of~$\Graph \ssm \Up[X]$.
+  A \defn{$\decoratedGraph$-splittable partition} is an ordered partition~$X \sqcup Y = Z$ such that~$X \ne \varnothing$ is contained in a connected component of~$\Graph \ssm \Down[Y]$ and $Y \ne \varnothing$ is contained in a connected component of~$\Graph \ssm \Up[X]$.
 \end{definition}
 
 \begin{proposition}
@@ -708,7 +772,7 @@ We now connect arc contractions, node splittings, and the spine poset.
   It is clear that if~$\spine'$ is the splitting of~$X \sqcup Y$ in~$\spine$, then~$\spine$ is the contraction of the arc joining~$X$ to~$Y$ in~$\spine'$.
   Conversely, if~$\spine$ is the contraction of an arc joining~$X$ to~$Y$ in~$\spine'$, then the partition~$X \sqcup Y$ is splittable by \cref{def:spine}, and~$\spine'$ is the splitting of~$X \sqcup Y$~in~$\spine$.
   This shows that arc contraction and node splitting are inverse operations, which by iteration proves the equivalence between (ii) and (iii).
-  Moreover, it immediately follows from \cref{def:preorderSpine} that (ii) or (iii) imply that~$\spine$ extends~$\spine'$, which is (i).
+  Moreover, it immediately follows from \cref{def:spinePreorder1} that (ii) or (iii) imply that~$\spine$ extends~$\spine'$, which is (i).
   We thus just need to check that (i) implies (ii).
 
   Assume by contradiction that~$\spine \ne \spine'$, that~$\spine$ extends~$\spine'$, and that there is no contraction in~$\spine'$ that preserves this property.
@@ -921,6 +985,7 @@ This gives a description of the nodes of the spine~$\nestedToSpine(\nested)$ in 
 \label{subsec:flips}
 
 In this section, we introduce an elementary local operation on spines on~$\decoratedGraph$, that will enable us to show that the chunk nested complex~$\nestedComplex$ is a closed pseudo-manifold.
+\vincent{Change the order.}
 
 \begin{definition}
   \label{def:flip}
@@ -2351,6 +2416,8 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 \section{Algebra: Dioperad structure}
 \label{sec:algebra}
 
+\vincent{Restriction}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Recollections}
@@ -2368,7 +2435,7 @@ A $C$-colored dioperad is a $C$-colored $(\mathbb{S},\mathbb{S})$-module $\diope
 \[
 \longrightarrow \dioperad(c_1,\ldots,c_{i-1},c_1',\ldots,c_p',c_{i+1},\ldots c_k;d_1,\ldots,d_{j-1},d_1',\ldots,d_q',d_{j+1},\ldots,d_l)
 \]
-whenever $c_i=d_j'$, and units $id_x \in \dioperad(x;x)$ which satisfy appropriate unity, equivariance and associativity axioms, see \cite[Definition 11.18]{YauJohnson15}. 
+whenever $c_i=d_j'$, and units $id_x \in \dioperad(x;x)$ which satisfy appropriate unity, equivariance and associativity axioms, see \cite[Def.~11.18]{YauJohnson15}. 
 \end{definition}
 
 \guillaume{Equivalently, a dioperad is a monoid in ..., or an algebra over the monad of directed trees... }
