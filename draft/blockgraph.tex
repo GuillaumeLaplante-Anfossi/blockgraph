@@ -294,7 +294,6 @@ We will use both maple trees and block graphs, which essentially encode the same
 
 \begin{definition}
   A \defn{maple tree} is a tree whose vertices are properly colored (\ie no monochromatic edge) in red and blue such that all leaves are red.
-  \vincent{should blue be gray?}
   The \defn{tapping} of a maple tree consists in replacing each red vertex by a clique on its blue neighbors.
   A \defn{maple subtree} is an induced subtree which is also a maple tree.
 \end{definition}
@@ -405,10 +404,10 @@ In this paper, we consider the following additional decorations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Spines}
+\subsection{Spines and spine preorders}
 \label{subsec:spines}
 
-We now define the main combinatorial objects studied in this paper.
+We now define the main objects studied in this paper.
 
 \begin{definition}
   \label{def:sourceTargetSets}
@@ -432,7 +431,7 @@ We now define the main combinatorial objects studied in this paper.
 
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}
+  \begin{tikzpicture}[baseline=0]
     \node (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
     \node (14) at (-1, 2) {$\blue 1 4$};
     \node (9) at (1, 2) {$\blue \up[9]$};
@@ -444,8 +443,31 @@ We now define the main combinatorial objects studied in this paper.
     \draw[->] (78)--(256); 
     \draw[->] (3)--(256);
   \end{tikzpicture}
+  %
   \qquad
-  \begin{tikzpicture}
+  %
+  \begin{tikzpicture}[baseline=0]
+    \node (1) at (-0.5, 1) {$\blue 1$};
+    \node (3) at (0.5, -1) {$\blue 3$};
+    \node (4) at (-1, 2) {$\blue 4$};
+    \node (25) at (0, 0) {$\blue \updown[2] \up[5]$};
+    \node (6) at (0.5, 1) {$\blue 6$};
+    \node (7) at (-.5, -1) {$\blue \down[7]$};
+    \node (8) at (-1, -2) {$\blue 8$};
+    \node (9) at (1, 2) {$\blue \up[9]$};
+    %
+    \draw[->] (8)--(7); 
+    \draw[->] (7)--(25); 
+    \draw[->] (3)--(25); 
+    \draw[->] (25)--(1); 
+    \draw[->] (1)--(4); 
+    \draw[->] (25)--(6); 
+    \draw[->] (6)--(9); 
+  \end{tikzpicture}
+  %
+  \qquad
+  %
+  \begin{tikzpicture}[baseline=.5]
     \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
     \node (3) at (0, -1.5) {$\blue 3$};
@@ -466,7 +488,7 @@ We now define the main combinatorial objects studied in this paper.
     \draw[->] (6)--(9); 
   \end{tikzpicture}
   }
-  \caption{Two spines on the block graph of \cref{fig:mapleBlock}. The right one is maximal and refines the left one.}
+  \caption{Three spines~$\spine_1, \spine_2, \spine_3$ on the decorated block graph~$\decoratedGraph$ of \cref{fig:mapleBlock}. We have~$\spine_1 < \spine_2 \lessdot \spine_3$ in the spine poset~$\spinePoset$, and~$\spine_3$ is maximal (see \cref{subsec:spinePoset}).}
   \label{fig:spines}
 \end{figure} 
 
@@ -540,7 +562,7 @@ Our next statement characterize the preorders obtained from \cref{def:spinePreor
   Let~$H$ be the Hasse diagram of~${\preccurlyeq}/{\equiv}$.
   By definition, its nodes partition the vertex set~$\vertexSet$.
   We now prove that~$H$ is a directed tree by showing that its underlying undirected graph is connected and acyclic.
-  \vincent{todo}
+  \vincent{todo. This seems a bit technical, I am not sure yet how to make it.}
 \end{proof}
 
 \begin{proposition}
@@ -555,6 +577,7 @@ Our next statement characterize the preorders obtained from \cref{def:spinePreor
 \end{proof}
 
 \begin{example}
+  \label{exm:spinePreorder}
   For instance, the spine preorders on~$\decoratedGraph$ are:
   \begin{enumerate}[(i)]
     \item \defn{complete preorders} on~$\vertexSet$ (\ie $x \preccurlyeq y$ or $x \succcurlyeq y$ or both for any~$x,y \in \vertexSet$) when~$\decoratedGraph$ is complete or undecorated,
@@ -568,7 +591,7 @@ Our next statement characterize the preorders obtained from \cref{def:spinePreor
 \label{subsec:spinePoset}
 
 We now consider a natural partial order on spines.
-This relation is easier to define on the preorders associated to the spines.
+This relation is easier to define on the spine preorders.
 
 \begin{definition}
   \label{def:extensionPreorders}
@@ -984,17 +1007,24 @@ This gives a description of the nodes of the spine~$\nestedToSpine(\nested)$ in 
 \subsection{Flips}
 \label{subsec:flips}
 
-In this section, we introduce an elementary local operation on spines on~$\decoratedGraph$, that will enable us to show that the chunk nested complex~$\nestedComplex$ is a closed pseudo-manifold.
-\vincent{Change the order.}
+In this section, we introduce an elementary local operation on spines on~$\decoratedGraph$, motivated by the following statement.
 
-\begin{definition}
-  \label{def:flip}
-  Let $\decoratedGraph$ be a decorated block graph and let $\spine$ be a maximal spine on~$\decoratedGraph$.
-  Consider two vertices $X = \{x\}$ and $Y = \{y\}$ of $\spine$ related by an arc $\gamma$. 
-  Let $\alpha$ be the incoming arc of $X$ such that~$\so[\alpha]$ and~$Y$ are contained in the same connected component of $\Graph \ssm \Down[X]$, and let $\beta$ be the outgoing arc of $Y$ such that~$\ta[\beta]$ and~$X$ are contained in the same connected component of $\Graph \ssm \Up[Y]$.
-  We define $\spine'$ to be the spine obtained from $\spine$ by reversing the orientation of~$\gamma$, grafting the arc~$\alpha$ to~$Y$ and the arc~$\beta$ to~$X$.
-  We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
-\end{definition}
+\begin{proposition}
+  \label{prop:pseudomanifold}
+  Any corank~$1$ spine is covered by exactly two corank~$0$ spines in~$\spinePoset$.
+  Hence, the chunk nested complex~$\nestedComplex$ is a closed pseudo-manifold.
+\end{proposition}
+
+\begin{proof}
+  Let~$\spine$ be a corank~$1$ spine on~$\decoratedGraph$.
+  Then all nodes of~$\spine$ are singletons, except one which is a pair~$Z \eqdef \{x,y\}$.
+  This pair admits two non-trivial ordered partitions~${\{x\} \sqcup \{y\} = Z}$ and~${\{y\} \sqcup \{x\} = Z}$ which are both $\decoratedGraph$-splittable.
+  Hence, $\spine$ is covered by precisely two corank~$0$ spines according from \cref{prop:nodeSplitting,thm:spinePoset}.
+\end{proof}
+
+This motivates to consider the dual graph of the chunk nested complex.
+Here, we define it directly on spines.
+See \cref{fig:generalFlip,fig:flip}.
 
 \begin{figure}[h!]
   \centerline{
@@ -1093,11 +1123,9 @@ In this section, we introduce an elementary local operation on spines on~$\decor
     \draw[->] (ik)--(N1);
   \end{tikzpicture}
   }
-  \caption{A spine flip.}
+  \caption{Spine flip.}
   \label{fig:generalFlip}
 \end{figure}
-
-The fact that $\spine'$ is indeed a spine is immediate from the definitions. Contracting $\gamma$ in either $\spine$ or $\spine'$, we obtain the same spine $\spine''$. 
 
 \begin{figure}[h!]
   \centerline{
@@ -1148,29 +1176,38 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
     \draw[->] (6)--(9); 
   \end{tikzpicture}
   }
-  \caption{Two maximal spines on the block graph of \cref{fig:mapleBlock}, related by a flip.}
+  \caption{Two maximal spines on the decorated block graph~$\decoratedGraph$ of \cref{fig:mapleBlock}, related by a flip. These are the two spines on~$\decoratedGraph$ that cover the middle spine of \cref{fig:spines}.}
   \label{fig:flip}
-  \end{figure} 
+\end{figure} 
 
-\begin{lemma} 
-  \label{lemma:coveringpair} 
-  The spines~$\spine$ and $\spine'$ are the only spines covering $\spine''$ in the spine poset~$\spinePoset$.
+\begin{definition}
+  \label{def:flip}
+  Let $\decoratedGraph$ be a decorated block graph and let $\spine$ be a maximal spine on~$\decoratedGraph$.
+  Consider two vertices $X = \{x\}$ and $Y = \{y\}$ of $\spine$ related by an arc $\gamma$. 
+  Let $\alpha$ be the incoming arc of $X$ such that~$\so[\alpha]$ and~$Y$ are contained in the same connected component of $\Graph \ssm \Down[X]$, and let $\beta$ be the outgoing arc of $Y$ such that~$\ta[\beta]$ and~$X$ are contained in the same connected component of $\Graph \ssm \Up[Y]$.
+  We define $\spine'$ to be the spine obtained from $\spine$ by reversing the orientation of~$\gamma$, grafting the arc~$\alpha$ to~$Y$ and the arc~$\beta$ to~$X$.
+  We say that $\spine'$ is obtained from $\spine$ by \defn{flipping} the arc~$\gamma$. 
+\end{definition}
+
+\begin{lemma}
+  Two corank~$0$ spines on~$\decoratedGraph$ are related by a flip if and only if they cover the same corank~$1$ spine on~$\decoratedGraph$.
 \end{lemma}
 
 \begin{proof}
-  This follows from \cref{prop:nodeSplitting,thm:spinePoset}.
+  Let~$\spine,\spine'$ be two spines on~$\decoratedGraph$.
+  If~$\spine$ and~$\spine$ are related by the flip of~$\gamma$, then contracting $\gamma$ in either $\spine$ or $\spine'$ clearly yields the same spine~$\spine''$.
+  Conversely, assume that~$\spine$ and~$\spine'$ cover the same spine~$\spine''$, and let~$\gamma$ denote the arc contracted in~$\spine$ to obtain~$\spine''$.
+  Then~$\spine'$ is obtained by flipping~$\gamma$ in~$\spine$, since otherwise we would obtain three distinct spines on~$\decoratedGraph$ covering~$\spine''$, which would contradict \cref{prop:pseudomanifold}.
 \end{proof}
-  
+
 \begin{definition}
   \label{def:flipGraph}
   The \defn{flip graph} is the graph whose vertices are the maximal spines on~$\decoratedGraph$ and whose egdes are the flips between them.
-  In other words, it is the facet-ridge graph of the chunk nested complex~$\nestedComplex$.
+  In other words, it is the dual graph of the chunk nested complex~$\nestedComplex$.
 \end{definition}
 
-\begin{corollary} 
-   The chunk nested complex~$\nestedComplex$ is a closed pseudo-manifold. 
-\end{corollary}
-  
+Finally, we mention the following natural ways to orient the flip graph.
+
 \begin{definition}
   \label{def:increasingFlip}
   Fix a total order~$\prec$ on~$\vertexSet$.
