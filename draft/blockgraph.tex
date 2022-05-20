@@ -562,7 +562,7 @@ Our next statement characterize the preorders obtained from \cref{def:spinePreor
   Let~$H$ be the Hasse diagram of~${\preccurlyeq}/{\equiv}$.
   By definition, its nodes partition the vertex set~$\vertexSet$.
   We now prove that~$H$ is a directed tree by showing that its underlying undirected graph is connected and acyclic.
-  \vincent{todo. This seems a bit technical, I am not sure yet how to make it.}
+  \vincent{todo. This seems a bit technical at the moment, I am not sure yet how to make it. It is obviously connected since uncomparable elements are related by snakes. The fact that it is acyclic is more difficult. Easier on permutrees.}
 \end{proof}
 
 \begin{proposition}
@@ -609,7 +609,7 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
 
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}[scale=1.6]
+  \begin{tikzpicture}[scale=1.6, baseline=0]
     \node (N0) at (-0.5,-0.5) {\small $X$};
     \node (N1) at (0.5,0.5) {\small $Y$};
     %
@@ -648,16 +648,15 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
   \end{tikzpicture}
   %
   \qquad 
-  \raisebox{6.5em}{
-  \begin{tikzpicture}[scale=1.2]
-    \draw[->] (0,0)--(1,0); 
-    \draw[->] (1,-0.2)--(0,-0.2); 
+  %
+  \begin{tikzpicture}[scale=1.2, baseline=0]
+    \draw[->] (0,0.1)--(1,0.1); 
+    \draw[->] (1,-0.1)--(0,-0.1); 
   \end{tikzpicture}
-  }
+  %
   \qquad 
   %
-  \raisebox{1.5em}{
-  \begin{tikzpicture}[scale=1.2]
+  \begin{tikzpicture}[scale=1.2, baseline=0]
     \node (N1) at (0,0) {\small $X \cup Y$};
     %
     \node (oj1) at (-0.6,1.5) {\small $\beta_1$};
@@ -676,7 +675,6 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
     \draw[->] (imd)--(N1);
     \draw[->] (ik)--(N1);
   \end{tikzpicture}
-  }
   }
   \caption{Arc contraction and node splitting on spines.}
   \label{fig:contractionSplitting}
@@ -1028,7 +1026,7 @@ See \cref{fig:generalFlip,fig:flip}.
 
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}[scale=1.6]  
+  \begin{tikzpicture}[scale=1.6, baseline=0]
     \node (N0) at (-0.5,-0.5) {\small $x$};
     \node (N1) at (0.5,0.5) {\small $y$};
     %
@@ -1073,12 +1071,11 @@ See \cref{fig:generalFlip,fig:flip}.
     \draw[->] (ik)--(N1);
   \end{tikzpicture}
   %
-  \raisebox{6.5em}{
-  \begin{tikzpicture}[scale=1.2]
+  \begin{tikzpicture}[scale=1.2, baseline=0]
     \draw[->] (0,0)--(1,0); 
-  \end{tikzpicture}}
+  \end{tikzpicture}
   %
-  \begin{tikzpicture}[scale=1.6]  
+  \begin{tikzpicture}[scale=1.6, baseline=0]
     \node (N0) at (-0.5,0.5) {\small $x$};
     \node (N1) at (0.5,-0.5) {\small $y$};
     %  
@@ -1129,7 +1126,7 @@ See \cref{fig:generalFlip,fig:flip}.
 
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}
+  \begin{tikzpicture}[baseline=0]
     \node (1) at (-0.5, 1.5) {$\blue 1$};
     \node (2) at (-0.5, -0.5) {$\blue \updown[2]$};
     \node (3) at (0, -1.5) {$\blue 3$};
@@ -1150,12 +1147,11 @@ See \cref{fig:generalFlip,fig:flip}.
     \draw[->] (6)--(9); 
   \end{tikzpicture}
   %
-  \raisebox{6.5em}{
-  \begin{tikzpicture}[scale=1.2]
+  \begin{tikzpicture}[scale=1.2, baseline=0]
     \draw[->] (0,0)--(1,0); 
-  \end{tikzpicture}}
+  \end{tikzpicture}
   %
-  \begin{tikzpicture}
+  \begin{tikzpicture}[baseline=0]
     \node (1) at (0.5, 0.5) {$\blue 1$};
     \node (2) at (-0.5, 0.5) {$\blue \updown[2]$};
     \node (3) at (-1, -0.5) {$\blue 3$};
@@ -1262,7 +1258,7 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
 %
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}
+  \begin{tikzpicture}[baseline=0]
     \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
     \node[label=west:{\scriptsize \red \textit{ade}}] (14) at (-1, 2) {$\blue 1 4$};
     \node[label=east:{\scriptsize \red \textit{fgjk}}] (9) at (1, 2) {$\blue \up[9]$};
@@ -1277,7 +1273,28 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
   %
   \qquad
   %
-  \begin{tikzpicture}
+  \begin{tikzpicture}[baseline=0]
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-0.5, 1) {$\blue 1$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (0.5, -1) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (4) at (-1, 2) {$\blue 4$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (25) at (0, 0) {$\blue \updown[2] \up[5]$};
+    \node[label=east:{\scriptsize \red \textit{fgjk}}] (6) at (0.5, 1) {$\blue 6$};
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (7) at (-0.5, -1) {$\blue \down[7]$};
+    \node[label=west:{\scriptsize \red \textit{adefghjk}}] (8) at (-1, -2) {$\blue 8$};
+    \node[label=east:{\scriptsize \red \textit{jgjk}}] (9) at (1, 2) {$\blue \up[9]$};
+    %
+    \draw[->] (8)--(7) node[midway, left] {\scriptsize \red \textit{adefghjk}}; 
+    \draw[->] (7)--(25) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
+    \draw[->] (3)--(25) node[midway, right] {\scriptsize \red \textit{bc}}; 
+    \draw[->] (25)--(1) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (1)--(4) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (25)--(6) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
+    \draw[->] (6)--(9) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
+  \end{tikzpicture}
+  %
+  \qquad
+  %
+  \begin{tikzpicture}[baseline=0]
     \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-0.5, 1.5) {$\blue 1$};
     \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (2) at (-0.5, -0.5) {$\blue \updown[2]$};
     \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (0, -1.5) {$\blue 3$};
@@ -1357,7 +1374,7 @@ This is not strictly needed for the purposes of the next section, but it enlight
 %
 \begin{figure}[h!]
   \centerline{
-  \begin{tikzpicture}
+  \begin{tikzpicture}[baseline=0]
     \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (256) at (0,0) {$\blue \updown[2] \up[5] 6$};
     \node[label=west:{\scriptsize \red \textit{ade}}] (14) at (-1, 2) {$\blue 1 4$};
     \node[label=east:{\scriptsize \red \textit{fgjk}}] (9) at (1, 2) {$\blue \up[9]$};
@@ -1388,7 +1405,44 @@ This is not strictly needed for the purposes of the next section, but it enlight
   %
   \qquad
   %
-  \begin{tikzpicture}
+  \begin{tikzpicture}[baseline=0]
+    \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-0.5, 1) {$\blue 1$};
+    \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (25) at (0, 0) {$\blue \updown[2] \up[5]$};
+    \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (0.5, -1) {$\blue 3$};
+    \node[label=west:{\scriptsize \red \textit{ade}}] (4) at (-1, 2) {$\blue 4$};
+    \node[label=east:{\scriptsize \red \textit{fgjk}}] (6) at (0.5, 1) {$\blue 6$};
+    \node[label=west:{\scriptsize \red \textit{adefghijk}}] (7) at (-.5, -1) {$\blue \down[7]$};
+    \node[label=west:{\scriptsize \red \textit{adefghjk}}] (8) at (-1, -2) {$\blue 8$};
+    \node[label=east:{\scriptsize \red \textit{jgjk}}] (9) at (1, 2) {$\blue \up[9]$};
+    \node (adefghjk) at (-1.5, -3) {};
+    \node (i) at (0, -2) {};
+    \node (bc) at (1, -2) {};
+    \node (bc') at (1.1, .1) {};
+    \node (hi') at (1, .5) {};
+    \node (ade') at (-1.5, 3) {};
+    \node (fgj') at (0.5, 3) {};
+    \node (k') at (1.5, 3) {};
+    %
+    \draw[->] (8)--(7) node[midway, left] {\scriptsize \red \textit{adefghjk}}; 
+    \draw[->] (7)--(25) node[midway, left] {\scriptsize \red \textit{adefghijk}}; 
+    \draw[->] (3)--(25) node[midway, right] {\scriptsize \red \textit{bc}}; 
+    \draw[->] (25)--(1) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (1)--(4) node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (25)--(6) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
+    \draw[->] (6)--(9) node[midway, right] {\scriptsize \red \textit{fgjk}}; 
+    \draw[->] (4)--(ade') node[midway, left] {\scriptsize \red \textit{ade}}; 
+    \draw[->] (9)--(fgj') node[midway, left] {\scriptsize \red \textit{fgj}}; 
+    \draw[->] (9)--(k') node[midway, right] {\scriptsize \red \textit{k}}; 
+    \draw[->] (adefghjk)--(8) node[midway, left] {\scriptsize \red \textit{adefghjk}}; 
+    \draw[->] (i)--(7) node[midway, right] {\scriptsize \red \textit{i}}; 
+    \draw[->] (bc)--(3) node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (25)--(bc') node[midway, right] {\scriptsize \red \textit{bc}};
+    \draw[->] (25)--(hi') node[midway, right] {\scriptsize \red \textit{hi}};
+  \end{tikzpicture}
+  %
+  \qquad
+  %
+  \begin{tikzpicture}[baseline=0]
     \node[label=west:{\scriptsize \red \textit{ade}}] (1) at (-0.5, 1.5) {$\blue 1$};
     \node[label=west:{\scriptsize \red \textit{abcdefghijk}}] (2) at (-0.5, -0.5) {$\blue \updown[2]$};
     \node[label=east:{\scriptsize \red \textit{bc}}] (3) at (0, -1.5) {$\blue 3$};
