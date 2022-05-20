@@ -217,6 +217,10 @@
 \newcommandx{\HS}[1][1=\weight]{\mathbf{H}^{\ge #1}} % halfspace
 \newcommand{\monombinom}[1]{\big\{\!\begin{smallmatrix} #1 \\ 2 \end{smallmatrix}\!\big\}}
 
+% ALGEBRA
+
+\newcommand{\dioperad}{\mathcal{D}} % dioperad
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Spine polytopes}
@@ -2353,18 +2357,18 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 
 Let $C$ be a set. 
 
-\begin{definition} A $C$-colored $(\mathbb{S},\mathbb{S})$-module is a family of $(\mathbb{S}_k,\mathbb{S}_l)$-modules $\mathcal{D}(c_1,\ldots,c_k;c_1',\ldots,c_l')$, indexed by the ordered pairs of non-empty ordered sequences $c_1,\ldots,c_k$ and $c_1',\ldots,c_l'$ of elements of $C$.
+\begin{definition} A $C$-colored $(\mathbb{S},\mathbb{S})$-module is a family of $(\mathbb{S}_k,\mathbb{S}_l)$-modules $\dioperad(c_1,\ldots,c_k;c_1',\ldots,c_l')$, indexed by the ordered pairs of non-empty ordered sequences $c_1,\ldots,c_k$ and $c_1',\ldots,c_l'$ of elements of $C$.
 \end{definition}
 
 \begin{definition}[Dioperad]
-A $C$-colored dioperad is a $C$-colored $(\mathbb{S},\mathbb{S})$-module $\mathcal{D}$ together with partial compositions 
-$$
-\prescript{}{j}{\circ}^{}_i : \mathcal{D}_M(c_1,\ldots,c_k;d_1,\ldots,d_l) \otimes \mathcal{D}_M(c_1',\ldots,c_p';d_1',\ldots,d_q') 
-$$
-$$
-\longrightarrow \mathcal{D}_M(c_1,\ldots,c_{i-1},c_1',\ldots,c_p',c_{i+1},\ldots c_k;d_1,\ldots,d_{j-1},d_1',\ldots,d_q',d_{j+1},\ldots,d_l)
-$$
-whenever $c_i=d_j'$, and units $id_x \in \mathcal{D}(x;x)$ which satisfy appropriate unity, equivariance and associativity axioms, see \cite[Definition 11.18]{YauJohnson15}. 
+A $C$-colored dioperad is a $C$-colored $(\mathbb{S},\mathbb{S})$-module $\dioperad$ together with partial compositions 
+\[
+\prescript{}{j}{\circ}^{}_i : \dioperad(c_1,\ldots,c_k;d_1,\ldots,d_l) \otimes \dioperad(c_1',\ldots,c_p';d_1',\ldots,d_q') 
+\]
+\[
+\longrightarrow \dioperad(c_1,\ldots,c_{i-1},c_1',\ldots,c_p',c_{i+1},\ldots c_k;d_1,\ldots,d_{j-1},d_1',\ldots,d_q',d_{j+1},\ldots,d_l)
+\]
+whenever $c_i=d_j'$, and units $id_x \in \dioperad(x;x)$ which satisfy appropriate unity, equivariance and associativity axioms, see \cite[Definition 11.18]{YauJohnson15}. 
 \end{definition}
 
 \guillaume{Equivalently, a dioperad is a monoid in ..., or an algebra over the monad of directed trees... }
@@ -2382,7 +2386,8 @@ The blue vertex set $V$ inherits a natural numbering by $1,\ldots,|\vertexSet|$,
 We will consider only blossoming spines on $\Maple$, and refer to them as spines. 
 
 \begin{definition}[Block]
-  Let $\Maple$ be a maple tree, with blue vertex set $\vertexSet$. 
+  Let $\decoratedMaple$ be a decorated maple tree, with blue vertex set $\vertexSet$. 
+  \vincent{We have to change maple tree to decorated maple trees.}
   A \emph{block} $B$ of $\Maple$ is a (possibly empty) node of a spine $S$ on $\Maple$ which has been cut off from $\Maple$. \guillaume{dessin} 
   \vincent{Are these blocks or chunks or something else?}
 \end{definition}
@@ -2395,8 +2400,8 @@ In the case where $B$ is empty, we set $i(B)=o(B)$.
 Let $C$ be the set of ordered pairs of subsets of $V$ which form a partition of $V$.
 We consider the following $C$-colored collection:
 
-$$
-\mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)=
+\[
+\dioperad_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l)=
 \mathbb{K}\left\{
 \begin{array}{cl}
 \text{Block } B \text{ of } \Maple \text{ with two bijections }  \\
@@ -2404,13 +2409,13 @@ $$
 x_i=(\so[\sigma(i)],\ta[\sigma(i)]) \text{ and } y_j=(\so[\tau(j)],\ta[\tau(j)]) \text{ for all } i,j  
 \end{array} 
 \right\} 
-$$
-Precomposition of $\sigma$ and $\tau$ with other permutations makes $\mathcal{D}_M$ into a $(\mathbb{S},\mathbb{S})$-module. 
+\]
+Precomposition of $\sigma$ and $\tau$ with other permutations makes $\dioperad_{\decoratedMaple}$ into a $(\mathbb{S},\mathbb{S})$-module. 
 
 \begin{lemma}
-  Each space $\mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)$ is either zero or one-dimensional. 
+  Each space $\dioperad_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l)$ is either zero or one-dimensional. 
 \end{lemma}
-\vincent{The space $\mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)$ is one-dimensional if $x_i \negDisjoint x_{i'}$, $y_j \posDisjoint y_{j'}$ and~$x_i \subseteq y_j$ for any~$i \ne i' \in [k]$ and $j \ne j' \in [\ell]$, and zero-dimensional otherwise.}
+\vincent{The space $\dioperad_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l)$ is one-dimensional if $x_i \negDisjoint x_{i'}$, $y_j \posDisjoint y_{j'}$ and~$x_i \subseteq y_j$ for any~$i \ne i' \in [k]$ and $j \ne j' \in [\ell]$, and zero-dimensional otherwise.}
 
 \begin{proof} This follows from the definition of spine. \guillaume{justifier}
 \end{proof}
@@ -2433,8 +2438,8 @@ The \emph{partial composition} $\sigma \circ_i \sigma' : [k+p-1] \to (X \setminu
 Let $x_1,\ldots,x_k,x_1',\ldots,x_p',y_1,\ldots,y_l,y_1',\ldots,y_q'$ be colors of $C$ and suppose that there exists an $i \in [k]$ and a $j \in [q]$ such that $x_i=y_j'$. 
 We define the \emph{partial composition map}
 \[\prescript{}{j}{\circ}^{}_i \ \  : \ \  
-\mathcal{D}_M(x_1,\ldots,x_k;y_1,\ldots,y_l) \otimes \mathcal{D}_M(x_1',\ldots,x_p';y_1',\ldots,y_q') \]
-\[\longrightarrow \mathcal{D}_M(x_1,\ldots,x_{i-1},x_1',\ldots,x_p',x_{i+1},\ldots,x_k;y_1,\ldots,y_{j-1},y_1',\ldots,y_q',y_{j+1},\ldots,y_l)\]
+\dioperad_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l) \otimes \dioperad_{\decoratedMaple}(x_1',\ldots,x_p';y_1',\ldots,y_q') \]
+\[\longrightarrow \dioperad_{\decoratedMaple}(x_1,\ldots,x_{i-1},x_1',\ldots,x_p',x_{i+1},\ldots,x_k;y_1,\ldots,y_{j-1},y_1',\ldots,y_q',y_{j+1},\ldots,y_l)\]
 by sending the generators $(B,\sigma, \tau)$ and $(B',\sigma',\tau')$ to the block $B \prescript{}{j}{\circ}^{}_i B'$ equipped with the bijections $\sigma \circ_i \sigma'$ and $\tau \circ_j \tau'$.
 This block is defined as follows.  
 Let $S$ (resp. $S'$) be a spine on $\Maple$ which contains $B$ (resp. $B'$), and let $\gamma$ (resp. $\gamma'$) be the incoming arc such that $(\so[\gamma],\ta[\gamma])=x_i=y_j'=(\so[\gamma'],\ta[\gamma'])$. 
@@ -2443,11 +2448,11 @@ Now, contracting the arc $\gamma''$ in $S''$, we obtain a spine and a new block 
 \guillaume{well-defined?}
 \end{definition}
 
-Observe that the generators of the spaces $\mathcal{D}_M(x;x), x \in C$ are units for this partial composition.
+Observe that the generators of the spaces $\dioperad_{\decoratedMaple}(x;x), x \in C$ are units for this partial composition.
 
 \begin{proposition} 
 \label{prop:dioperadstructure}
-  For any maple tree $\Maple$, the preceding partial compositions and units endow the $(\mathbb{S},\mathbb{S})$-module $\mathcal{D}_M$ with a $C$-colored dioperad structure.
+  For any maple tree $\Maple$, the preceding partial compositions and units endow the $(\mathbb{S},\mathbb{S})$-module $\dioperad_{\decoratedMaple}$ with a $C$-colored dioperad structure.
 \end{proposition}
 
 \begin{proof}
@@ -2478,11 +2483,14 @@ A non-trivial block $B$ of a maple tree $\Maple$ can now be interpreted as a tri
 \end{definition}
 
 Let $\mathfrak{C}$ be the set of pairs of commutative words in the alphabet made up of letters $a,b,c,\ldots$ and decorated numbers $\up[1],\down[2],\updown[3],4,\ldots$
-Any dioperad $\mathcal{D}_M$ becomes a $\mathfrak{C}$-colored dioperad \guillaume{by setting many spaces to zero}.
+Any dioperad $\dioperad_{\decoratedMaple}$ becomes a $\mathfrak{C}$-colored dioperad \guillaume{by setting many spaces to zero}.
 
 \begin{lemma}
-Let $\Maple$ and $\Maple'$ be two extended maple trees, and suppose that there is an $\Maple'$-admissible extended maple tree $\iota(\Maple)$ which is isomorphic to $\Maple$, has the same blue vertices, and such that the label of each of its red vertex contains the label of the corresponding red vertex of $\Maple'$ as a subword. 
-This tree isomorphisms induces an inclusion of $\mathfrak{C}$-colored dioperads $$\mathcal{D}_M \hookrightarrow \mathcal{D}_{M'}\ . $$
+  Let $\Maple$ and $\Maple'$ be two extended maple trees, and suppose that there is an $\Maple'$-admissible extended maple tree $\iota(\Maple)$ which is isomorphic to $\Maple$, has the same blue vertices, and such that the label of each of its red vertex contains the label of the corresponding red vertex of $\Maple'$ as a subword. 
+  This tree isomorphisms induces an inclusion of $\mathfrak{C}$-colored dioperads
+  \[
+    \dioperad_{\decoratedMaple} \hookrightarrow \dioperad_{M'}\ .
+  \]
 \end{lemma}
 
 \begin{proof}
@@ -2490,20 +2498,20 @@ This tree isomorphisms induces an inclusion of $\mathfrak{C}$-colored dioperads 
 \end{proof}
 
 Consider the colimit over the diagram made up of all such dioperad inclusions
-\[ \mathcal{D} \coloneqq \colim_M \mathcal{D}_M \ . \]
+\[ \dioperad \coloneqq \colim_{\decoratedMaple} \dioperad_{\decoratedMaple} \ . \]
 This is a $\mathfrak{C}$-colored dioperad (since this category is cocomplete \guillaume{justifier!!}), where all the extended version of the same (non-extended) maple tree are identified. 
-The dioperad $\mathcal{D}$ can be seen as 
+The dioperad $\dioperad$ can be seen as 
 
 \begin{proposition}
-  The colored dioperad $\mathcal{D}$ is Koszul, and Koszul self-dual. 
+  The colored dioperad $\dioperad$ is Koszul, and Koszul self-dual. 
 \end{proposition}
 
 \begin{proof} 
-  It is enough to prove the statement for each $\mathcal{D}_M$ separately \guillaume{? Si oui, justifier}. 
+  It is enough to prove the statement for each $\dioperad_{\decoratedMaple}$ separately \guillaume{? Si oui, justifier}. 
 \end{proof}
 
 \begin{remark}
-  One could also also consider the totalization \[ \mathcal{D} \coloneqq \bigoplus_M \mathcal{D}_M \] which is a dioperad colored by pairs $(\Maple,c)$ made up of a maple tree and a color of $\mathfrak{C}$. 
+  One could also also consider the totalization \[ \dioperad \coloneqq \bigoplus_{\decoratedMaple} \dioperad_{\decoratedMaple} \] which is a dioperad colored by pairs $(\Maple,c)$ made up of a maple tree and a color of $\mathfrak{C}$. 
 \end{remark}
 
 Let $\Maple$ be a maple tree, with blue vertex set $V$. 
@@ -2514,8 +2522,8 @@ In the case where $D$ is empty, we set $i(D)=o(D)$.
 Let $C$ be the set of ordered pairs of subsets of $V$ which form a partition of $V$.
 We consider the following $C$-colored collection:
 
-$$
-\mathcal{D}^{\infty}_M(x_1,\ldots,x_k;y_1,\ldots,y_l)=
+\[
+\dioperad^{\infty}_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l)=
 \mathbb{K}\left\{
 \begin{array}{cl}
 \text{Generalized cell } D \text{ of } \Maple \text{ with two bijections }  \\
@@ -2523,13 +2531,13 @@ $$
 x_i=(\so[\sigma(i)],\ta[\sigma(i)]) \text{ and } y_j=(\so[\tau(j)],\ta[\tau(j)]) \text{ for all } i,j  
 \end{array} 
 \right\} 
-$$
-Precomposition of $\sigma$ and $\tau$ with other permutations makes $\mathcal{D}_M$ into a $(\mathbb{S},\mathbb{S})$-module.
+\]
+Precomposition of $\sigma$ and $\tau$ with other permutations makes $\dioperad_{\decoratedMaple}$ into a $(\mathbb{S},\mathbb{S})$-module.
 
-Partial compositions and units can be defined exactly as in the case of $\mathcal{D}_M$. 
+Partial compositions and units can be defined exactly as in the case of $\dioperad_{\decoratedMaple}$. 
 
 \begin{proposition} 
-  For any maple tree $\Maple$, the preceding partial compositions and units endow the $\mathcal{D}^{\infty}_M$ with a $C$-colored dioperad structure.
+  For any maple tree $\Maple$, the preceding partial compositions and units endow the $\dioperad^{\infty}_{\decoratedMaple}$ with a $C$-colored dioperad structure.
 \end{proposition}
 
 \begin{proof}
@@ -2537,14 +2545,14 @@ straightforward
 \end{proof}
 
 A generalized cell $D$ of $\Maple$ can be interpreted as a spine on the maple tree obtained by contracting the complement of $D$ in $\Maple$, where [...]
-Any dioperad $\mathcal{D}^{\infty}_M$ becomes a $\mathfrak{C}$-colored dioperad \guillaume{by setting many spaces to zero}, and the totalization \[ \mathcal{D}_{\infty} \coloneqq \bigoplus_M \mathcal{D}^{\infty}_M \] becomes a dioperad colored by pairs $(\Maple,c)$ made up of a maple tree and a color of $\mathfrak{C}$. 
+Any dioperad $\dioperad^{\infty}_{\decoratedMaple}$ becomes a $\mathfrak{C}$-colored dioperad \guillaume{by setting many spaces to zero}, and the totalization \[ \dioperad_{\infty} \coloneqq \bigoplus_{\decoratedMaple} \dioperad^{\infty}_{\decoratedMaple} \] becomes a dioperad colored by pairs $(\Maple,c)$ made up of a maple tree and a color of $\mathfrak{C}$. 
 
 \begin{remark}
-Dioperad inclusion morphisms (prove that this category is cocomplete), consider the colimit $\colim_M \mathcal{D}^{\infty}_M$ [...]
+Dioperad inclusion morphisms (prove that this category is cocomplete), consider the colimit $\colim_{\decoratedMaple} \dioperad^{\infty}_{\decoratedMaple}$ [...]
 \end{remark}
 
 \begin{proposition}
-  The colored dioperad $\mathcal{D}_\infty$ is free on cells. 
+  The colored dioperad $\dioperad_\infty$ is free on cells. 
 \end{proposition}
 
 \begin{proof} 
@@ -2553,13 +2561,13 @@ There is a unique way to write a generalized cell by iterating this process, up 
 So, this dioperad is free. 
 \end{proof}
 
-Now we turn $\mathcal{D}_\infty$ into a differential graded (dg) colored dioperad. 
+Now we turn $\dioperad_\infty$ into a differential graded (dg) colored dioperad. 
 The differential is the unique derivation extending the map $\partial$, defined on cells by 
 \[ \partial(D, \sigma, \tau) \coloneqq - \sum_{D'} \pm (D',\sigma,\tau) \ , \] 
 where the sum runs over all the spines with 2 nodes $D'$ that contain $D$. 
 
 \begin{proposition}
-The dg colored dioperad $\mathcal{D}_\infty$ is the minimal model $\Omega \mathcal{D}^{\as}$ of $\mathcal{D}$. 
+The dg colored dioperad $\dioperad_\infty$ is the minimal model $\Omega \dioperad^{\as}$ of $\dioperad$. 
 \end{proposition}
 
 \begin{proof} \guillaume{!!}
