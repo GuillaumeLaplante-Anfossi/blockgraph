@@ -499,7 +499,7 @@ Let us first recall the definition of a preorder.
 \subsection{Spine poset}
 \label{subsec:spinePoset}
 
-We now consider a natural order relation on spines.
+We now consider a natural partial order on spines.
 This relation is easier to define on the preorders associated to the spines.
 
 \begin{definition}
@@ -587,7 +587,7 @@ These operations are illustrated in \cref{fig:contractionSplitting}.
   \end{tikzpicture}
   }
   }
-  \caption{Contraction and splitting on spines.}
+  \caption{Arc contraction and node splitting on spines.}
   \label{fig:contractionSplitting}
 \end{figure} 
 
@@ -687,18 +687,18 @@ To define the reverse operation of node splitting, we first need the following n
   \end{itemize}
 \end{proof}
 
-We now connect arc contractions and node splittings with the spine poset.
+We now connect arc contractions, node splittings, and the spine poset.
 
-\begin{proposition}
-  \label{prop:spinePoset}
+\begin{theorem}
+  \label{thm:spinePoset}
   The following conditions are equivalent for two spines~$\spine, \spine'$ on~$\decoratedGraph$:
   \begin{enumerate}[(i)]
   \item $\spine \le \spine'$ in the spine poset~$\spinePoset$,
   \item $\spine$ is obtained from~$\spine'$ by a sequence of arc contractions,
   \item $\spine'$ is obtained from~$\spine$ by a sequence of node splittings.
   \end{enumerate}
-  Hence, the cover relations of the spine poset~$\spinePoset$ precisely correspond to the arc contractions and to the node splittings.
-\end{proposition}
+  Hence, the spines covered (resp.~covering) a spine~$\spine$ in the spine poset~$\spinePoset$ are precisely the spines obtained by an arc contraction (resp.~a node splitting) in~$\spine$.
+\end{theorem}
 
 \begin{proof}
   It is clear that if~$\spine'$ is the splitting of~$X \sqcup Y$ in~$\spine$, then~$\spine$ is the contraction of the arc joining~$X$ to~$Y$ in~$\spine'$.
@@ -740,7 +740,7 @@ We now connect arc contractions and node splittings with the spine poset.
 \end{proof}
 
 \begin{corollary} 
-  The spine poset~$\spinePoset$ is graded by the number of nodes and
+  The spine poset~$\spinePoset$ is graded by the number of nodes minus one and
   \begin{itemize}
     \item the unique rank $0$ (\ie minimal) element is the spine with a single node, 
     \item the rank~$1$ elements are the spines with precisely two nodes, 
@@ -770,7 +770,7 @@ We now connect arc contractions and node splittings with the spine poset.
 
 \begin{proof}
   Consider the rank~$1$ spine~$\spine'$ on~$\decoratedGraph$ obtained by contracting all arcs in~$\spine$ except~$\gamma$. 
-  By \cref{prop:spinePoset}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
+  By \cref{thm:spinePoset}, $\spine$ is obtained from the rank~$0$ spine by a node splitting. 
   Hence, $\so[\gamma]$ and~$\ta[\gamma]$ form a $\decoratedGraph$-splittable partition of the vertex set of~$\Graph$.
 \end{proof}
 
@@ -814,16 +814,16 @@ We next show that the spine poset is actually isomorphic to the inclusion poset 
   \end{enumerate}
 \end{example}
 
-\begin{proposition}
-  \label{prop:spineToNested}
+\begin{theorem}
+  \label{thm:spineToNested}
   The map~$\spineToNested$ defined by~$\spineToNested(\spine) \eqdef \set{\so[\gamma]}{\gamma \text{ arc of } \spine}$ is a poset isomorphism from the spine poset~$\spinePoset$ to the face poset of the chunk nested complex~$\nestedComplex$.
-\end{proposition}
+\end{theorem}
 
 \begin{corollary}
   The chunk nested complex~$\nestedComplex$ is a pure and flag simplicial complex.
 \end{corollary}
 
-\begin{proof}[Proof of \cref{prop:spineToNested}]
+\begin{proof}[Proof of \cref{thm:spineToNested}]
   We prove that the map~$\spineToNested$ is well-defined, injective, surjective, and order-preserving.
   
   \para{Well-defined}
@@ -897,7 +897,7 @@ We next show that the spine poset is actually isomorphic to the inclusion poset 
 
 \begin{remark}
   \label{rem:nestedToSpine}
-  From the proof of \cref{prop:spineToNested}, we can give a direct description of the inverse map~$\nestedToSpine$ of the map~$\spineToNested$.
+  From the proof of \cref{thm:spineToNested}, we can give a direct description of the inverse map~$\nestedToSpine$ of the map~$\spineToNested$.
   Namely, consider a chunk nested set~$N$ and two chunks~$\chunk, \chunk'$ of~$N$, and let~$\gamma, \gamma'$ denote the arcs of~$\spine \eqdef \nestedToSpine(N)$ such that~$\so[\gamma] = \chunk$ and~$\so[\gamma'] = \chunk'$.
   Then
   \begin{enumerate}[(i)]
@@ -1089,7 +1089,7 @@ The fact that $\spine'$ is indeed a spine is immediate from the definitions. Con
 \end{lemma}
 
 \begin{proof}
-  This follows from \cref{prop:nodeSplitting,prop:spinePoset}.
+  This follows from \cref{prop:nodeSplitting,thm:spinePoset}.
 \end{proof}
   
 \begin{definition}
@@ -1688,7 +1688,7 @@ We now consider a natural refinement order on decorated block graphs and define 
 
 Throughout this section, we assume that $\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$.
 Our objective is to define and describe a natural surjection~$\surjectionSpines$ from the spines on~$\decoratedGraph_\circ$ to the spines on~$\decoratedGraph_\bullet$.
-The key property of~$\surjectionSpines$ is given in \cref{prop:alternativeDescriptionRefinementSpines}, and should morally be considered as the definition of~$\surjectionSpines$.
+The key property of~$\surjectionSpines$ is given in \cref{thm:alternativeDescriptionRefinementSpines}, and should morally be considered as the definition of~$\surjectionSpines$.
 However, proving this property requires the following explicit combinatorial description of~$\surjectionSpines$, which is illustrated in \cref{fig:refinementSpines}.
 This description uses the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}.
 \vincent{We do not need the sweeping algorithm anymore...}
@@ -1795,17 +1795,17 @@ So far, we have used spine extensions to define the spine poset in \cref{def:spi
 Here, we use spine extensions to compare the spines on~$\decoratedGraph_\circ$ with the spines on~$\decoratedGraph_\bullet$.
 The next statement should morally be though as the definition of~$\surjectionSpines$, but its proof requires the explicit combinatorial description of \cref{def:refinementSpines}.
 
-\begin{proposition}
-  \label{prop:alternativeDescriptionRefinementSpines}
-  The spine~$\surjectionSpines(\spine_\circ)$ is the unique extension maximal spine on~$\decoratedGraph_\bullet$ extended by the spine~$\spine_\circ$.
-\end{proposition}
+\begin{theorem}
+  \label{thm:alternativeDescriptionRefinementSpines}
+  The spine~$\surjectionSpines(\spine_\circ)$ is the unique extension maximal spine on~$\decoratedGraph_\bullet$ extended~by~$\spine_\circ$.
+\end{theorem}
 
 \begin{proof}
   The spines on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$ clearly form a lower ideal~$I$ of the extension order.
   Observe that~$\surjectionSpines(\spine_\circ)$ belongs to~$I$ by \cref{lem:refinementSpines1}, and that~$\surjectionSpines(\spine_\circ)$ is extension maximal in~$I$ since each node of~$\spine_\circ$ is the disjoint union of incomparable nodes in~$\surjectionSpines(\spine_\circ)$ by \cref{def:refinementSpines}.
   To conclude, we thus just need to prove that~$I$ has a unique maximal element.
-
-  \vincent{The rest of the proof is closely related to the proof of \cref{prop:spinePoset}... I still need to think if I can do better.}
+  This proof is similar but slightly more subtle than the proof of \cref{thm:spinePoset}.
+  
   Assume by contradiction that there are two distinct extension maximal spines~$\spine_\bullet, \spine_\bullet'$ on~$\decoratedGraph_\bullet$ extended by~$\spine_\circ$.
   Hence, there are vertices~$x,y \in \vertexSet$ such that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$, or~$x \not\preccurlyeq_{\spine_\bullet} y$ while~$x \preccurlyeq_{\spine_\bullet'} y$.
   Consider such a pair~$\{x,y\}$ whose distance in~$\Graph$ is minimal, and assume for instance that~$x \preccurlyeq_{\spine_\bullet} y$ while~$x \not\preccurlyeq_{\spine_\bullet'} y$.
@@ -1843,16 +1843,16 @@ The next statement should morally be though as the definition of~$\surjectionSpi
   \end{enumerate}
 \end{proof}
 
-We now explore some properties of the map~$\surjectionSpines$.
+We now explore some key properties of the map~$\surjectionSpines$.
 
 \begin{proposition}
   \label{prop:orderPreservingRefinementSpines}
-  The map~$\surjectionSpines$ is order-preserving, meaning that $\spine_\circ \le \spine_\circ'$ in~$\spinePoset[\decoratedGraph_\circ]$ implies~$\surjectionSpines(\spine_\circ) \le \surjectionSpines(\spine_\circ')$ in~$\spinePoset[\decoratedGraph_\bullet]$.
+  The map~$\surjectionSpines$ is order-preserving, meaning that $\spine_\circ \le \spine_\circ'$ in~$\spinePoset[\decoratedGraph_\circ]$ implies that $\surjectionSpines(\spine_\circ) \le \surjectionSpines(\spine_\circ')$ in~$\spinePoset[\decoratedGraph_\bullet]$.
 \end{proposition}
 
 \begin{proof}
   Let~$\spine_\circ$ and~$\spine_\circ'$ be two spines on~$\decoratedGraph_\circ$ and let~$\spine_\bullet \eqdef \surjectionSpines(\spine_\circ)$ and~$\spine_\bullet' \eqdef \surjectionSpines(\spine_\circ')$ be the corresponding spines on~$\decoratedGraph_\bullet$.
-  If~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}}$, then \cref{prop:alternativeDescriptionRefinementSpines} ensures that~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\spine_\circ'$ extends~$\spine_\bullet'$) so that~${\preccurlyeq_{\spine_\bullet}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\preccurlyeq_{\spine_\bullet}$ is extension maximal among the spines of~$\decoratedGraph_\bullet$ extending~$\preccurlyeq_{\spine_\circ}$).
+  If~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}}$, then \cref{thm:alternativeDescriptionRefinementSpines} ensures that~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\circ'}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\spine_\circ'$ extends~$\spine_\bullet'$) so that~${\preccurlyeq_{\spine_\bullet}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$ (because~$\preccurlyeq_{\spine_\bullet}$ is extension maximal among the spines of~$\decoratedGraph_\bullet$ extending~$\preccurlyeq_{\spine_\circ}$).
   Hence $\spine_\circ \le \spine_\circ'$  in~$\spinePoset[\decoratedGraph_\circ]$ implies $\spine_\bullet \le \spine_\bullet'$ in~$\spinePoset[\decoratedGraph_\bullet]$.
 \end{proof}
 
@@ -1869,28 +1869,35 @@ We now explore some properties of the map~$\surjectionSpines$.
 
 \begin{corollary}
   \label{coro:filteredRefinementSpines}
+  The map~$\surjectionSpines$ has the following properties:
   \begin{enumerate}[(i)]
-  \item the rank of~$\spine_\circ$ in~$\spinePoset[\decoratedGraph_\circ]$ is at most the rank of~$\surjectionSpines(\spine_\circ)$ in~$\spinePoset[\decoratedGraph_\bullet]$,
-  \item if~$\spine_\circ$ is maximal in~$\spinePoset[\decoratedGraph_\circ]$ then~$\surjectionSpines(\spine_\circ)$ is maximal in~$\spinePoset[\decoratedGraph_\bullet]$,
-  \item if~$\spine_\circ$ refines~$\spine_\bullet$ and~$\spine_\circ$ and~$\spine_\bullet$ have the same rank, then~$\surjectionSpines(\spine_\circ) = \spine_\bullet$ and the nodes of~$\spine_\circ$ coincide with the nodes of~$\spine_\bullet$.
+  \item The rank of~$\spine_\circ$ in~$\spinePoset[\decoratedGraph_\circ]$ is at most the rank of~$\surjectionSpines(\spine_\circ)$ in~$\spinePoset[\decoratedGraph_\bullet]$.
+  \item If~$\spine_\circ$ is maximal in~$\spinePoset[\decoratedGraph_\circ]$ then~$\surjectionSpines(\spine_\circ)$ is maximal in~$\spinePoset[\decoratedGraph_\bullet]$.
+  \item If~$\spine_\circ$ refines~$\spine_\bullet$ and~$\spine_\circ$ and~$\spine_\bullet$ have the same rank, then~$\surjectionSpines(\spine_\circ) = \spine_\bullet$ and the nodes of~$\spine_\circ$ coincide with the nodes of~$\spine_\bullet$.
   \end{enumerate}
-  \vincent{todo: small explanation}
 \end{corollary}
+
+\begin{proof}
+  Point (i) follows from \cref{prop:filteredRefinementSpines} and the fact that the rank of a spine in~$\spinePoset$ is its number of nodes minus one.
+  Point (ii) is a direct consequence of Point (i).
+  Finally, if~$\spine_\circ$ refines~$\spine_\bullet$ and~$\spine_\circ$ and~$\spine_\bullet$ have the same rank, then any spine strictly extended by~$\spine_\bullet$ has rank smaller than the rank of~$\spine_\circ$ and thus cannot be~$\surjectionSpines(\spine_\circ)$, which implies that~$\surjectionSpines(\spine_\circ) = \spine_\bullet$.
+  This implies that the nodes of~$\spine_\circ$ coincide with the nodes of~$\surjectionSpines(\spine_\circ)$, as the former are partitioned by (by \cref{prop:filteredRefinementSpines}) and equinumerous (same rank) with the latter.
+\end{proof}
 
 \begin{proposition}
   \label{prop:refinementSpines}
-  For any spine~$\spine_\bullet$ on~$\decoratedGraph_\bullet$, there exists at least one spine~$\spine_\circ$ on~$\decoratedGraph_\circ$ such that ${\surjectionSpines(\spine_\circ) = \spine_\bullet}$ and the partitions of~$\vertexSet$ by the nodes of~$\spine_\circ$ and~$\spine_\bullet$ coincide.
-  In particular, the map~$\surjectionSpines$ is a surjection from the spines on~$\decoratedGraph_\circ$ to the spines on~$\decoratedGraph_\bullet$.
+  For any spine~$\spine_\bullet$ on~$\decoratedGraph_\bullet$, there exists at least one spine~$\spine_\circ$ on~$\decoratedGraph_\circ$ such that ${\surjectionSpines(\spine_\circ) = \spine_\bullet}$ and the nodes of~$\spine_\circ$ coincide with the nodes of~$\spine_\bullet$.
+  Hence, the map~$\surjectionSpines$ is a surjection from the spines on~$\decoratedGraph_\circ$ to the spines on~$\decoratedGraph_\bullet$.
 \end{proposition}
 
 \begin{proof}
   The proof works by induction on the rank of~$\spine_\bullet$.
   To initialize the induction, observe that the tree with a single node~$\vertexSet$ is a spine on both~$\decoratedGraph_\circ$ and~$\decoratedGraph_\bullet$ and is its own image by~$\surjectionSpines$.
   Consider now two spines~$\spine_\bullet, \spine_\bullet'$ on~$\decoratedGraph_\bullet$ such that~$\spine_\bullet'$ is obtained by splitting a $\decoratedGraph_\bullet$-splittable partition~$X \sqcup Y$ of a node~$Z$ in~$\spine_\bullet$.
-  Assume that we know a spine~$\spine_\circ$ on~$\decoratedGraph_\circ$ such that~${\surjectionSpines(\spine_\circ) = \spine_\bullet}$ and the partitions of~$\vertexSet$ by the nodes of~$\spine_\circ$ and~$\spine_\bullet$ coincide.
+  Assume that we know a spine~$\spine_\circ$ on~$\decoratedGraph_\circ$ such that~${\surjectionSpines(\spine_\circ) = \spine_\bullet}$ and the nodes of~$\spine_\circ$ coincide with the nodes of~$\spine_\bullet$.
   Therefore, $Z$ is also a node of~$\spine_\circ$, and the partition~$X \sqcup Y$ is also~$\decoratedGraph_\circ$-splittable since it is $\decoratedGraph_\bullet$-splittable and~$\decoration_\circ$ refines~$\decoration_\bullet$.
   Let~$\spine_\circ'$ denote the spine obtained by splitting the  $\decoratedGraph_\circ$-splittable partition~$X \sqcup Y$ of the node~$Z$ in~$\spine_\circ$.
-  By construction, the partitions of~$\vertexSet$ by the nodes of~$\spine_\circ'$ and~$\spine_\bullet'$ coincide.
+  By construction, the nodes of~$\spine_\circ'$ coincide with the node of~$\spine_\bullet'$.
   By \cref{coro:filteredRefinementSpines}, we just need to show that~$\spine_\circ$ extends~$\spine_\bullet$, which will prove that~${\surjectionSpines(\spine_\circ') = \spine_\bullet'}$.
   \vincent{todo}
 \end{proof}
@@ -2083,7 +2090,7 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 \begin{proof}
   Since each spine~$\spine$ on~$\decoratedGraph$ is a directed tree, the cone~$\normalCone(\spine)$ is simplicial, and its faces are the cones~$\normalCone(\spine')$ for all spines~$\spine'$ obtained by repeated arc contractions in~$\spine$ (in other words, for all spines in the lower ideal of the spine poset~$\spinePoset$ generated by~$\spine$).
   We thus just need to prove that the cones~$\normalCone(\spine)$ properly intersect and cover~$\Hyp[0]$, or equivalently, that the relative interiors of the cones~$\normalCone(\spine)$ partition~$\Hyp[0]$.
-  This immediately follows from \cref{prop:alternativeDescriptionRefinementSpines}.
+  This immediately follows from \cref{thm:alternativeDescriptionRefinementSpines}.
   \vincent{Need to say more here.}
 \end{proof}
 
