@@ -512,6 +512,7 @@ Let us first recall the definition of a preorder.
   A \defn{preorder} on~$\vertexSet$ is a reflexive and transitive binary relation~$\preccurlyeq$ on~$\vertexSet$.
   For instance, an \defn{equivalence relation} is a symmetric preorder and a \defn{partial order} is an antisymmetric preorder.
   Any preorder~$\preccurlyeq$ decomposes into an equivalence relation~$\equiv \eqdef \set{(x,y) \in {\preccurlyeq}}{(y,x) \in {\preccurlyeq}}$ together with a partial order~${\le} \eqdef {\preccurlyeq}/{\equiv}$ on the equivalence classes of~$\equiv$.
+  We call \defn{Hasse diagram} of~$\preccurlyeq$ the directed graph whose nodes are the equivalence classes of~$\equiv$ and whose arcs are the cover relations of~$\le$.
 \end{definition}
 
 \begin{definition}
@@ -523,46 +524,74 @@ Our next statement characterize the preorders obtained from \cref{def:spinePreor
 
 \begin{definition}
   \label{def:spinePreorder2}
-  A \defn{spine preorder} on~$\decoratedGraph$ is a preorder~$\preccurlyeq$ on~$\vertexSet$ such that any~$x,y \in \vertexSet$ are comparable in~$\preccurlyeq$ (\ie $x \preccurlyeq y$ or~$x \succcurlyeq y$) if and only if there is no subsequence~$x = z_i, z_{i+1}, \dots, z_j = y$ with~$i + 1 < j$ of the sequence of nodes along the unique induced path joining~$x$ to~$y$ in~$\Graph$ such that
+  A \defn{spine preorder} on~$\decoratedGraph$ is a preorder~$\preccurlyeq$ on~$\vertexSet$ such that~$x,y \in \vertexSet$ are comparable in~$\preccurlyeq$ (\ie $x \preccurlyeq y$, or~$x \succcurlyeq y$, or both) if and only if there is no subsequence~$x = z_i, z_{i+1}, \dots, z_j = y$ with~$i + 1 < j$ of the sequence of nodes along the unique induced path joining~$x$ to~$y$ in~$\Graph$ such~that
   \begin{itemize}
-    \item $z_d \in \Down[\vertexSet]$ and~$z_{d-1} \prec z_d \succ z_{d+1}$ for all~$i < d < j$ odd, and
-    \item $z_u \in \Up[\vertexSet]$ and~$z_{u-1} \succ z_u \prec z_{u+1}$ for all~$i < u < j$ even.
+    \item $z_k \in \Down[\vertexSet]$ and~$z_{k-1} \prec z_k \succ z_{k+1}$ for all~$i < k < j$ odd, and
+    \item $z_k \in \Up[\vertexSet]$ and~$z_{k-1} \succ z_k \prec z_{k+1}$ for all~$i < k < j$ even.
   \end{itemize}
 \end{definition}
 
+The following two technical lemmas connect the preorders of spines of \cref{def:spinePreorder1} with the spine preorders of \cref{def:spinePreorder2}.
+
 \begin{lemma}
   \label{lem:spinePreorder1}
-  For any spine~$\spine$ on~$\decoratedGraph$, the preorder~$\preccurlyeq_{\spine}$ is a spine preorder on~$\decoratedGraph$.
+  The preorder~$\preccurlyeq_{\spine}$ of any spine~$\spine$ on~$\decoratedGraph$ is a spine preorder on~$\decoratedGraph$.
 \end{lemma}
 
 \begin{proof}
 %  Consider first a spine~$\spine$ on~$\decoratedGraph$ and its associated preorder~$\preccurlyeq_{\spine}$.
   Let~$x, y \in \vertexSet$ and~$\pi$ be the (possibly undirected) path in~$\spine$ joining the node containing~$x$ to the node containing~$y$.
   By \cref{def:spinePreorder1}, $x$ and~$y$ are comparable in~$\preccurlyeq_{\spine}$ if and only if~$\pi$ is a directed path.
-  We thus just need to check that~$\pi$ is a not directed path if and only if there is a subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
+  We thus just need to check that~$\pi$ is not a directed path if and only if there is a subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
   
   Assume first that~$\pi$ is not a directed path and consider the nodes of~$\pi$ where~$\pi$ has no incoming or no outgoing arc.
-  Labeled these nodes by~$Z_i, \dots, Z_j$ in order along the path~$\pi$ such that~$x \in Z_i$, $y \in Z_j$ and~$\pi$ has two incoming arcs at~$Z_d$ for $i < d < j$ odd, and two outgoing arcs at~$Z_u$ for~$i < u < j$ even.
-  By \cref{def:spine}, $Z_{d-1}$ and~$Z_{d+1}$ belong to distinct connected components of~$\Graph \ssm \Down[Z_d]$ and are thus separated by some~$z_d \in \Down[Z_d]$ for each $i < d < j$ odd, and $Z_{u-1}$ and~$Z_{u+1}$ belong to distinct connected components of~$\Graph \ssm \Up[Z_u]$ and are thus separated by some~$z_u \in \Up[Z_u]$ for each $i < u < j$ even.
+  Label these nodes by~$Z_i, \dots, Z_j$ in order along the path~$\pi$ such that~$x \in Z_i$, $y \in Z_j$ and~$\pi$ has two incoming (resp.~outgoing) arcs at~$Z_k$ for $i < k < j$ odd (resp.~even).
+  By \cref{def:spine}, $Z_{k-1}$ and~$Z_{k+1}$ are separated by some~$z_k \in \Down[Z_k]$ (resp.~$\Up[Z_k]$) for each $i < k < j$ odd (resp.~even).
   We have thus found the subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
 
   Conversely, assume that there is a subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
   Let~$Z_i, \dots, Z_j$ denote the nodes of~$\spine$ containing~$z_i, \dots, z_j$ respectively.
-  By \cref{def:spinePreorder1}, there is a directed path joining~$Z_u$ to~$Z_d$ for any~$i \le u, d \le j$ with~$d$ odd, $u$ even, and~$|d-u|=1$.
-  Hence, the path~$\pi$ passes through the nodes~$Z_i, \dots, Z_j$, and has two incoming arcs at each~$Z_d$ with~$i < d < j$ odd, and two outgoing arcs at each~$Z_u$ with~$i < u < j$ even.
+  By \cref{def:spinePreorder1}, there is a directed path joining~$Z_{k+1}$ to~$Z_k$ (resp.~$Z_k$ to~$Z_{k+1}$) for any~$i \le k < j$ odd (resp.~even).
+  Hence, the path~$\pi$ passes through the nodes~$Z_i, \dots, Z_j$, and has two incoming (resp.~outgoing) arcs at each~$Z_k$ with~$i < k < j$ odd (resp.~even).
   Therefore, $\pi$ is not a directed path.
 \end{proof}
 
 \begin{lemma}
   \label{lem:spinePreorder2}
-  For any spine preorder~$\preccurlyeq$ on~$\decoratedGraph$ with equivalence relation~${\equiv} \eqdef \set{(x,y) \in {\preccurlyeq}}{(y,x) \in {\preccurlyeq}}$, the Hasse diagram of~${\preccurlyeq}/{\equiv}$ is a spine on~$\decoratedGraph$.
+  The Hasse diagram of any spine preorder~$\preccurlyeq$ on~$\decoratedGraph$ is a spine on~$\decoratedGraph$.
 \end{lemma}
 
 \begin{proof}
-  Let~$H$ be the Hasse diagram of~${\preccurlyeq}/{\equiv}$.
-  By definition, its nodes partition the vertex set~$\vertexSet$.
-  We now prove that~$H$ is a directed tree by showing that its underlying undirected graph is connected and acyclic.
-  \vincent{todo. This seems a bit technical at the moment, I am not sure yet how to make it. It is obviously connected since uncomparable elements are related by snakes. The fact that it is acyclic is more difficult. Easier on permutrees.}
+  Let~$H$ be the Hasse diagram of~$\preccurlyeq$ and~$\pi$ be an undirected path in~$H$.
+  Consider the nodes of~$\pi$ where~$\pi$ has no incoming or no outgoing arc, and label these nodes by~$Z_i, \dots, Z_j$ in order along the path~$\pi$ such that~$\pi$ has two incoming (resp.~outgoing) arcs at~$Z_k$ for $i < k < j$ odd (resp.~even).
+  We say that~$\pi$ is \defn{proper} if~$\Down[Z_k]$ (resp.~$\Up[Z_k]$) separates the union of the nodes of~$\pi$ before~$Z_k$ from the union of the nodes of~$\pi$ after~$Z_k$ for all~$i < k < j$ odd (resp.~even).
+  
+  We claim that the following assertions are equivalent for~$x,y \in \vertexSet$ contained in nodes~$X,Y$ of~$H$:
+  \begin{enumerate}[(i)]
+    \item $x,y$ are incomparable in~$\preccurlyeq$,
+    \item there is a proper undirected path between~$X$ and~$Y$ in~$H$,
+    \item there is an undirected path between~$X$ and~$Y$ in~$H$.
+  \end{enumerate}
+  The equivalence (i)\,$\Leftrightarrow$\,(ii) immediately follows from \cref{def:spinePreorder2}, and the implication (ii)\,$\Rightarrow$\,(iii) is tautological.
+  Assume now that there is an undirected path~$\pi$ between~$X$ and~$Y$ in~$H$, and keep the labeling as before.
+  For any~$i < k < j$ odd, consider the node~$X_k$ preceding~$Z_k$ and the node~$Y_k$ following~$Z_k$ along~$\pi$.
+  Since~$X_k \rightarrow Z_k \leftarrow Y_k$ in the Hasse diagram~$H$, the nodes~$X_k$ and~$Y_k$ are incomparable in~$\preccurlyeq$, so that there is a proper undirected path~$\pi'$ joining~$X_k$ to~$Y_k$.
+  If~$\pi'$ is incoming at~$X_k$, then denoting by~$Z'$ the first node of~$\pi'$ with two outgoing arcs, we have~$Z' \prec X_k \prec Z_k$ so that~$X_k$ and~$Z_k$ are not separated by~$\Up[Z']$ in~$\Graph$.
+  Hence, $Z_k\pi$ is a proper undirected path joining~$Z_k$ to~$Y_k$, contradicting that~$Z_k$ is comparable to~$Y_k$.
+  By symmetry, we obtain that $\pi'$ is outgoing at both~$X_k$ and~$Y_k$.
+  We can thus replace~$X_k \rightarrow Z_k \leftarrow Y_k$ by the path~$\pi'$ in~$\pi$.
+  With this substitution, we can thus assume that~$\Down[Z_k]$ separates~$X_k$ from~$Y_k$ in~$\Graph$.
+  But~$Z_{k-1}$ and~$X_k$ (resp.~$Z_{k+1}$ and~$Y_k$) are not separated by~$\Down[Z_k]$ since~$Z_{k-1} \prec X_k \prec Z_k$ (resp.~since~$Z_k \succ Y_k \succ Z_{k+1}$).
+  By symmetry, we can thus assume that~$\Down[Z_k]$ (resp.~$\Up[Z_k]$) separates~$Z_{k-1}$ from~$Z_{k+1}$ for all~$i < k < j$ odd (resp.~even), which implies that~$\pi$ is proper.
+  
+  We now conclude from this claim that~$H$ is a spine:
+  \begin{itemize}
+    \item $H$ is connected: Any two elements~$x,y$ are connected by a directed path in~$H$ if they are comparable in~$\preccurlyeq$, and by an undirected path otherwise.
+    \item $H$ is acyclic: If it contains a cycle~$C$, then for an arbitrary arc~$(x,y) \in C$, we would have an undirected path between~$x$ and~$y$ whose endpoints are comparable.
+    \item the nodes of~$H$ partition~$\vertexSet$: Indeed they are the classes of the equivalence relation~$\equiv_{\spine}$.
+    \item each node of~$H$ satisfies the local condition of \cref{def:spine}: For any node~$X$ of~$H$, any two incoming arcs~$\alpha, \alpha'$ at~$Y$ and any nodes~$Y \in \sc[\alpha]$ and~$Y' \in \sc[\alpha']$, the unique (since~$H$ is acyclic) path from~$Y$ to~$Y'$ in~$H$ has two incoming arrows at~$X$. Since this path must be proper, $\Down[X]$ separates~$Y$ from~$Y'$. The argument is symmetric for outgoing arcs.
+    \qedhere
+  \end{itemize}
 \end{proof}
 
 \begin{proposition}
