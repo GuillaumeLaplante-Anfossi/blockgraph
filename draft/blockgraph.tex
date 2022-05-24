@@ -488,7 +488,7 @@ We now define the main objects studied in this paper.
     \draw[->] (6)--(9); 
   \end{tikzpicture}
   }
-  \caption{Three spines~$\spine_1, \spine_2, \spine_3$ on the decorated block graph~$\decoratedGraph$ of \cref{fig:mapleBlock}. We have~$\spine_1 < \spine_2 \lessdot \spine_3$ in the spine poset~$\spinePoset$, and~$\spine_3$ is maximal (see \cref{subsec:spinePoset}).}
+  \caption{Three spines~$\spine_1, \spine_2, \spine_3$ on the decorated block graph~$\decoratedGraph$ of \cref{fig:mapleBlock}. We have ${\spine_1 < \spine_2 \lessdot \spine_3}$ in the spine poset~$\spinePoset$, and~$\spine_3$ is maximal (see \cref{subsec:spinePoset}).}
   \label{fig:spines}
 \end{figure} 
 
@@ -505,7 +505,7 @@ We now define the main objects studied in this paper.
 \end{example}
 
 For later purposes, it will convenient to see a spine as a preorder on the vertex set~$\vertexSet$ of~$\Graph$.
-Let us first recall the definition of a preorder.
+Let us first recall the definition of a preorder, and next give two definitions of the preorders arising in the context of spines, that will actually be shown to be equivalent.
 
 \begin{definition}
   \label{def:preorder}
@@ -520,8 +520,6 @@ Let us first recall the definition of a preorder.
   Any spine~$\spine$ on~$\decoratedGraph$ defines a preorder~$\preccurlyeq_{\spine}$ on~$\vertexSet$ by $x \preccurlyeq_{\spine} y$ if and only if there is a directed path in~$\spine$ from the node containing~$x$ ot the node containing~$y$ (in particular, $x \equiv_{\spine} y$ if $x$~and~$y$ belong to the same node of~$\spine$).
 \end{definition}
 
-Our next statement characterize the preorders obtained from \cref{def:spinePreorder1}.
-
 \begin{definition}
   \label{def:spinePreorder2}
   A \defn{spine preorder} on~$\decoratedGraph$ is a preorder~$\preccurlyeq$ on~$\vertexSet$ such that~$x,y \in \vertexSet$ are comparable in~$\preccurlyeq$ (\ie $x \preccurlyeq y$, or~$x \succcurlyeq y$, or both) if and only if there is no subsequence~$x = z_i, z_{i+1}, \dots, z_j = y$ with~$i + 1 < j$ of the sequence of nodes along the unique induced path joining~$x$ to~$y$ in~$\Graph$ such~that
@@ -530,6 +528,15 @@ Our next statement characterize the preorders obtained from \cref{def:spinePreor
     \item $z_k \in \Up[\vertexSet]$ and~$z_{k-1} \succ z_k \prec z_{k+1}$ for all~$i < k < j$ even.
   \end{itemize}
 \end{definition}
+
+\begin{example}
+  \label{exm:spinePreorder}
+  For instance, the spine preorders on~$\decoratedGraph$ are:
+  \begin{enumerate}[(i)]
+    \item \defn{complete preorders} on~$\vertexSet$ (\ie $x \preccurlyeq y$ or $x \succcurlyeq y$ or both for any~$x,y \in \vertexSet$) when~$\decoratedGraph$ is complete or undecorated,
+    \item \defn{Schr\"oder preorders} when~$\decoratedGraph$ is a down decorated path, \ie preorders on~$[n]$ in which any~$1 \le i < k \le n$ are comparable (\ie~$i \preccurlyeq k$ or $i \succcurlyeq k$ or both) if and only if there is no~$i < j < k$ such that~$i \prec j \succ k$.
+  \end{enumerate}
+\end{example}
 
 The following two technical lemmas connect the preorders of spines of \cref{def:spinePreorder1} with the spine preorders of \cref{def:spinePreorder2}.
 
@@ -540,14 +547,14 @@ The following two technical lemmas connect the preorders of spines of \cref{def:
 
 \begin{proof}
 %  Consider first a spine~$\spine$ on~$\decoratedGraph$ and its associated preorder~$\preccurlyeq_{\spine}$.
-  Let~$x, y \in \vertexSet$ and~$\pi$ be the (possibly undirected) path in~$\spine$ joining the node containing~$x$ to the node containing~$y$.
+  Let~$x, y \in \vertexSet$ and~$\pi$ be the (possibly empty, possibly undirected) path in~$\spine$ joining the node containing~$x$ to the node containing~$y$.
   By \cref{def:spinePreorder1}, $x$ and~$y$ are comparable in~$\preccurlyeq_{\spine}$ if and only if~$\pi$ is a directed path.
   We thus just need to check that~$\pi$ is not a directed path if and only if there is a subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
   
   Assume first that~$\pi$ is not a directed path and consider the nodes of~$\pi$ where~$\pi$ has no incoming or no outgoing arc.
   Label these nodes by~$Z_i, \dots, Z_j$ in order along the path~$\pi$ such that~$x \in Z_i$, $y \in Z_j$ and~$\pi$ has two incoming (resp.~outgoing) arcs at~$Z_k$ for $i < k < j$ odd (resp.~even).
-  By \cref{def:spine}, $Z_{k-1}$ and~$Z_{k+1}$ are separated by some~$z_k \in \Down[Z_k]$ (resp.~$\Up[Z_k]$) for each $i < k < j$ odd (resp.~even).
-  We have thus found the subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
+  By \cref{def:spine}, $Z_{k-1}$ and~$Z_{k+1}$ are separated in~$\Graph$ by some~$z_k \in \Down[Z_k]$ (resp.~$\Up[Z_k]$) for each~${i < k < j}$ odd (resp.~even).
+  The subsequence~$x, z_{i+1}, \dots, z_{j-1}, y$ thus satisfies the conditions of \cref{def:spinePreorder2}.
 
   Conversely, assume that there is a subsequence~$z_i, \dots, z_j$ satisfying the conditions of \cref{def:spinePreorder2}.
   Let~$Z_i, \dots, Z_j$ denote the nodes of~$\spine$ containing~$z_i, \dots, z_j$ respectively.
@@ -563,8 +570,9 @@ The following two technical lemmas connect the preorders of spines of \cref{def:
 
 \begin{proof}
   Let~$H$ be the Hasse diagram of~$\preccurlyeq$ and~$\pi$ be an undirected path in~$H$.
-  Consider the nodes of~$\pi$ where~$\pi$ has no incoming or no outgoing arc, and label these nodes by~$Z_i, \dots, Z_j$ in order along the path~$\pi$ such that~$\pi$ has two incoming (resp.~outgoing) arcs at~$Z_k$ for $i < k < j$ odd (resp.~even).
-  We say that~$\pi$ is \defn{proper} if~$\Down[Z_k]$ (resp.~$\Up[Z_k]$) separates the union of the nodes of~$\pi$ before~$Z_k$ from the union of the nodes of~$\pi$ after~$Z_k$ for all~$i < k < j$ odd (resp.~even).
+  Consider the nodes of~$\pi$ where~$\pi$ has no incoming or no outgoing arc, and label these nodes by~$Z_i, \dots, Z_j$ in order along the path~$\pi$ such that~$\pi$ has two incoming (resp.~outgoing) arcs at~$Z_k$ for $i < k < j$ odd~(resp.~even).
+  We say that~$\pi$ is \defn{proper} if the union of the nodes of~$\pi$ before~$Z_k$ and the union of the nodes of~$\pi$ after~$Z_k$ belong to distinct connected components of~$\Graph \ssm \Down[Z_k]$ (resp.~$\Graph \ssm \Up[Z_k]$) for all~$i < k < j$ odd (resp.~even).
+%  We say that~$\pi$ is \defn{proper} if~$\Down[Z_k]$ (resp.~$\Up[Z_k]$) separates in~$\Graph$ the union of the nodes of~$\pi$ before~$Z_k$ from the union of the nodes of~$\pi$ after~$Z_k$ for all~$i < k < j$ odd (resp.~even).
   
   We claim that the following assertions are equivalent for~$x,y \in \vertexSet$ contained in nodes~$X,Y$ of~$H$:
   \begin{enumerate}[(i)]
@@ -573,23 +581,24 @@ The following two technical lemmas connect the preorders of spines of \cref{def:
     \item there is an undirected path between~$X$ and~$Y$ in~$H$.
   \end{enumerate}
   The equivalence (i)\,$\Leftrightarrow$\,(ii) immediately follows from \cref{def:spinePreorder2}, and the implication (ii)\,$\Rightarrow$\,(iii) is tautological.
-  Assume now that there is an undirected path~$\pi$ between~$X$ and~$Y$ in~$H$, and keep the labeling as before.
+  Assume now that there is an undirected path~$\pi$ between~$X$ and~$Y$ in~$H$, and keep the labeling by~$Z_i, \dots, Z_j$ as before.
   For any~$i < k < j$ odd, consider the node~$X_k$ preceding~$Z_k$ and the node~$Y_k$ following~$Z_k$ along~$\pi$.
   Since~$X_k \rightarrow Z_k \leftarrow Y_k$ in the Hasse diagram~$H$, the nodes~$X_k$ and~$Y_k$ are incomparable in~$\preccurlyeq$, so that there is a proper undirected path~$\pi'$ joining~$X_k$ to~$Y_k$.
-  If~$\pi'$ is incoming at~$X_k$, then denoting by~$Z'$ the first node of~$\pi'$ with two outgoing arcs, we have~$Z' \prec X_k \prec Z_k$ so that~$X_k$ and~$Z_k$ are not separated by~$\Up[Z']$ in~$\Graph$.
-  Hence, $Z_k\pi$ is a proper undirected path joining~$Z_k$ to~$Y_k$, contradicting that~$Z_k$ is comparable to~$Y_k$.
-  By symmetry, we obtain that $\pi'$ is outgoing at both~$X_k$ and~$Y_k$.
+  If~$\pi'$ is incoming at~$X_k$, then denoting by~$Z'$ the first node of~$\pi'$ with two outgoing arcs, we have~$Z' \prec X_k \prec Z_k$ so that~$X_k$ and~$Z_k$ belong to the same connected component of~$\Graph \ssm \Up[Z']$.
+  Hence, $Z_k\pi$ is a proper undirected path joining~$Z_k$ to~$Y_k$, contradicting that~$Z_k$ is comparable to~$Y_k$ in~$\preccurlyeq$.
+  By symmetry, we thus obtain that $\pi'$ is outgoing at both~$X_k$ and~$Y_k$.
   We can thus replace~$X_k \rightarrow Z_k \leftarrow Y_k$ by the path~$\pi'$ in~$\pi$.
-  With this substitution, we can thus assume that~$\Down[Z_k]$ separates~$X_k$ from~$Y_k$ in~$\Graph$.
-  But~$Z_{k-1}$ and~$X_k$ (resp.~$Z_{k+1}$ and~$Y_k$) are not separated by~$\Down[Z_k]$ since~$Z_{k-1} \prec X_k \prec Z_k$ (resp.~since~$Z_k \succ Y_k \succ Z_{k+1}$).
-  By symmetry, we can thus assume that~$\Down[Z_k]$ (resp.~$\Up[Z_k]$) separates~$Z_{k-1}$ from~$Z_{k+1}$ for all~$i < k < j$ odd (resp.~even), which implies that~$\pi$ is proper.
+  With this substitution, we can thus assume that~$X_k$ from~$Y_k$ belong to distinct connected components of~$\Graph \ssm \Down[Z_k]$.
+  But~$Z_{k-1}$ and~$X_k$ (resp.~$Z_{k+1}$ and~$Y_k$) belong to the same connected component of~$\Graph \ssm \Down[Z_k]$ since~$Z_{k-1} \prec X_k \prec Z_k$ (resp.~since~$Z_k \succ Y_k \succ Z_{k+1}$).
+  By symmetry, we can thus assume that~$Z_{k-1}$ from~$Z_{k+1}$ belong to distinct connected components of~$\Graph \ssm \Down[Z_k]$ (resp.~$\Up[Z_k]$) for all~$i < k < j$ odd (resp.~even), which implies that~$\pi$ is proper.
+  This concludes the proof that (i)\,$\Leftrightarrow$\,(ii)\,$\Leftrightarrow$\,(iii).
   
   We now conclude from this claim that~$H$ is a spine:
   \begin{itemize}
-    \item $H$ is connected: Any two elements~$x,y$ are connected by a directed path in~$H$ if they are comparable in~$\preccurlyeq$, and by an undirected path otherwise.
-    \item $H$ is acyclic: If it contains a cycle~$C$, then for an arbitrary arc~$(x,y) \in C$, we would have an undirected path between~$x$ and~$y$ whose endpoints are comparable.
-    \item the nodes of~$H$ partition~$\vertexSet$: Indeed they are the classes of the equivalence relation~$\equiv_{\spine}$.
-    \item each node of~$H$ satisfies the local condition of \cref{def:spine}: For any node~$X$ of~$H$, any two incoming arcs~$\alpha, \alpha'$ at~$Y$ and any nodes~$Y \in \sc[\alpha]$ and~$Y' \in \sc[\alpha']$, the unique (since~$H$ is acyclic) path from~$Y$ to~$Y'$ in~$H$ has two incoming arrows at~$X$. Since this path must be proper, $\Down[X]$ separates~$Y$ from~$Y'$. The argument is symmetric for outgoing arcs.
+    \item $H$ is connected: Any two elements~$x,y$ are connected by a directed path in~$H$ if they are comparable in~$\preccurlyeq$, and by an undirected path in~$H$ otherwise.
+    \item $H$ is acyclic: If it contained a cycle~$C$, then for an arbitrary arc~$(x,y) \in C$, we would have an undirected path between~$x$ and~$y$ whose endpoints are comparable in~$\preccurlyeq$.
+    \item the nodes of~$H$ partition~$\vertexSet$: They are the classes of the equivalence relation~$\equiv_{\spine}$.
+    \item each node of~$H$ satisfies the local condition of \cref{def:spine}: For any node~$X$ of~$H$, any two incoming arcs~$\alpha, \alpha'$ at~$Y$ and any nodes~$Y \in \so[\alpha]$ and~$Y' \in \so[\alpha']$, the unique path (since~$H$ is a connected acyclic) from~$Y$ to~$Y'$ in~$H$ has two incoming arrows at~$X$. Since this path is proper, $Y$ from~$Y'$ belong to distinct connected components of~$\Graph \ssm \Down[X]$. The argument is symmetric for outgoing arcs.
     \qedhere
   \end{itemize}
 \end{proof}
@@ -604,15 +613,6 @@ The following two technical lemmas connect the preorders of spines of \cref{def:
   Indeed, the nodes of~$\spine$ are the classes of the equivalence relation~$\equiv_{\spine}$ defined by~$x \equiv_{\spine} y$ if and only if~$x \preccurlyeq_{\spine} y$ and~$y \preccurlyeq_{\spine} x$, and~$\spine$ is the Hasse digram of the poset~${\preccurlyeq_{\spine}} / {\equiv_{\spine}}$ (this holds since~$\spine$ is transitively reduced because it is a directed tree).
   Hence~$\spine \mapsto {\preccurlyeq_{\spine}}$ is a bijection on its image, which is precisely the set of spine preorders on~$\decoratedGraph$ by \cref{lem:spinePreorder1,lem:spinePreorder2}.
 \end{proof}
-
-\begin{example}
-  \label{exm:spinePreorder}
-  For instance, the spine preorders on~$\decoratedGraph$ are:
-  \begin{enumerate}[(i)]
-    \item \defn{complete preorders} on~$\vertexSet$ (\ie $x \preccurlyeq y$ or $x \succcurlyeq y$ or both for any~$x,y \in \vertexSet$) when~$\decoratedGraph$ is complete or undecorated,
-    \item \defn{Schr\"oder preorders} when~$\decoratedGraph$ is a down decorated path, \ie preorders on~$[n]$ in which any~$1 \le i < k \le n$ are comparable (\ie~$i \preccurlyeq k$ or $i \succcurlyeq k$ or both) if and only if there is no~$i < j < k$ such that~$i \prec j \succ k$.
-  \end{enumerate}
-\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
