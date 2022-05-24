@@ -2421,7 +2421,7 @@ All our polytopes are parametrized by a weight function, which does not change t
 \begin{definition}
   \label{def:weight}
   For a set~$X$, we denote by~$\monombinom{X}$ the set of~$\binom{|X|+1}{2}$ subsets of~$X$ of size $1$ or~$2$.
-  We fix a \defn{weight}~$\weight_p$ for all~$p \in \monombinom{\vertexSet}$, and we define~$\weight_X \eqdef \sum_{p \in \monombinom{X}} \weight_p$ for any subset~$X$ of~$\vertexSet$.
+  We fix a \defn{weight}~$\weight_p > 0$ for all~$p \in \monombinom{\vertexSet}$, and we define~$\weight_X \eqdef \sum_{p \in \monombinom{X}} \weight_p$ for any subset~$X$ of~$\vertexSet$.
 \end{definition}
 
 %We next consider two very classical examples of polytopes.
@@ -2539,7 +2539,7 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
     \point[\spine] - \point[\spine'] = \weight_{X \times Y} (\b{e}_x - \b{e}_y)
   \)
   where~$\weight_{X \times Y}$ denotes the sum of the weights of the pairs formed by an element of~$X \eqdef \{x\} \cup A_x \cup B_x$ and an element of~$Y \eqdef \{y\} \cup A_y \cup B_y$.
-  Finally, we observe that~$\weight_{X \times Y} \ge \weight_{\{x,v\}} > 0$ by our positivity assumption on the weight function.
+  Finally, we observe that~$\weight_{X \times Y} \ge \weight_{\{x,y\}} > 0$ by our positivity assumption on the weight function.
 \end{proof}
 
 \begin{proof}[Proof of \cref{thm:permutreehedra}]
@@ -2607,6 +2607,13 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 
 \subsection{Loday's weights}
 \label{subsec:Loday}
+
+\begin{definition}
+  \label{def:LodayWeights}
+  Fix~$\theta_v > 0$ for~$v \in \vertexSet$.
+  The \defn{$\theta$-weights} are defined by~$\weight_{x,y} = \big( \sum_u \theta_u \big) \cdot \big( \sum_v \theta_v \big)$ where the first (resp.~second) sum ranges over all neighbors~$u$ of~$x$ (resp.~$v$ of~$y$) in~$\Graph$ which are not on the induced path joining~$x$ to~$y$.
+\end{definition}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
