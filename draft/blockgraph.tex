@@ -2110,42 +2110,50 @@ We now explore some key properties of the map~$\surjectionSpines$.
   Hence, the sequence~$x = z_i, \dots z_{j'}, t_{k'}, \dots, t_\ell = y$ satisfies the conditions of \cref{def:spinePreorder2}, so that~$x \not\preccurlyeq_{\spine_\bullet'} y$, which contradicts our assumption.
 \end{proof}
 
+We now consider the equivalence relation defined by the fibers of the surjection~$\surjectionSpines$.
+
 \begin{definition}
   \label{def:equivalenceRelation}
-  The fibers of the surjection~$\surjectionSpines$ define an equivalence relation~$\equivalenceSpines$ on spines of~$\decoratedGraph_\circ$. In other words, $\spine_\circ \equivalenceSpines \spine_\circ'$ if and only if~$\surjectionSpines(\spine_\circ) = \surjectionSpines(\spine_\circ')$.
+  We denote by~$\equivalenceSpines$ the equivalence relation on the spines on~$\decoratedGraph_\circ$ defined by $\spine_\circ \equivalenceSpines \spine_\circ'$ if and only if~$\surjectionSpines(\spine_\circ) = \surjectionSpines(\spine_\circ')$.
 \end{definition}
+
+\begin{proposition}
+  \label{prop:equivalenceRelation}
+  The relation~$\equivalenceSpines$ is the transitive closure of the relations~$\spine_\circ \equivalenceSpines \spine_\circ'$ where~$\spine_\circ'$ is obtained by splitting~$X \sqcup Y$ in~$\spine_\circ$ such that~${x \not\succcurlyeq_{\surjectionSpines(\spine_\circ)} y}$ for each~$x \in X$ and~$y \in Y$.
+\end{proposition}
+
+\begin{proof}
+  By \cref{prop:orderPreservingRefinementSpines}, the equivalence classes of~$\equivalenceSpines$ are order-convex in the spine poset, so that~$\equivalenceSpines$ is indeed the transitive closure of its restriction to covers of~$\spinePoset$.
+  Now if~$\spine_\circ'$ is obtained by splitting~$X \sqcup Y$ in~$\spine_\circ$, then~$\spine_\circ \equivalenceSpines \spine_\circ'$ if and only if there is no~$x \in X$ and~$y \in Y$ with~${x \succcurlyeq_{\surjectionSpines(\spine_\circ)} y}$.
+\end{proof}
+
+In particular, any decorated block graph~$\decoratedGraph$ defines an equivalence relation~$\equiv_{\decoratedGraph}$ on ordered partitions (which restricts to an equivalence relation on permutations) by considering that the undecorated block graph~$\Graph$ refines the decorated block graph~$\decoratedGraph$.
+This generalizes the following classical equivalence relations.
 
 \begin{example}
   \label{exm:equivalenceRelations}
-  \vincent{improve}
-  For instance, the equivalence relation~$\equiv_{\decoratedGraph}$ on permutations is
+  The equivalence relation~$\equiv_{\decoratedGraph}$ on ordered partitions (or on permutations) is
   \begin{enumerate}[(i)]
     \item the \defn{trivial relation} when $\decoratedGraph$ is complete or undecorated,
     \item the various \defn{permutree relations} of~\cite{PilaudPons-permutrees} when~$\Graph$ is a path (in particular the \defn{sylvester relation} for a down decorated path, and the \defn{Cambrian relations} for up-down decorated~paths).
   \end{enumerate}
-  Note that in contrast to these specific examples, the equivalence relation~$\equiv$ has no reason to be a lattice congruence of the weak order.
+  Note that in contrast to these specific examples, the equivalence relation~$\equiv_{\decoratedGraph}$ on ordered partitions (resp.~on permutations) has no reason to be a lattice congruence of the facial weak order (resp. of the weak order).
 \end{example}
 
-\begin{proposition}
-  \label{prop:equivalenceRelation}
-  The equivalence relation $\equivalenceSpines$ is the transitive closure of the rewriting rule...
-  \vincent{todo: rewriting rule}
-\end{proposition}
-
 We finally compare the chunk nested complexes~$\nestedComplex[\decoratedGraph_\circ]$ and~$\nestedComplex[\decoratedGraph_\bullet]$
-\vincent{Not sure where I want that...}
 
 \begin{proposition}
   \label{prop:refinementBlocks}
   If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then
   \begin{itemize}
     \item any chunk of~$\decoratedGraph_\bullet$ is a chunk of~$\decoratedGraph_\circ$,
-    \item the chunk nested complex~$\nestedComplex[\decoratedGraph_\bullet]$ contains the subcomplex of~$\nestedComplex[\decoratedGraph_\circ]$ induced by the chunks of~$\decoratedGraph_\bullet$.
+    \item the chunk nested complex~$\nestedComplex[\decoratedGraph_\bullet]$ contains the subcomplex of~$\nestedComplex[\decoratedGraph_\circ]$ induced by the chunks~of~$\decoratedGraph_\bullet$.
   \end{itemize}
 \end{proposition}
 
 \begin{proof}
-  \vincent{todo}
+  If~$\chunk$ is a chunk of~$\decoratedGraph_\bullet$, then~$\chunk$ and its complement form a $\decoratedGraph_\bullet$-splittable partition, thus a $\decoratedGraph_\circ$-splittable partition, so that~$\chunk$ is a chunk of~$\decoratedGraph_\circ$.
+  The second point immediately follows from the definition of the compatibility relation in \cref{def:compatibleBlocks}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2154,9 +2162,7 @@ We finally compare the chunk nested complexes~$\nestedComplex[\decoratedGraph_\c
 \label{subsec:links}
 
 Finally, we describe the links of the chunk nested complexes.
-It turns out that we have a sufficiently large family of simplicial complexes so that their links are just cartesian products of simplicial complexes in this family.
-
-\vincent{need to explain links in terms of spines as well...}
+It turns out that we have a sufficiently large family of simplicial complexes so that their links are just joins of simplicial complexes in this family.
 
 \begin{definition}
   \label{def:subBlockGraph}
@@ -2194,8 +2200,7 @@ It turns out that we have a sufficiently large family of simplicial complexes so
   \vincent{todo}
 \end{proof}
 
-\cref{prop:linksSpines} rephrases as follows on the spine poset of \cref{subsec:spinePoset}, on the chunk nested complex of \cref{subsec:nestedComplex}, and on the flip graph of \cref{subsec:flips}.
-\vincent{Maybe keep only the second one?}
+\cref{prop:linksSpines} rephrases as follows on the spine poset of \cref{subsec:spinePoset} and on the chunk nested complex of \cref{subsec:nestedComplex}. %, and on the flip graph of \cref{subsec:flips}.
 
 \begin{corollary}
   \label{coro:linksSpinePoset}
@@ -2207,10 +2212,10 @@ It turns out that we have a sufficiently large family of simplicial complexes so
   The link of the face of the chunk nested complex~$\nestedComplex$ corresponding to a spine~$\spine$ is isomorphic to the join of the chunk nested complexes~$\nestedComplex[\decoratedGraph_X]$ for the nodes~$X$ of~$\spine$.
 \end{corollary}
 
-\begin{corollary}
-  \label{coro:linksFlipGraph}
-  The flip graph on the maximal spines on~$\decoratedGraph$ that contract to a spine~$\spine$ is isomorphic to the Cartesian product of the flip graphs on maximal spines of~$\decoratedGraph_X$ for the nodes~$X$ of~$\spine$.
-\end{corollary}
+%\begin{corollary}
+%  \label{coro:linksFlipGraph}
+%  The flip graph on the maximal spines on~$\decoratedGraph$ that contract to a spine~$\spine$ is isomorphic to the Cartesian product of the flip graphs on maximal spines of~$\decoratedGraph_X$ for the nodes~$X$ of~$\spine$.
+%\end{corollary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
