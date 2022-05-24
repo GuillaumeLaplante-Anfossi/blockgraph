@@ -350,27 +350,27 @@ In this paper, we consider the following additional decorations.
 \begin{figure}
   \centerline{
   \begin{tikzpicture}[scale=.7]  
-    \node (1) at (-4, -19) {$\blue 1$};
-    \node (2) at (0, -19) {$\blue \updown[2]$};
-    \node (3) at (2, -19) {$\blue 3$};
-    \node (4) at (-4, -21) {$\blue 4$};
-    \node (5) at (-2, -21) {$\blue \up[5]$};
-    \node (6) at (2, -21) {$\blue 6$};
-    \node (7) at (-4, -23) {$\blue \down[7]$};
-    \node (8) at (0, -23) {$\blue 8$};
-    \node (9) at (2, -23) {$\blue \up[9]$};
+    \node (1) at (-4, 4) {$\blue 1$};
+    \node (2) at (0, 4) {$\blue \updown[2]$};
+    \node (3) at (2, 4) {$\blue 3$};
+    \node (4) at (-4, 2) {$\blue 4$};
+    \node (5) at (-2, 2) {$\blue \up[5]$};
+    \node (6) at (2, 2) {$\blue 6$};
+    \node (7) at (-4, 0) {$\blue \down[7]$};
+    \node (8) at (0, 0) {$\blue 8$};
+    \node (9) at (2, 0) {$\blue \up[9]$};
     %
-    \node (a) at (-5, -19) {$\red a$};
-    \node (b) at (1, -19) {$\red b$};
-    \node (c) at (3, -19) {$\red c$};
-    \node (d) at (-3, -20) {$\red d$};
-    \node (e) at (-5, -21) {$\red e$};
-    \node (f) at (0, -21) {$\red f$};
-    \node (g) at (3, -21) {$\red g$};
-    \node (h) at (-3, -22) {$\red h$};
-    \node (i) at (-5, -23) {$\red i$};
-    \node (j) at (1, -23) {$\red j$};
-    \node (k) at (3, -23) {$\red k$};
+    \node (a) at (-5, 4) {$\red a$};
+    \node (b) at (1, 4) {$\red b$};
+    \node (c) at (3, 4) {$\red c$};
+    \node (d) at (-3, 3) {$\red d$};
+    \node (e) at (-5, 2) {$\red e$};
+    \node (f) at (0, 2) {$\red f$};
+    \node (g) at (3, 2) {$\red g$};
+    \node (h) at (-3, 1) {$\red h$};
+    \node (i) at (-5, 0) {$\red i$};
+    \node (j) at (1, 0) {$\red j$};
+    \node (k) at (3, 0) {$\red k$};
     %
     \draw[-] (a)--(1)--(d)--(4)--(e); 
     \draw[-] (d)--(5)--(h)--(7)--(i); 
@@ -381,15 +381,15 @@ In this paper, we consider the following additional decorations.
   \qquad
   %
   \begin{tikzpicture}[scale=.7]  
-    \node (1) at (-4, -19) {$\blue 1$};
-    \node (2) at (0, -19) {$\blue \updown[2]$};
-    \node (3) at (2, -19) {$\blue 3$};
-    \node (4) at (-4, -21) {$\blue 4$};
-    \node (5) at (-2, -21) {$\blue \up[5]$};
-    \node (6) at (2, -21) {$\blue 6$};
-    \node (7) at (-4, -23) {$\blue \down[7]$};
-    \node (8) at (0, -23) {$\blue 8$};
-    \node (9) at (2, -23) {$\blue \up[9]$};
+    \node (1) at (-4, 4) {$\blue 1$};
+    \node (2) at (0, 4) {$\blue \updown[2]$};
+    \node (3) at (2, 4) {$\blue 3$};
+    \node (4) at (-4, 2) {$\blue 4$};
+    \node (5) at (-2, 2) {$\blue \up[5]$};
+    \node (6) at (2, 2) {$\blue 6$};
+    \node (7) at (-4, 0) {$\blue \down[7]$};
+    \node (8) at (0, 0) {$\blue 8$};
+    \node (9) at (2, 0) {$\blue \up[9]$};
     %
     \draw[-] (1)--(4)--(5)--(1); 
     \draw[-] (2)--(6)--(8)--(5); 
@@ -915,7 +915,7 @@ We next show that the spine poset is actually isomorphic to the inclusion poset 
 \end{definition}
 
 \begin{definition}
-  \label{def:compatibleBlocks}
+  \label{def:compatibleChunks}
   Let~$\chunk$ and~$\chunk'$ be two chunks of~$\decoratedGraph$.
   We write:
   \begin{itemize}
@@ -1617,27 +1617,27 @@ We now consider a natural refinement order on decorated block graphs and define 
 \begin{figure}
   \centerline{
   \begin{tikzpicture}[scale=.7]  
-    \node (1) at (-4, -19) {$\blue 1$};
-    \node (2) at (0, -19) {$\blue \down[2]$};
-    \node (3) at (2, -19) {$\blue 3$};
-    \node (4) at (-4, -21) {$\blue 4$};
-    \node (5) at (-2, -21) {$\blue \up[5]$};
-    \node (6) at (2, -21) {$\blue 6$};
-    \node (7) at (-4, -23) {$\blue 7$};
-    \node (8) at (0, -23) {$\blue 8$};
-    \node (9) at (2, -23) {$\blue 9$};
+    \node (1) at (-4, 4) {$\blue 1$};
+    \node (2) at (0, 4) {$\blue \down[2]$};
+    \node (3) at (2, 4) {$\blue 3$};
+    \node (4) at (-4, 2) {$\blue 4$};
+    \node (5) at (-2, 2) {$\blue \up[5]$};
+    \node (6) at (2, 2) {$\blue 6$};
+    \node (7) at (-4, 0) {$\blue 7$};
+    \node (8) at (0, 0) {$\blue 8$};
+    \node (9) at (2, 0) {$\blue 9$};
     %
-    \node (a) at (-5, -19) {$\red a$};
-    \node (b) at (1, -19) {$\red b$};
-    \node (c) at (3, -19) {$\red c$};
-    \node (d) at (-3, -20) {$\red d$};
-    \node (e) at (-5, -21) {$\red e$};
-    \node (f) at (0, -21) {$\red f$};
-    \node (g) at (3, -21) {$\red g$};
-    \node (h) at (-3, -22) {$\red h$};
-    \node (i) at (-5, -23) {$\red i$};
-    \node (j) at (1, -23) {$\red j$};
-    \node (k) at (3, -23) {$\red k$};
+    \node (a) at (-5, 4) {$\red a$};
+    \node (b) at (1, 4) {$\red b$};
+    \node (c) at (3, 4) {$\red c$};
+    \node (d) at (-3, 3) {$\red d$};
+    \node (e) at (-5, 2) {$\red e$};
+    \node (f) at (0, 2) {$\red f$};
+    \node (g) at (3, 2) {$\red g$};
+    \node (h) at (-3, 1) {$\red h$};
+    \node (i) at (-5, 0) {$\red i$};
+    \node (j) at (1, 0) {$\red j$};
+    \node (k) at (3, 0) {$\red k$};
     %
     \draw[-] (a)--(1)--(d)--(4)--(e); 
     \draw[-] (d)--(5)--(h)--(7)--(i); 
@@ -1648,27 +1648,27 @@ We now consider a natural refinement order on decorated block graphs and define 
   \qquad
   %
   \begin{tikzpicture}[scale=.7]  
-    \node (1) at (-4, -19) {$\blue 1$};
-    \node (2) at (0, -19) {$\blue \updown[2]$};
-    \node (3) at (2, -19) {$\blue 3$};
-    \node (4) at (-4, -21) {$\blue 4$};
-    \node (5) at (-2, -21) {$\blue \updown[5]$};
-    \node (6) at (2, -21) {$\blue \up[6]$};
-    \node (7) at (-4, -23) {$\blue \down[7]$};
-    \node (8) at (0, -23) {$\blue \updown[8]$};
-    \node (9) at (2, -23) {$\blue 9$};
+    \node (1) at (-4, 4) {$\blue 1$};
+    \node (2) at (0, 4) {$\blue \updown[2]$};
+    \node (3) at (2, 4) {$\blue 3$};
+    \node (4) at (-4, 2) {$\blue 4$};
+    \node (5) at (-2, 2) {$\blue \updown[5]$};
+    \node (6) at (2, 2) {$\blue \up[6]$};
+    \node (7) at (-4, 0) {$\blue \down[7]$};
+    \node (8) at (0, 0) {$\blue \updown[8]$};
+    \node (9) at (2, 0) {$\blue 9$};
     %
-    \node (a) at (-5, -19) {$\red a$};
-    \node (b) at (1, -19) {$\red b$};
-    \node (c) at (3, -19) {$\red c$};
-    \node (d) at (-3, -20) {$\red d$};
-    \node (e) at (-5, -21) {$\red e$};
-    \node (f) at (0, -21) {$\red f$};
-    \node (g) at (3, -21) {$\red g$};
-    \node (h) at (-3, -22) {$\red h$};
-    \node (i) at (-5, -23) {$\red i$};
-    \node (j) at (1, -23) {$\red j$};
-    \node (k) at (3, -23) {$\red k$};
+    \node (a) at (-5, 4) {$\red a$};
+    \node (b) at (1, 4) {$\red b$};
+    \node (c) at (3, 4) {$\red c$};
+    \node (d) at (-3, 3) {$\red d$};
+    \node (e) at (-5, 2) {$\red e$};
+    \node (f) at (0, 2) {$\red f$};
+    \node (g) at (3, 2) {$\red g$};
+    \node (h) at (-3, 1) {$\red h$};
+    \node (i) at (-5, 0) {$\red i$};
+    \node (j) at (1, 0) {$\red j$};
+    \node (k) at (3, 0) {$\red k$};
     %
     \draw[-] (a)--(1)--(d)--(4)--(e); 
     \draw[-] (d)--(5)--(h)--(7)--(i); 
@@ -2143,7 +2143,7 @@ This generalizes the following classical equivalence relations.
 We finally compare the chunk nested complexes~$\nestedComplex[\decoratedGraph_\circ]$ and~$\nestedComplex[\decoratedGraph_\bullet]$
 
 \begin{proposition}
-  \label{prop:refinementBlocks}
+  \label{prop:refinementChunks}
   If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then
   \begin{itemize}
     \item any chunk of~$\decoratedGraph_\bullet$ is a chunk of~$\decoratedGraph_\circ$,
@@ -2153,7 +2153,7 @@ We finally compare the chunk nested complexes~$\nestedComplex[\decoratedGraph_\c
 
 \begin{proof}
   If~$\chunk$ is a chunk of~$\decoratedGraph_\bullet$, then~$\chunk$ and its complement form a $\decoratedGraph_\bullet$-splittable partition, thus a $\decoratedGraph_\circ$-splittable partition, so that~$\chunk$ is a chunk of~$\decoratedGraph_\circ$.
-  The second point immediately follows from the definition of the compatibility relation in \cref{def:compatibleBlocks}.
+  The second point immediately follows from the definition of the compatibility relation in \cref{def:compatibleChunks}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2171,6 +2171,62 @@ It turns out that we have a sufficiently large family of simplicial complexes so
   We denote by~$\Graph_X$ the block graph with vertices~$X$ obtained by replacing each connected component of~$Y$ in~$\Graph$ by a clique on its neighbors in~$\Graph$.
   Note that $\Graph_X$ is obtained by tapping~$\Maple_X$.
   For a decorated maple tree~$\decoratedMaple \eqdef (\Maple, \decoration)$ and a decorated block graph~$\decoratedGraph \eqdef (\Graph, \decoration)$, we define~$\decoratedMaple_X \eqdef (\Maple_X, \decoration_X)$ and~$\decoratedGraph_X \eqdef (\Graph_X, \decoration_X)$ where~$\decoration_X$ is the restriction of~$\decoration$ to~$X$.
+  See \cref{fig:linksDecoratedGraphs}.
+  %
+\begin{figure}
+  \centerline{
+  \begin{tabular}{c@{\qquad}c@{\qquad}c}
+  \begin{tikzpicture}[scale=.7, baseline=20]  
+    \node (1) at (-4, 4) {$\blue 1$};
+    \node (4) at (-4, 2) {$\blue 4$};
+    \node (a) at (-5, 4) {$\red a$};
+    \node (bcdfghijk) at (-3, 3) {\red\textit{bcdfghijk}};
+    \node (e) at (-5, 2) {$\red e$};
+    \draw[-] (a)--(1)--(bcdfghijk)--(4)--(e); 
+  \end{tikzpicture}
+  &
+  \begin{tikzpicture}[scale=.7, baseline=0]  
+    \node (2) at (0, 4) {$\blue \updown[2]$};
+    \node (5) at (-2, 2) {$\blue \up[5]$};
+    \node (6) at (2, 2) {$\blue 6$};
+    \node (bc) at (1, 4) {\red\textit{bc}};
+    \node (ade) at (-3, 3) {\red\textit{ade}};
+    \node (fjk) at (0, 2) {\red\textit{fjk}};
+    \node (g) at (3, 2) {$\red g$};
+    \node (hi) at (-3, 1) {\red\textit{hi}};
+    \draw[-] (ade)--(5)--(hi); 
+    \draw[-] (5)--(fjk)--(6)--(g); 
+    \draw[-] (bc)--(2)--(fjk); 
+  \end{tikzpicture}
+%  &
+%  \begin{tikzpicture}[scale=.7]  
+%    \node (3) at (2, 4) {$\blue 3$};
+%    \node (a) at (-5, 4) {$\red a$};
+%    \node (abdefghijk) at (0, 4) {\red\textit{abdefghijk}};
+%    \node (c) at (3, 4) {$\red c$};
+%    \draw[-] (abdefghijk)--(3)--(c);
+%  \end{tikzpicture}
+  &
+  \begin{tikzpicture}[scale=.7, baseline=-40]  
+    \node (7) at (-4, 0) {$\blue \down[7]$};
+    \node (8) at (0, 0) {$\blue 8$};
+    \node (abcdefgh) at (-2, 0) {\red\textit{abcdefgh}};
+    \node (i) at (-5, 0) {$\red i$};
+    \node (jk) at (1, 0) {\red\textit{jk}};
+    \draw[-] (i)--(7)--(abcdefgh)--(8)--(jk); 
+  \end{tikzpicture}
+%  &
+%  \begin{tikzpicture}[scale=.7]  
+%    \node (9) at (2, 0) {$\blue 9$};
+%    \node (abcdefghij) at (0, 0) {\red\textit{abcdefghij}};
+%    \node (k) at (3, 0) {$\red k$};
+%    \draw[-] (abcdefghij)--(9)--(k); 
+%  \end{tikzpicture}
+  \end{tabular}
+  }
+  \caption{The decorated maple trees~$\decoratedMaple_X$ (top) and the decorated block graphs~$\decoratedGraph_X$ (bottom) obtained for the decorated maple tree~$\Maple$ and the decorated block graph~$\decoratedGraph$ of \cref{fig:mapleBlock} and for~$X = 14$, $X = 256$, and~$X = 78$.}
+  \label{fig:linksDecoratedGraphs}
+\end{figure} 
 \end{definition}
 
 \begin{definition}
@@ -2188,6 +2244,7 @@ It turns out that we have a sufficiently large family of simplicial complexes so
 \end{lemma}
 
 \begin{proof}
+  Observe first that the nodes of~$\insertion{\spine^\blossom}{(\spine^\blossom_X)_{X \in \spine^\blossom}}$ partition~$\vertexSet$ since the nodes of~$\spine^\blossom$ partition~$\vertexSet$ and the nodes of~$\spine^\blossom_X$ partition~$X$ for each node~$X$ of~$\spine^\blossom$.
   \vincent{todo}
 \end{proof}
 
@@ -2227,7 +2284,7 @@ We denote by~$(\b{e}_v)_{v \in \vertexSet}$ the standard basis of~$\R^{\vertexSe
 We denote by~$\one_X \eqdef \sum_{x \in X} \b{e}_x$ the characteristic vector of a subset~$X \subseteq \vertexSet$, and write just~$\one$ for~$\one_{\vertexSet}$.
 %We consider the hyperplane
 %\[
-%\Hyp \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = \weight_{\vertexSet}}.
+%\Hyp \eqdef \bigset{\b{z} \in \R^{\vertexSet}}{\dotprod{\one}{\b{z}} = \weight_{\vertexSet}}.
 %\]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2242,7 +2299,10 @@ The \defn{faces} of a cone are its intersections with its supporting linear hype
 A (polyhedral) \defn{fan}~$\c{F}$ is a collection of polyhedral cones closed under faces (if~$\polytope{C}$ is a face of~$\polytope{C'}$, then~$\polytope{C'} \in \c{F} \Rightarrow \polytope{C'} \in \c{F}$) and intersecting along faces (any two cones of~$\c{F}$ intersect along a face of both).
 The \defn{rays} of~$\c{F}$ are its dimension~$1$ cones, and the \defn{regions} of~$\c{F}$ are its inclusion maximal cones.
 The fan~$\c{F}$ is \defn{essential} when its inclusion minimal cone is the origin, \defn{complete} when its cones cover the space, and \defn{simplicial} when all its cones are simplicial (generated by linearly independent vectors).
-In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = 0}}$ of~$\R^{\vertexSet}$.
+A fan~$\c{F}_\circ$ \defn{refines} a fan~$\c{F}_\bullet$ (and~$\c{F}_\bullet$ \defn{coarsens}~$\c{F}_\circ$) when any cone of~$\c{F}_\circ$ is contained in a cone of~$\c{F}_\bullet$.
+
+In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{z} \in \R^{\vertexSet}}{\dotprod{\one}{\b{z}} = 0}}$ of~$\R^{\vertexSet}$.
+Recall from \cref{def:spinePreorder1} that a spine~$\spine$ corresponds to a spine preposet~$\preccurlyeq_{\spine}$ defined by~$x \preccurlyeq_{\spine} y$ if and only if there is a directed path in~$\spine$ joining the node containing~$x$ to the node containing~$y$ in~$\spine$ (in particular, $x \equiv_{\spine} y$ when $x,y \in \vertexSet$ belong to the same node of~$\spine$).
 
 %We next consider two very classical examples of fans.
 %
@@ -2287,11 +2347,7 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 
 \begin{definition}
   \label{def:spineFan}
-  For a spine~$\spine$, we denote by~$\normalCone(\spine)$ the cone of~$\Hyp[0]$ defined by the inequalities~${x_u \le x_v}$ for all~$u,v \in \vertexSet$ such that there is a directed path in~$\spine$ joining the node containing~$u$ to the node containing~$v$ in~$\spine$ (in particular, $x_u = x_v$ when $u,v \in \vertexSet$ belong to the same node of~$\spine$).
-  \vincent{recall that this is also the definition of the associated preposet...}
-%  \[
-%    \normalCone(\spine) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ for all (possibly trivial) directed paths } u \to v \text{ in } \spine}
-%  \]
+  For a spine~$\spine$, we denote by~$\normalCone(\spine)$ the cone of~$\Hyp[0]$ defined by the inequalities~${z_u \le z_v}$ for all~$x \preccurlyeq_{\spine} y$.
   The \defn{spine fan}~$\spineFan$ is the collection of cones~$\normalCone(\spine)$ for all spines~$\spine$ on~$\decoratedGraph$.  
 \end{definition}
 
@@ -2301,10 +2357,10 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 \end{proposition}
 
 \begin{proof}
-  Since each spine~$\spine$ on~$\decoratedGraph$ is a directed tree, the cone~$\normalCone(\spine)$ is simplicial, and its faces are the cones~$\normalCone(\spine')$ for all spines~$\spine'$ obtained by repeated arc contractions in~$\spine$ (in other words, for all spines in the lower ideal of the spine poset~$\spinePoset$ generated by~$\spine$).
+  Since each spine~$\spine$ on~$\decoratedGraph$ is a directed tree, the cone~$\normalCone(\spine)$ is simplicial, and its faces are the cones~$\normalCone(\spine')$ for all spines~$\spine'$ obtained by repeated arc contractions in~$\spine$. % (in other words, for all spines in the lower ideal of the spine poset~$\spinePoset$ generated by~$\spine$).
   We thus just need to prove that the cones~$\normalCone(\spine)$ properly intersect and cover~$\Hyp[0]$, or equivalently, that the relative interiors of the cones~$\normalCone(\spine)$ partition~$\Hyp[0]$.
-  This immediately follows from \cref{thm:alternativeDescriptionRefinementSpines}.
-  \vincent{Need to say more here.}
+  This is known when~$\decoratedGraph$ is undecorated as the spine fan actually coincides with the classical braid fan, see \cref{exm:spineFans}\,(i).
+  It thus follows from \cref{thm:alternativeDescriptionRefinementSpines} for arbitrary decorated graphs, since~$\preccurlyeq_{\spine_\circ} \supseteq \preccurlyeq_{\spine_\bullet}$ if and only if~$\normalCone(\spine_\circ) \subseteq \normalCone(\spine_\bullet)$.
 \end{proof}
 
 \begin{corollary} 
@@ -2333,9 +2389,9 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
   \label{exm:spineFans}
   For instance, the spine fan is:
   \begin{enumerate}[(i)]
-    \item the \defn{braid fan}~$\braidFan$ when~$\decoratedGraph$ is complete or undecorated. It is the fan defined from the classical \defn{braid arrangement} of the hyperplanes~$\set{\b{x} \in \R^{\vertexSet}}{x_u = x_v}$ for all vertices~$u \ne v \in \vertexSet$. It has a $k$-dimensional cone~$\normalCone(\pi) \eqdef \set{\b{x} \in \Hyp[0]}{x_u \le x_v \text{ iff } \pi(u) \le \pi(v)}$ for each surjection~$\pi : \vertexSet \to [k+1]$. In particular, the regions of~$\braidFan$ correspond to bijections~${\vertexSet \to [|\vertexSet|]}$ and the rays of~$\braidFan$ correspond to proper subsets of~$\varnothing \ne X \ne \vertexSet$.
+    \item the \defn{braid fan}~$\braidFan$ when~$\decoratedGraph$ is complete or undecorated. It is the fan defined from the classical \defn{braid arrangement} of the hyperplanes~$\set{\b{z} \in \R^{\vertexSet}}{z_x = z_y}$ for all vertices~$x \ne y \in \vertexSet$. It has a $k$-dimensional cone~$\normalCone(\pi) \eqdef \set{\b{z} \in \Hyp[0]}{z_x \le z_y \iff \pi(x) \le \pi(y)}$ for each surjection~$\pi : \vertexSet \to [k+1]$. In particular, the regions of~$\braidFan$ correspond to bijections~${\vertexSet \to [|\vertexSet|]}$ and the rays of~$\braidFan$ correspond to proper subsets of~$\varnothing \ne X \ne \vertexSet$.
     \item the \defn{nested fan} of~$\Graph$ studied in~\cite{CarrDevadoss, Zelevinsky} when~$\decoratedGraph$ is down decorated (in particular the classical \defn{sylvester fan} when~$\decoratedGraph$ is a down decorated path).
-    \item the \defn{graphical fan}~$\graphicalFan$ when~$\decoratedGraph$ is fully decorated (in particular the \defn{coordinate fan} when~$\decoratedGraph$ is a fully decorated tree). It is the fan defined from the \defn{graphical arrangement} of the hyperplanes~$\set{\b{x} \in \R^{\vertexSet}}{x_u = x_v}$ for all edges~$\{u, v\} \in \vertexSet$. The cones of~$\graphicalFan$ correspond to the pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs, and~$o$ is an acyclic orientation of the quotient graph~$\Graph/p$. In particular, the regions of~$\graphicalFan$ correspond to the acyclic orientations of~$\Graph$.
+    \item the \defn{graphical fan}~$\graphicalFan$ when~$\decoratedGraph$ is fully decorated (in particular the \defn{coordinate fan} when~$\decoratedGraph$ is a fully decorated tree). It is the fan defined from the \defn{graphical arrangement} of the hyperplanes~$\set{\b{z} \in \R^{\vertexSet}}{z_x = z_y}$ for all edges~$\{x, y\} \in \vertexSet$. The cones of~$\graphicalFan$ correspond to the pairs~$(p,o)$ where~$p$ is a partition of~$\vertexSet$ into connected subgraphs, and~$o$ is an acyclic orientation of the quotient graph~$\Graph/p$. In particular, the regions of~$\graphicalFan$ correspond to the acyclic orientations of~$\Graph$.
     \item the various \defn{permutree fans} of~\cite{PilaudPons-permutrees} when~$\Graph$ is a path (in particular the various type~$A$ \defn{Cambrian fans} for up-down decorated paths).
   \end{enumerate}
 \end{example}
@@ -2347,8 +2403,7 @@ In this paper, all the fans live in the hyperplane~${\Hyp[0] \eqdef \bigset{\b{x
 \end{proposition}
 
 \begin{proof}
-  Follows from \cref{subsec:surjectionMaps}.
-  \vincent{Say a bit more here.}
+  Follows from \cref{thm:alternativeDescriptionRefinementSpines} since~$\preccurlyeq_{\spine_\circ} \supseteq \preccurlyeq_{\spine_\bullet}$ if and only if~$\normalCone(\spine_\circ) \subseteq \normalCone(\spine_\bullet)$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2420,7 +2475,7 @@ All our polytopes are parametrized by a weight function, which does not change t
   For any weight matrix~$\weight$, the spine fan~$\spineFan$ is the normal fan of the \defn{spine polytope}~$\Spin$ defined irredundantly and equivalently as
   \begin{enumerate}[(i)]
     \item the convex hull of the points~$\point \eqdef \sum_{\pi \in \Pi(\spine)} \weight_{\boundary} \big( \one_{\peaks} - \one_{\valleys \ssm \boundary} \big)$ for all maximal spines~$\spine$~on~$\decoratedGraph$,
-    \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one}{\b{x}} = \weight_{\vertexSet}}$ with the affine halfspaces~$\HS_{\chunk} \eqdef \bigset{\b{x} \in \R^{\vertexSet}}{\dotprod{\one_{\chunk}}{\b{x}} \ge \weight_{\chunk}}$ for all chunks~$\chunk$ of~$\decoratedGraph$.
+    \item the intersection of the affine hyperplane~$\Hyp \eqdef \bigset{\b{z} \in \R^{\vertexSet}}{\dotprod{\one}{\b{z}} = \weight_{\vertexSet}}$ with the affine halfspaces~$\HS_{\chunk} \eqdef \bigset{\b{z} \in \R^{\vertexSet}}{\dotprod{\one_{\chunk}}{\b{z}} \ge \weight_{\chunk}}$ for all chunks~$\chunk$ of~$\decoratedGraph$.
 %    \item the intersection of the hyperplane~$\Hyp$ with the halfspaces~$\HS_{\chunk}$ for all chunks of~$\decoratedGraph$.
   \end{enumerate}
 \end{theorem}
@@ -2429,7 +2484,7 @@ Our proof of \cref{thm:permutreehedra} is based on the following result of C.~Ho
 
 \begin{theorem}[\protect{\cite[Thm.~4.1]{HohlwegLangeThomas}}]
   \label{thm:HohlwegLangeThomas}
-  Given an essential complete simplicial fan~$\c{F}$ in~$\R^d$, consider a point~$\b{a}_C$ of~$\R^d$ for each chamber~$C$ of~$\c{F}$ and a halfspace~$\HS[]_\rho$ of~$\R^d$ for each ray~$\rho$ of~$\c{F}$, containing the origin and supported by a hyperplane~$\Hyp[]_\rho$ orthogonal to~$\rho$.
+  Given an essential complete simplicial fan~$\c{F}$ in~$\R^d$, consider a point~$\b{a}_C$ of~$\R^d$ for each chamber~$C$ of~$\c{F}$ and a halfspace~$\HS[]_\rho$ of~$\R^d$ for each ray~$\rho$ of~$\c{F}$ supported by a hyperplane~$\Hyp[]_\rho$ orthogonal to~$\rho$.
   If 
   \begin{itemize}
 %    \item for each ray~$\rho$, the halfspace~$\HS[]_\rho$ contains the origin and is supported by a hyperplane~$\Hyp[]_\rho$ orthogonal to~$\rho$,
@@ -2447,7 +2502,6 @@ Our proof of \cref{thm:permutreehedra} is based on the following result of C.~Ho
 \end{theorem}
 
 Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThomas} are fulfilled by the points and halspaces of \cref{thm:permutreehedra}.
-\vincent{discussion about the origin here...}
 
 \begin{lemma}
   \label{lem:vertexFacetIncidences}
@@ -2516,12 +2570,12 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 
 \begin{proposition}
   \label{prop:refinementSpinePolytopes}
-  If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then all facet inequalities of~$\Spin[\decoratedGraph_\circ]$ are facet inequalities of~$\Spin[\decoratedGraph_\bullet]$.
+  If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then all facet inequalities of~$\Spin[\decoratedGraph_\bullet]$ are facet inequalities of~$\Spin[\decoratedGraph_\circ]$.
   In particular, the spine polytope~$\Spin$ contains the permutahedron~$\Perm$ and is contained in the graphical zonotope~$\Zono$.
 \end{proposition}
 
 \begin{proof}
-  \vincent{todo}
+  By \cref{prop:refinementChunks}, all chunks of~$\decoratedGraph_\bullet$ are chunks of~$\decoratedGraph_\circ$, so that the facet defining inequalities of~$\Spin[\decoratedGraph_\bullet]$ are facet inequalities of~$\Spin[\decoratedGraph_\circ]$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2534,7 +2588,7 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 \begin{proposition}
   \label{prop:faces}
   Any face of the spine polytope~$\Spin$ is a Cartesian product of spine polytopes.
-  \vincent{Is it true here of only in the next section?}
+  \vincent{Is it true here or only in the next section?}
 \end{proposition}
 
 \begin{proof}
