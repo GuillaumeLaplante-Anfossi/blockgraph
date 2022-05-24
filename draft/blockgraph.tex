@@ -315,7 +315,7 @@ Note that a block graph is obtained by tapping different maple trees. For instan
 In this paper, we start from a maple tree~$\Maple$ and consider the block graph~$\Graph$ obtained by tapping~$\Maple$.
 We denote by~$\vertexSet$ the vertex set of~$\Graph$ (equivalently the set of blue vertices of~$\Maple$).
 We use the block graph~$\Graph$ when we only need to manipulate its vertices, and the maple tree~$\Maple$ when we really need to manipulate both the vertices and the cliques of~$\Graph$.
-Maple trees will also be fundamental for operadic constructions in \cref{..}.
+Maple trees will also be fundamental for operadic constructions in \cref{sec:algebra}.
 
 For convenience, in a maple tree, we label the blue vertices by digits (or numbers) and the red vertices by letters (or words).
 Consequently, in a block graph, we label the vertices by digits (or numbers) and the cliques by letters (or words).
@@ -619,8 +619,8 @@ The following two technical lemmas connect the preorders of spines of \cref{def:
 \subsection{Spine poset}
 \label{subsec:spinePoset}
 
-We now consider a natural partial order on spines.
-This relation is easier to define on the spine preorders.
+We now consider a natural partial order on the spines of \cref{def:spine}.
+This relation is easier to define on the spine preorders of \cref{def:spinePreorder1,def:spinePreorder2}.
 
 \begin{definition}
   \label{def:extensionPreorders}
@@ -867,11 +867,20 @@ We now connect arc contractions, node splittings, and the spine poset.
   \end{itemize}
 \end{corollary}
 
+\begin{proof}
+  By \cref{thm:spinePoset}, the cover relations in the spine poset correspond to single contractions (or conversely single node splittings), which decrements (resp.~increment) the number of nodes of the spine.
+  Hence, the number of nodes is a rank function for the spine poset, and the other assertions immediately follow.
+\end{proof}
+
 \begin{corollary}
   \label{coro:simplicialPoset}
   The spine poset is a simplicial poset: any interval is a boolean lattice.
-  \vincent{todo}
 \end{corollary}
+
+\begin{proof}
+  Consider~$\spine \le \spine'$ in the spine poset.
+  By \cref{thm:spinePoset}, $\spine$ is obtained by contracting a subset~$A$ of arcs in~$\spine'$, and the interval~$[\spine, \spine']$ of the spine poset is precisely the set of spines obtained by contracting a subset of~$A$ in~$\spine'$.
+\end{proof}
 
 \begin{remark}
   In the spine poset:
@@ -2087,8 +2096,18 @@ We now explore some key properties of the map~$\surjectionSpines$.
   Therefore, $Z$ is also a node of~$\spine_\circ$, and the partition~$X \sqcup Y$ is also~$\decoratedGraph_\circ$-splittable since it is $\decoratedGraph_\bullet$-splittable and~$\decoration_\circ$ refines~$\decoration_\bullet$.
   Let~$\spine_\circ'$ denote the spine obtained by splitting the  $\decoratedGraph_\circ$-splittable partition~$X \sqcup Y$ of the node~$Z$ in~$\spine_\circ$.
   By construction, the nodes of~$\spine_\circ'$ coincide with the node of~$\spine_\bullet'$.
-  By \cref{coro:filteredRefinementSpines}, we just need to show that~$\spine_\circ$ extends~$\spine_\bullet$, which will prove that~${\surjectionSpines(\spine_\circ') = \spine_\bullet'}$.
-  \vincent{todo}
+  We thus just need to show that~$\spine_\circ$ extends~$\spine_\bullet$, which will prove that~${\surjectionSpines(\spine_\circ') = \spine_\bullet'}$ by \cref{coro:filteredRefinementSpines}.
+  For this, consider~$x,y \in \vertexSet$ and denote by~$\pi_\circ$ and~$\pi_\circ'$ the unique paths joining the node containing~$x$ to the node containing~$y$ in~$\spine_\circ$ and~$\spine_\circ'$ respectively.
+  Note that the paths~$\pi_\circ$ and~$\pi_\bullet$ are obtained from~$\pi_\circ'$ by contracting the arc joining~$X$ to~$Y$ (if it appears in~$\pi_\circ'$).
+  If~$x \preccurlyeq_{\spine_\bullet'} y$, then~$x \preccurlyeq_{\spine_\circ} y$ since~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\bullet}} \supseteq {\preccurlyeq_{\spine_\bullet'}}$, so that the path~$\pi_\circ$ is a directed path.
+  If~$x \not\preccurlyeq_{\spine_\circ'} y$, then the path~$\pi_\circ'$ is not an oriented path, so that it must pass from~$Y$ to~$X$. %$\pi_\circ'$ must be directed from the node containing~$x$ to~$Y$, then pass from~$Y$ to~$X$, and then be directed from~$X$ to the node containing~$y$.
+  Hence, there is~$\up[x] \in \Up[X][\decoration_\circ]$ and~$\down[y] \in \Down[Y][\decoration_\circ]$ such that~$x \preccurlyeq_{\spine_\circ'} \down[y] \succcurlyeq_{\spine_\circ'} \up[x] \preccurlyeq_{\spine_\circ'} y$ and~$x, \down[y], \up[x], y$ appear in this order along the unique induced path joining~$x$ to~$y$ in~$\Graph$.
+  Since~$\decoration_\circ$ refines $\decoration_\bullet$, we have~$\up[x] \in \Up[X][\decoration_\bullet]$ and~$\down[y] \in \Down[Y][\decoration_\bullet]$.
+  If~$x \not\preccurlyeq_{\spine_\bullet} \down[y]$ (resp.~$\up[x] \not\preccurlyeq_{\spine_\bullet} y$), then consider the sequence $x = z_i, \dots, z_j = \down[y]$ (resp.~$\up[x] = t_k, \dots, t_\ell = y$) given by \cref{def:spinePreorder2} and set~$j' \eqdef j$ if~$j$ is odd and~$j' \eqdef j-1$ if~$j$ is even (resp.~$k' \eqdef k$ if~$k$ is even and~$k' \eqdef j+1$ if~$k$ is odd).
+  Otherwise set~$z_i \eqdef x$ and $z_{j'} \eqdef y$ with~$i+1 = j'$ odd (resp.~$z'_{k'} \eqdef \up[x]$ and~$z'_\ell \eqdef y$ with~$k' = \ell-1$ even).
+  Up to a global shift, we can moreover assume that~$j' = k'-1$.
+  Note that by construction~$z_{j'} \succcurlyeq_{\spine_\bullet'} \down[y] \succ_{\spine_\bullet'} \up[x] \succcurlyeq_{\spine_\bullet'} t_{k'}$.
+  Hence, the sequence~$x = z_i, \dots z_{j'}, t_{k'}, \dots, t_\ell = y$ satisfies the conditions of \cref{def:spinePreorder2}, so that~$x \not\preccurlyeq_{\spine_\bullet'} y$, which contradicts our assumption.
 \end{proof}
 
 \begin{definition}
