@@ -263,7 +263,7 @@ TBC
 \newpage
 \section*{Introduction}
 
-Common generalization of \cite{Pilaud-signedTreeAssociahedraFPSAC, LangePilaud, PilaudPons-permutrees, Laplante-diagonalOperahedra}.
+Common generalization of \cite{Pilaud-signedTreeAssociahedra, LangePilaud, PilaudPons-permutrees, Laplante-diagonalOperahedra}.
 It is the maximal generalization, according to \cite{Pilaud-removahedra}.
 
 \guillaume{dioperads and string topology}
@@ -280,7 +280,7 @@ It is the maximal generalization, according to \cite{Pilaud-removahedra}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{Combinatorics: Spine Poset and Nested Complex}
+\section{Combinatorics: spine poset and chunk nested complex}
 \label{sec:combinatorics}
 
 This section is dedicated to the combinatorics of spines on decorated block graphs.
@@ -1918,8 +1918,8 @@ Throughout this section, we assume that $\decoratedGraph_\circ$ refines~$\decora
 Our objective is to define and describe a natural surjection~$\surjectionSpines$ from the spines on~$\decoratedGraph_\circ$ to the spines on~$\decoratedGraph_\bullet$.
 The key property of~$\surjectionSpines$ is given in \cref{thm:alternativeDescriptionRefinementSpines}, and should morally be considered as the definition of~$\surjectionSpines$.
 However, proving this property requires the following explicit combinatorial description of~$\surjectionSpines$, which is illustrated in \cref{fig:refinementSpines}.
-This description uses the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}.
-\vincent{We do not need the sweeping algorithm anymore...}
+Note that in contrast to~\cite{Pilaud-signedTreeAssociahedra}, this description does not anymore require a sweeping algorithm.
+Instead, it is based on the labeling~$\labeling$ of the nodes and arcs of the spines described in \cref{def:labeledSpine}.
 
 \begin{definition}
   \label{def:refinementSpines}
@@ -2307,7 +2307,7 @@ It turns out that we have a sufficiently large family of simplicial complexes so
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Geometry: Spine Fans and Polytopes}
+\section{Geometry: spine fans and polytopes}
 \label{sec:geometry}
 
 We denote by~$(\b{e}_v)_{v \in \vertexSet}$ the standard basis of~$\R^{\vertexSet}$.
@@ -2438,7 +2438,7 @@ Recall from \cref{def:spinePreorder1} that a spine~$\spine$ corresponds to a spi
 \end{proposition}
 
 \begin{proof}
-  Follows from \cref{thm:alternativeDescriptionRefinementSpines} since~$\preccurlyeq_{\spine_\circ} \supseteq \preccurlyeq_{\spine_\bullet}$ if and only if~$\normalCone(\spine_\circ) \subseteq \normalCone(\spine_\bullet)$.
+  Follows from \cref{thm:alternativeDescriptionRefinementSpines} since~${\preccurlyeq_{\spine_\circ}} \supseteq {\preccurlyeq_{\spine_\bullet}}$ if and only if~$\normalCone(\spine_\circ) \subseteq \normalCone(\spine_\bullet)$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2759,7 +2759,7 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Algebra: Dioperad structure}
+\section{Algebra: dioperad structure}
 \label{sec:algebra}
 
 \vincent{Restriction}
