@@ -334,8 +334,6 @@ In this paper, we consider the following additional decorations.
   A \defn{decorated block graph} is a pair~$\decoratedGraph \eqdef (\Graph, \decoration)$ where~$\Graph$ is a block graph and $\decoration$ is a decoration on the vertex set of~$\Graph$.
 \end{definition}
 
-\vincent{Say somewhere that the decoration of the blue leaves of~$\Maple$ (meaning the leaves of $\Maple$ minus its leaves) are irrelevant...}
-
 \begin{example}
   \label{exm:specialGraphs}
   Our results will be illustrated with the following special cases:
@@ -347,6 +345,17 @@ In this paper, we consider the following additional decorations.
   \end{enumerate}
   \vincent{todo: more details and picture}
 \end{example}
+
+\begin{remark}
+  \label{rem:irrelevantDecorations}
+  Note that part of the data of a decorated block graph is actually irrelevant to the structures of this paper.
+  In order to make this statement precise, we define for a decorated block graph~$\decoratedGraph \eqdef (\Graph, \decoration)$ two other decorated block graphs:
+  \begin{itemize}
+    \item $\decoratedGraph^\star \eqdef (\Graph, \decoration^\star)$ where~$\decoration^\star(v) = \circ$ if~$\Graph \ssm \{v\}$ is connected and~$\decoration^\star(v) = \decoration(v)$ otherwise,
+    \item $\decoratedGraph^\# \eqdef (\Graph^\#, \decoration)$ where~$\Graph^\#$ is obtained from~$\Graph$ by adding a clique on the neighbors of each vertex~$v$ with~$\decoration(v) = \circ$.
+  \end{itemize}
+  As stated in \cref{rem:irrelevantDecorationsSpines,rem:irrelevantDecorationsSpinePreorders,rem:irrelevantDecorationsSpinePosets,rem:irrelevantDecorationsNestedComplexes,rem:irrelevantDecorationsSpineFans,rem:irrelevantDecorationsSpinePolytopes}, the structures defined on this paper on~$\decoratedGraph$, $\decoratedGraph^\star$ and~$\decoratedGraph^\#$ are precisely the same.
+\end{remark}
 
 \begin{figure}
   \centerline{
@@ -505,6 +514,11 @@ We now define the main objects studied in this paper.
   \end{enumerate}
 \end{example}
 
+\begin{remark}
+  \label{rem:irrelevantDecorationsSpines}
+  Using the notations of \cref{rem:irrelevantDecorations}, note that the spines on~$\decoratedGraph$, on $\decoratedGraph^\star$ and on~$\decoratedGraph^\#$ are precisely the same.
+\end{remark}
+
 For later purposes, it will convenient to see a spine as a preorder on the vertex set~$\vertexSet$ of~$\Graph$.
 Let us first recall the definition of a preorder, and next give two definitions of the preorders arising in the context of spines, that will actually be shown to be equivalent.
 
@@ -538,6 +552,11 @@ Let us first recall the definition of a preorder, and next give two definitions 
     \item \defn{Schr\"oder preorders} when~$\decoratedGraph$ is a down decorated path, \ie preorders on~$[n]$ in which any~$1 \le i < k \le n$ are comparable (\ie~$i \preccurlyeq k$ or $i \succcurlyeq k$ or both) if and only if there is no~$i < j < k$ such that~$i \prec j \succ k$.
   \end{enumerate}
 \end{example}
+
+\begin{remark}
+  \label{rem:irrelevantDecorationsSpinePreorders}
+  Using the notations of \cref{rem:irrelevantDecorations}, note that the spine preorders on~$\decoratedGraph$, on $\decoratedGraph^\star$ and on~$\decoratedGraph^\#$ are precisely the same.
+\end{remark}
 
 The following two technical lemmas connect the preorders of spines of \cref{def:spinePreorder1} with the spine preorders of \cref{def:spinePreorder2}.
 
@@ -633,6 +652,11 @@ This relation is easier to define on the spine preorders of \cref{def:spinePreor
   \label{def:spinePoset}
   The \defn{spine poset}~$\spinePoset$ is the poset on spines on~$\decoratedGraph$ defined by~$\spine \le \spine'$ if and only if~$\spine$ extends~$\spine'$.
 \end{definition}
+
+\begin{remark}
+  \label{rem:irrelevantDecorationsSpinePosets}
+  Using the notations of \cref{rem:irrelevantDecorations}, note that the spine posets on~$\decoratedGraph$, on $\decoratedGraph^\star$ and on~$\decoratedGraph^\#$ are precisely the same.
+\end{remark}
 
 To understand the spine poset and its cover relations, we now introduce two natural operations on spines: arc contraction and node splitting.
 These operations are illustrated in \cref{fig:contractionSplitting}.
@@ -941,6 +965,11 @@ We next show that the spine poset is actually isomorphic to the inclusion poset 
     \item the \defn{$\Graph$-nested trees} studied in~\cite{CarrDevadoss} when~$\decoratedGraph$ is down decorated.
   \end{enumerate}
 \end{example}
+
+\begin{remark}
+  \label{rem:irrelevantDecorationsNestedComplexes}
+  Using the notations of \cref{rem:irrelevantDecorations}, note that the chunk nested complexes on~$\decoratedGraph$, on $\decoratedGraph^\star$ and on~$\decoratedGraph^\#$ are precisely the same.
+\end{remark}
 
 \begin{theorem}
   \label{thm:spineToNested}
@@ -2397,6 +2426,11 @@ Recall from \cref{def:spinePreorder1} that a spine~$\spine$ corresponds to a spi
   \end{enumerate}
 \end{example}
 
+\begin{remark}
+  \label{rem:irrelevantDecorationsSpineFans}
+  Using the notations of \cref{rem:irrelevantDecorations}, note that the spine fans on~$\decoratedGraph$, on $\decoratedGraph^\star$ and on~$\decoratedGraph^\#$ are precisely the same.
+\end{remark}
+
 \begin{proposition}
   \label{prop:refinementSpineFan}
   If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, the spine fan~$\spineFan[\decoratedGraph_\circ]$ refines the spine fan~$\spineFan[\decoratedGraph_\bullet]$.
@@ -2481,6 +2515,64 @@ All our polytopes are parametrized by a weight function, which does not change t
 %    \item the intersection of the hyperplane~$\Hyp$ with the halfspaces~$\HS_{\chunk}$ for all chunks of~$\decoratedGraph$.
   \end{enumerate}
 \end{theorem}
+
+\begin{figure}
+  \centerline{
+  \scalebox{.7}{
+  \begin{tikzpicture}[xscale=4, yscale=4]
+    \node (NN) at (0,0) {\input{pathNN}};
+    \node (NU) at (-.5,1) {\input{pathNU}};
+    \node (ND) at (-1.5,1) {\input{pathND}};
+    \node (NB) at (-2.5,2) {\input{pathNB}};
+    \node (UN) at (1.5,1) {\input{pathUN}};
+    \node (UU) at (1.5,2) {\input{pathUU}};
+    \node (UD) at (-.5,2) {\input{pathUD}};
+    \node (UB) at (-.5,3) {\input{pathUB}};
+    \node (DN) at (.5,1) {\input{pathDN}};
+    \node (DU) at (.5,2) {\input{pathDU}};
+    \node (DD) at (-1.5,2) {\input{pathDD}};
+    \node (DB) at (-1.5,3) {\input{pathDB}};
+    \node (BN) at (2.5,2) {\input{pathBN}};
+    \node (BU) at (1.5,3) {\input{pathBU}};
+    \node (BD) at (.5,3) {\input{pathBD}};
+    \node (BB) at (0,4) {\input{pathBB}};
+    \draw (NN.north)--(NU.south);
+    \draw (NN.north)--(ND.south);
+    \draw (NN.north)--(UN.south);
+    \draw (NN.north)--(DN.south);
+    \draw (NU.north)--(NB.south);
+    \draw (NU.north)--(UU.south);
+    \draw (NU.north)--(DU.south);
+    \draw (ND.north)--(NB.south);
+    \draw (ND.north)--(UD.south);
+    \draw (ND.north)--(DD.south);
+    \draw (UN.north)--(BN.south);
+    \draw (UN.north)--(UU.south);
+    \draw (UN.north)--(UD.south);
+    \draw (DN.north)--(BN.south);
+    \draw (DN.north)--(DU.south);
+    \draw (DN.north)--(DD.south);
+    \draw (NB.north)--(UB.south);
+    \draw (NB.north)--(DB.south);
+    \draw (BN.north)--(BU.south);
+    \draw (BN.north)--(BD.south);
+    \draw (UU.north)--(UB.south);
+    \draw (UU.north)--(BU.south);
+    \draw (UD.north)--(UB.south);
+    \draw (UD.north)--(BD.south);
+    \draw (DU.north)--(DB.south);
+    \draw (DU.north)--(BU.south);
+    \draw (DD.north)--(DB.south);
+    \draw (DD.north)--(BD.south);
+    \draw (UB.north)--(BB.south);
+    \draw (DB.north)--(BB.south);
+    \draw (BU.north)--(BB.south);
+    \draw (BD.north)--(BB.south);
+  \end{tikzpicture}
+  }}
+  \caption{The spine polytopes of the path. Figure adapted from~\cite[Fig.~16]{PilaudPons-permutrees}.}
+  \label{fig:spinePolytopesPath}
+\end{figure} 
 
 \begin{figure}
   \centerline{
@@ -2608,6 +2700,11 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 \vincent{toy example and low-dimensional examples.}
 \end{example}
 
+\begin{remark}
+  \label{rem:irrelevantDecorationsSpinePolytopes}
+  Using the notations of \cref{rem:irrelevantDecorations}, note that the spine polytopes on~$\decoratedGraph$, on $\decoratedGraph^\star$ and on~$\decoratedGraph^\#$ are precisely the same.
+\end{remark}
+
 \begin{proposition}
   \label{prop:refinementSpinePolytopes}
   If~$\decoratedGraph_\circ$ refines~$\decoratedGraph_\bullet$, then all facet inequalities of~$\Spin[\decoratedGraph_\bullet]$ are facet inequalities of~$\Spin[\decoratedGraph_\circ]$.
@@ -2653,7 +2750,10 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
   Let~$\Maple$ be a maple tree with blue vertices~$\vertexSet$ and red vertices~$\cliqueSet$.
   Fix~$\theta_w > 0$ for~$w \in \cliqueSet$.
   The \defn{$\theta$-weights} are defined by~$\weight_{x,y} = \big( \sum_s \theta_s \big) \cdot \big( \sum_t \theta_t \big)$ where the first (resp.~second) sum ranges over all neighbors~$s$ of~$x$ (resp.~$t$ of~$y$) in~$\Maple$ which are not on the induced path joining~$x$ to~$y$.
+  \vincent{This formulation is slightly incorrect.}
 \end{definition}
+
+\vincent{Here, the transformation~$\decoratedGraph^\#$ of \cref{rem:irrelevantDecorations} also needs to modify~$\theta$ additively.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
