@@ -157,6 +157,7 @@
 \newcommandx{\Graph}[1][1=G]{#1} % graph
 \newcommandx{\decoratedGraph}[1][1=\Graph]{\b{#1}} % decorated graph
 \newcommandx{\vertexSet}[1][1=V]{#1} %vertex set
+\newcommandx{\cliqueSet}[1][1=W]{#1} %clique set
 \newcommandx{\edgeSet}[1][1=E]{#1} %edge set
 \newcommand{\decoration}{\delta}
 \newcommandx{\Up}[2][1=v, 2=\decoration]{\smash{\overline #2}(#1)} 
@@ -2462,6 +2463,7 @@ All our polytopes are parametrized by a weight function, which does not change t
 %We consider the following polytope which is sandwiched between the permutahedron and the graphical zonotope.
 
 \begin{definition}
+  \vincent{We could even delete $\Pi(\spine)$ and use~$\monombinom{\vertexSet}$ and notations~$\peaks[(\spine,p)]$ instead...}
   For a maximal spine~$\spine$ on~$\decoratedGraph$, we denote by~$\Pi(\spine)$ the set of (undirected and simple) paths joining two (possibly identical) nodes of~$\spine$.
   For a path~$\pi \in \Pi(\spine)$, we denote by
   \begin{itemize}
@@ -2479,6 +2481,44 @@ All our polytopes are parametrized by a weight function, which does not change t
 %    \item the intersection of the hyperplane~$\Hyp$ with the halfspaces~$\HS_{\chunk}$ for all chunks of~$\decoratedGraph$.
   \end{enumerate}
 \end{theorem}
+
+\begin{figure}
+  \centerline{
+  \begin{tabular}{c@{}c@{\quad}c@{}c}
+    \input{pathNN} &
+    \input{pathNU} &
+    \input{pathND} &
+    \input{pathNB} \\[1.5cm]
+    \input{pathUN} &
+    \input{pathUU} &
+    \input{pathUD} &
+    \input{pathUB} \\[1.5cm]
+    \input{pathDN} &
+    \input{pathDU} &
+    \input{pathDD} &
+    \input{pathDB} \\[1.5cm]
+    \input{pathBN} &
+    \input{pathBU} &
+    \input{pathBD} &
+    \input{pathBB}
+  \end{tabular}
+  }
+  \caption{The spine polytopes of the path.}
+  \label{fig:spinePolytopesPath}
+\end{figure} 
+
+\begin{figure}
+  \centerline{
+  \begin{tabular}{c@{}c@{\quad}c@{\hspace{-1cm}}c}
+    \input{star1} &
+    \input{star2} &
+    \input{star3} &
+    \input{star4}
+  \end{tabular}
+  }
+  \caption{The spine polytopes of the star.}
+  \label{fig:spinePolytopesStar}
+\end{figure} 
 
 Our proof of \cref{thm:permutreehedra} is based on the following result of C.~Hohlweg, C.~Lange, and H.~Thomas~\cite{HohlwegLangeThomas}.
 
@@ -2610,8 +2650,9 @@ Our next two lemmas prove that the two conditions of \cref{thm:HohlwegLangeThoma
 
 \begin{definition}
   \label{def:LodayWeights}
-  Fix~$\theta_v > 0$ for~$v \in \vertexSet$.
-  The \defn{$\theta$-weights} are defined by~$\weight_{x,y} = \big( \sum_u \theta_u \big) \cdot \big( \sum_v \theta_v \big)$ where the first (resp.~second) sum ranges over all neighbors~$u$ of~$x$ (resp.~$v$ of~$y$) in~$\Graph$ which are not on the induced path joining~$x$ to~$y$.
+  Let~$\Maple$ be a maple tree with blue vertices~$\vertexSet$ and red vertices~$\cliqueSet$.
+  Fix~$\theta_w > 0$ for~$w \in \cliqueSet$.
+  The \defn{$\theta$-weights} are defined by~$\weight_{x,y} = \big( \sum_s \theta_s \big) \cdot \big( \sum_t \theta_t \big)$ where the first (resp.~second) sum ranges over all neighbors~$s$ of~$x$ (resp.~$t$ of~$y$) in~$\Maple$ which are not on the induced path joining~$x$ to~$y$.
 \end{definition}
 
 
