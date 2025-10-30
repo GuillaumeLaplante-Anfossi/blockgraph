@@ -2784,10 +2784,50 @@ A $C$-colored dioperad is a $C$-colored $(\mathbb{S},\mathbb{S})$-module $\diope
 \[
 \longrightarrow \dioperad(c_1,\ldots,c_{i-1},c_1',\ldots,c_p',c_{i+1},\ldots c_k;d_1,\ldots,d_{j-1},d_1',\ldots,d_q',d_{j+1},\ldots,d_l)
 \]
-whenever $c_i=d_j'$, and units $id_x \in \dioperad(x;x)$ which satisfy appropriate unity, equivariance and associativity axioms, see \cite[Def.~11.18]{YauJohnson15}. 
+whenever $c_i=d_j'$, and units $id_x \in \dioperad(x;x)$ which satisfy appropriate unit, equivariance and associativity axioms, see \cite[Def.~11.18]{YauJohnson15}. 
 \end{definition}
 
 \guillaume{Equivalently, a dioperad is a monoid in ..., or an algebra over the monad of directed trees... }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Dioperad structure}
+
+Let $C$ be the set of all maple trees. 
+We consider the following $C$-colored collection
+\[
+\dioperad_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l)=
+\mathbb{K}
+\set{(M,B)}{x_i \ (\text{resp. } y_j) \text{ are the cc of } \Maple \ssm \Down[B] \ (\text{resp. } \Up[B])}
+\]
+whose basis is made of pairs $(\Maple,B)$ with $\Maple$ a maple tree and $B$ a subset of blue vertices such that the connected components of $\Maple \ssm \Down[B]$ are $x_1,\ldots,x_k$, and the connected components of $\Maple \ssm \Up[B]$ are $y_1,\ldots,y_l$.
+
+The symmetric groups $\mathbb{S}_k$ and $\mathbb{S}_l$ act trivially on the pairs $(\Maple,B)$, making $\dioperad_{\decoratedMaple}$ into a $C$-colored $(\mathbb{S},\mathbb{S})$-module. 
+
+\begin{definition}%[Partial composition maps]
+Let $x_1,\ldots,x_k,x_1',\ldots,x_p',y_1,\ldots,y_l,y_1',\ldots,y_q'$ be maple trees and suppose that there exists an $i \in [k]$ and a $j \in [q]$ such that $x_i=y_j'$. 
+We define the \emph{partial composition map}
+\[
+\prescript{}{j}{\circ}^{}_i \ \  : \ \  
+\dioperad_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l) \otimes \dioperad_{\decoratedMaple}(x_1',\ldots,x_p';y_1',\ldots,y_q') 
+\]
+\[
+\longrightarrow \dioperad_{\decoratedMaple}(x_1,\ldots,x_{i-1},x_1',\ldots,x_p',x_{i+1},\ldots,x_k;y_1,\ldots,y_{j-1},y_1',\ldots,y_q',y_{j+1},\ldots,y_l)
+\]
+on basis elements by sending the pairs $(\Maple,B)$ and $(\Maple',B')$ to the pair $(\Maple\cup \Maple',B\cup B')$.
+\end{definition}
+
+\begin{proposition}
+  The $C$-colored $(\mathbb{S},\mathbb{S})$-module $\dioperad_{\decoratedMaple}$ endowed with the above partial composition maps forms a dioperad.
+\end{proposition}
+
+\begin{proof}
+  TBC
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\guillaume{Old stuff below}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
