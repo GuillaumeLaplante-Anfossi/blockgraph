@@ -221,6 +221,7 @@
 % ALGEBRA
 
 \newcommand{\dioperad}{\mathcal{D}} % dioperad
+\newcommand{\sdiop}{\mathcal{S}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1319,7 +1320,7 @@ Here, we need to manipulate both the vertices and the cliques of~$\Graph$, thus 
 
 \begin{remark}
   \label{rem:labeledSpine1}
-  By definition, the labels of \cref{def:labeledSpine} are some maple subtrees of~$\Maple$.
+  By definition, the labels of \cref{def:labeledSpine} \guillaume{There is a problem with cref here} are some maple subtrees of~$\Maple$.
   Note that a maple subtree of~$\Maple$ is completely determined by its leaves, hence by its red vertices.
   We thus simplify all pictures of labeled spines by writing only the red (letters) vertices of each label.
   For instance, \cref{fig:labeledSpines} illustrates this labeling for the two spines of \cref{fig:spines}.
@@ -2794,13 +2795,13 @@ whenever $x_i=y_j'$, and units $id_x \in \dioperad(x;x)$ which satisfy appropria
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Dioperad structure}
+\subsection{The spine dioperad}
 
 Let $X$ be the set of ordered triples $(M,B,C)$ where $M$ is a maple tree and~$B$ and~$C$ are subsets of blue vertices of $M$. 
 We consider the following $X$-colored collection. 
 Given two families of colors $x_i=(M_i,B_i,C_i)$ and $y_j=(N_j,D_j,E_j)$, the vector space
 \[
-\dioperad_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l)
+\sdiop(x_1,\ldots,x_k;y_1,\ldots,y_l)
 %\mathbb{K}
 %\set{(M,B)}{x_i \ (\text{resp. } y_j) \text{ are the cc of } \Maple \ssm \Down[B] \ (\text{resp. } \Up[B])}
 \]
@@ -2818,30 +2819,40 @@ such that
 The symmetric groups $\mathbb{S}_k$ and $\mathbb{S}_l$ act by composition with $\sigma$ and $\tau$, respectively, making $\dioperad_{\decoratedMaple}$ into a $X$-colored $(\mathbb{S},\mathbb{S})$-module. 
 
 \begin{remark}
-One can see that whenever the space $\dioperad_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l)$ is non-zero, it is one-dimensional, spanned by a generator corresponding to the following data: a maple tree $\Maple$ with a subset of blue vertices $B$, together with a choice of subset of blue vertices $C_i$ (resp.\ $D_j$) for each connected component of $\Maple \ssm \Down[B]$ (resp.\ $\Maple \ssm \Up[B]$).
+One can see that whenever the space $\sdiop(x_1,\ldots,x_k;y_1,\ldots,y_l)$ is non-zero, it is one-dimensional, spanned by a generator corresponding to the following data: a maple tree $\Maple$ with a subset of blue vertices $B$, together with a choice of subset of blue vertices $C_i$ (resp.\ $D_j$) for each connected component of $\Maple \ssm \Down[B]$ (resp.\ $\Maple \ssm \Up[B]$).
 This can be pictured by a corolla with vertex decorated by the pair $(\Maple,B)$, and incoming (resp.\ outgoing) leaves decorated by the subsets~$C_i$ (resp.\ $D_j$).
 \end{remark}
 
-% \begin{definition}%[Partial composition maps]
-% Let $x_1,\ldots,x_k,x_1',\ldots,x_p',y_1,\ldots,y_l,y_1',\ldots,y_q'$ be maple trees and suppose that there exists an $i \in [k]$ and a $j \in [q]$ such that $x_i=y_j'$. 
-% We define the \emph{partial composition map}
-% \[
-% \prescript{}{j}{\circ}^{}_i \ \  : \ \  
-% \dioperad_{\decoratedMaple}(x_1,\ldots,x_k;y_1,\ldots,y_l) \otimes \dioperad_{\decoratedMaple}(x_1',\ldots,x_p';y_1',\ldots,y_q') 
-% \]
-% \[
-% \longrightarrow \dioperad_{\decoratedMaple}(x_1,\ldots,x_{i-1},x_1',\ldots,x_p',x_{i+1},\ldots,x_k;y_1,\ldots,y_{j-1},y_1',\ldots,y_q',y_{j+1},\ldots,y_l)
-% \]
-% on basis elements by sending the pairs $(\Maple,B)$ and $(\Maple',B')$ to the pair $(\Maple\cup \Maple',B\cup B')$.
-% \end{definition}
+\begin{definition}%[Partial composition maps]
+Let $x_1,\ldots,x_k,x_1',\ldots,x_p',y_1,\ldots,y_l,y_1',\ldots,y_q'$ be maple trees and suppose that there exists an $i \in [k]$ and a $j \in [q]$ such that $x_i=y_j'$. 
+We define the \emph{partial composition map}
+\begin{gather}
+%\prescript{}{j}
+{\circ}^{}_{ij} \ \  : \ \  
+\sdiop(x_1,\ldots,x_k;y_1,\ldots,y_l) \otimes \sdiop(x_1',\ldots,x_p';y_1',\ldots,y_q') \label{eq:source}\\
+\longrightarrow \sdiop(x_1,\ldots,x_{i-1},x_1',\ldots,x_p',x_{i+1},\ldots,x_k;y_1,\ldots,y_{j-1},y_1',\ldots,y_q',y_{j+1},\ldots,y_l) \label{eq:target}
+\end{gather}
+by the unique non-trivial map whenever the target is non-zero, and zero otherwise.
+\end{definition}
 
-% \begin{proposition}
-%   The $C$-colored $(\mathbb{S},\mathbb{S})$-module $\dioperad_{\decoratedMaple}$ endowed with the above partial composition maps forms a dioperad.
-% \end{proposition}
+\begin{lemma}
+  Whenever both spaces in~\eqref{eq:source} are one-dimensional, then so is the space~\eqref{eq:target}.
+\end{lemma}
 
-% \begin{proof}
-%   TBC
-% \end{proof}
+\begin{proof}
+  Consider the grafting of the two corollas forming a basis of~\eqref{eq:source} along the leaves~$i$ and~$j$.
+  We claim that this forms a spine on the maple tree $\Maple_B$ which is obtained from $\Maple$ by contracting all the edges which are adjacent to a vertex not in~$B$. 
+  TBC
+  Then, as we have shown in \cref{prop:arccontraction}, the newly created edge between~$i$ and~$j$ can be contracted 
+\end{proof}
+
+\begin{proposition}
+  The $C$-colored $(\mathbb{S},\mathbb{S})$-module $\sdiop$ endowed with the above partial composition maps forms a dioperad.
+\end{proposition}
+
+\begin{proof}
+  TBC
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
