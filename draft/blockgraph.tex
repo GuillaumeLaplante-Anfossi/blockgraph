@@ -79,6 +79,7 @@
 \DeclareMathOperator{\vect}{vect} % linear span
 \DeclareMathOperator{\cone}{cone} % cone hull
 \DeclareMathOperator{\colim}{colim} % colimit
+\DeclareMathOperator{\id}{id} % colimit
 
 % others
 \newcommand{\ie}{\textit{i.e.}~} % id est
@@ -2787,7 +2788,7 @@ An $X$-colored dioperad is an $X$-colored $(\mathbb{S},\mathbb{S})$-module $\dio
 \[
 \longrightarrow \dioperad(x_1,\ldots,x_{i-1},x_1',\ldots,x_p',x_{i+1},\ldots x_k;y_1,\ldots,y_{j-1},y_1',\ldots,y_q',y_{j+1},\ldots,y_l)
 \]
-whenever $x_i \sim y_j'$, and units $id_x \in \dioperad(x;x)$ which satisfy appropriate unit, equivariance and associativity axioms, see \cite[Def.~11.18]{YauJohnson15}. 
+whenever $x_i \sim y_j'$, and units $\id_x \in \dioperad(x;x)$ which satisfy appropriate unit, equivariance and associativity axioms, see \cite[Def.~11.18]{YauJohnson15}. 
 \end{definition}
 
 Equivalently, a dioperad is a monoid in \dots, or an algebra over the monad of directed trees. 
@@ -2801,28 +2802,32 @@ Equivalently, a dioperad is a monoid in \dots, or an algebra over the monad of d
 
 \subsection{The spine dioperad}
 
-Let $(X,\sim)$ be the set of ordered triples $(M,B,C)$ where $M$ is a decorated maple tree, $B$ is a subset of blue vertices of $M$ and~$C$ is a connected component of $\Maple \ssm \Up[B]$ or $\Maple \ssm \Down[B]$, endowed with the following symmetric relation~$\sim$.
-Given two elements~$(M_1,B_1,C_1)$ and~$(M_2,B_2,C_2)$, we say that they are \defn{compatible} and write $(M_1,B_1,C_1)\sim (M_2,B_2,C_2)$ if we have~$M_1=M_2$, $B_1 \cap B_2 = \emptyset$, $B_1 \subset C_2$ and~$B_2 \subset C_1$.
+Let $(X,\sim)$ be the set of ordered pairs $(M,C)$ where $M$ is a decorated maple tree and $C$ is a connected component of $\Maple \ssm \Up[B]$ or $\Maple \ssm \Down[B]$ for some subset of blue vertices~$B$ of~$M$, endowed with the following symmetric relation~$\sim$.
+Given two elements~$(M_1,C_1)$ and~$(M_2,C_2)$, we say that they are \defn{compatible} and write $(M_1,C_1)\sim (M_2,C_2)$ if we have~$M_1=M_2$, $B_1 \cap B_2 = \emptyset$, $B_1 \subset C_2$ and~$B_2 \subset C_1$.
 
+\begin{definition}
 We consider the following $X$-colored collection. 
-Given two families of colors $x_i=(M_i,B_i,C_i)$ and $y_j=(N_j,D_j,E_j)$, the vector space
+Given two families of colors $x_i=(M_i,C_i)$ and $y_j=(N_j,D_j)$, the vector space
 \[
 \sdiop(x_1,\ldots,x_k;y_1,\ldots,y_l)
 %\mathbb{K}
 %\set{(M,B)}{x_i \ (\text{resp. } y_j) \text{ are the cc of } \Maple \ssm \Down[B] \ (\text{resp. } \Up[B])}
 \]
-is zero, unless we have $M_i=M_j=N_i=N_j \defeq M$, $B_i=B_j=D_i=D_j \defeq B$ for all $i,j$, and there is further
-\begin{itemize}
-  \item a bijection $\sigma : [k] \to \{\text{connected components of } \Maple \ssm \Down[B]\}$, and
-  \item a bijection $\tau : [l] \to \{\text{connected components of } \Maple \ssm \Up[B]\}$,
-\end{itemize}
+is zero, unless we have $M_i=M_j=N_i=N_j \defeq M$ for all $i,j$, and there is further a subset of blue vertices $B$ in $\Maple$ together with two bijections
+\[
+  \sigma : [k] \to \{\text{conn. components of } \Maple \ssm \Down[B]\} \quad \text{and} \quad
+  \tau : [l] \to \{\text{conn. components of } \Maple \ssm \Up[B]\}
+\]
 such that
-\begin{itemize}
-  \item $\sigma(i)=C_i$ for each $i$, and
-  \item $\tau(j)=D_j$ for each $j$.
-\end{itemize}
+\[
+  \sigma(i)=C_i \quad \text{and} \quad
+  \tau(j)=D_j 
+\]
+for all~$i$ and~$j$. 
 
 The symmetric groups $\mathbb{S}_k$ and $\mathbb{S}_l$ act by composition with $\sigma$ and $\tau$, respectively, making $\sdiop$ into a $X$-colored $(\mathbb{S},\mathbb{S})$-module. 
+\end{definition}
+
 
 One can see that whenever the space $\sdiop(x_1,\ldots,x_k;y_1,\ldots,y_l)$ is non-zero, it is one-dimensional, spanned by a generator corresponding to the data of a maple tree~$\Maple$ with a subset of blue vertices~$B$.
 This can be pictured by a corolla with vertex decorated by the pair $(\Maple,B)$, and incoming (resp.\ outgoing) leaves decorated by the subsets~$C_i$ (resp.\ $D_j$).
